@@ -54,9 +54,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="assets\Constants.cs" />
+    <Compile Include="controller\SistemaFaseUtils.cs" />
+    <Compile Include="model\SistemaBifasico.cs" />
     <Compile Include="model\SistemaFases.cs" />
+    <Compile Include="model\SistemaMonofasico.cs" />
     <Compile Include="model\SistemaTrifasico.cs" />
     <Compile Include="model\Tension.cs" />
+    <Compile Include="model\TensionVal.cs" />
+    <Compile Include="model\TipoAlimentacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -70,6 +76,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="view\PlantillaNuevoTablero.xaml.cs">
+      <DependentUpon>PlantillaNuevoTablero.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -80,8 +89,30 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="img\tableros\" />
+    <Page Include="view\PlantillaNuevoTablero.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\tableros\INTC12.bmp" />
+    <Resource Include="img\tableros\INTC18.bmp" />
+    <Resource Include="img\tableros\INTC2.bmp" />
+    <Resource Include="img\tableros\INTC24.bmp" />
+    <Resource Include="img\tableros\INTC30.bmp" />
+    <Resource Include="img\tableros\INTC36.bmp" />
+    <Resource Include="img\tableros\INTC4.bmp" />
+    <Resource Include="img\tableros\INTC42.bmp" />
+    <Resource Include="img\tableros\ZAPC12.bmp" />
+    <Resource Include="img\tableros\ZAPC18.bmp" />
+    <Resource Include="img\tableros\ZAPC24.bmp" />
+    <Resource Include="img\tableros\ZAPC30.bmp" />
+    <Resource Include="img\tableros\ZAPC36.bmp" />
+    <Resource Include="img\tableros\ZAPC42.bmp" />
+    <Resource Include="img\tableros\ZAPC6.bmp" />
+    <Resource Include="img\tableros\ZAPC8.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
