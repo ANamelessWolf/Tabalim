@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Tabalim.Core.model
 {
     /// <summary>
-    /// Establece un sistema con dos fases y un neutro.
+    /// Establece un sistema con dos fases y un neutro. 
     /// </summary>
     /// <seealso cref="Tabalim.Core.model.SistemaFases" />
     public class SistemaBifasico : SistemaFases
