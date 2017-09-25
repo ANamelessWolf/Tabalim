@@ -18,7 +18,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El número de fases.
         /// </value>
-        public override int Fases { get { return 2; } }
+        public override int Fases { get { return 1; } }
         /// <summary>
         /// Devuelve los polos que soporta el sistema
         /// </summary>
