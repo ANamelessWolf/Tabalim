@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Tabalim.App
+namespace Tabalim.Core.view
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción para NewComponent.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class NewComponent : UserControl
     {
-        public MainWindow()
+        public NewComponent()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new Tabalim.Core.view.ComponentGalleryPicker().ShowDialog();
         }
     }
 }

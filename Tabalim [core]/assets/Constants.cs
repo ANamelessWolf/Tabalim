@@ -28,6 +28,10 @@ namespace Tabalim.Core.assets
         public const string CAP_F_3 = "Trifásico";
         public const string CAP_F_2 = "Bifásico";
         public const string CAP_F_1 = "Monofásico";
-        //Prueba
+        /***********************************/
+        /************* CARPETAS ************/
+        /***********************************/
+        public const string IMG_FOLDER = "img";
+        public const string COMPONENT_FOLDER = "componentes";
     }
 }

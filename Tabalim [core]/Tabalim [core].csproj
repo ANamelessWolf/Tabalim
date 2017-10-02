@@ -62,7 +62,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assets\Constants.cs" />
+    <Compile Include="controller\ComponentsUtils.cs" />
     <Compile Include="controller\SistemaFaseUtils.cs" />
+    <Compile Include="controller\UiUtils.cs" />
+    <Compile Include="model\ComponentGalleryItem.cs" />
+    <Compile Include="model\ComponentType.cs" />
     <Compile Include="model\SistemaBifasico.cs" />
     <Compile Include="model\SistemaFases.cs" />
     <Compile Include="model\SistemaMonofasico.cs" />
@@ -83,6 +87,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="view\ComponentGallery.xaml.cs">
+      <DependentUpon>ComponentGallery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\ComponentGalleryPicker.xaml.cs">
+      <DependentUpon>ComponentGalleryPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\NewComponent.xaml.cs">
+      <DependentUpon>NewComponent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\PlantillaNuevoTablero.xaml.cs">
       <DependentUpon>PlantillaNuevoTablero.xaml</DependentUpon>
     </Compile>
@@ -100,6 +113,18 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="assets\TabalimStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\ComponentGallery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\ComponentGalleryPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\NewComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,7 +151,15 @@
     <Resource Include="img\tableros\ZAPC6.bmp" />
     <Resource Include="img\tableros\ZAPC8.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\componentes\no_img_64x64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
