@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using Tabalim.Core.model;
 
 namespace Tabalim.Core.controller
@@ -25,17 +26,27 @@ namespace Tabalim.Core.controller
             SistemaFases sys;
             for (int index = 0, i = 1; index < sistemas.Length; index++, i++)
             {
-                if (i < 4)
+                if (index < 4)
                     sys = new SistemaTrifasico();
-                else if (i < 8)
+                else if (index < 8)
                     sys = new SistemaBifasico();
                 else
                     sys = new SistemaMonofasico();
-                sys.SetTension(tensiones[i-1]);
+                sys.SetTension(tensiones[i - 1]);
+                sistemas[index] = sys;
                 if (i % 4 == 0)
                     i = 1;
             }
             return sistemas;
+        }
+        /// <summary>
+        /// Realizá la selección del primer elemento de la lista
+        /// </summary>
+        /// <param name="cbo">El combo box.</param>
+        public static void SelectFirst(this ComboBox cbo)
+        {
+            if (cbo.Items.Count > 0)
+                cbo.SelectedIndex = 0;
         }
     }
 }
