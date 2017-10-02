@@ -56,6 +56,14 @@
   <ItemGroup>
     <Compile Include="assets\Constants.cs" />
     <Compile Include="controller\SistemaFaseUtils.cs" />
+    <Compile Include="model\Alumbrado.cs" />
+    <Compile Include="model\Calibre.cs" />
+    <Compile Include="model\Circuito.cs" />
+    <Compile Include="model\CircuitoMonofasico.cs" />
+    <Compile Include="model\Componente.cs" />
+    <Compile Include="model\Contacto.cs" />
+    <Compile Include="model\Motor.cs" />
+    <Compile Include="model\Potencia.cs" />
     <Compile Include="model\SistemaBifasico.cs" />
     <Compile Include="model\SistemaFases.cs" />
     <Compile Include="model\SistemaMonofasico.cs" />
