@@ -6,15 +6,23 @@ using System.Threading.Tasks;
 
 namespace Tabalim.Core.model
 {
+    /// <summary>
+    /// Define Circuito de un polo
+    /// </summary>
+    /// <seealso cref="Tabalim.Core.model.Circuito" />
     public class CircuitoMonofasico : Circuito
     {
         public override double Corriente
         {
-            get; set;
+            get
+            {
+                if (HasMotor)
+                    return 0;
+                else
+                    return PotenciaTotal / Tension.TensionAlNeutro;
+            }
         }
 
-        public override double CorrienteProteccion => throw new NotImplementedException();
-
-        public override double CaidaVoltaje => throw new NotImplementedException();
+        public override double CaidaVoltaje => (4 * Longitud * CorrienteProteccion) / (Tension.TensionAlNeutro * Calibre.AreaTransversal);
     }
 }
