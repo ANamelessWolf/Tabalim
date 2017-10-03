@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tabalim.Core.controller;
 
 namespace Tabalim.App
 {
@@ -24,6 +25,13 @@ namespace Tabalim.App
         public MainWindow()
         {
             InitializeComponent();
+            string db = @"C:\Users\Miguel\Source\Repos\Tabalim\Tabalim [App]\bin\Debug\chinook.db";
+            SQLite_Connector.Run(db, null,
+                (Object input, SQLite_Connector conn) => 
+                {
+                    conn.SelectTables();
+                    return null;
+                });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
