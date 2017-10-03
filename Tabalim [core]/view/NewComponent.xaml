@@ -4,17 +4,66 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tabalim.Core.view"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="53*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="114*"/>
-            <RowDefinition Height="28*"/>
-            <RowDefinition Height="41*"/>
-            <RowDefinition Height="24*"/>
-        </Grid.RowDefinitions>
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="500" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition Width="191*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="52"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Componente" Style="{StaticResource TabalimHeader}"/>
+        <Button  Style="{StaticResource TabalimPickButton}" Grid.Column="1">
+            <Grid>
+                <TextBlock Text="&#xe109;" Style="{StaticResource TabalimButton}"/>
+                <Image Width="32" Height="32" />
+            </Grid>
+        </Button>
+        <GroupBox Header="Polos" Grid.ColumnSpan="2" Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton x:Name="optOne" Content="1" Style="{StaticResource TabalimOpt}" IsChecked="True"/>
+                <RadioButton x:Name="optTwo"  Content="2" Style="{StaticResource TabalimOpt}"/>
+                <RadioButton x:Name="optThree"  Content="3" Style="{StaticResource TabalimOpt}"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Circuitos Disponibles" Grid.ColumnSpan="2" Grid.Row="2">
+            <ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock Text="Cto. "/>
+                            <TextBlock Text="{Binding CtoName}"/>
+                            <TextBlock Text=", componentes en el circuito "/>
+                            <TextBlock Text="{Binding CtoCount}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
     </Grid>
 </UserControl>

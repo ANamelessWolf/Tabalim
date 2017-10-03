@@ -25,13 +25,8 @@ namespace Tabalim.App
         public MainWindow()
         {
             InitializeComponent();
-            string db = @"C:\Users\Miguel\Source\Repos\Tabalim\Tabalim [App]\bin\Debug\chinook.db";
-            SQLite_Connector.Run(db, null,
-                (Object input, SQLite_Connector conn) => 
-                {
-                    conn.SelectTables();
-                    return null;
-                });
+            
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -10,6 +10,13 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>
+    <Style x:Key="TabalimButton" TargetType="TextBlock" BasedOn="{StaticResource MetroTextBlock}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+    </Style>
     <!--Estilos de Combo box-->
     <Style x:Key="TabalimCbox" TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
         <Setter Property="Height" Value="32"/>
@@ -19,6 +26,12 @@
         <Setter Property="Height" Value="32"/>
         <Setter Property="Width" Value="80"/>
         <Setter Property="Margin" Value="10,0"/>
+    </Style>
+    <Style x:Key="TabalimPickButton" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
     </Style>
     <!--Otros estilos-->
     <Style x:Key="TabalimSliderInt" TargetType="Slider" BasedOn="{StaticResource MetroSlider}">

@@ -81,7 +81,11 @@
   <ItemGroup>
     <Compile Include="assets\Constants.cs" />
     <Compile Include="controller\ComponentsUtils.cs" />
+    <Compile Include="controller\ISQLiteParser.cs" />
+    <Compile Include="controller\SelectionResult.cs" />
     <Compile Include="controller\SistemaFaseUtils.cs" />
+    <Compile Include="controller\SQLiteUtils.cs" />
+    <Compile Include="controller\SQLiteWrapper.cs" />
     <Compile Include="controller\SQLite_Connector.cs" />
     <Compile Include="controller\UiUtils.cs" />
     <Compile Include="model\ComponentGalleryItem.cs" />
@@ -92,12 +96,15 @@
     <Compile Include="model\CircuitoMonofasico.cs" />
     <Compile Include="model\Componente.cs" />
     <Compile Include="model\Contacto.cs" />
+    <Compile Include="model\CtoItem.cs" />
+    <Compile Include="model\HPItem.cs" />
     <Compile Include="model\Motor.cs" />
     <Compile Include="model\Potencia.cs" />
     <Compile Include="model\SistemaBifasico.cs" />
     <Compile Include="model\SistemaFases.cs" />
     <Compile Include="model\SistemaMonofasico.cs" />
     <Compile Include="model\SistemaTrifasico.cs" />
+    <Compile Include="model\Tablero.cs" />
     <Compile Include="model\Tension.cs" />
     <Compile Include="model\TensionVal.cs" />
     <Compile Include="model\TipoAlimentacion.cs" />
@@ -114,6 +121,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="runtime\TabalimApp.cs" />
     <Compile Include="view\ComponentGallery.xaml.cs">
       <DependentUpon>ComponentGallery.xaml</DependentUpon>
     </Compile>
@@ -139,7 +147,9 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="img\componentes\no_img_32x32.png" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="assets\TabalimStyle.xaml">
       <SubType>Designer</SubType>
@@ -187,7 +197,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E
+xcopy "$(ProjectDir)data\*" "$(SolutionDir)Tabalim [App]\bin\Debug\data\" /Y /E</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

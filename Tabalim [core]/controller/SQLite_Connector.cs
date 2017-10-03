@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Tabalim.Core.controller
 {
+    /// <summary>
+    /// Se encarga de realizar la conexión a SQLite
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class SQLite_Connector : IDisposable
     {
         /// <summary>
@@ -21,6 +25,7 @@ namespace Tabalim.Core.controller
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SQLite_Connector"/>.
         /// </summary>
+        ///<param name="path">La ruta del archivo SQL</param>
         public SQLite_Connector(string path)
         {
             try
@@ -40,28 +45,20 @@ namespace Tabalim.Core.controller
         /// </summary>
         /// <param name="query">El query de selección</param>
         /// <returns>La colección de elementos seleccionados</returns>
-        public List<string> Select(string query)
+        public List<string[]> Select(string query)
         {
-            List<string> fields = new List<string>();
-            string item;
-            SQLiteCommand cmd = new SQLiteCommand(query, this.Connection);
-            using (SQLiteDataReader reader = cmd.ExecuteReader())
-            {
-                var hasRows = reader.HasRows;
-                while (reader.Read())
-                {
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        var columnName = reader.GetName(i);
-                        var value = reader[i];
-                        var dotNetType = reader.GetFieldType(i);
-                        var sqlType = reader.GetDataTypeName(i);
-                        var specificType = reader.GetProviderSpecificFieldType(i);
-            
-                    }
-                }
-            }
-            return null;
+            List<SelectionResult[]> result = this.GetCommandResult(query);
+            return result.Select(x => x.ParseAsString()).ToList();
+        }
+        /// <summary>
+        /// Realizá un query de selección
+        /// </summary>
+        /// <param name="query">El query de selección</param>
+        /// <returns>La colección de elementos seleccionados</returns>
+        public List<T> Select<T>(string query) where T : ISQLiteParser
+        {
+            List<SelectionResult[]> result = this.GetCommandResult(query);
+            return result.Select(x => (T)Activator.CreateInstance(typeof(T), x)).ToList();
         }
         /// <summary>
         /// Selecciona el nombre de las tablas seleccionadas
@@ -70,8 +67,7 @@ namespace Tabalim.Core.controller
         public List<String> SelectTables()
         {
             String query = "SELECT tbl_name FROM sqlite_master";
-            List<String> rows = this.Select(query);
-            return rows;
+            return this.Select(query).Select(x => x[0]).ToList();
         }
         /// <summary>
         /// Performs application-defined tasks associated with freeing, 
@@ -82,32 +78,6 @@ namespace Tabalim.Core.controller
             this.Connection.Close();
             this.Connection.Dispose();
         }
-        /// <summary>
-        /// Ejecuta una transacción
-        /// </summary>
-        /// <param name="path">La ruta de la base de datos.</param>
-        /// <param name="task">La tarea a ejecutar.</param>
-        /// <returns>El resultado de la transacción</returns>
-        public static Object Run(String path, Object input, Func<Object, SQLite_Connector, Object> task)
-        {
-            try
-            {
-                using (SQLite_Connector conn = new SQLite_Connector(path))
-                {
-                    try
-                    {
-                        return task(input, conn);
-                    }
-                    catch (System.Exception exc)
-                    {
-                        throw exc;
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
+       
     }
 }

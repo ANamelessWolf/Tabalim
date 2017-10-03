@@ -24,5 +24,10 @@ namespace Tabalim.Core.view
         {
             InitializeComponent();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
