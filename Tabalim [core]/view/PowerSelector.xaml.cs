@@ -41,6 +41,25 @@ namespace Tabalim.Core.view
             set { SetValue(PowerProperty, value); }
         }
         /// <summary>
+        /// Devuelve la potencia seleccionada
+        /// </summary>
+        /// <value>
+        /// La potencia seleccionada.
+        /// </value>
+        public Potencia SelectedPower
+        {
+            get
+            {
+                if (Power == PowerType.HP)
+                    return new Potencia(((HPItem)this.cboHP.SelectedItem).HP, true);
+                else
+                {
+                    double watts = double.Parse(this.tboWatts.Text);
+                    return new Potencia(watts);
+                }
+            }
+        }
+        /// <summary>
         /// La propiedad de fases
         /// </summary>
         public static DependencyProperty FasesProperty;
@@ -123,13 +142,15 @@ namespace Tabalim.Core.view
                 TaskCompleted = (Object result) =>
                 {
                     this.cboHP.ItemsSource = result as List<HPItem>;
-                    CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(this.listOfComponents.ItemsSource);
+                    CollectionView view = (CollectionView)
+                    CollectionViewSource.GetDefaultView(this.cboHP.ItemsSource);
                     view.Filter = HPFilter;
                     if (this.cboHP.Items.Count > 0)
                         this.cboHP.SelectedIndex = 0;
                     this.cboHP.SelectionChanged += cboHP_SelectionChanged;
                 }
             };
+            tr.Run(null);
         }
         /// <summary>
         /// Verifica que el componente sea del tipo especificado
@@ -217,7 +238,7 @@ namespace Tabalim.Core.view
         /// <param name="e">Los argumentos de tipo <see cref="SelectionChangedEventArgs"/> que contienen la información del evento.</param>
         private void cboHP_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.cboHP.SelectedIndex != 0)
+            if (this.cboHP.SelectedIndex != -1)
             {
                 HPItem item = this.cboHP.SelectedItem as HPItem;
                 Potencia p = new Potencia(item.HP, true);

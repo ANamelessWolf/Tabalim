@@ -59,12 +59,14 @@ namespace Tabalim.Core.model
                 this.HPFormat += " HP";
         }
         /// <summary>
-        /// Define el query de selección que
+        /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
-        /// <returns></returns>
-        public static string Query_Select_All()
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
         {
-            return 
+            return this.HPFormat;
         }
     }
 }

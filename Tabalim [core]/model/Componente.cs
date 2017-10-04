@@ -15,18 +15,29 @@ namespace Tabalim.Core.model
         /// Especifica la potencia del componente
         /// </summary>
         public Potencia Potencia;
-
         /// <summary>
         /// The image index
         /// </summary>
         public int ImageIndex;
         /// <summary>
-        /// Define los circuitos a lso que se conecta, así como el numero de componentes por circuito
+        /// La cantidad de elementos asociados a un circuito
         /// </summary>
-        public Dictionary<String, int> Circuitos;
+        public int Count;
+        /// <summary>
+        /// Define el circuito al que se conecta el componente
+        /// </summary>
+        public Circuito Circuito;
         /// <summary>
         /// El factor de proteccion utilizado para calcular intensidad de corriente
         /// </summary>
         public abstract double FactorProteccion { get; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Alumbrado"/>.
+        /// </summary>
+        /// <param name="potencia">Potencia en watts.</param>
+        public Componente(double potencia, bool ismotor=false)
+        {
+            this.Potencia = new Potencia(potencia, ismotor);
+        }
     }
 }

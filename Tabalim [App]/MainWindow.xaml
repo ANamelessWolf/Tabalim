@@ -9,6 +9,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button Click="Button_Click"></Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="btnPickSystem" Click="btnPickSystem_Click"
+                Content="(1) Cargar Sistema" />
+        <Button x:Name="btnCreateComponent" Click="btnCreateComponent_Click"  Grid.Column="1"
+                Content="(2) Crear Componente" />
     </Grid>
 </metro:MetroWindow>

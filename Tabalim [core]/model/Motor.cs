@@ -20,9 +20,8 @@ namespace Tabalim.Core.model
         /// Inicializa una nueva instancia de la clase <see cref="Motor"/>.
         /// </summary>
         /// <param name="potencia">Potencia en HP.</param>
-        public Motor(double potencia)
+        public Motor(double potencia) : base(new Potencia(potencia, true).Watts, true)
         {
-            this.Potencia = new Potencia(potencia, true);
         }
     }
 }

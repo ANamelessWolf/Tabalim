@@ -56,10 +56,5 @@
             <TextBlock Text="{Binding ElementName=slidTemperature, Path=Value}"/>
             <TextBlock Text="°C"/>
         </TextBlock>
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" Grid.Row="4" HorizontalAlignment="Right">
-            <Button x:Name="btnOk" Content="Ok" Style="{StaticResource TabalimMenuButton}"
-                    Click="btnOk_Click"/>
-            <Button x:Name="btnCancel" Content="Cancelar" Style="{StaticResource TabalimMenuButton}"/>
-        </StackPanel>
     </Grid>
 </UserControl>

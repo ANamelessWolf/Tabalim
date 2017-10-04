@@ -41,6 +41,6 @@ namespace Tabalim.Core.assets
         /***********************************/
         /************* TABLAS **************/
         /***********************************/
-        public const string TABLE_HP_WATTS = "hp_watss";
+        public const string TABLE_HP_WATTS = "hp_watts";
     }
 }

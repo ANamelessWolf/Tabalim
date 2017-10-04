@@ -58,7 +58,7 @@ namespace Tabalim.Core.controller
         public List<T> Select<T>(string query) where T : ISQLiteParser
         {
             List<SelectionResult[]> result = this.GetCommandResult(query);
-            return result.Select(x => (T)Activator.CreateInstance(typeof(T), x)).ToList();
+            return result.Select(x => (T)Activator.CreateInstance(typeof(T), new Object[] { x })).ToList();
         }
         /// <summary>
         /// Selecciona el nombre de las tablas seleccionadas
@@ -78,6 +78,6 @@ namespace Tabalim.Core.controller
             this.Connection.Close();
             this.Connection.Dispose();
         }
-       
+
     }
 }

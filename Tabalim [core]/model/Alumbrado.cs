@@ -20,9 +20,10 @@ namespace Tabalim.Core.model
         /// Inicializa una nueva instancia de la clase <see cref="Alumbrado"/>.
         /// </summary>
         /// <param name="potencia">Potencia en watts.</param>
-        public Alumbrado(double potencia)
+        public Alumbrado(double potencia) :
+            base(potencia)
         {
-            this.Potencia = new Potencia(potencia);
+
         }
     }
 }

@@ -21,6 +21,11 @@ namespace Tabalim.Core.mocking.model
         /// Un grupo de cantidades 
         /// </summary>
         int[] cCount = new int[] { 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6 };
+
+        public CtoItemMocking(Circuito c) : base(c)
+        {
+        }
+
         /// <summary>
         /// El circuito definido en la aplicación.
         /// </summary>

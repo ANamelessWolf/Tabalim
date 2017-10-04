@@ -37,5 +37,12 @@ namespace Tabalim.Core.runtime
         /// La lista de proyectos cargados
         /// </summary>
         public List<Tablero> Tableros;
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="TabalimApp"/>.
+        /// </summary>
+        public TabalimApp()
+        {
+            this.Tableros = new List<Tablero>();
+        }
     }
 }

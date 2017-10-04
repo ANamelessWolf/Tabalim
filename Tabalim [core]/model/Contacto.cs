@@ -20,9 +20,9 @@ namespace Tabalim.Core.model
         /// Inicializa una nueva instancia de la clase <see cref="Contacto"/>.
         /// </summary>
         /// <param name="potencia">Potencia en watts.</param>
-        public Contacto(double potencia)
+        public Contacto(double potencia) : base(potencia)
         {
-            this.Potencia = new Potencia(potencia);
+          
         }
     }
 }

@@ -33,7 +33,6 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="40"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <metro:ToggleSwitch x:Name="wattsInput" Header="Tipo de entrada" OnLabel="Watts" OffLabel="VA" IsChecked="True" 

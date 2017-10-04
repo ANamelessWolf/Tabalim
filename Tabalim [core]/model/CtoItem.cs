@@ -18,11 +18,19 @@ namespace Tabalim.Core.model
         /// <summary>
         /// El circuito definido en la aplicación.
         /// </summary>
-        public virtual String CtoName { get { return this.ToString(); } }
+        public virtual String CtoName { get { return Circuito.ToString(); } }
         /// <summary>
         /// El circuito definido en la aplicación.
         /// </summary>
-        public virtual int CtoCount { get { return this.Circuito.Componentes != null ? 0 : this.Circuito.Componentes.Values.Sum(x => x); } }
+        public virtual int CtoCount { get { return this.Circuito.Componentes == null ? 0 : this.Circuito.Componentes.Values.Sum(x => x); } }
+        public CtoItem(Circuito c)
+        {
+            this.Circuito = c;
+        }
+        public override string ToString()
+        {
+            return String.Format("{0}, Componenets conectados: {1}", this.CtoName, this.CtoCount);
+        }
 
     }
 }
