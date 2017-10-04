@@ -102,10 +102,22 @@ namespace Tabalim.Core.model
         ///   <c>true</c> if this instance has motor; otherwise, <c>false</c>.
         /// </value>
         public Boolean HasMotor { get { return Componentes.Keys.Count(x => x is Motor) > 0; } }
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return String.Join(",", Polos);
         }
+        /// <summary>
+        /// Crea instancia de circuito  a partir del numero de fases
+        /// </summary>
+        /// <param name="fases">The fases.</param>
+        /// <param name="polos">The polos.</param>
+        /// <returns></returns>
         public static Circuito GetCircuito(int fases, int[] polos)
         {
             if (fases == 1) return new CircuitoMonofasico() { Polos = polos };

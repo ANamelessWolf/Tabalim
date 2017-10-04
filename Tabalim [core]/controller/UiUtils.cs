@@ -35,7 +35,7 @@ namespace Tabalim.Core.controller
         public static IEnumerable<Circuito> GetAvailableCircuitos(Tablero tablero, int cFases, bool isMotor)
         {
             List<Circuito> circuitos = new List<Circuito>();
-            IEnumerable<int> fullPolos = tablero.Circuitos.Values.Where(x => isMotor || x.HasMotor).SelectMany(x => x.Polos);
+            IEnumerable<int> fullPolos = tablero.Circuitos.Values.Where(x => isMotor || x.HasMotor || cFases != x.Polos.Length).SelectMany(x => x.Polos);
             List<int> odd = new List<int>(), even = new List<int>();
             int oddCount = cFases, evenCount = cFases;
             for(int i = 1; i <= tablero.Sistema.Polo; i++)

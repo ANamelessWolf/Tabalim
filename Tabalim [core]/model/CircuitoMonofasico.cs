@@ -23,6 +23,6 @@ namespace Tabalim.Core.model
             }
         }
 
-        public override double CaidaVoltaje => (4 * Longitud * CorrienteProteccion) / (Tension.TensionAlNeutro * Calibre.AreaTransversal);
+        public override double CaidaVoltaje { get => (4 * Longitud * CorrienteProteccion) / (Tension.TensionAlNeutro * Calibre.AreaTransversal); }
     }
 }
