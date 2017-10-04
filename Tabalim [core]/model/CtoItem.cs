@@ -15,6 +15,14 @@ namespace Tabalim.Core.model
         /// El circuito definido en la aplicación.
         /// </summary>
         public Circuito Circuito;
-        public Circuito CtoName;
+        /// <summary>
+        /// El circuito definido en la aplicación.
+        /// </summary>
+        public virtual String CtoName { get { return this.ToString(); } }
+        /// <summary>
+        /// El circuito definido en la aplicación.
+        /// </summary>
+        public virtual int CtoCount { get { return this.Circuito.Componentes != null ? 0 : this.Circuito.Componentes.Values.Sum(x => x); } }
+
     }
 }

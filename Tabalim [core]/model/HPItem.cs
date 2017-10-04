@@ -58,5 +58,13 @@ namespace Tabalim.Core.model
             if (this.HPFormat != null)
                 this.HPFormat += " HP";
         }
+        /// <summary>
+        /// Define el query de selección que
+        /// </summary>
+        /// <returns></returns>
+        public static string Query_Select_All()
+        {
+            return 
+        }
     }
 }

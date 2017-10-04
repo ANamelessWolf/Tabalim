@@ -88,6 +88,7 @@
     <Compile Include="controller\SQLiteWrapper.cs" />
     <Compile Include="controller\SQLite_Connector.cs" />
     <Compile Include="controller\UiUtils.cs" />
+    <Compile Include="mocking\model\CtoItemMocking.cs" />
     <Compile Include="model\ComponentGalleryItem.cs" />
     <Compile Include="model\ComponentType.cs" />
     <Compile Include="model\Alumbrado.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="model\HPItem.cs" />
     <Compile Include="model\Motor.cs" />
     <Compile Include="model\Potencia.cs" />
+    <Compile Include="model\PowerType.cs" />
     <Compile Include="model\SistemaBifasico.cs" />
     <Compile Include="model\SistemaFases.cs" />
     <Compile Include="model\SistemaMonofasico.cs" />
@@ -133,6 +135,9 @@
     </Compile>
     <Compile Include="view\PlantillaNuevoTablero.xaml.cs">
       <DependentUpon>PlantillaNuevoTablero.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\PowerSelector.xaml.cs">
+      <DependentUpon>PowerSelector.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -171,6 +176,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="view\PowerSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\tableros\INTC12.bmp" />
@@ -195,6 +204,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E

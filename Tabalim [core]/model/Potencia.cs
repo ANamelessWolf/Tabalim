@@ -28,6 +28,13 @@ namespace Tabalim.Core.model
         /// </summary>
         public Double Watts { get { return watts; } }
         /// <summary>
+        /// Devuelve el formato de la potencia aparente.
+        /// </summary>
+        /// <value>
+        /// Potencia aparente(VA).
+        /// </value>
+        public string WattsAsString { get { return String.Format("{N2}", this.Watts); } }
+        /// <summary>
         /// Regresa potencia en HP
         /// </summary>
         public Double HP { get { return watts / HP_to_Watts; } }
@@ -38,6 +45,20 @@ namespace Tabalim.Core.model
         /// El valor de la potencia y sus unidades
         /// </value>
         public String PFormat { get { return this.ToString(); } }
+        /// <summary>
+        /// Obtiene la potencia aparente.
+        /// </summary>
+        /// <value>
+        /// Potencia aparente(VA).
+        /// </value>
+        public Double PotenciaAparente { get { return this.Watts / 0.9; } }
+        /// <summary>
+        /// Devuelve el formato de la potencia aparente.
+        /// </summary>
+        /// <value>
+        /// Potencia aparente(VA).
+        /// </value>
+        public string PotenciaAparenteAsString { get { return String.Format("{N2}", this.PotenciaAparente); } }
         /// <summary>
         /// Inicializa una instancia de la <see cref="Tension"/>.
         /// </summary>

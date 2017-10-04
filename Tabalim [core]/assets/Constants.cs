@@ -32,6 +32,15 @@ namespace Tabalim.Core.assets
         /************* CARPETAS ************/
         /***********************************/
         public const string IMG_FOLDER = "img";
+        public const string DATA_FOLDER = "data";
         public const string COMPONENT_FOLDER = "componentes";
+        /***********************************/
+        /************* ARCHIVOS ************/
+        /***********************************/
+        public const string APP_DB_FILE = "tabalim.sqlite";
+        /***********************************/
+        /************* TABLAS **************/
+        /***********************************/
+        public const string TABLE_HP_WATTS = "hp_watss";
     }
 }

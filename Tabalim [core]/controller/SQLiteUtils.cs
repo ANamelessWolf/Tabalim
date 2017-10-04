@@ -79,6 +79,18 @@ namespace Tabalim.Core.controller
             else
                 return null;
         }
-
+        /// <summary>
+        /// Define el query de selección
+        /// </summary>
+        /// <param name="table_name">El nombre de la tabla.</param>
+        /// <param name="condition">La condición a evaluar.</param>
+        /// <returns>El query de selección.</returns>
+        public static string SelectAll(this string table_name, string condition = "")
+        {
+            if (condition == "")
+                return String.Format("SELECT * FROM {0}", table_name);
+            else
+                return String.Format("SELECT * FROM {0} WHERE {1}", table_name, condition);
+        }
     }
 }

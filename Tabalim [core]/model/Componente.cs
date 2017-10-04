@@ -15,13 +15,7 @@ namespace Tabalim.Core.model
         /// Especifica la potencia del componente
         /// </summary>
         public Potencia Potencia;
-        /// <summary>
-        /// Obtiene la potencia aparente.
-        /// </summary>
-        /// <value>
-        /// Potencia aparente(VA).
-        /// </value>
-        public Double PotenciaAparente { get { return Potencia.Watts / 0.9; } }
+
         /// <summary>
         /// The image index
         /// </summary>
