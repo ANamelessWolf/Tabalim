@@ -88,6 +88,8 @@
     <Compile Include="controller\SQLiteWrapper.cs" />
     <Compile Include="controller\SQLite_Connector.cs" />
     <Compile Include="controller\UiUtils.cs" />
+    <Compile Include="model\CircuitoBifasico.cs" />
+    <Compile Include="model\CircuitoTrifasico.cs" />
     <Compile Include="mocking\model\CtoItemMocking.cs" />
     <Compile Include="model\ComponentGalleryItem.cs" />
     <Compile Include="model\ComponentType.cs" />

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Tabalim.Core.model;
 
 namespace Tabalim.Core.controller
 {
@@ -30,6 +31,43 @@ namespace Tabalim.Core.controller
             img.CacheOption = BitmapCacheOption.OnLoad;
             img.EndInit();
             return img;
+        }
+        public static IEnumerable<Circuito> GetAvailableCircuitos(Tablero tablero, int cFases, bool isMotor)
+        {
+            List<Circuito> circuitos = new List<Circuito>();
+            IEnumerable<int> fullPolos = tablero.Circuitos.Values.Where(x => isMotor || x.HasMotor).SelectMany(x => x.Polos);
+            List<int> odd = new List<int>(), even = new List<int>();
+            int oddCount = cFases, evenCount = cFases;
+            for(int i = 1; i <= tablero.Sistema.Polo; i++)
+            {
+                if(oddCount == 0)
+                {
+                    if(odd.Count == cFases)
+                        circuitos.Add(Circuito.GetCircuito(cFases, odd.ToArray()));
+                    oddCount = cFases;
+                    odd = new List<int>();
+                }
+                if (evenCount == 0)
+                {
+                    if(even.Count == cFases)
+                        circuitos.Add(Circuito.GetCircuito(cFases, even.ToArray()));
+                    evenCount = cFases;
+                    even = new List<int>();
+                }
+                if(i % 2 == 1)
+                {
+                    if(!fullPolos.Contains(i))
+                        odd.Add(i);
+                    oddCount--;
+                }
+                else
+                {
+                    if (!fullPolos.Contains(i))
+                        even.Add(i);
+                    evenCount--;
+                }
+            }
+            return circuitos;
         }
     }
 }
