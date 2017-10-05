@@ -227,7 +227,7 @@ namespace Tabalim.Core.view
                 !this.wattsInput.IsChecked.Value &&
                 Double.TryParse((sender as TextBox).Text, out num))
             {
-                Potencia p = new Potencia(num / 0.9);
+                Potencia p = new Potencia(num * 0.9);
                 this.tboWatts.Text = p.WattsAsString;
             }
         }

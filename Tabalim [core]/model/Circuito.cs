@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using static Tabalim.Core.assets.Constants;
 namespace Tabalim.Core.model
 {
     /// <summary>
@@ -12,13 +12,24 @@ namespace Tabalim.Core.model
     public abstract class Circuito
     {
         /// <summary>
+        /// El id del componente es único en la aplicación.
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// Establece el nombre de la base de datos
+        /// </summary>
+        /// <value>
+        /// El nombre de la base de datos
+        /// </value>
+        public string TableName { get { return TABLE_CIRCUIT; } }
+        /// <summary>
         /// Los polos alos que se conecta
         /// </summary>
         public int[] Polos;
         /// <summary>
         /// Los componentes que se conectan al circuito
         /// </summary>
-        public Dictionary<Componente, int> Componentes;
+        public Dictionary<int, Componente> Componentes;
         /// <summary>
         /// Tension en base al sistema al que pertenece
         /// </summary>
@@ -59,7 +70,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Corriente de proteccion.
         /// </value>
-        public double CorrienteProteccion { get { return Corriente * Componentes.First().Key.FactorProteccion; } }
+        public double CorrienteProteccion { get { return Corriente * Componentes.First().Value.FactorProteccion; } }
         /// <summary>
         /// Obtiene el calibre utilizando la corriente de protección.
         /// </summary>
@@ -101,7 +112,7 @@ namespace Tabalim.Core.model
         /// <value>
         ///   <c>true</c> if this instance has motor; otherwise, <c>false</c>.
         /// </value>
-        public Boolean HasMotor { get { return Componentes.Keys.Count(x => x is Motor) > 0; } }
+        public Boolean HasMotor { get { return Componentes.Values.Count(x => x is Motor) > 0; } }
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
@@ -111,6 +122,31 @@ namespace Tabalim.Core.model
         public override string ToString()
         {
             return String.Join(",", Polos);
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="ComponentPicker"/>.
+        /// </summary>
+        public Circuito()
+        {
+            this.Componentes = new Dictionary<int, Componente>();
+        }
+        /// <summary>
+        /// Crea un registro del objeto en la base de datos.
+        /// </summary>
+        /// <param name="input">La entrada es un tablero</param>
+        public void Create(Object input)
+        {
+            Tablero tablero = input as Tablero;
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Actualiza un registro del objeto en la base de datos
+        /// </summary>
+        /// <param name="input"></param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public void Update(object input)
+        {
+            throw new NotImplementedException();
         }
         /// <summary>
         /// Crea instancia de circuito  a partir del numero de fases

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tabalim.Core.controller;
+using Tabalim.Core.model;
 using Tabalim.Core.runtime;
 using Tabalim.Core.view;
 
@@ -24,11 +25,14 @@ namespace Tabalim.App
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="MainWindow"/>.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
-            
-            
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -53,7 +57,8 @@ namespace Tabalim.App
             dialog.ShowDialog();
             if (dialog.DialogResult.Value)
             {
-                
+
+                TabalimApp.CurrentTablero.Update(new Object[] { dialog.SelectedComponent, dialog.SelectedComponent.Circuito });
             }
         }
     }

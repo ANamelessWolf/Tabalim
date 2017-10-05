@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="assets\Constants.cs" />
     <Compile Include="controller\ComponentsUtils.cs" />
+    <Compile Include="controller\IDatabaseMappable.cs" />
     <Compile Include="controller\ISQLiteParser.cs" />
     <Compile Include="controller\SelectionResult.cs" />
     <Compile Include="controller\SistemaFaseUtils.cs" />
