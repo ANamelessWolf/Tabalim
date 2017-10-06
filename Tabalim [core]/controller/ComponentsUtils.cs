@@ -57,7 +57,8 @@ namespace Tabalim.Core.controller
             List<CtoCompItem> items = new List<CtoCompItem>();
             string imgGalleryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetAssembly(typeof(ComponentGalleryItem)).Location), IMG_FOLDER, COMPONENT_FOLDER);
             ComponentType[] ct = new ComponentType[] { ComponentType.Motor, ComponentType.Alumbrado, ComponentType.Contacto };
-            String cFormat = "{0}W {1} Potencia: {2}, VA: {3}";
+            String cFormat = "{0} W {1} Potencia: {2}, VA: {3}";
+            String ctoFormat = "Cto({0}) L {1} [m]";
             if (TabalimApp.CurrentTablero != null)
                 foreach (Circuito cto in TabalimApp.CurrentTablero.Circuitos.Values)
                     foreach (Componente com in cto.Componentes.Values)
@@ -67,6 +68,7 @@ namespace Tabalim.Core.controller
                             CompId = com.Id,
                             Icon = com.ImageIndex.LoadImage(imgGalleryPath, 32, true),
                             CtoKey = cto.ToString(),
+                            CtoFormat = String.Format(ctoFormat, cto, cto.Longitud),
                             CtoLength = cto.Longitud
                         });
             return items;

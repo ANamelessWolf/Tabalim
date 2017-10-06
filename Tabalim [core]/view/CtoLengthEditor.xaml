@@ -51,8 +51,7 @@
                                         <ColumnDefinition Width="1*"/>
                                     </Grid.ColumnDefinitions>
                                     <Image Width="32" Height="32" Source="{Binding Icon}"/>
-                                    <TextBlock Text="{Binding CompKey}" TextWrapping="Wrap" Grid.Column="1"/>
-                                    <TextBox Text="{Binding CompId}" Visibility="Collapsed"/>
+                                    <TextBlock Text="{Binding ComKey}" TextWrapping="Wrap" Grid.Column="1"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -60,14 +59,20 @@
                     <GridViewColumn Header="Editar" Width="{Binding ElementName=helperColEdit, Path=ActualWidth}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe104;" Click="btnEditComp_Click"/>
+                                <Grid>
+                                    <TextBlock Text="{Binding CompId}" Visibility="Collapsed"/>
+                                    <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe104;" Click="btnEditComp_Click"/>
+                                </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Eliminar" Width="{Binding ElementName=helperColDel, Path=ActualWidth}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe106;" Click="btnDelComp_Click"/>
+                                <Grid>
+                                    <TextBlock Text="{Binding CompId}" Visibility="Collapsed"/>
+                                    <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe106;" Click="btnDelComp_Click"/>
+                                </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -75,22 +80,35 @@
             </ListView.View>
             <ListView.GroupStyle>
                 <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="120"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Circuito" Style="{StaticResource TabalimForm}"/>
-                                <TextBlock Text="{Binding CtoKey}" Style="{StaticResource TabalimHeader}" FontWeight="Bold" Grid.Column="1"/>
-                                <TextBlock Text="L " Style="{StaticResource TabalimForm}" Grid.Column="2"/>
-                                <TextBox  Text ="{Binding CtoLength}" Grid.Column="3" Style="{StaticResource TabalimInputNumber}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="60"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Name}" Style="{StaticResource TabalimGroupHeader}" Margin="10,0,0,0"/>
+                                                    <TextBlock Grid.Column="1" HorizontalAlignment="Right">
+                                                        <TextBlock Text="{Binding ItemCount}" Style="{StaticResource TabalimGroupHighlight}" Margin="10,0,10,0" />
+                                                        <TextBlock Text=" componente(s)" Style="{StaticResource TabalimGroupLess}"  />
+                                                        </TextBlock>
+                                                    <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe104;" Click="btnEditCircuito_Click" Grid.Column="3"/>
+                                                </Grid>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>

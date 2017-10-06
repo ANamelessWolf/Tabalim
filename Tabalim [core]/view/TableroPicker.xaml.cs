@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Tabalim.Core.view
     /// <summary>
     /// Lógica de interacción para TableroPicker.xaml
     /// </summary>
-    public partial class TableroPicker : Window
+    public partial class TableroPicker : MetroWindow
     {
         /// <summary>
         /// Crea un nuevo tablero con la información del sistema actual

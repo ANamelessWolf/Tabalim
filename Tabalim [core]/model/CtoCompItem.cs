@@ -28,6 +28,13 @@ namespace Tabalim.Core.model
         /// </value>
         public String CtoKey { get; set; }
         /// <summary>
+        /// Define o establece la descripción del circuito
+        /// </summary>
+        /// <value>
+        /// La descripción del circuito
+        /// </value>
+        public String CtoFormat { get; set; }
+        /// <summary>
         /// Define o establece la longitud del cto en metros.
         /// </summary>
         /// <value>

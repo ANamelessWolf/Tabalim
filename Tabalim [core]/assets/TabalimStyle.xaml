@@ -12,7 +12,20 @@
     </Style>
     <Style x:Key="TabalimForm" TargetType="TextBlock" BasedOn="{StaticResource TabalimHeader}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
+        
         <Setter Property="TextAlignment" Value="Right"/>
+    </Style>
+    <Style x:Key="TabalimGroupHeader" TargetType="TextBlock" BasedOn="{StaticResource TabalimHeader}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+    <Style x:Key="TabalimGroupHighlight" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
+        <Setter Property="Foreground" Value="LightGreen"/>
+    </Style>
+    <Style x:Key="TabalimGroupLess" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
+        <Setter Property="Foreground" Value="Silver"/>
+        <Setter Property="FontSize" Value="18"/>
     </Style>
     <Style x:Key="TabalimButton" TargetType="TextBlock" BasedOn="{StaticResource MetroTextBlock}">
         <Setter Property="Foreground" Value="White"/>
@@ -38,6 +51,13 @@
         <Setter Property="Width" Value="80"/>
         <Setter Property="Margin" Value="10,0"/>
     </Style>
+    <Style x:Key="TabalimCircleButton" TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+    </Style>
+    
     <Style x:Key="TabalimPickButton" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
         <Setter Property="Height" Value="40"/>
         <Setter Property="Width" Value="40"/>
