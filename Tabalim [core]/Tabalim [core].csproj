@@ -136,6 +136,9 @@
     <Compile Include="view\ComponentPicker.xaml.cs">
       <DependentUpon>ComponentPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="view\CtoLengthEditor.xaml.cs">
+      <DependentUpon>CtoLengthEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\NewComponent.xaml.cs">
       <DependentUpon>NewComponent.xaml</DependentUpon>
     </Compile>
@@ -178,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\ComponentPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\CtoLengthEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

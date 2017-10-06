@@ -29,11 +29,11 @@ namespace Tabalim.Core.view
             return new Tablero()
             {
                 Circuitos = new Dictionary<string, Circuito>(),
-                Componentes = new Dictionary<string, Componente>(),
+                Componentes = new Dictionary<int, Componente>(),
                 NombreTablero = "Tablero 1",
                 ProjectId = 1,
                 Sistema = tablero.SelectedSystem,
-                TableroId = 1,
+                Id = 1,
             };
         }
         /// <summary>

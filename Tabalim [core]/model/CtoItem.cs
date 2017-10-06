@@ -22,7 +22,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// El circuito definido en la aplicación.
         /// </summary>
-        public virtual int CtoCount { get { return this.Circuito.Componentes == null ? 0 : this.Circuito.Componentes.Values.Sum(x => x); } }
+        public virtual int CtoCount { get { return this.Circuito.Componentes == null ? 0 : this.Circuito.Componentes.Values.Sum(x => x.Count); } }
         public CtoItem(Circuito c)
         {
             this.Circuito = c;
