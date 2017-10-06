@@ -37,7 +37,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// La potencia total 
         /// </summary>
-        public double PotenciaTotal;
+        public double PotenciaTotal { get { return Componentes != null ? Componentes.Values.Sum(x => x.Potencia.Watts * x.Count) : 0; } }
         /// <summary>
         /// Obtiene la corriente.
         /// </summary>
@@ -137,7 +137,9 @@ namespace Tabalim.Core.model
         public void Create(Object input)
         {
             Tablero tablero = input as Tablero;
-            throw new NotImplementedException();
+            this.Tension = tablero.Sistema.Tension;
+            this.FactorTemperatura = Temperatura.GetFactor((int)tablero.Sistema.Temperatura);
+            tablero.Circuitos.Add(this.ToString(), this);
         }
         /// <summary>
         /// Actualiza un registro del objeto en la base de datos

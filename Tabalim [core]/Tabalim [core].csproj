@@ -110,6 +110,7 @@
     <Compile Include="model\SistemaMonofasico.cs" />
     <Compile Include="model\SistemaTrifasico.cs" />
     <Compile Include="model\Tablero.cs" />
+    <Compile Include="model\Temperatura.cs" />
     <Compile Include="model\Tension.cs" />
     <Compile Include="model\TensionVal.cs" />
     <Compile Include="model\TipoAlimentacion.cs" />
