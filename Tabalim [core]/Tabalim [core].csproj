@@ -100,6 +100,7 @@
     <Compile Include="model\CircuitoMonofasico.cs" />
     <Compile Include="model\Componente.cs" />
     <Compile Include="model\Contacto.cs" />
+    <Compile Include="model\CtoCompItem.cs" />
     <Compile Include="model\CtoItem.cs" />
     <Compile Include="model\HPItem.cs" />
     <Compile Include="model\Motor.cs" />

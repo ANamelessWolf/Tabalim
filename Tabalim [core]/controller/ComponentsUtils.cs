@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Tabalim.Core.model;
+using Tabalim.Core.runtime;
 using static Tabalim.Core.assets.Constants;
 namespace Tabalim.Core.controller
 {
@@ -45,6 +46,29 @@ namespace Tabalim.Core.controller
                     }
                 }
             }
+            return items;
+        }
+        /// <summary>
+        /// Devuelve la colección de componentes conectados a un circuito
+        /// </summary>
+        /// <returns>La lista de componentes</returns>
+        public static List<CtoCompItem> GetComponentsWithCircuits()
+        {
+            List<CtoCompItem> items = new List<CtoCompItem>();
+            string imgGalleryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetAssembly(typeof(ComponentGalleryItem)).Location), IMG_FOLDER, COMPONENT_FOLDER);
+            ComponentType[] ct = new ComponentType[] { ComponentType.Motor, ComponentType.Alumbrado, ComponentType.Contacto };
+            String cFormat = "{0}W {1} Potencia: {2}, VA: {3}";
+            if (TabalimApp.CurrentTablero != null)
+                foreach (Circuito cto in TabalimApp.CurrentTablero.Circuitos.Values)
+                    foreach (Componente com in cto.Componentes.Values)
+                        items.Add(new CtoCompItem()
+                        {
+                            ComKey = String.Format(cFormat, com.Potencia.WattsAsString, com.CType, com.Potencia.PFormat, com.Potencia.PotenciaAparenteAsString),
+                            CompId = com.Id,
+                            Icon = com.ImageIndex.LoadImage(imgGalleryPath, 32, true),
+                            CtoKey = cto.ToString(),
+                            CtoLength = cto.Longitud
+                        });
             return items;
         }
         /// <summary>

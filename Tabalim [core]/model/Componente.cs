@@ -27,6 +27,26 @@ namespace Tabalim.Core.model
         /// Especifica la potencia del componente
         /// </summary>
         public Potencia Potencia;
+    /// <summary>
+        /// Define o establece el valor de tipo de componente.
+        /// </summary>
+        /// <value>
+        /// El tipo de componente
+        /// </value>
+        public ComponentType CType
+        {
+            get
+            {
+                if (this is Motor)
+                    return ComponentType.Motor;
+                else if (this is Alumbrado)
+                    return ComponentType.Alumbrado;
+                else if (this is Contacto)
+                    return ComponentType.Alumbrado;
+                else
+                    return ComponentType.None;
+            }
+        }
         /// <summary>
         /// The image index
         /// </summary>

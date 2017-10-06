@@ -32,7 +32,14 @@ namespace Tabalim.Core.controller
             img.EndInit();
             return img;
         }
-        public static IEnumerable<Circuito> GetAvailableCircuitos(Tablero tablero, int cFases, bool isMotor)
+        /// <summary>
+        /// Devuelve la colección de circuitos disponibles.
+        /// </summary>
+        /// <param name="tablero">El tablero actual.</param>
+        /// <param name="cFases">El número de fases del circuito.</param>
+        /// <param name="isMotor">En caso de ser <c>true</c> [es un motor].</param>
+        /// <returns>La colección de circuitos disponibles</returns>
+        public static IEnumerable<Circuito> GetAvailableCircuitos(this Tablero tablero, int cFases, bool isMotor)
         {
             List<Circuito> circuitos = new List<Circuito>();
             IEnumerable<int> fullPolos = tablero.Circuitos.Values.Where(x => isMotor || x.HasMotor || cFases != x.Polos.Length).SelectMany(x => x.Polos);
