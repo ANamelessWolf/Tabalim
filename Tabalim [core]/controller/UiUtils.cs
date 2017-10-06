@@ -54,13 +54,6 @@ namespace Tabalim.Core.controller
                     oddCount = cFases;
                     odd = new List<int>();
                 }
-                if (evenCount == 0)
-                {
-                    if(even.Count == cFases)
-                        circuitos.Add(Circuito.GetCircuito(cFases, even.ToArray()));
-                    evenCount = cFases;
-                    even = new List<int>();
-                }
                 if(i % 2 == 1)
                 {
                     if(!fullPolos.Contains(i))
@@ -72,6 +65,13 @@ namespace Tabalim.Core.controller
                     if (!fullPolos.Contains(i))
                         even.Add(i);
                     evenCount--;
+                }
+                if (evenCount == 0)
+                {
+                    if (even.Count == cFases)
+                        circuitos.Add(Circuito.GetCircuito(cFases, even.ToArray()));
+                    evenCount = cFases;
+                    even = new List<int>();
                 }
             }
             return circuitos;

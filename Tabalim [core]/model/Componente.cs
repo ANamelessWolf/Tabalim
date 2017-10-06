@@ -79,7 +79,8 @@ namespace Tabalim.Core.model
         public void Create(Object input)
         {
             Tablero tablero = input as Tablero;
-            throw new NotImplementedException();
+            this.Id = tablero.Componentes.Count+1;
+            tablero.Componentes.Add(this.Id, this);
         }
         /// <summary>
         /// Actualiza un registro del objeto en la base de datos
