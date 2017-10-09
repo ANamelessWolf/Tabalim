@@ -100,9 +100,14 @@ namespace Tabalim.Core.view
             cKey = cKey.Split('(')[1].Split(')')[0];
             CtoCompItem item = this.listOfCircuits.ItemsSource.OfType<CtoCompItem>().Where(x => x.CtoKey == cKey).FirstOrDefault();
             Circuito cto = item.Circuit;
-            String ctoFormat = "Cto({0}) L {1} [m]";
-            item.CtoFormat = String.Format(ctoFormat, cto, cto.Longitud);
-            ((CollectionView)CollectionViewSource.GetDefaultView(this.listOfCircuits.ItemsSource)).Refresh();
+            var inp = new CircuitInput(cto);
+            inp.ShowDialog();
+            if (inp.DialogResult.Value)
+            {
+                String ctoFormat = "Cto({0}) L {1} [m]";
+                item.CtoFormat = String.Format(ctoFormat, cto, cto.Longitud);
+                ((CollectionView)CollectionViewSource.GetDefaultView(this.listOfCircuits.ItemsSource)).Refresh();
+            }
         }
     }
 }

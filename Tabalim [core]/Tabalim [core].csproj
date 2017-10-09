@@ -129,6 +129,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="runtime\TabalimApp.cs" />
+    <Compile Include="view\CircuitInput.xaml.cs">
+      <DependentUpon>CircuitInput.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\ComponentGallery.xaml.cs">
       <DependentUpon>ComponentGallery.xaml</DependentUpon>
     </Compile>
@@ -171,6 +174,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="assets\TabalimStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\CircuitInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
