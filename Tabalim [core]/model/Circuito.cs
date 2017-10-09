@@ -158,6 +158,8 @@ namespace Tabalim.Core.model
         /// <returns></returns>
         public static Circuito GetCircuito(int fases, int[] polos)
         {
+            if (runtime.TabalimApp.CurrentTablero.Circuitos.ContainsKey(String.Join(",", polos)))
+                return runtime.TabalimApp.CurrentTablero.Circuitos[String.Join(",", polos)];
             if (fases == 1) return new CircuitoMonofasico() { Polos = polos };
             else if (fases == 2) return new CircuitoBifasico() { Polos = polos };
             else return new CircuitoTrifasico() { Polos = polos };
