@@ -114,6 +114,14 @@ namespace Tabalim.Core.model
         /// </value>
         public Boolean HasMotor { get { return Componentes.Values.Count(x => x is Motor) > 0; } }
         /// <summary>
+        /// Devuelve el formato de la longitud en el formato especificado de la aplicación
+        /// </summary>
+        /// <value>
+        /// La longitud del circuito como una cadena
+        /// </value>
+        public string LongitudAsString { get { return String.Format("{0:N2}", this.Longitud); } }
+
+        /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>

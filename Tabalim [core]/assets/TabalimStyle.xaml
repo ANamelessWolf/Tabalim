@@ -38,6 +38,9 @@
     <Style x:Key="TabalimCbox" TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
         <Setter Property="Height" Value="32"/>
     </Style>
+    <Style x:Key="TabalimCboxNumber" TargetType="ComboBox" BasedOn="{StaticResource TabalimCbox}">
+        <Setter Property="Width" Value="60"/>
+    </Style>
     <!--Estilos de Text box-->
     <Style x:Key="TabalimInput" TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
         <Setter Property="Height" Value="32"/>

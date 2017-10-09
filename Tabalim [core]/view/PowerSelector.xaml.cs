@@ -54,7 +54,8 @@ namespace Tabalim.Core.view
                     return new Potencia(((HPItem)this.cboHP.SelectedItem).HP, true);
                 else
                 {
-                    double watts = double.Parse(this.tboWatts.Text);
+                    double val, watts;
+                    watts = double.TryParse(this.tboWatts.Text, out val) ? val : 0d;
                     return new Potencia(watts);
                 }
             }
