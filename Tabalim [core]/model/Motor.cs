@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tabalim.Core.controller;
 
 namespace Tabalim.Core.model
 {
@@ -22,6 +23,12 @@ namespace Tabalim.Core.model
         /// <param name="potencia">Potencia en HP.</param>
         public Motor(double potencia) : base(new Potencia(potencia, true).HP, true)
         {
+
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Motor"/>.
+        /// </summary>
+        /// <param name="result">El resultado del query de selección</param>
+        public Motor(SelectionResult[] result) : base(result) { }
     }
 }

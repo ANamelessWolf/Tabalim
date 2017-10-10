@@ -21,6 +21,6 @@
                 Content="(1) Cargar Sistema" />
         <Button x:Name="btnCreateComponent" Click="btnCreateComponent_Click"  Grid.Column="1"
                 Content="(2) Crear Componente" />
-        <ctr:CtoLengthEditor Grid.Row="1" Grid.ColumnSpan="2"/>
+        <ctr:CtoEditor Grid.Row="1" Grid.ColumnSpan="2"/>
     </Grid>
 </metro:MetroWindow>

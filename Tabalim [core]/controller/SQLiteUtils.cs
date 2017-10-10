@@ -4,6 +4,8 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tabalim.Core.model;
+using Tabalim.Core.runtime;
 
 namespace Tabalim.Core.controller
 {
@@ -41,6 +43,57 @@ namespace Tabalim.Core.controller
             return result;
         }
         /// <summary>
+        /// Crea el campo como una cadena
+        /// </summary>
+        /// <param name="data">El objeto a crear el campo.</param>
+        /// <param name="columnName">El nombre de la columna.</param>
+        /// <param name="value">El valor de la columna.</param>
+        /// <returns>El campo a insertar</returns>
+        public static InsertField CreateFieldAsString(this IDatabaseMappable data, string columnName, Object value)
+        {
+            return new InsertField()
+            {
+                ColumnName = columnName,
+                DataType = InsertFieldType.STRING,
+                Tablename = data.TableName,
+                Value = value == null ? String.Empty : value.ToString()
+            };
+        }
+        /// <summary>
+        /// Crea el campo como un número
+        /// </summary>
+        /// <param name="data">El objeto a crear el campo.</param>
+        /// <param name="columnName">El nombre de la columna.</param>
+        /// <param name="value">El valor de la columna.</param>
+        /// <returns>El campo a insertar</returns>
+        public static InsertField CreateFieldAsNumber(this IDatabaseMappable data, string columnName, Object value)
+        {
+            return new InsertField()
+            {
+                ColumnName = columnName,
+                DataType = InsertFieldType.NUMBER,
+                Tablename = data.TableName,
+                Value = value
+            };
+        }
+        /// <summary>
+        /// Crea el campo como un número
+        /// </summary>
+        /// <param name="data">El objeto a crear el campo.</param>
+        /// <param name="columnName">El nombre de la columna.</param>
+        /// <param name="value">El valor de la columna.</param>
+        /// <returns>El campo a insertar</returns>
+        public static InsertField CreateFieldAsDate(this IDatabaseMappable data, string columnName, DateTime value)
+        {
+            return new InsertField()
+            {
+                ColumnName = columnName,
+                DataType = InsertFieldType.DATE,
+                Tablename = data.TableName,
+                Value = value
+            };
+        }
+        /// <summary>
         /// Convierte un resultado de selección a un arreglo de strings
         /// </summary>
         /// <param name="result">El resultado de selección.</param>
@@ -48,6 +101,16 @@ namespace Tabalim.Core.controller
         public static String[] ParseAsString(this SelectionResult[] result)
         {
             return result.Select(x => x.Value.ToString()).ToArray();
+        }
+        /// <summary>
+        /// Convierte un resultado de selección a un arreglo de enteros
+        /// </summary>
+        /// <param name="result">El resultado de selección.</param>
+        /// <returns>El resultado de selección</returns>
+        public static int[] ParsePolos(this string polos)
+        {
+            int num;
+            return polos.Split(',').Where(x => int.TryParse(x, out num)).Select(x => int.Parse(x)).ToArray();
         }
         /// <summary>
         /// Obtiene el valor de un resultado especifico
@@ -63,6 +126,24 @@ namespace Tabalim.Core.controller
                 return (T)selResult.Value;
             else
                 return default(T);
+        }
+        /// <summary>
+        /// Obtiene el valor de un resultado especifico
+        /// </summary>
+        /// <typeparam name="T">El tipo de dato a extraer del resultado.</typeparam>
+        /// <param name="result">El resultado de la selección.</param>
+        /// <param name="columnName">El nombre de la columna.</param>
+        /// <returns>El valor del resultado con el tipo de dato especifico.</returns>
+        public static int GetInteger(this SelectionResult[] result, string columnName)
+        {
+            SelectionResult selResult = result.FirstOrDefault(x => x.ColumnName == columnName);
+            if (selResult != null && selResult.Value is long)
+            {
+                long val = (long)selResult.Value;
+                return (int)val;
+            }
+            else
+                return default(int);
         }
         /// <summary>
         /// Obtiene el valor de un resultado especifico
@@ -91,6 +172,30 @@ namespace Tabalim.Core.controller
                 return String.Format("SELECT * FROM {0}", table_name);
             else
                 return String.Format("SELECT * FROM {0} WHERE {1}", table_name, condition);
+        }
+        /// <summary>
+        /// Define el query de selección
+        /// </summary>
+        /// <param name="table_name">El nombre de la tabla.</param>
+        /// <param name="column">El nombre de la columna a seleccionar</param>
+        /// <param name="condition">La condición a evaluar.</param>
+        /// <returns>El query de selección.</returns>
+        public static string SelectColumn(this string table_name, string column, string condition = "")
+        {
+            if (condition == "")
+                return String.Format("SELECT {0} FROM {1}", table_name, column);
+            else
+                return String.Format("SELECT {0} FROM {1} WHERE {2}", table_name, column, condition);
+        }
+        /// <summary>
+        /// Define el query de selección
+        /// </summary>
+        /// <param name="table_name">El nombre de la tabla.</param>
+        /// <param name="column">El nombre de la columna a seleccionar</param>
+        /// <returns>El query de selección.</returns>
+        public static string SelectLastId(this string table_name, string column)
+        {
+            return String.Format("SELECT MAX({1}) FROM {0}", table_name, column);
         }
     }
 }

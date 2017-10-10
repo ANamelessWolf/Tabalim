@@ -20,12 +20,12 @@ namespace Tabalim.Core.view
     /// <summary>
     /// Lógica de interacción para CtoLengthEditor.xaml
     /// </summary>
-    public partial class CtoLengthEditor : UserControl
+    public partial class CtoEditor : UserControl
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="CtoLengthEditor"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="CtoEditor"/>.
         /// </summary>
-        public CtoLengthEditor()
+        public CtoEditor()
         {
             InitializeComponent();
         }
@@ -105,7 +105,8 @@ namespace Tabalim.Core.view
             if (inp.DialogResult.Value)
             {
                 String ctoFormat = "Cto({0}) L {1} [m]";
-                item.CtoFormat = String.Format(ctoFormat, cto, cto.Longitud);
+                foreach (var it in this.listOfCircuits.ItemsSource.OfType<CtoCompItem>().Where(x => x.CtoKey == cKey))
+                    it.CtoFormat = String.Format(ctoFormat, cto, cto.Longitud);
                 ((CollectionView)CollectionViewSource.GetDefaultView(this.listOfCircuits.ItemsSource)).Refresh();
             }
         }

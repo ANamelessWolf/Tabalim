@@ -48,7 +48,7 @@ namespace Tabalim.Core.controller
         /// </returns>
         public override string ToString()
         {
-            return base.ToString();
+            return String.Format(".NetType: {0}, SQLiteType: {1}, Value: {2}", this.DotNetType, this.SQLiteType, this.Value);
         }
     }
 }

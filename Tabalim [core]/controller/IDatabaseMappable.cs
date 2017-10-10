@@ -29,7 +29,10 @@ namespace Tabalim.Core.controller
         /// <summary>
         /// Crea un registro del objeto en la base de datos.
         /// </summary>
-        void Create(Object input);
+        /// <param name="conn">El conector activo</param>
+        /// <param name="input">La entrada que recibe la operación</param>
+        /// <returns>Verdadero si realizá la inserción.</returns>
+        Boolean Create(SQLite_Connector conn, Object input);
         /// <summary>
         /// Actualiza un registro del objeto en la base de datos
         /// </summary>

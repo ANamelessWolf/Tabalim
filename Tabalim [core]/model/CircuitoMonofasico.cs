@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tabalim.Core.controller;
 
 namespace Tabalim.Core.model
 {
@@ -24,5 +25,13 @@ namespace Tabalim.Core.model
         }
 
         public override double CaidaVoltaje { get => (4 * Longitud * CorrienteProteccion) / (Tension.TensionAlNeutro * Calibre.AreaTransversal); }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="CircuitoMonofasico"/>.
+        /// </summary>
+        public CircuitoMonofasico(SelectionResult[] result) : base(result) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="CircuitoMonofasico"/>.
+        /// </summary>
+        public CircuitoMonofasico() : base() { }
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Tabalim.Core.model;
+using Tabalim.Core.runtime;
 
 namespace Tabalim.Core.view
 {
@@ -29,12 +30,10 @@ namespace Tabalim.Core.view
         {
             return new Tablero()
             {
-                Circuitos = new Dictionary<string, Circuito>(),
-                Componentes = new Dictionary<int, Componente>(),
-                NombreTablero = "Tablero 1",
-                ProjectId = 1,
+                NombreTablero = "",
+                ProjectId = TabalimApp.CurrentProject.Id,
                 Sistema = tablero.SelectedSystem,
-                Id = 1,
+                Id = -1,
             };
         }
         /// <summary>
