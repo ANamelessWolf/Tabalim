@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tabalim.Core.controller;
 using static Tabalim.Core.assets.Constants;
 namespace Tabalim.Core.model
 {
     /// <summary>
     /// Define un circuito
     /// </summary>
-    public abstract class Circuito
+    public abstract class Circuito : IDatabaseMappable, ISQLiteParser
     {
         /// <summary>
         /// El id del componente es único en la aplicación.
         /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// El id del tablero al que pertenece el circuito
+        /// </summary>
+        public int TableroId;
         /// <summary>
         /// Establece el nombre de la base de datos
         /// </summary>
@@ -132,22 +137,32 @@ namespace Tabalim.Core.model
             return String.Join(",", Polos);
         }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="ComponentPicker"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="Circuito"/>.
         /// </summary>
         public Circuito()
         {
             this.Componentes = new Dictionary<int, Componente>();
         }
         /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Circuito"/>.
+        /// </summary>
+        /// <param name="result">El resultado de selección</param>
+        public Circuito(SelectionResult[] result) : this()
+        {
+            this.Parse(result);
+        }
+        /// <summary>
         /// Crea un registro del objeto en la base de datos.
         /// </summary>
-        /// <param name="input">La entrada es un tablero</param>
-        public void Create(Object input)
+        /// <param name="conn">El objeto de conexión actual</param>
+        /// <param name="input">La entrada que necesita la conexión.</param>
+        public bool Create(SQLite_Connector conn, object input)
         {
             Tablero tablero = input as Tablero;
+            this.TableroId = tablero.Id;
             this.Tension = tablero.Sistema.Tension;
             this.FactorTemperatura = Temperatura.GetFactor((int)tablero.Sistema.Temperatura);
-            tablero.Circuitos.Add(this.ToString(), this);
+            return conn.Insert(this);
         }
         /// <summary>
         /// Actualiza un registro del objeto en la base de datos
@@ -157,6 +172,44 @@ namespace Tabalim.Core.model
         public void Update(object input)
         {
             throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Realiza el parsing de un elemento seleccionado en SQLite
+        /// </summary>
+        /// <param name="result">El resultado seleccionado.</param>
+        public void Parse(SelectionResult[] result)
+        {
+            try
+            {
+                this.Id = (int)result.GetValue<long>("cir_id");
+                this.TableroId = (int)result.GetValue<long>("tab_id");
+                this.Polos = result.GetString("polos").ParsePolos();
+                this.FactorAgrupacion = result.GetValue<Double>("fac_agrup");
+                this.FactorTemperatura = result.GetValue<Double>("fac_temp");
+                this.Longitud = result.GetValue<Double>("longitud");
+                this.Interruptor = result.GetString("interruptor");
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+        }
+        /// <summary>
+        /// Obtiene los campos de inserción de un objeto
+        /// </summary>
+        /// <returns>Obtiene los campos de inserción</returns>
+        public InsertField[] GetInsertFields()
+        {
+            return new InsertField[]
+            {
+                this.CreateFieldAsNumber("tab_id", this.TableroId),
+                this.CreateFieldAsString("polos", String.Join(",", Polos)),
+                this.CreateFieldAsNumber("corriente", this.Corriente),
+                this.CreateFieldAsNumber("fac_temp", this.FactorTemperatura),
+                this.CreateFieldAsNumber("fac_agrup", this.FactorAgrupacion),
+                this.CreateFieldAsNumber("longitud", this.Longitud),
+                this.CreateFieldAsString("interruptor", this.Interruptor)
+            };
         }
         /// <summary>
         /// Crea instancia de circuito  a partir del numero de fases
@@ -171,6 +224,26 @@ namespace Tabalim.Core.model
             if (fases == 1) return new CircuitoMonofasico() { Polos = polos };
             else if (fases == 2) return new CircuitoBifasico() { Polos = polos };
             else return new CircuitoTrifasico() { Polos = polos };
+        }
+        /// <summary>
+        /// Crea un parser que generá los circuitos apartir de la información en la base de datos
+        /// </summary>
+        /// <typeparam name="SelectionResult">El resultado de la selección.</typeparam>
+        /// <returns>La lista de componentes seleccionados</returns>
+        public static List<Circuito> CircuitoParser(List<SelectionResult[]> qResult)
+        {
+            List<Circuito> result = new List<Circuito>();
+            foreach (SelectionResult[] selResult in qResult)
+            {
+                int fases = selResult.GetString("polos").Split(',').Length;
+                if (fases == 1)
+                    result.Add(new CircuitoMonofasico(selResult));
+                else if (fases == 2)
+                    result.Add(new CircuitoBifasico(selResult));
+                else
+                    result.Add(new CircuitoTrifasico(selResult));
+            }
+            return result;
         }
     }
 }

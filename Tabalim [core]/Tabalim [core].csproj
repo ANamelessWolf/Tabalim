@@ -82,12 +82,15 @@
     <Compile Include="assets\Constants.cs" />
     <Compile Include="controller\ComponentsUtils.cs" />
     <Compile Include="controller\IDatabaseMappable.cs" />
+    <Compile Include="controller\InsertField.cs" />
+    <Compile Include="controller\InsertFieldType.cs" />
     <Compile Include="controller\ISQLiteParser.cs" />
     <Compile Include="controller\SelectionResult.cs" />
     <Compile Include="controller\SistemaFaseUtils.cs" />
     <Compile Include="controller\SQLiteUtils.cs" />
     <Compile Include="controller\SQLiteWrapper.cs" />
     <Compile Include="controller\SQLite_Connector.cs" />
+    <Compile Include="controller\TransactionUtils.cs" />
     <Compile Include="controller\UiUtils.cs" />
     <Compile Include="model\CircuitoBifasico.cs" />
     <Compile Include="model\CircuitoTrifasico.cs" />
@@ -107,6 +110,7 @@
     <Compile Include="model\Motor.cs" />
     <Compile Include="model\Potencia.cs" />
     <Compile Include="model\PowerType.cs" />
+    <Compile Include="model\Project.cs" />
     <Compile Include="model\SistemaBifasico.cs" />
     <Compile Include="model\SistemaFases.cs" />
     <Compile Include="model\SistemaMonofasico.cs" />
@@ -142,8 +146,8 @@
     <Compile Include="view\ComponentPicker.xaml.cs">
       <DependentUpon>ComponentPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="view\CtoLengthEditor.xaml.cs">
-      <DependentUpon>CtoLengthEditor.xaml</DependentUpon>
+    <Compile Include="view\CtoEditor.xaml.cs">
+      <DependentUpon>CtoEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="view\NewComponent.xaml.cs">
       <DependentUpon>NewComponent.xaml</DependentUpon>
@@ -197,7 +201,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="view\CtoLengthEditor.xaml">
+    <Page Include="view\CtoEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -245,11 +249,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Xcopy.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E
-xcopy "$(ProjectDir)data\*" "$(SolutionDir)Tabalim [App]\bin\Debug\data\" /Y /E</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

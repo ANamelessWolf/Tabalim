@@ -45,10 +45,7 @@ namespace Tabalim.App
             var dialog = new TableroPicker();
             dialog.ShowDialog();
             if (dialog.DialogResult.Value)
-            {
-                TabalimApp.CurrentTablero = dialog.CreateTablero();
-                App.Tabalim.Tableros.Add(TabalimApp.CurrentTablero);
-            }
+                App.Tabalim.CreateTableroTr(dialog.CreateTablero());
         }
 
         private void btnCreateComponent_Click(object sender, RoutedEventArgs e)
@@ -56,10 +53,7 @@ namespace Tabalim.App
             var dialog = new ComponentPicker();
             dialog.ShowDialog();
             if (dialog.DialogResult.Value)
-            {
-
-                TabalimApp.CurrentTablero.Update(new Object[] { dialog.SelectedComponent, dialog.SelectedComponent.Circuito });
-            }
+                TabalimApp.CurrentTablero.AddComponentTr(dialog.SelectedComponent);
         }
     }
 }

@@ -42,8 +42,9 @@ namespace Tabalim.Core.assets
         /************* TABLAS **************/
         /***********************************/
         public const string TABLE_HP_WATTS = "hp_watts";
+        public const string TABLE_PROYECTOS = "proyectos";
         public const string TABLE_TABLERO = "tableros";
         public const string TABLE_CIRCUIT = "circuitos";
-        public const string TABLE_COMPONENT = "components";
+        public const string TABLE_COMPONENT = "componentes";
     }
 }

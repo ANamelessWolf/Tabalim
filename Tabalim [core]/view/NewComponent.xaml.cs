@@ -98,7 +98,7 @@ namespace Tabalim.Core.view
                 this.tboComCount.Text = value.ToString();
             }
         }
-        bool IsLoaded;
+        bool IsCtrlLoaded;
         /// <summary>
         /// Crea un componente con las opciones del controlador actual
         /// </summary>
@@ -143,7 +143,7 @@ namespace Tabalim.Core.view
         public NewComponent(Componente existantComponent)
         {
             this.ExistantComponent = existantComponent;
-            this.IsLoaded = false;
+            this.IsCtrlLoaded = false;
             InitializeComponent();
         }
         /// <summary>
@@ -151,7 +151,7 @@ namespace Tabalim.Core.view
         /// </summary>
         public NewComponent()
         {
-            this.IsLoaded = false;
+            this.IsCtrlLoaded = false;
             InitializeComponent();
         }
         /// <summary>
@@ -200,7 +200,7 @@ namespace Tabalim.Core.view
                 this.Fases = 1;
                 this.CType = ComponentType.None;
             }
-            this.IsLoaded = true;
+            this.IsCtrlLoaded = true;
         }
         /// <summary>
         /// Fills the circuitos list.
@@ -247,7 +247,7 @@ namespace Tabalim.Core.view
         /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
         private void FasesChanged(object sender, RoutedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (!this.IsCtrlLoaded)
                 return;
             this.UpdatePowerSelector();
             this.listOfCircuits.ItemsSource = UiUtils.GetAvailableCircuitos(TabalimApp.CurrentTablero, this.Fases, this.CType == ComponentType.Motor).Select(x => new CtoItem(x));

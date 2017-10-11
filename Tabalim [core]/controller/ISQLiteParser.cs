@@ -15,5 +15,10 @@ namespace Tabalim.Core.controller
         /// <param name="result">El resultado seleccionado.</param>
         /// <returns>El resultado del parsing</returns>
         void Parse(SelectionResult[] result);
+        /// <summary>
+        /// Obtiene los campos de inserción de un objeto
+        /// </summary>
+        InsertField[] GetInsertFields();
+
     }
 }

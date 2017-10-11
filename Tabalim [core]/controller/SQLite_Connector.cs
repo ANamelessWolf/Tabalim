@@ -19,9 +19,17 @@ namespace Tabalim.Core.controller
         /// </summary>
         public SQLiteConnection Connection;
         /// <summary>
+        /// El último error registrado
+        /// </summary>
+        public string Error;
+        /// <summary>
         /// El estado de conexión actual
         /// </summary>
         public ConnectionState Status;
+        /// <summary>
+        /// Devuelve true si el último query fue satisfactorio.
+        /// </summary>
+        public bool QuerySucced;
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SQLite_Connector"/>.
         /// </summary>
@@ -47,18 +55,116 @@ namespace Tabalim.Core.controller
         /// <returns>La colección de elementos seleccionados</returns>
         public List<string[]> Select(string query)
         {
-            List<SelectionResult[]> result = this.GetCommandResult(query);
-            return result.Select(x => x.ParseAsString()).ToList();
+            try
+            {
+                List<SelectionResult[]> result = this.GetCommandResult(query);
+                return result.Select(x => x.ParseAsString()).ToList();
+            }
+            catch (Exception exc)
+            {
+                this.Error = exc.Message;
+                this.QuerySucced = false;
+                return new List<string[]>();
+            }
+        }
+        /// <summary>
+        /// Selecciona un valor de la tabla
+        /// </summary>
+        /// <typeparam name="T">El tipo de dato que se usa en la selección</typeparam>
+        /// <param name="query">El query de selección</param>
+        /// <returns>El valor seleccionado</returns>
+        public T SelectValue<T>(string query) where T : struct
+        {
+            try
+            {
+                List<SelectionResult[]> result = this.GetCommandResult(query);
+                if (result.Count > 0 && result[0].Length > 0)
+                    return (T)result[0][0].Value;
+                else
+                    return default(T);
+            }
+            catch (Exception exc)
+            {
+                this.Error = exc.Message;
+                this.QuerySucced = false;
+                return default(T);
+            }
         }
         /// <summary>
         /// Realizá un query de selección
         /// </summary>
         /// <param name="query">El query de selección</param>
+        /// <param name="parsingTask">En caso de que los elementos definan una clase abstracta se debe definir un parsing avanzado.</param>
         /// <returns>La colección de elementos seleccionados</returns>
-        public List<T> Select<T>(string query) where T : ISQLiteParser
+        public List<T> Select<T>(string query, Func<List<SelectionResult[]>, List<T>> parsingTask=null) where T : ISQLiteParser
         {
-            List<SelectionResult[]> result = this.GetCommandResult(query);
-            return result.Select(x => (T)Activator.CreateInstance(typeof(T), new Object[] { x })).ToList();
+            try
+            {
+                List<SelectionResult[]> result = this.GetCommandResult(query);
+                if (parsingTask == null)
+                    return result.Select(x => (T)Activator.CreateInstance(typeof(T), new Object[] { x })).ToList();
+                else
+                    return parsingTask(result);
+            }
+            catch (Exception exc)
+            {
+                this.Error = exc.Message;
+                this.QuerySucced = false;
+                return new List<T>();
+            }
+        }
+        /// <summary>
+        /// Inserta una nuevo registro en la base de datos
+        /// </summary>
+        /// <param name="data">La información a insertar en la tabla</param>
+        /// <param name="db">La base de datos por defecto</param>
+        /// <returns>Verdadero cuando realizá la inserción de manera correcta</returns>
+        public Boolean Insert(ISQLiteParser data, string db = "main")
+        {
+            try
+            {
+                SQLiteCommand cmd = new SQLiteCommand();
+                InsertField[] fields = data.GetInsertFields();
+                //Query definition
+                String query = "INSERT INTO \"{0}\".\"{1}\"({2}) VALUES ({3})",
+                tableName = fields[0].Tablename,
+                fieldsStr = String.Empty, valuesStr = String.Empty;
+                foreach (InsertField field in fields)
+                {
+                    fieldsStr += String.Format("\"{0}\", ", field.ColumnName);
+                    valuesStr += String.Format("@{0}, ", field.ColumnName);
+                    cmd.Parameters.Add(field.GetSQLiteParameter());
+                }
+                fieldsStr = fieldsStr.Substring(0, fieldsStr.Length - 2);
+                valuesStr = valuesStr.Substring(0, valuesStr.Length - 2);
+                query = String.Format(query, db, tableName, fieldsStr, valuesStr);
+                cmd.CommandText = query;
+                this.Query(cmd);
+            }
+            catch (Exception exc)
+            {
+                this.Error = exc.Message;
+            }
+            return this.QuerySucced;
+        }
+        /// <summary>
+        /// Ejecuta un query mediante un comando
+        /// </summary>
+        /// <param name="cmd">El comando a ejecutar</param>
+        public int Query(SQLiteCommand cmd)
+        {
+            try
+            {
+                cmd.Connection = this.Connection;
+                int result = cmd.ExecuteNonQuery();
+                this.QuerySucced = true;
+                return result;
+            }
+            catch (Exception exc)
+            {
+                this.QuerySucced = false;
+                throw exc;
+            }
         }
         /// <summary>
         /// Selecciona el nombre de las tablas seleccionadas

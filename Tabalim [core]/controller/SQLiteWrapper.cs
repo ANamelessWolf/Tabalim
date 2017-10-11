@@ -37,6 +37,10 @@ namespace Tabalim.Core.controller
         /// </summary>
         public string DBPath;
         /// <summary>
+        /// Devuelve el último error ejecutado
+        /// </summary>
+        public string Error;
+        /// <summary>
         /// El controlador encargado de realizar la tarea de manera asincrona
         /// </summary>
         private BackgroundWorker BGW;
@@ -67,7 +71,14 @@ namespace Tabalim.Core.controller
         private void BGW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (this.TaskCompleted != null)
-                this.TaskCompleted(e.Result);
+                try
+                {
+                    this.TaskCompleted(e.Result);
+                }
+                catch (Exception exc)
+                {
+                    this.Error = exc.Message;
+                }
         }
         /// <summary>
         /// Maneja el evento que realizá la tárea 

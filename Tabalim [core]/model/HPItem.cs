@@ -68,5 +68,14 @@ namespace Tabalim.Core.model
         {
             return this.HPFormat;
         }
+        /// <summary>
+        /// Obtiene los campos de inserción de un objeto
+        /// </summary>
+        /// <returns>Los campos a insertar</returns>
+        /// <exception cref="Exception">La inserción de la tabla esta deshabilitada.</exception>
+        public InsertField[] GetInsertFields()
+        {
+            throw new Exception("Esta tabla no permite insertar desde la aplicación.");
+        }
     }
 }
