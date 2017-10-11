@@ -42,7 +42,7 @@ namespace Tabalim.Core.model
                 else if (this is Alumbrado)
                     return ComponentType.Alumbrado;
                 else if (this is Contacto)
-                    return ComponentType.Alumbrado;
+                    return ComponentType.Contacto;
                 else
                     return ComponentType.None;
             }

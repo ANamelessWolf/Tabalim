@@ -19,10 +19,10 @@ namespace Tabalim.Core.model
                 if (HasMotor)
                     return 0;
                 else
-                    return PotenciaTotal / Tension.TensionAlNeutro;
+                    return PotenciaTotal / Tension.Value;
             }
         }
 
-        public override double CaidaVoltaje { get => (4 * Longitud * CorrienteProteccion) / (Tension.TensionAlNeutro * Calibre.AreaTransversal); }
+        public override double CaidaVoltaje { get => (4 * Longitud * CorrienteProteccion) / (Tension.Value * Calibre.AreaTransversal); }
     }
 }
