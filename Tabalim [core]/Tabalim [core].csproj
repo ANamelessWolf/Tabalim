@@ -92,6 +92,7 @@
     <Compile Include="controller\SQLite_Connector.cs" />
     <Compile Include="controller\TransactionUtils.cs" />
     <Compile Include="controller\UiUtils.cs" />
+    <Compile Include="controller\UpdateField.cs" />
     <Compile Include="model\CircuitoBifasico.cs" />
     <Compile Include="model\CircuitoTrifasico.cs" />
     <Compile Include="mocking\model\CtoItemMocking.cs" />

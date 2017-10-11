@@ -28,10 +28,37 @@ namespace Tabalim.Core.controller
             return selRes;
         }
         /// <summary>
+        /// Crea una condición que pide que la llave primaria sea igual
+        /// al valor del Id del elemento.
+        /// </summary>
+        /// <param name="element">El elemento a evaluar.</param>
+        /// <returns>La condición como una cadena de SQL</returns>
+        public static string CreatePrimaryKeyCondition(this IDatabaseMappable element)
+        {
+            String condition = "\"{0}\" = {1} ";
+            return String.Format(condition, element.PrimaryKey, element.Id);
+        }
+        /// <summary>
+        /// Inserta un elemento, selecciona el último id del elemento insertado.
+        /// El id es asignado al elemento y es regresado en la función
+        /// </summary>
+        /// <typeparam name="T">El tipo de elemento a retornar</typeparam>
+        /// <param name="element">El elmento generico a insertar.</param>
+        /// <param name="conn">La conexión a SQLite.</param>
+        /// <param name="input">La entrada necesaria para insertar el elemento.</param>
+        /// <returns></returns>
+        public static T GetLastId<T>(this IDatabaseMappable element, SQLite_Connector conn, Object input)
+            where T : IDatabaseMappable
+        {
+            if (element.Create(conn, input))
+                element.Id = (int)conn.SelectValue<long>(element.TableName.SelectLastId(element.PrimaryKey));
+            return (T)element;
+        }
+        /// <summary>
         /// Obtiene el resultado de selección
         /// </summary>
         /// <param name="query">El query de selección</param>
-        /// <param name="conn">El objeto de conexión</param>
+        /// <param name="conn">La conexión a SQLite.</param>
         /// <returns>El resultado de selección.</returns>
         public static List<SelectionResult[]> GetCommandResult(this SQLite_Connector conn, string query)
         {
@@ -77,7 +104,7 @@ namespace Tabalim.Core.controller
             };
         }
         /// <summary>
-        /// Crea el campo como un número
+        /// Crea el campo como fecha
         /// </summary>
         /// <param name="data">El objeto a crear el campo.</param>
         /// <param name="columnName">El nombre de la columna.</param>
@@ -90,6 +117,57 @@ namespace Tabalim.Core.controller
                 ColumnName = columnName,
                 DataType = InsertFieldType.DATE,
                 Tablename = data.TableName,
+                Value = value
+            };
+        }
+        /// <summary>
+        /// Crea el campo como una cadena
+        /// </summary>
+        /// <param name="data">El objeto a crear el campo.</param>
+        /// <param name="table_name">El nombre de la tabla.</param>
+        /// <param name="value">El valor de la columna.</param>
+        /// <returns>El campo actualizar</returns>
+        public static UpdateField CreateFieldAsString(this KeyValuePair<string, Object> data, string table_name, Object value)
+        {
+            return new UpdateField()
+            {
+                ColumnName = data.Key,
+                DataType = InsertFieldType.STRING,
+                Tablename = table_name,
+                Value = value == null ? String.Empty : value.ToString()
+            };
+        }
+        /// <summary>
+        /// Crea el campo como un número
+        /// </summary>
+        /// <param name="data">El objeto a crear el campo.</param>
+        /// <param name="table_name">El nombre de la tabla.</param>
+        /// <param name="value">El valor de la columna.</param>
+        /// <returns>El campo actualizar</returns>
+        public static UpdateField CreateFieldAsNumber(this KeyValuePair<string, Object> data, string table_name, Object value)
+        {
+            return new UpdateField()
+            {
+                ColumnName = data.Key,
+                DataType = InsertFieldType.NUMBER,
+                Tablename = table_name,
+                Value = value
+            };
+        }
+        /// <summary>
+        /// Crea el campo como fecha
+        /// </summary>
+        /// <param name="data">El objeto a crear el campo.</param>
+        /// <param name="table_name">El nombre de la tabla.</param>
+        /// <param name="value">El valor de la columna.</param>
+        /// <returns>El campo actualizar</returns>
+        public static UpdateField CreateFieldAsDate(this KeyValuePair<string, Object> data, string table_name, Object value)
+        {
+            return new UpdateField()
+            {
+                ColumnName = data.Key,
+                DataType = InsertFieldType.DATE,
+                Tablename = table_name,
                 Value = value
             };
         }

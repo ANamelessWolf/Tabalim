@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tabalim.Core.controller;
+using Tabalim.Core.runtime;
 using static Tabalim.Core.assets.Constants;
 namespace Tabalim.Core.model
 {
@@ -27,6 +28,13 @@ namespace Tabalim.Core.model
         /// El nombre de la base de datos
         /// </value>
         public string TableName { get { return TABLE_CIRCUIT; } }
+        /// <summary>
+        /// Establece el nombre de la columna usada como llave primaria
+        /// </summary>
+        /// <value>
+        /// El nombre de la llave primaria
+        /// </value>
+        public string PrimaryKey { get { return "cir_id"; } }
         /// <summary>
         /// Los polos alos que se conecta
         /// </summary>
@@ -154,7 +162,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Crea un registro del objeto en la base de datos.
         /// </summary>
-        /// <param name="conn">El objeto de conexión actual</param>
+        /// <param name="conn">La conexión a SQLite.</param>
         /// <param name="input">La entrada que necesita la conexión.</param>
         public bool Create(SQLite_Connector conn, object input)
         {
@@ -163,53 +171,6 @@ namespace Tabalim.Core.model
             this.Tension = tablero.Sistema.Tension;
             this.FactorTemperatura = Temperatura.GetFactor((int)tablero.Sistema.Temperatura);
             return conn.Insert(this);
-        }
-        /// <summary>
-        /// Actualiza un registro del objeto en la base de datos
-        /// </summary>
-        /// <param name="input"></param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void Update(object input)
-        {
-            throw new NotImplementedException();
-        }
-        /// <summary>
-        /// Realiza el parsing de un elemento seleccionado en SQLite
-        /// </summary>
-        /// <param name="result">El resultado seleccionado.</param>
-        public void Parse(SelectionResult[] result)
-        {
-            try
-            {
-                this.Id = (int)result.GetValue<long>("cir_id");
-                this.TableroId = (int)result.GetValue<long>("tab_id");
-                this.Polos = result.GetString("polos").ParsePolos();
-                this.FactorAgrupacion = result.GetValue<Double>("fac_agrup");
-                this.FactorTemperatura = result.GetValue<Double>("fac_temp");
-                this.Longitud = result.GetValue<Double>("longitud");
-                this.Interruptor = result.GetString("interruptor");
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-        /// <summary>
-        /// Obtiene los campos de inserción de un objeto
-        /// </summary>
-        /// <returns>Obtiene los campos de inserción</returns>
-        public InsertField[] GetInsertFields()
-        {
-            return new InsertField[]
-            {
-                this.CreateFieldAsNumber("tab_id", this.TableroId),
-                this.CreateFieldAsString("polos", String.Join(",", Polos)),
-                this.CreateFieldAsNumber("corriente", this.Corriente),
-                this.CreateFieldAsNumber("fac_temp", this.FactorTemperatura),
-                this.CreateFieldAsNumber("fac_agrup", this.FactorAgrupacion),
-                this.CreateFieldAsNumber("longitud", this.Longitud),
-                this.CreateFieldAsString("interruptor", this.Interruptor)
-            };
         }
         /// <summary>
         /// Crea instancia de circuito  a partir del numero de fases
@@ -245,5 +206,126 @@ namespace Tabalim.Core.model
             }
             return result;
         }
+        /// <summary>
+        /// Actualiza un registro del objeto en la base de datos
+        /// </summary>
+                /// <param name="conn">La conexión a SQLite.</param>
+        /// <param name="input">La entrada que recibe la operación</param>
+        /// <returns>
+        /// Verdadero si realizá la actualización.
+        /// </returns>
+        public bool Update(SQLite_Connector conn, KeyValuePair<string, object>[] input)
+        {
+            return this.UpdateTr(this.CreatePrimaryKeyCondition(), conn, input);
+        }
+        /// <summary>
+        /// Borra la instancia de la base de datos
+        /// </summary>
+                /// <param name="conn">La conexión a SQLite.</param>
+        /// <returns>
+        /// Verdadero si se borra el elemento
+        /// </returns>
+        public bool Delete(SQLite_Connector conn)
+        {
+            Boolean cmpFlag = false, ctoFlag = false;
+            int[] ids = this.Componentes.Keys.ToArray();
+            foreach (int id in ids)
+                cmpFlag = this.Componentes[id].Delete(conn);
+            ctoFlag = conn.DeletebyColumn(this.TableName, this.PrimaryKey, this.Id);
+            if (ctoFlag)
+                TabalimApp.CurrentTablero.Circuitos.Remove(this.ToString());
+            return ctoFlag && cmpFlag;
+        }
+        #region ISQLiteParser
+        /// <summary>
+        /// Realiza el parsing de un elemento seleccionado en SQLite
+        /// </summary>
+        /// <param name="result">El resultado seleccionado.</param>
+        public void Parse(SelectionResult[] result)
+        {
+            try
+            {
+                this.Id = (int)result.GetValue<long>(this.PrimaryKey);
+                this.TableroId = (int)result.GetValue<long>("tab_id");
+                this.Polos = result.GetString("polos").ParsePolos();
+                this.FactorAgrupacion = result.GetValue<Double>("fac_agrup");
+                this.FactorTemperatura = result.GetValue<Double>("fac_temp");
+                this.Longitud = result.GetValue<Double>("longitud");
+                this.Interruptor = result.GetString("interruptor");
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+        }
+        /// <summary>
+        /// Obtiene los campos de inserción de un objeto
+        /// </summary>
+        /// <returns>Obtiene los campos de inserción</returns>
+        public InsertField[] GetInsertFields()
+        {
+            return new InsertField[]
+            {
+                this.CreateFieldAsNumber("tab_id", this.TableroId),
+                this.CreateFieldAsString("polos", String.Join(",", Polos)),
+                this.CreateFieldAsNumber("corriente", this.Corriente),
+                this.CreateFieldAsNumber("fac_temp", this.FactorTemperatura),
+                this.CreateFieldAsNumber("fac_agrup", this.FactorAgrupacion),
+                this.CreateFieldAsNumber("longitud", this.Longitud),
+                this.CreateFieldAsString("interruptor", this.Interruptor)
+            };
+        }
+        /// <summary>
+        /// Obtiene los campos de actualización de un objeto
+        /// </summary>
+        /// <param name="input">La entrada del campo actualizar</param>
+        /// <returns>
+        /// El campo actualizar
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public UpdateField PickUpdateFields(KeyValuePair<string, object> input)
+        {
+            UpdateField value;
+            switch (input.Key)
+            {
+                case "fac_agrup":
+                case "fac_temp":
+                case "longitud":
+                    value = input.CreateFieldAsNumber(this.TableName, input.Value);
+                    break;
+                case "interruptor":
+                    value = input.CreateFieldAsString(this.TableName, input.Value);
+                    break;
+                default:
+                    value = null;
+                    break;
+            }
+            return value;
+        }
+        /// <summary>
+        /// Actualiza el modelo en caso que el query fuese actualizado de manera correcta
+        /// </summary>
+        /// <param name="input">Los datos de entrada que se usarón para actualizar</param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void UpdateFields(KeyValuePair<string, object>[] input)
+        {
+            foreach (var val in input)
+                switch (val.Key)
+                {
+                    case "fac_temp":
+                        this.FactorTemperatura = (double)val.Value;
+                        break;
+                    case "fac_agrup":
+                        this.FactorAgrupacion = (double)val.Value;
+                        break;
+                    case "longitud":
+                        this.Longitud = (double)val.Value;
+                        break;
+                    case "interruptor":
+                        this.Interruptor = (val.Value.ToString());
+                        break;
+                }
+        }
+        #endregion
     }
 }

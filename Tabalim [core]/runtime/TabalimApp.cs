@@ -68,21 +68,15 @@ namespace Tabalim.Core.runtime
         {
             var prjs = conn.Select<Project>(TABLE_PROYECTOS.SelectAll("\"prj_name\" = 'Sin Proyecto'"));
             CurrentProject = prjs[0];
-            var tabs = conn.Select<Tablero>(TABLE_TABLERO.SelectAll(String.Format("\"prj_id\" = {0}", prjs[0].Id)));
+            //Se carga las referencias de los tableros
+            //sin cargar circuitos ni componentes
+            var tabs = conn.Select<Tablero>(TABLE_TABLERO.SelectAll(CurrentProject.CreatePrimaryKeyCondition()));
+            foreach (Tablero tab in tabs)
+                CurrentProject.Tableros.Add(tab.Id, tab);
+            //Se cargan las referencias del tablero actual que es el último creado
             CurrentTablero = tabs.LastOrDefault();
             if (CurrentTablero != null)
-            {
-                var ctos = conn.Select<Circuito>(TABLE_CIRCUIT.SelectAll(String.Format("\"tab_id\" = {0}", CurrentTablero.Id)), Circuito.CircuitoParser);
-                //Guarda los circuitos existentes
-                string compQ;
-                foreach (Circuito c in ctos)
-                {
-                    compQ = TABLE_COMPONENT.SelectAll(String.Format("\"cir_id\" = {0}", c.Id));
-                    CurrentTablero.Circuitos.Add(c.ToString(), c);
-                    var cmps = conn.Select<Componente>(compQ, Componente.ComponentParser);
-                    cmps.ForEach(x => { CurrentTablero.Componentes.Add(x.Id, x); c.Componentes.Add(x.Id, x); });
-                }
-            }
+                CurrentTablero.LoadComponentesAndCircuits(conn);
             return new Object[] { prjs, tabs };
         }
         /// <summary>

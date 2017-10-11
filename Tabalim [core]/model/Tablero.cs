@@ -26,6 +26,13 @@ namespace Tabalim.Core.model
         /// </summary>
         public string TableName { get { return TABLE_TABLERO; } }
         /// <summary>
+        /// Establece el nombre de la columna usada como llave primaria
+        /// </summary>
+        /// <value>
+        /// El nombre de la llave primaria
+        /// </value>
+        public string PrimaryKey { get { return "tab_id"; } }
+        /// <summary>
         /// El sistema que ocupa el tablero.
         /// </summary>
         public SistemaFases Sistema;
@@ -63,9 +70,26 @@ namespace Tabalim.Core.model
             this.Description = String.Empty;
         }
         /// <summary>
+        /// Values the tuple.
+        /// </summary>
+        /// <param name="conn">La conexión a SQLite.</param>
+        public void LoadComponentesAndCircuits(SQLite_Connector conn)
+        {
+            var ctos = conn.Select<Circuito>(TABLE_CIRCUIT.SelectAll(this.CreatePrimaryKeyCondition()), Circuito.CircuitoParser);
+            //Guarda los circuitos existentes
+            string compQ;
+            foreach (Circuito c in ctos)
+            {
+                compQ = TABLE_COMPONENT.SelectAll(String.Format("\"cir_id\" = {0}", c.Id));
+                this.Circuitos.Add(c.ToString(), c);
+                var cmps = conn.Select<Componente>(compQ, Componente.ComponentParser);
+                cmps.ForEach(x => { this.Componentes.Add(x.Id, x); c.Componentes.Add(x.Id, x); });
+            }
+        }
+        /// <summary>
         /// Crea un registro del objeto en la base de datos.
         /// </summary>
-        /// <param name="conn">El objeto de conexión actual</param>
+        /// <param name="conn">La conexión a SQLite.</param>
         /// <param name="input">La entrada que necesita la conexión.</param>
         public Boolean Create(SQLite_Connector conn, Object input)
         {
@@ -76,9 +100,30 @@ namespace Tabalim.Core.model
         /// </summary>
         /// <param name="componente">El componente seleccionado.</param>
         /// <param name="circuito">El circuito del componente seleccionado.</param>
-        public void Update(Object input)
+        public Boolean Update(SQLite_Connector conn, params KeyValuePair<String, Object>[] input)
         {
+            return this.UpdateTr(this.CreatePrimaryKeyCondition(), conn, input);
         }
+        /// <summary>
+        /// Borra la instancia de la base de datos
+        /// </summary>
+        /// <param name="conn">La conexión a SQLite.</param>
+        /// <returns>
+        /// Verdadero si se borra el elemento
+        /// </returns>
+        public bool Delete(SQLite_Connector conn)
+        {
+            Boolean ctoFlag = false, tabFlag = false;
+            //El circuito borrará los componentes
+            string[] keys = this.Circuitos.Keys.ToArray();
+            foreach (string key in keys)
+                ctoFlag = this.Circuitos[key].Delete(conn);
+            tabFlag = conn.DeletebyColumn(this.TableName, this.PrimaryKey, this.Id);
+            if (tabFlag)
+                TabalimApp.CurrentProject.Tableros.Remove(this.Id);
+            return ctoFlag && tabFlag;
+        }
+        #region ISQLiteParser
         /// <summary>
         /// Realiza el parsing de un elemento seleccionado en SQLite
         /// </summary>
@@ -87,7 +132,7 @@ namespace Tabalim.Core.model
         {
             try
             {
-                this.Id = (int)result.GetValue<long>("tab_id");
+                this.Id = (int)result.GetValue<long>(this.PrimaryKey);
                 this.ProjectId = (int)result.GetValue<long>("prj_id");
                 this.NombreTablero = result.GetString("tab_name");
                 this.Description = result.GetString("tab_desc");
@@ -120,5 +165,64 @@ namespace Tabalim.Core.model
                 this.CreateFieldAsNumber("temperature", this.Sistema.Temperatura)
             };
         }
+        /// <summary>
+        /// Obtiene los campos de actualización de un objeto
+        /// </summary>
+        /// <param name="input">La entrada del campo actualizar</param>
+        /// <returns>
+        /// El campo actualizar
+        /// </returns>
+        public UpdateField PickUpdateFields(KeyValuePair<string, object> input)
+        {
+            UpdateField value;
+            switch (input.Key)
+            {
+                case "prj_id":
+                case "temperature":
+                    value = input.CreateFieldAsNumber(this.TableName, input.Value);
+                    break;
+                case "tab_name":
+                case "tab_desc":
+                    value = input.CreateFieldAsString(this.TableName, input.Value);
+                    break;
+                case "is_interruptor":
+                    TipoAlimentacion tpAlim = (TipoAlimentacion)input.Value;
+                    int val = tpAlim == TipoAlimentacion.Interruptor ? 1 : 0;
+                    value = input.CreateFieldAsNumber(this.TableName, val);
+                    break;
+                default:
+                    value = null;
+                    break;
+            }
+            return value;
+        }
+        /// <summary>
+        /// Actualiza el modelo en caso que el query fuese actualizado de manera correcta
+        /// </summary>
+        /// <param name="input">Los datos de entrada que se usarón para actualizar</param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void UpdateFields(KeyValuePair<string, object>[] input)
+        {
+            foreach (var val in input)
+                switch (val.Key)
+                {
+                    case "prj_id":
+                        this.ProjectId = (int)val.Value;
+                        break;
+                    case "tab_name":
+                        this.NombreTablero = val.Value.ToString();
+                        break;
+                    case "tab_desc":
+                        this.Description = val.Value.ToString();
+                        break;
+                    case "is_interruptor":
+                        this.Sistema.TpAlimentacion = (TipoAlimentacion)val.Value;
+                        break;
+                    case "temperature":
+                        this.Sistema.Temperatura = (double)val.Value;
+                        break;
+                }
+        }
+        #endregion
     }
 }

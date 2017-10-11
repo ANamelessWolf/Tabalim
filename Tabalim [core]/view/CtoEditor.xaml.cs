@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tabalim.Core.controller;
 using Tabalim.Core.model;
+using MahApps.Metro.Controls.Dialogs;
+using MahApps.Metro.Controls;
+using Tabalim.Core.runtime;
 
 namespace Tabalim.Core.view
 {
@@ -96,10 +99,8 @@ namespace Tabalim.Core.view
         /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
         private void btnEditCircuito_Click(object sender, RoutedEventArgs e)
         {
-            var cKey = (((sender as Button).Parent as Grid).Children[0] as TextBlock).Text;
-            cKey = cKey.Split('(')[1].Split(')')[0];
-            CtoCompItem item = this.listOfCircuits.ItemsSource.OfType<CtoCompItem>().Where(x => x.CtoKey == cKey).FirstOrDefault();
-            Circuito cto = item.Circuit;
+            string cKey;
+            Circuito cto = GetCircuito(sender as Button, out cKey);
             var inp = new CircuitInput(cto);
             inp.ShowDialog();
             if (inp.DialogResult.Value)
@@ -109,6 +110,49 @@ namespace Tabalim.Core.view
                     it.CtoFormat = String.Format(ctoFormat, cto, cto.Longitud);
                 ((CollectionView)CollectionViewSource.GetDefaultView(this.listOfCircuits.ItemsSource)).Refresh();
             }
+        }
+        /// <summary>
+        /// Handles the Click event of the btnDeleteCircuito control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private async void btnDeleteCircuito_Click(object sender, RoutedEventArgs e)
+        {
+            string cKey;
+            Circuito cto = GetCircuito(sender as Button, out cKey);
+            var metroWindow = Application.Current.Windows.OfType<Window>()
+                                     .SingleOrDefault(x => x.IsActive) as MetroWindow;
+            MessageDialogResult res = await metroWindow.ShowMessageAsync("Eliminar circuito", String.Format("Esta seguro de querere eliminar el cto {0}", cto), MessageDialogStyle.AffirmativeAndNegative);
+            if (res == MessageDialogResult.Affirmative)
+            {
+                SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+                {
+                    TransactionTask = (SQLite_Connector conn, Object input) =>
+                    {
+                        Circuito c = input as Circuito;
+                        return c.Delete(conn);
+                    },
+                    TaskCompleted = (Object result) =>
+                    {
+                        if ((Boolean)result)
+                            this.Refresh();
+                    }
+                };
+                tr.Run(cto);
+            }
+        }
+        /// <summary>
+        /// Obtiene el circuito asociado al botón presionado
+        /// </summary>
+        /// <param name="sender">El botón que envía la acción.</param>
+        /// <returns>El circuito seleccionado</returns>
+        private Circuito GetCircuito(Button sender, out string cKey)
+        {
+            cKey = (((sender.Parent as StackPanel).Parent as Grid).Children[0] as TextBlock).Text;
+            cKey = cKey.Split('(')[1].Split(')')[0];
+            string key = cKey;
+            CtoCompItem item = this.listOfCircuits.ItemsSource.OfType<CtoCompItem>().Where(x => x.CtoKey == key).FirstOrDefault();
+            return item.Circuit;
         }
     }
 }

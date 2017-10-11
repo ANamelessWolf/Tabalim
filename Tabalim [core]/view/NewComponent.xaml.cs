@@ -222,6 +222,7 @@ namespace Tabalim.Core.view
             if (picker.DialogResult.Value)
             {
                 this.CType = picker.SelectedItem.CType;
+                this.ImageIndex = picker.SelectedItem.Index;
                 this.miniature.Source = picker.SelectedItem.Index.LoadImage(imgGalleryPath, 32, true);
                 this.UpdatePowerSelector();
             }

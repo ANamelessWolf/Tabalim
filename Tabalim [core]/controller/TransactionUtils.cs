@@ -87,6 +87,8 @@ namespace Tabalim.Core.controller
                         tablero.Circuitos.Add(cto.ToString(), cto);
                     if (!tablero.Componentes.ContainsKey(cmp.Id))
                         tablero.Componentes.Add(cmp.Id, cmp);
+                    if (!cto.Componentes.ContainsKey(cmp.Id))
+                        cto.Componentes.Add(cmp.Id, cmp);
                 }
                 else
                     throw new Exception("Error al anexar el componente.");
@@ -102,9 +104,7 @@ namespace Tabalim.Core.controller
         /// <returns>El componente insertado</returns>
         public static Componente InsertComponentTr(this SQLite_Connector conn, Componente cmp, Circuito cto)
         {
-            if (cmp.Create(conn, cto))
-                cmp.Id = (int)conn.SelectValue<long>(TABLE_COMPONENT.SelectLastId("comp_id"));
-            return cmp;
+            return cmp.GetLastId<Componente>(conn, cto);
         }
         /// <summary>
         /// Crea una transacción que inserta un componente en la base de datos
@@ -115,9 +115,27 @@ namespace Tabalim.Core.controller
         /// <returns>El componente insertado</returns>
         public static Circuito InsertCircuitTr(this SQLite_Connector conn, Circuito cto, Tablero tab)
         {
-            if (cto.Create(conn, tab))
-                cto.Id = (int)conn.SelectValue<long>(TABLE_CIRCUIT.SelectLastId("cir_id"));
-            return cto;
+            return cto.GetLastId<Circuito>(conn, tab);
         }
+        /// <summary>
+        /// Actualiza un elemento mediante una condición
+        /// </summary>
+        /// <param name="element">El elemento actualizar.</param>
+        /// <param name="condition">La condición a evaluar.</param>
+        /// <param name="conn">La conexión a SQLite.</param>
+        /// <param name="input">The input.</param>
+        /// <returns></returns>
+        public static Boolean UpdateTr(this ISQLiteParser element, string condition, SQLite_Connector conn, KeyValuePair<string, object>[] input)
+        {
+            UpdateField[] data = input.Select(x => element.PickUpdateFields(x)).Where(y => y != null).ToArray();
+            if (conn.Update(data, condition))
+            {
+                element.UpdateFields(input);
+                return true;
+            }
+            else
+                return false;
+        }
+        
     }
 }
