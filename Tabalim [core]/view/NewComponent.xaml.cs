@@ -209,7 +209,7 @@ namespace Tabalim.Core.view
         /// <exception cref="System.NotImplementedException"></exception>
         private void FillCircuitosList(Componente existantComponent)
         {
-            var ctos = UiUtils.GetAvailableCircuitos(TabalimApp.CurrentTablero, this.Fases, false);
+            var ctos = UiUtils.GetAvailableCircuitos(TabalimApp.CurrentTablero, this.Fases, this.CType == ComponentType.Motor);
             var item = new CtoItem(ctos.ElementAt(0));
            this.listOfCircuits.ItemsSource = ctos.Select(x => new CtoItem(x));
         }
@@ -250,7 +250,7 @@ namespace Tabalim.Core.view
             if (!this.IsLoaded)
                 return;
             this.UpdatePowerSelector();
-            this.listOfCircuits.ItemsSource = UiUtils.GetAvailableCircuitos(TabalimApp.CurrentTablero, this.Fases, false).Select(x => new CtoItem(x));
+            this.listOfCircuits.ItemsSource = UiUtils.GetAvailableCircuitos(TabalimApp.CurrentTablero, this.Fases, this.CType == ComponentType.Motor).Select(x => new CtoItem(x));
         }
         /// <summary>
         /// Validates the input pasted string

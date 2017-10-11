@@ -45,7 +45,7 @@ namespace Tabalim.Core.controller
             IEnumerable<int> fullPolos = tablero.Circuitos.Values.Where(x => isMotor || x.HasMotor || cFases != x.Polos.Length).SelectMany(x => x.Polos);
             List<int> odd = new List<int>(), even = new List<int>();
             int oddCount = cFases, evenCount = cFases;
-            for(int i = 1; i <= tablero.Sistema.Polo; i++)
+            foreach(int i in Enumerable.Range(1, tablero.Sistema.Polo).Except(fullPolos))
             {
                 if(oddCount == 0)
                 {
@@ -56,7 +56,7 @@ namespace Tabalim.Core.controller
                 }
                 if(i % 2 == 1)
                 {
-                    if(!fullPolos.Contains(i))
+                    if (!fullPolos.Contains(i))
                         odd.Add(i);
                     oddCount--;
                 }
