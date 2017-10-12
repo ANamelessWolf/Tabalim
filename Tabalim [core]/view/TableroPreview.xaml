@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tabalim.Core.view"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="900">
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="300" d:DesignWidth="1100">
     <Grid>
-        <ListView>
+        <ListView x:Name="circuitos" ItemsSource="{Binding DataCollection}">
             <ListView.View>
-                <GridView AllowsColumnReorder="True">
+                <GridView x:Name="gridView" AllowsColumnReorder="True">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Nombre}">
                         <GridViewColumnHeader>
                             Nombre
@@ -20,73 +20,73 @@
                             Potencia
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Tension}">
                         <GridViewColumnHeader>
                             Tensión
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Fases}">
                         <GridViewColumnHeader>
                             Fases
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Corriente}">
                         <GridViewColumnHeader>
                             Corriente
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Longitud}">
                         <GridViewColumnHeader>
                             Longitud
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FacAgr}">
                         <GridViewColumnHeader>
                             FacAgr
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FacTmp}">
                         <GridViewColumnHeader>
                             Temp
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Calibre}">
                         <GridViewColumnHeader>
                             Calibre
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Seccion}">
                         <GridViewColumnHeader>
                             Sección
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Caida}">
                         <GridViewColumnHeader>
                             Caida de Voltaje
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PotenciaA}">
                         <GridViewColumnHeader>
                             Potencia A
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PotenciaB}">
                         <GridViewColumnHeader>
                             Potencia B
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PotenciaC}">
                         <GridViewColumnHeader>
                             Potencia C
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Proteccion}">
                         <GridViewColumnHeader>
                             Protección
                         </GridViewColumnHeader>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
-        </ListView>            
+        </ListView>
     </Grid>
 </UserControl>

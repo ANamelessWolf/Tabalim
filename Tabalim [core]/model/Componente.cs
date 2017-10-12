@@ -65,6 +65,13 @@ namespace Tabalim.Core.model
         /// </summary>
         public abstract double FactorProteccion { get; }
         /// <summary>
+        /// Gets the key.
+        /// </summary>
+        /// <value>
+        /// The key.
+        /// </value>
+        public String Key { get { return ImageIndex + "-" + Potencia; } }
+        /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Alumbrado"/>.
         /// </summary>
         /// <param name="potencia">Potencia en watts.</param>

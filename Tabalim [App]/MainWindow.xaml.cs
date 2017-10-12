@@ -53,7 +53,10 @@ namespace Tabalim.App
             var dialog = new ComponentPicker();
             dialog.ShowDialog();
             if (dialog.DialogResult.Value)
+            {
                 TabalimApp.CurrentTablero.AddComponentTr(dialog.SelectedComponent);
+                tablero.UpdateData();
+            }
         }
     }
 }

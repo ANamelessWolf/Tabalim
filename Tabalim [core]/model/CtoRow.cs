@@ -24,6 +24,7 @@ namespace Tabalim.Core.model
         public String PotenciaB => Circuito.PotenciaEnFases[1].ToString("#.##");
         public String PotenciaC => Circuito.PotenciaEnFases[2].ToString("#.##");
         public String Proteccion => Circuito.CorrienteProteccion.ToString("#.##");
+        public Dictionary<String, int> Componentes => Circuito.Componentes.Values.ToDictionary(k => k.Key, e => e.Count);
         public CtoRow(Circuito c)
         {
             this.Circuito = c;
