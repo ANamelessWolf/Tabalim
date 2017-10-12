@@ -77,5 +77,26 @@ namespace Tabalim.Core.model
         {
             throw new Exception("Esta tabla no permite insertar desde la aplicación.");
         }
+        /// <summary>
+        /// Obtiene los campos de actualización de un objeto
+        /// </summary>
+        /// <param name="input">La entrada del campo actualizar</param>
+        /// <returns>
+        /// El campo actualizar
+        /// </returns>
+        /// <exception cref="Exception">Esta tabla no permite actualizar desde la aplicación.</exception>
+        public UpdateField PickUpdateFields(KeyValuePair<string, object> input)
+        {
+            throw new Exception("Esta tabla no permite actualizar desde la aplicación.");
+        }
+        /// <summary>
+        /// Actualiza el modelo en caso que el query fuese actualizado de manera correcta
+        /// </summary>
+        /// <param name="input">Los datos de entrada que se usarón para actualizar</param>
+        /// <exception cref="Exception">Esta tabla no permite actualizar desde la aplicación.</exception>
+        public void UpdateFields(KeyValuePair<string, object>[] input)
+        {
+            throw new Exception("Esta tabla no permite actualizar desde la aplicación.");
+        }
     }
 }

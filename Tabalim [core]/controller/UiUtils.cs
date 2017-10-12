@@ -1,9 +1,12 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using Tabalim.Core.model;
 
@@ -31,6 +34,20 @@ namespace Tabalim.Core.controller
             img.CacheOption = BitmapCacheOption.OnLoad;
             img.EndInit();
             return img;
+        }
+        /// <summary>
+        /// Muestra un dialogo que realizá una pregunta al usuario
+        /// </summary>
+        /// <param name="control">El control que solicita la pregunta.</param>
+        /// <param name="title">El titulo del mensaje</param>
+        /// <param name="msg">El mensaje.</param>
+        /// <returns>Verdadero cuando el usuario da clic en Ok</returns>
+        public static async Task<Boolean> ShowQuestionDialog(this System.Windows.Controls.UserControl control, String title, String msg)
+        {
+            var metroWindow = Application.Current.Windows.OfType<Window>()
+                             .SingleOrDefault(x => x.IsActive) as MetroWindow;
+            MessageDialogResult res = await metroWindow.ShowMessageAsync(title, msg, MessageDialogStyle.AffirmativeAndNegative);
+            return res == MessageDialogResult.Affirmative;
         }
         /// <summary>
         /// Devuelve la colección de circuitos disponibles.

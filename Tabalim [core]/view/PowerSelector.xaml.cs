@@ -59,6 +59,16 @@ namespace Tabalim.Core.view
                     return new Potencia(watts);
                 }
             }
+            set
+            {
+                if (Power == PowerType.HP)
+                {
+                    int index = this.cboHP.ItemsSource.OfType<HPItem>().Select(x => new Potencia(x.HP, true).HP).ToList().IndexOf(value.HP);
+                    this.cboHP.SelectedIndex = index;
+                }
+                else
+                    this.tboWatts.Text = value.Watts.ToString();
+            }
         }
         /// <summary>
         /// La propiedad de fases
@@ -112,6 +122,18 @@ namespace Tabalim.Core.view
             }
         }
         /// <summary>
+        /// The existant input
+        /// </summary>
+        public Object ExistantInput;
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PowerSelector"/>.
+        /// </summary>
+        public PowerSelector(int fases, PowerType pt, Potencia p)
+        {
+            this.ExistantInput = new Object[] { fases, pt, p };
+            InitializeComponent();
+        }
+        /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PowerSelector"/>.
         /// </summary>
         public PowerSelector()
@@ -149,9 +171,17 @@ namespace Tabalim.Core.view
                     if (this.cboHP.Items.Count > 0)
                         this.cboHP.SelectedIndex = 0;
                     this.cboHP.SelectionChanged += cboHP_SelectionChanged;
+                    if (ExistantInput != null)
+                    {
+                        Object[] input =   this.ExistantInput as Object[];
+                        this.Fases = (int)input[0];
+                        this.Power = (PowerType)input[1];
+                        this.SelectedPower = (Potencia)input[2];
+                    }
                 }
             };
             tr.Run(null);
+
         }
         /// <summary>
         /// Verifica que el componente sea del tipo especificado

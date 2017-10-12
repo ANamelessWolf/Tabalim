@@ -96,7 +96,7 @@ namespace Tabalim.Core.controller
         /// <param name="query">El query de selección</param>
         /// <param name="parsingTask">En caso de que los elementos definan una clase abstracta se debe definir un parsing avanzado.</param>
         /// <returns>La colección de elementos seleccionados</returns>
-        public List<T> Select<T>(string query, Func<List<SelectionResult[]>, List<T>> parsingTask=null) where T : ISQLiteParser
+        public List<T> Select<T>(string query, Func<List<SelectionResult[]>, List<T>> parsingTask = null) where T : ISQLiteParser
         {
             try
             {
@@ -148,42 +148,117 @@ namespace Tabalim.Core.controller
             return this.QuerySucced;
         }
         /// <summary>
-        /// Ejecuta un query mediante un comando
+        /// Actualiza un nuevo registro en la base de datos
         /// </summary>
-        /// <param name="cmd">El comando a ejecutar</param>
-        public int Query(SQLiteCommand cmd)
+        /// <param name="data">La información a actualizar en la tabla</param>
+        /// <param name="condition">La condición para realizar el update</param>
+        /// <param name="db">La base de datos por defecto</param>
+        /// <returns>Verdadero cuando realizá la inserción de manera correcta</returns>
+        public Boolean Update(UpdateField[] data, string condition, string db = "main")
         {
             try
             {
-                cmd.Connection = this.Connection;
-                int result = cmd.ExecuteNonQuery();
-                this.QuerySucced = true;
-                return result;
+                SQLiteCommand cmd = new SQLiteCommand();
+                //Query definition
+                String query = "UPDATE \"{0}\".\"{1}\" SET {2} WHERE {3} ",
+                tableName = data[0].Tablename,
+                setStr = String.Empty;
+                foreach (UpdateField field in data)
+                {
+                    setStr += String.Format("\"{0}\" = @{0}, ", field.ColumnName);
+                    cmd.Parameters.Add(field.GetSQLiteParameter());
+                }
+                setStr = setStr.Substring(0, setStr.Length - 2);
+                query = String.Format(query, db, tableName, setStr, condition);
+                cmd.CommandText = query;
+                this.Query(cmd);
             }
             catch (Exception exc)
             {
-                this.QuerySucced = false;
-                throw exc;
+                this.Error = exc.Message;
             }
+            return this.QuerySucced;
         }
         /// <summary>
-        /// Selecciona el nombre de las tablas seleccionadas
+        /// Borra uno o más elementos que satisfacen la condición
         /// </summary>
-        /// <returns>La lista de las tablas</returns>
-        public List<String> SelectTables()
+        /// <param name="condition">La condición a evaluar</param>
+        /// <param name="tableName">El nombre de la tabla</param>
+        /// <param name="db">La base de datos por defecto</param>
+        /// <returns>Verdadero cuando se borra el elemento de manera correcta.</returns>
+        public Boolean Delete(string tableName, string condition, string db = "main")
         {
-            String query = "SELECT tbl_name FROM sqlite_master";
-            return this.Select(query).Select(x => x[0]).ToList();
+            try
+            {
+                SQLiteCommand cmd = new SQLiteCommand();
+                //Query definition
+                String query = "DELETE FROM \"{0}\".\"{1}\" WHERE {2} ";
+                query = String.Format(query, db, tableName, condition);
+                cmd.CommandText = query;
+                this.Query(cmd);
+            }
+            catch (Exception exc)
+            {
+                this.Error = exc.Message;
+            }
+            return this.QuerySucced;
         }
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, 
-        /// releasing, or resetting unmanaged resources.
+        /// Borra uno o más elementos por condición que la columna
+        /// sea igual a un valor especifico
         /// </summary>
-        public void Dispose()
+        /// <param name="columnName">Column name</param>
+        /// <param name="columnValue">El valor al que es igual la columna.</param>
+        /// <param name="tableName">El nombre de la tabla</param>
+        /// <param name="db">La base de datos por defecto</param>
+        /// <returns>Verdadero cuando se borra el elemento de manera correcta.</returns>
+        public Boolean DeletebyColumn(string tableName, string columnName, Object columnValue, string db = "main")
         {
-            this.Connection.Close();
-            this.Connection.Dispose();
+            string condition;
+            if (columnValue.GetType().IsValueType)
+                condition = "\"{0}\" = {1}";
+            else
+                condition = "\"{0}\" = \"{1}\"";
+            condition = String.Format(condition, columnName, columnValue);
+            return this.Delete(tableName, condition, db);
         }
-
+    /// <summary>
+    /// Ejecuta un query mediante un comando
+    /// </summary>
+    /// <param name="cmd">El comando a ejecutar</param>
+    public int Query(SQLiteCommand cmd)
+    {
+        try
+        {
+            cmd.Connection = this.Connection;
+            int result = cmd.ExecuteNonQuery();
+            this.QuerySucced = true;
+            return result;
+        }
+        catch (Exception exc)
+        {
+            this.QuerySucced = false;
+            throw exc;
+        }
     }
+    /// <summary>
+    /// Selecciona el nombre de las tablas seleccionadas
+    /// </summary>
+    /// <returns>La lista de las tablas</returns>
+    public List<String> SelectTables()
+    {
+        String query = "SELECT tbl_name FROM sqlite_master";
+        return this.Select(query).Select(x => x[0]).ToList();
+    }
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, 
+    /// releasing, or resetting unmanaged resources.
+    /// </summary>
+    public void Dispose()
+    {
+        this.Connection.Close();
+        this.Connection.Dispose();
+    }
+
+}
 }

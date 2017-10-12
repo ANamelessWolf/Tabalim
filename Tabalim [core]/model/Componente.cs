@@ -25,6 +25,13 @@ namespace Tabalim.Core.model
         /// </value>
         public string TableName { get { return TABLE_COMPONENT; } }
         /// <summary>
+        /// Establece el nombre de la columna usada como llave primaria
+        /// </summary>
+        /// <value>
+        /// El nombre de la llave primaria
+        /// </value>
+        public string PrimaryKey { get { return "comp_id"; } }
+        /// <summary>
         /// Especifica la potencia del componente
         /// </summary>
         public Potencia Potencia;
@@ -111,7 +118,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Crea un registro del objeto en la base de datos.
         /// </summary>
-        /// <param name="conn">El objeto de conexión actual</param>
+        /// <param name="conn">La conexión a SQLite.</param>
         /// <param name="input">La entrada que necesita la conexión.</param>
         public Boolean Create(SQLite_Connector conn, Object input)
         {
@@ -122,12 +129,37 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Actualiza un registro del objeto en la base de datos
         /// </summary>
-        /// <param name="input"></param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void Update(object input)
+        /// <param name="conn">La conexión a SQLite.</param>
+        /// <param name="input">La entrada que recibe la operación</param>
+        /// <returns>
+        /// Verdadero si realizá la actualización.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool Update(SQLite_Connector conn, KeyValuePair<string, object>[] input)
         {
-            throw new NotImplementedException();
+            return this.UpdateTr(this.CreatePrimaryKeyCondition(), conn, input);
         }
+        /// <summary>
+        /// Borra la instancia de la base de datos
+        /// </summary>
+        /// <param name="conn">La conexión a SQLite.</param>
+        /// <returns>
+        /// Verdadero si se borra el elemento
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool Delete(SQLite_Connector conn)
+        {
+            Boolean cmpFlag = conn.DeletebyColumn(this.TableName, this.PrimaryKey, this.Id);
+            if (cmpFlag)
+            {
+                Circuito.Componentes.Remove(this.Id);
+                if (Circuito.Componentes.Count == 0)
+                    Circuito.Delete(conn);
+                TabalimApp.CurrentTablero.Componentes.Remove(this.Id);
+            }
+            return cmpFlag;
+        }
+        #region ISQLiteParser
         /// <summary>
         /// Realiza el parsing de un elemento seleccionado en SQLite
         /// </summary>
@@ -136,7 +168,7 @@ namespace Tabalim.Core.model
         {
             try
             {
-                this.Id = (int)result.GetValue<long>("comp_id");
+                this.Id = (int)result.GetValue<long>(this.PrimaryKey);
                 int cirId = (int)result.GetValue<long>("cir_id");
                 this.Circuito = TabalimApp.CurrentTablero.Circuitos.Values.FirstOrDefault(x => x.Id == cirId);
                 this.ImageIndex = result.GetInteger("img_index");
@@ -163,5 +195,60 @@ namespace Tabalim.Core.model
                 this.CreateFieldAsNumber("comp_count", this.Count),
             };
         }
+        /// <summary>
+        /// Obtiene los campos de actualización de un objeto
+        /// </summary>
+        /// <param name="input">La entrada del campo actualizar</param>
+        /// <returns>
+        /// El campo actualizar
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public UpdateField PickUpdateFields(KeyValuePair<string, object> input)
+        {
+            UpdateField value;
+            switch (input.Key)
+            {
+                case "cir_id":
+                    Circuito cto = (Circuito)input.Value;
+                    value = input.CreateFieldAsNumber(this.TableName, cto.Id);
+                    break;
+                case "comp_count":
+                    value = input.CreateFieldAsNumber(this.TableName, input.Value);
+                    break;
+                case "potencia":
+                    Potencia val = (Potencia)input.Value;
+                    value = input.CreateFieldAsNumber(this.TableName, this is Motor ? val.HP : val.Watts);
+                    break;
+                default:
+                    value = null;
+                    break;
+            }
+            return value;
+        }
+        /// <summary>
+        /// Actualiza el modelo en caso que el query fuese actualizado de manera correcta
+        /// </summary>
+        /// <param name="input">Los datos de entrada que se usarón para actualizar</param>
+        public void UpdateFields(KeyValuePair<string, object>[] input)
+        {
+            foreach (var val in input)
+                switch (val.Key)
+                {
+                    case "potencia":
+                        this.Potencia = (Potencia)val.Value;
+                        break;
+                    case "comp_count":
+                        this.Count = (int)val.Value;
+                        break;
+                    case "cir_id":
+                        this.Circuito.Componentes.Remove(this.Id);
+                        if (this.Circuito.Componentes.Count == 0)
+                            TabalimApp.CurrentTablero.Circuitos.Remove(this.Circuito.ToString());
+                        this.Circuito = (Circuito)val.Value;
+                        this.Circuito.Componentes.Add(this.Id, this);
+                        break;
+                }
+        }
+        #endregion
     }
 }

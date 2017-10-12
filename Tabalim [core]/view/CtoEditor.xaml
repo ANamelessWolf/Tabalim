@@ -91,14 +91,17 @@
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="2*"/>
                                                         <ColumnDefinition Width="1*"/>
-                                                        <ColumnDefinition Width="60"/>
+                                                        <ColumnDefinition Width="auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Text="{Binding Name}" Style="{StaticResource TabalimGroupHeader}" Margin="10,0,0,0"/>
-                                                    <TextBlock Grid.Column="1" HorizontalAlignment="Right">
+                                                    <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
                                                         <TextBlock Text="{Binding ItemCount}" Style="{StaticResource TabalimGroupHighlight}" Margin="10,0,10,0" />
                                                         <TextBlock Text=" componente(s)" Style="{StaticResource TabalimGroupLess}"  />
                                                         </TextBlock>
-                                                    <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe104;" Click="btnEditCircuito_Click" Grid.Column="3"/>
+                                                    <StackPanel Orientation="Horizontal"  Grid.Column="3">
+                                                        <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe104;" Click="btnEditCircuito_Click"/>
+                                                        <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe106;" Click="btnDeleteCircuito_Click"/>
+                                                    </StackPanel>
                                                 </Grid>
                                             </Expander.Header>
                                             <ItemsPresenter />
