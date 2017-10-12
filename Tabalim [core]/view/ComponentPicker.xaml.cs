@@ -42,14 +42,21 @@ namespace Tabalim.Core.view
         /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
         private async void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            this.SelectedComponent = this.componentPicker.GetComponent();
-            if (this.SelectedComponent != null)
+            try
             {
-                this.DialogResult = true;
-                this.Close();
+                this.SelectedComponent = this.componentPicker.GetComponent();
+                if (this.SelectedComponent != null && this.componentPicker.IsValid())
+                {
+                    this.DialogResult = true;
+                    this.Close();
+                }
+                else
+                    await this.ShowMessageAsync("Ningún componente seleccionado", "Debe seleccionar un componente válido para continuar");
             }
-            else
-                await this.ShowMessageAsync("Ningún componente seleccionado", "Debe seleccionar un componente válido para continuar");
+            catch (Exception exc)
+            {
+                await this.ShowMessageAsync("Componente Incompleto", "Debe seleccionar todos los campos de componente para poder crearlo.\n" + exc.Message);
+            }
         }
         /// <summary>
         /// Maneja el evento que realizá dar clic en el botón de Cancel

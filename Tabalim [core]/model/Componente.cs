@@ -146,6 +146,8 @@ namespace Tabalim.Core.model
             if (cmpFlag)
             {
                 Circuito.Componentes.Remove(this.Id);
+                if (Circuito.Componentes.Count == 0)
+                    Circuito.Delete(conn);
                 TabalimApp.CurrentTablero.Componentes.Remove(this.Id);
             }
             return cmpFlag;
@@ -199,12 +201,16 @@ namespace Tabalim.Core.model
             UpdateField value;
             switch (input.Key)
             {
-                case "potencia":
-                    Potencia val = (Potencia)input.Value;
-                    value = input.CreateFieldAsNumber(this.TableName, this is Motor ? val.HP : val.Watts);
+                case "cir_id":
+                    Circuito cto = (Circuito)input.Value;
+                    value = input.CreateFieldAsNumber(this.TableName, cto.Id);
                     break;
                 case "comp_count":
                     value = input.CreateFieldAsNumber(this.TableName, input.Value);
+                    break;
+                case "potencia":
+                    Potencia val = (Potencia)input.Value;
+                    value = input.CreateFieldAsNumber(this.TableName, this is Motor ? val.HP : val.Watts);
                     break;
                 default:
                     value = null;
@@ -216,7 +222,6 @@ namespace Tabalim.Core.model
         /// Actualiza el modelo en caso que el query fuese actualizado de manera correcta
         /// </summary>
         /// <param name="input">Los datos de entrada que se usarón para actualizar</param>
-        /// <exception cref="NotImplementedException"></exception>
         public void UpdateFields(KeyValuePair<string, object>[] input)
         {
             foreach (var val in input)
@@ -227,6 +232,13 @@ namespace Tabalim.Core.model
                         break;
                     case "comp_count":
                         this.Count = (int)val.Value;
+                        break;
+                    case "cir_id":
+                        this.Circuito.Componentes.Remove(this.Id);
+                        if (this.Circuito.Componentes.Count == 0)
+                            TabalimApp.CurrentTablero.Circuitos.Remove(this.Circuito.ToString());
+                        this.Circuito = (Circuito)val.Value;
+                        this.Circuito.Componentes.Add(this.Id, this);
                         break;
                 }
         }

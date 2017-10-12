@@ -107,6 +107,69 @@ namespace Tabalim.Core.controller
             return cmp.GetLastId<Componente>(conn, cto);
         }
         /// <summary>
+        /// Define la transacción que actualiza un componente
+        /// </summary>
+        /// <param name="component">El componente actualizar.</param>
+        /// <param name="tablero">El tablero actualizar.</param>
+        /// <param name="task_completed">La tarea que se ejecuta al terminar la transacción.</param>
+        /// <param name="cto">El nuevo circuito.</param>
+        /// <param name="cmp_count">El número total de componentes.</param>
+        /// <param name="potencia">La potencia del circuito.</param>
+        public static void UpdateComponentTr(this Componente component, Tablero tablero, Action<Object> task_completed, Circuito circuit = null, int cmp_count = 0, Potencia potencia = null)
+        {
+            KeyValuePair<string, object>[] updateData = new KeyValuePair<string, object>[]
+            {
+                circuit != null ? new KeyValuePair<string, object>("cir_id", circuit) : new KeyValuePair<string, object>(String.Empty, null),
+                cmp_count > 0 ? new KeyValuePair<string, object>("comp_count", cmp_count) : new KeyValuePair<string, object>(String.Empty, null),
+                potencia !=null ? new KeyValuePair<string, object>("potencia", potencia) : new KeyValuePair<string, object>(String.Empty, null)
+            }.Where(x => x.Key != String.Empty).ToArray();
+            if (updateData.Length > 0)
+            {
+                SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+                {
+                    TransactionTask = (SQLite_Connector conn, Object input) =>
+                    {
+                        Object[] data = input as Object[];
+                        Componente cmp = data[0] as Componente;
+                        var uData = data[1] as KeyValuePair<string, object>[];
+                        Circuito cto = data[2] as Circuito;
+                        Tablero tab = data[3] as Tablero;
+                        //Crear el circuito
+                        if (cto != null && cto.Id < 1)
+                        {
+                            cto = conn.InsertCircuitTr(cto, tab);
+                            tab.Circuitos.Add(cto.ToString(), cto);
+                            int index = uData.Select(x => x.Key).ToList().IndexOf("cir_id");
+                            uData[index] = new KeyValuePair<string, object>("cir_id", cto);
+                            if (cmp.Circuito.Componentes.Count == 1)
+                                conn.Delete(TABLE_CIRCUIT, cmp.Circuito.CreatePrimaryKeyCondition());
+                        }
+                        return cmp.Update(conn, uData);
+                    },
+                    TaskCompleted = (Object obj) => { task_completed(obj); },
+                };
+                tr.Run(new Object[] { component, updateData, circuit, tablero });
+            }
+        }
+        /// <summary>
+        /// Define la transacción que elimina un componente
+        /// </summary>
+        /// <param name="component">El componente a eliminar.</param>
+        /// <param name="task_completed">La tarea que se ejecuta al terminar la transacción.</param>
+        public static void DeleteComponentTr(this Componente component, Action<Object> task_completed)
+        {
+            SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+            {
+                TransactionTask = (SQLite_Connector conn, Object input) =>
+                {
+                    Componente cmp = input as Componente;
+                    return cmp.Delete(conn);
+                },
+                TaskCompleted = (Object result) => { task_completed(result); }
+            };
+            tr.Run(component);
+        }
+        /// <summary>
         /// Crea una transacción que inserta un componente en la base de datos
         /// </summary>
         /// <param name="conn">La conexión a SQLite.</param>
@@ -116,6 +179,24 @@ namespace Tabalim.Core.controller
         public static Circuito InsertCircuitTr(this SQLite_Connector conn, Circuito cto, Tablero tab)
         {
             return cto.GetLastId<Circuito>(conn, tab);
+        }
+        /// <summary>
+        /// Define la transacción que elimina un circuito
+        /// </summary>
+        /// <param name="circuit">El circuito a eliminar.</param>
+        /// <param name="task_completed">La tarea que se ejecuta al terminar la transacción.</param>
+        public static void DeleteCircuitTr(this Circuito circuit, Action<Object> task_completed)
+        {
+            SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+            {
+                TransactionTask = (SQLite_Connector conn, Object input) =>
+                {
+                    Circuito cto = input as Circuito;
+                    return cto.Delete(conn);
+                },
+                TaskCompleted = (Object result) => { task_completed(result); }
+            };
+            tr.Run(circuit);
         }
         /// <summary>
         /// Actualiza un elemento mediante una condición
@@ -136,6 +217,6 @@ namespace Tabalim.Core.controller
             else
                 return false;
         }
-        
+
     }
 }

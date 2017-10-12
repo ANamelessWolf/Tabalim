@@ -80,17 +80,38 @@ namespace Tabalim.Core.view
             string idString = ((sender as Button).Parent as Grid).Children.OfType<FrameworkElement>().Where(x => x is TextBlock).Select(y => (y as TextBlock).Text).FirstOrDefault();
             int id = int.TryParse(idString, out id) ? id : -1;
             CtoCompItem item = this.GetComponentById(id);
+            var cmpEditor = new ComponentPicker(item.Component);
+            cmpEditor.ShowDialog();
+            if (cmpEditor.DialogResult.Value)
+            {
+                Componente updateC = cmpEditor.SelectedComponent;
+                item.Component.UpdateComponentTr(TabalimApp.CurrentTablero,
+                    (Object result) =>
+                    {
+                        if ((Boolean)result)
+                            this.Refresh();
+                    },
+                    updateC.Circuito, updateC.Count, updateC.Potencia);
+            }
         }
         /// <summary>
         /// Maneja el evento que envia la instrucción de eliminar un componente
         /// </summary>
         /// <param name="sender">La fuente del evento.</param>
         /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
-        private void btnDelComp_Click(object sender, RoutedEventArgs e)
+        private async void btnDelComp_Click(object sender, RoutedEventArgs e)
         {
             string idString = ((sender as Button).Parent as Grid).Children.OfType<FrameworkElement>().Where(x => x is TextBlock).Select(y => (y as TextBlock).Text).FirstOrDefault();
             int id = int.TryParse(idString, out id) ? id : -1;
             CtoCompItem item = this.GetComponentById(id);
+            if (await this.ShowQuestionDialog("Eliminar componente", 
+                String.Format("Esta seguro de querer eliminar el componente {0}", item.ComKey)))
+                item.Component.DeleteComponentTr(
+                    (Object result) =>
+                    {
+                        if ((Boolean)result)
+                            this.Refresh();
+                    });
         }
         /// <summary>
         /// Maneja el evento que que envia la instrucción de editar un circuito
@@ -120,26 +141,13 @@ namespace Tabalim.Core.view
         {
             string cKey;
             Circuito cto = GetCircuito(sender as Button, out cKey);
-            var metroWindow = Application.Current.Windows.OfType<Window>()
-                                     .SingleOrDefault(x => x.IsActive) as MetroWindow;
-            MessageDialogResult res = await metroWindow.ShowMessageAsync("Eliminar circuito", String.Format("Esta seguro de querere eliminar el cto {0}", cto), MessageDialogStyle.AffirmativeAndNegative);
-            if (res == MessageDialogResult.Affirmative)
-            {
-                SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
-                {
-                    TransactionTask = (SQLite_Connector conn, Object input) =>
-                    {
-                        Circuito c = input as Circuito;
-                        return c.Delete(conn);
-                    },
-                    TaskCompleted = (Object result) =>
+            if (await this.ShowQuestionDialog("Eliminar circuito", String.Format("Esta seguro de querere eliminar el cto {0}", cto)))
+                cto.DeleteCircuitTr(
+                    (Object result) =>
                     {
                         if ((Boolean)result)
                             this.Refresh();
-                    }
-                };
-                tr.Run(cto);
-            }
+                    });
         }
         /// <summary>
         /// Obtiene el circuito asociado al botón presionado

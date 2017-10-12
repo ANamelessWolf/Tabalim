@@ -62,6 +62,23 @@ namespace Tabalim.Core.view
             }
         }
         /// <summary>
+        /// Regresa verdadero cuando el componente seleccionado es válido,
+        /// en otro caso se arroja una excepción que indica un componente incompleto
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> Verdadero cuando la instancia es válida; en otro caso, <c>falso</c>.
+        /// </returns>
+        /// <exception cref="Exception">En caso de que el componente no seleccionado sea invalido</exception>
+        internal bool IsValid()
+        {
+            if (this.powerSelector.SelectedPower.Watts <= 0)
+                throw new Exception("Faltan definir la potencia");
+            else if (this.listOfCircuits.SelectedIndex == -1)
+                throw new Exception("Ningun circuito seleccionado");
+            else
+                return true;
+        }
+        /// <summary>
         /// El indice del componente insertado
         /// </summary>
         public int ImageIndex;
@@ -105,34 +122,24 @@ namespace Tabalim.Core.view
         /// <returns>El componente seleccionado</returns>
         public Componente GetComponent()
         {
-            Componente com = this.ExistantComponent;
-            if (this.ExistantComponent == null)
+            Componente com = null;
+            switch (this.CType)
             {
-                switch (this.CType)
-                {
-                    case ComponentType.Alumbrado:
-                        com = new Alumbrado(this.powerSelector.SelectedPower.Watts);
-                        break;
-                    case ComponentType.Contacto:
-                        com = new Contacto(this.powerSelector.SelectedPower.Watts);
-                        break;
-                    case ComponentType.Motor:
-                        com = new Motor(this.powerSelector.SelectedPower.HP);
-                        break;
-                }
-                if (this.CType != ComponentType.None)
-                {
-                    com.Circuito = this.SelectedCircuito;
-                    com.Count = this.Count;
-                    com.ImageIndex = this.ImageIndex;
-                }
+                case ComponentType.Alumbrado:
+                    com = new Alumbrado(this.powerSelector.SelectedPower.Watts);
+                    break;
+                case ComponentType.Contacto:
+                    com = new Contacto(this.powerSelector.SelectedPower.Watts);
+                    break;
+                case ComponentType.Motor:
+                    com = new Motor(this.powerSelector.SelectedPower.HP);
+                    break;
             }
-            else
+            if (com != null && this.CType != ComponentType.None)
             {
                 com.Circuito = this.SelectedCircuito;
                 com.Count = this.Count;
                 com.ImageIndex = this.ImageIndex;
-                com.Potencia = this.powerSelector.SelectedPower;
             }
             return com;
         }
@@ -175,6 +182,12 @@ namespace Tabalim.Core.view
                 if (this.ExistantComponent.Circuito != null)
                 {
                     this.Fases = this.ExistantComponent.Circuito.Polos.Length;
+                    this.powerSelector.ExistantInput = new Object[]
+                    {
+                        this.Fases,
+                        this.CType == ComponentType.Motor?PowerType.HP: PowerType.Watts,
+                        this.ExistantComponent.Potencia
+                    };
                     int index = 0, selectedIndex = -1;
                     foreach (CtoItem item in this.listOfCircuits.ItemsSource)
                     {
@@ -186,13 +199,23 @@ namespace Tabalim.Core.view
                         index++;
                     }
                     this.listOfCircuits.SelectedIndex = selectedIndex;
+                    this.btnPickComponent.IsEnabled = false;
+                    this.optOne.IsEnabled = false;
+                    this.optTwo.IsEnabled = false;
+                    this.optThree.IsEnabled = false;
+                    var circuits = UiUtils.GetAvailableCircuitos(TabalimApp.CurrentTablero, this.Fases, this.CType == ComponentType.Motor);
+                    if (this.ExistantComponent is Motor)
+                        circuits = circuits.Union(new Circuito[] { this.ExistantComponent.Circuito }).OrderBy(x => x.ToString());
+                    this.listOfCircuits.ItemsSource = circuits.Select(x => new CtoItem(x));
+                    int ctoIndex = this.listOfCircuits.ItemsSource.OfType<CtoItem>().Select(x => x.CtoName).ToList().IndexOf(this.ExistantComponent.Circuito.ToString());
+                    this.listOfCircuits.SelectedIndex = ctoIndex;
                 }
                 else
                 {
                     this.Fases = 1;
                     this.listOfCircuits.SelectedIndex = -1;
+                    this.UpdatePowerSelector();
                 }
-                this.UpdatePowerSelector();
             }
             else
             {
@@ -211,7 +234,7 @@ namespace Tabalim.Core.view
         {
             var ctos = UiUtils.GetAvailableCircuitos(TabalimApp.CurrentTablero, this.Fases, this.CType == ComponentType.Motor);
             var item = new CtoItem(ctos.ElementAt(0));
-           this.listOfCircuits.ItemsSource = ctos.Select(x => new CtoItem(x));
+            this.listOfCircuits.ItemsSource = ctos.Select(x => new CtoItem(x));
         }
 
         private void btnPickComponent_Click(object sender, RoutedEventArgs e)

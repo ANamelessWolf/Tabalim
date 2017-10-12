@@ -36,11 +36,11 @@ namespace Tabalim.Core.controller
                         items.Add(new ComponentGalleryItem()
                         {
                             CType = ct[i],
-                            Index = j + 1,
-                            Src = (j + 1).LoadImage(imgGalleryPath, 64)
+                            Index = cp[j],
+                            Src = cp[j].LoadImage(imgGalleryPath, 64)
                         });
                     }
-                    catch (Exception exc)
+                    catch (Exception)
                     {
 
                     }
