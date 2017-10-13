@@ -11,7 +11,7 @@ namespace Tabalim.Core.model
         public Circuito Circuito;
         public String Nombre => Circuito.ToString();
         public int Potencia => (int)Math.Round(Circuito.PotenciaTotal);
-        public int Tension => Circuito.Tension.Value;
+        public int Tension => Circuito.Polos.Length == 1 ? Circuito.Tension.TensionAlNeutro : Circuito.Tension.Value;
         public int Fases => Circuito.Polos.Length;
         public String Corriente => Circuito.Corriente.ToString("#.##");
         public int Longitud => (int)Circuito.Longitud;

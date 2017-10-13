@@ -150,6 +150,7 @@ namespace Tabalim.Core.model
         public Circuito()
         {
             this.Componentes = new Dictionary<int, Componente>();
+            
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Circuito"/>.
@@ -158,6 +159,7 @@ namespace Tabalim.Core.model
         public Circuito(SelectionResult[] result) : this()
         {
             this.Parse(result);
+            this.Tension = TabalimApp.CurrentTablero.Sistema.Tension;
         }
         /// <summary>
         /// Crea un registro del objeto en la base de datos.
