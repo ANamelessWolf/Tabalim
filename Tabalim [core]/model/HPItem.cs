@@ -36,6 +36,69 @@ namespace Tabalim.Core.model
         /// </value>
         public string HPFormat { get; set; }
         /// <summary>
+        /// Define o establece la corriente para 1 fase con tension de 120-127 V
+        /// </summary>
+        /// <value>
+        /// Corriente
+        /// </value>
+        public double I_1_127 { get; set; }
+        /// <summary>
+        /// Define o establece la corriente para 1 fase con tension de 254-277 V
+        /// </summary>
+        /// <value>
+        /// Corriente
+        /// </value>
+        public double I_1_230 { get; set; }
+        /// <summary>
+        /// Define o establece la corriente para 2 fases con tension de 120-127 V
+        /// </summary>
+        /// <value>
+        /// Corriente
+        /// </value>
+        public double I_2_115 { get; set; }
+        /// <summary>
+        /// Define o establece la corriente para 2 fases con tension de 208-220 V
+        /// </summary>
+        /// <value>
+        /// Corriente
+        /// </value>
+        public double I_2_230 { get; set; }
+        /// <summary>
+        /// Define o establece la corriente para 2 fases con tension de 440-480 V
+        /// </summary>
+        /// <value>
+        /// Corriente
+        /// </value>
+        public double I_2_460 { get; set; }
+        /// <summary>
+        /// Define o establece la corriente para 3 fases con tension de 120-127 V
+        /// </summary>
+        /// <value>
+        /// Corriente
+        /// </value>
+        public double I_3_115 { get; set; }
+        /// <summary>
+        /// Define o establece la corriente para 3 fases con tension de 208 V
+        /// </summary>
+        /// <value>
+        /// Corriente
+        /// </value>
+        public double I_3_208 { get; set; }
+        /// <summary>
+        /// Define o establece la corriente para 3 fases con tension de 220 V
+        /// </summary>
+        /// <value>
+        /// Corriente
+        /// </value>
+        public double I_3_230 { get; set; }
+        /// <summary>
+        /// Define o establece la corriente para 3 fases con tension de 440-480 V
+        /// </summary>
+        /// <value>
+        /// Corriente
+        /// </value>
+        public double I_3_460 { get; set; }
+        /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SQLite_Connector"/>.
         /// </summary>
         /// <param name="result">The result.</param>
@@ -54,6 +117,15 @@ namespace Tabalim.Core.model
         {
             this.HP = result.GetValue<double>("hp");
             this.KW = result.GetValue<double>("kW");
+            this.I_1_127 = result.GetValue<double>("1p_127");
+            this.I_1_230 = result.GetValue<double>("1p_230");
+            this.I_2_115 = result.GetValue<double>("2p_115");
+            this.I_2_230 = result.GetValue<double>("2p_230");
+            this.I_2_460 = result.GetValue<double>("2p_460");
+            this.I_3_115 = result.GetValue<double>("3p_115");
+            this.I_3_208 = result.GetValue<double>("3p_208");
+            this.I_3_230 = result.GetValue<double>("3p_230");
+            this.I_3_460 = result.GetValue<double>("3p_460");
             this.HPFormat = result.GetString("format");
             if (this.HPFormat != null)
                 this.HPFormat += " HP";

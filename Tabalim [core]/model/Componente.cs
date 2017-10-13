@@ -89,6 +89,7 @@ namespace Tabalim.Core.model
         /// The key.
         /// </value>
         public String Key { get { return ImageIndex + "-" + Potencia; } }
+        public String XamlKey { get { return "k" + Key.Replace("-", "_").Replace(".", "_"); } }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Alumbrado"/>.
         /// </summary>

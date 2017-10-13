@@ -54,10 +54,13 @@ namespace Tabalim.Core.runtime
         /// </summary>
         public static Project CurrentProject;
         /// <summary>
+        /// Equivalencias Hp a Watts
+        /// </summary>
+        public static List<HPItem> Motores;
+        /// <summary>
         /// La lista de tableros cargados
         /// </summary>
         public List<Tablero> Tableros;
-
         /// <summary>
         /// La lista de proyectos cargados
         /// </summary>
@@ -92,7 +95,9 @@ namespace Tabalim.Core.runtime
             CurrentTablero = tabs.LastOrDefault();
             if (CurrentTablero != null)
                 CurrentTablero.LoadComponentesAndCircuits(conn);
-            return new Object[] { prjs, tabs };
+            string query = TABLE_HP_WATTS.SelectAll();
+            List<HPItem> items = conn.Select<HPItem>(query);
+            return new Object[] { prjs, tabs, items };
         }
         /// <summary>
         /// Se ejecuta una vez que la aplicación a sido cargada
@@ -103,6 +108,7 @@ namespace Tabalim.Core.runtime
             var qResult = (Object[])(result);
             this.OpenProjects = qResult[0] as List<Project>;
             this.Tableros = qResult[1] as List<Tablero>;
+            Motores = qResult[2] as List<HPItem>;
         }
     }
 }

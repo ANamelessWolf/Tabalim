@@ -126,5 +126,22 @@ namespace Tabalim.Core.controller
         {
             return type.GetComponentList().Contains(index);
         }
+        public static Double GetCorriente(this Componente componente, Circuito circuito, Tension tension)
+        {
+            if (!(componente is Motor)) return 0;
+            switch (circuito.Polos.Length)
+            {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+            }
+            return 1;
+        }
     }
 }

@@ -249,7 +249,7 @@ namespace Tabalim.Core.controller
         /// </summary>
         /// <param name="tablero">El tablero</param>
         /// <param name="component">El componente agregar</param>
-        public static void AddComponentTr(this Tablero tablero, Componente component)
+        public static void AddComponentTr(this Tablero tablero, Componente component, Action<Object> componenteAddedTask = null)
         {
             //Primero se guarda el circuito
             SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath);
@@ -280,12 +280,19 @@ namespace Tabalim.Core.controller
                 {
                     Circuito cto = (Circuito)result[1];
                     Componente cmp = (Componente)result[2];
+
+                    if (cmp is Motor)
+                    {
+                        cto.Corriente = cmp.GetCorriente()
+                    }
                     if (!tablero.Circuitos.ContainsKey(cto.ToString()))
                         tablero.Circuitos.Add(cto.ToString(), cto);
                     if (!tablero.Componentes.ContainsKey(cmp.Id))
                         tablero.Componentes.Add(cmp.Id, cmp);
                     if (!cto.Componentes.ContainsKey(cmp.Id))
                         cto.Componentes.Add(cmp.Id, cmp);
+                    if (componenteAddedTask != null)
+                        componenteAddedTask(cto);
                 }
                 else
                     throw new Exception("Error al anexar el componente.");

@@ -40,8 +40,13 @@ namespace Tabalim.Core.view
                 this.dataCollection = new ObservableCollection<CtoRow>(Tablero.Circuitos.Select(x => new CtoRow(x.Value)));
                 var components = Tablero.Componentes.Values.GroupBy(x => x.Key).Select(y => y.First());
                 int i = 0;
-                foreach (Componente c in components)
-                    (circuitos.View as GridView).Columns.Insert(++i, new GridViewColumn() { HeaderTemplate = CreateDataTemplate(c), DisplayMemberBinding = new Binding("Componentes[" + c.Key + "]") });
+                
+                foreach (Componente c in components) {
+                    var v =new GridViewColumn() { HeaderTemplate = CreateDataTemplate(c), DisplayMemberBinding = new Binding("Componentes[" + c.Key + "]") };
+                    v.SetValue(UserControl.NameProperty, c.XamlKey);
+                    if ((circuitos.View as GridView).Columns.Count(x => x.GetValue(UserControl.NameProperty).ToString().CompareTo(c.XamlKey) == 0) == 0 )
+                        (circuitos.View as GridView).Columns.Insert(++i, v);
+                }
 
                 circuitos.ItemsSource = DataCollection;
             }
@@ -61,7 +66,7 @@ namespace Tabalim.Core.view
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Image Width=""32"" Height=""32"" Source=""/elekid;component/img/componentes/no_img_32x32.png""/>
-                        <TextBlock Grid.Row=""1"" Text=""" + c.Potencia +  @""" />
+                        <TextBlock Grid.Row=""1"" Text=""" + (c is Motor ? runtime.TabalimApp.Motores.FirstOrDefault(x => x.HP == c.Potencia.HP )?.HPFormat : c.Potencia.ToString()) +  @""" />
                     </Grid>
                 </DataTemplate>"
             );
