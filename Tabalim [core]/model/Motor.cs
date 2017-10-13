@@ -30,5 +30,21 @@ namespace Tabalim.Core.model
         /// </summary>
         /// <param name="result">El resultado del query de selección</param>
         public Motor(SelectionResult[] result) : base(result) { }
+        /// <summary>
+        /// Realizá un clon de esta instancia.
+        /// </summary>
+        /// <returns>
+        /// Regresa el nuevo circuito creado
+        /// </returns>
+        public override Componente Clone()
+        {
+            return new Motor(this.Potencia.HP)
+            {
+                Id = -1,
+                CircuitoName = this.Circuito.ToString(),
+                Count = this.Count,
+                ImageIndex = this.ImageIndex,
+            };
+        }
     }
 }

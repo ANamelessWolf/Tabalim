@@ -14,6 +14,11 @@ namespace Tabalim.Core.model
     public abstract class Circuito : IDatabaseMappable, ISQLiteParser
     {
         /// <summary>
+        /// Realizá un clon de esta instancia.
+        /// </summary>
+        /// <returns>Regresa el nuevo circuito creado</returns>
+        public abstract Circuito Clone();
+        /// <summary>
         /// El id del componente es único en la aplicación.
         /// </summary>
         public int Id { get; set; }
@@ -268,7 +273,6 @@ namespace Tabalim.Core.model
             {
                 this.CreateFieldAsNumber("tab_id", this.TableroId),
                 this.CreateFieldAsString("polos", String.Join(",", Polos)),
-                this.CreateFieldAsNumber("corriente", this.Corriente),
                 this.CreateFieldAsNumber("fac_temp", this.FactorTemperatura),
                 this.CreateFieldAsNumber("fac_agrup", this.FactorAgrupacion),
                 this.CreateFieldAsNumber("longitud", this.Longitud),

@@ -68,6 +68,17 @@ namespace Tabalim.Core.model
         /// </summary>
         public Circuito Circuito;
         /// <summary>
+        /// Define el nombre del circuito al que pertenece el componente
+        /// </summary>
+        public String CircuitoName;
+        /// <summary>
+        /// Realizá un clon de esta instancia.
+        /// </summary>
+        /// <returns>
+        /// Regresa el nuevo clon creado
+        /// </returns>
+        public abstract Componente Clone();
+        /// <summary>
         /// El factor de proteccion utilizado para calcular intensidad de corriente
         /// </summary>
         public abstract double FactorProteccion { get; }

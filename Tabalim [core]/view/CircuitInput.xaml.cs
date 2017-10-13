@@ -48,43 +48,18 @@ namespace Tabalim.Core.view
             string cboItem = ((ComboBoxItem)this.cboFactAgrup.SelectedItem).Content.ToString();
             if (double.TryParse(this.tboLong.Text, out l) && this.cboFactAgrup.SelectedIndex != -1 &&
                 Double.TryParse(cboItem, out f))
-            {
-                KeyValuePair<string, object>[] updateData = new KeyValuePair<string, object>[]
-                {
-                      new KeyValuePair<string, object>("longitud", l),
-                      new KeyValuePair<string, object>("fac_agrup", f)
-                };
-                SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
-                {
-                    TransactionTask = (SQLite_Connector conn, Object input) =>
-                    {
-                        try
-                        {
-                            Object[] data = input as Object[];
-                            var cto = data[0] as Circuito;
-                            var uData = data[1] as KeyValuePair<string, object>[];
-                            return cto.Update(conn, uData);
-                        }
-                        catch (Exception exc)
-                        {
-                            return exc.Message;
-                        }
-                    },
-                    TaskCompleted = async (Object result) =>
-                    {
-                        if (result is bool && (Boolean)result)
-                        {
-                            this.SelectedCircuit.Longitud = l;
-                            this.SelectedCircuit.FactorAgrupacion = f;
-                            this.DialogResult = true;
-                            this.Close();
-                        }
-                        else
-                            await this.ShowMessageAsync("Error al actualizar", result.ToString());
-                    }
-                };
-                tr.Run(new Object[]{ this.SelectedCircuit, updateData});
-            }
+                this.SelectedCircuit.UpdateCircuitTr(async (Object result) =>
+               {
+                   if (result is bool && (Boolean)result)
+                   {
+                       this.SelectedCircuit.Longitud = l;
+                       this.SelectedCircuit.FactorAgrupacion = f;
+                       this.DialogResult = true;
+                       this.Close();
+                   }
+                   else
+                       await this.ShowMessageAsync("Error al actualizar", result.ToString());
+               }, l, f);
             else
                 await this.ShowMessageAsync("Información incompleta", "Seleccione una longitud y factor de agrupamiento válido");
         }

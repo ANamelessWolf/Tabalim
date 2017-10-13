@@ -58,5 +58,10 @@ namespace Tabalim.App
                 tablero.UpdateData();
             }
         }
+
+        private void btnExportComponent_Click(object sender, RoutedEventArgs e)
+        {
+            this.ExporCurrentTablero();
+        }
     }
 }

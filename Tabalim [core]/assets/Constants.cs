@@ -38,6 +38,8 @@ namespace Tabalim.Core.assets
         /************* ARCHIVOS ************/
         /***********************************/
         public const string APP_DB_FILE = "tabalim.sqlite";
+        public const string APP_TABLERO_FILE = "tablero.tabalim";
+        public const string APP_ALIM_FILE = "alimentador.tabalim";
         /***********************************/
         /************* TABLAS **************/
         /***********************************/

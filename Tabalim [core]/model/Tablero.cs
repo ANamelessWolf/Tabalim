@@ -87,6 +87,27 @@ namespace Tabalim.Core.model
             }
         }
         /// <summary>
+        /// Realizá una copia del tablero actual
+        /// </summary>
+        /// <returns>La copia del tablero actual</returns>
+        public Tablero Clone(out List<Componente> cmps, out List<Circuito> ctos)
+        {
+            Tablero t = new Tablero()
+            {
+                Description = this.Description,
+                NombreTablero = this.NombreTablero,
+                ProjectId = 1,
+                Sistema = this.Sistema
+            };
+            cmps = new List<Componente>();
+            ctos = new List<Circuito>();
+            foreach (Circuito cto in this.Circuitos.Values)
+                ctos.Add(cto.Clone());
+            foreach (Componente cmp in this.Componentes.Values)
+                cmps.Add(cmp.Clone());
+            return t;
+        }
+        /// <summary>
         /// Crea un registro del objeto en la base de datos.
         /// </summary>
         /// <param name="conn">La conexión a SQLite.</param>

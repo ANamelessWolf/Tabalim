@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Tabalim.Core.model;
+using Tabalim.Core.runtime;
 
 namespace Tabalim.Core.controller
 {
@@ -50,6 +51,42 @@ namespace Tabalim.Core.controller
             return res == MessageDialogResult.Affirmative;
         }
         /// <summary>
+        /// Ejecuta la acción que realizá la exportación del tablero actual
+        /// </summary>
+        /// <param name="window">La ventana metro activa.</param>
+        public static async void ExporCurrentTablero(this MetroWindow window)
+        {
+            var controller = await window.ShowProgressAsync("Guardando por favor espere...", "Guardando tablero");
+            controller.SetCancelable(false);
+            controller.SetIndeterminate();
+            TabalimApp.CurrentTablero.ExportTableroTr((async (object result) =>
+             {
+                 Object[] rData = result as Object[];
+                 Boolean succed = (Boolean)rData[0];
+                 String msg = (string)rData[1];
+                 await controller.CloseAsync();
+                 await window.ShowMessageAsync(succed ? "Tablero Guardado" : "Error", msg);
+             }));
+        }
+        /// <summary>
+        /// Ejecuta la acción que realizá la importación de un tablero al proyecto actual
+        /// </summary>
+        /// <param name="window">La ventana metro activa.</param>
+        public static async void ImportTablero(this MetroWindow window, Project prj)
+        {
+            var controller = await window.ShowProgressAsync("Abriendo por favor espere...", "Abriendo tablero");
+            controller.SetCancelable(false);
+            controller.SetIndeterminate();
+            window.ImportTableroTr(prj, ((async (object result) =>
+             {
+                 Object[] rData = result as Object[];
+                 Boolean succed = (Boolean)rData[0];
+                 String msg = (string)rData[1];
+                 await controller.CloseAsync();
+                 await window.ShowMessageAsync(succed ? "Tablero Cargado" : "Error", msg);
+             })));
+        }
+        /// <summary>
         /// Devuelve la colección de circuitos disponibles.
         /// </summary>
         /// <param name="tablero">El tablero actual.</param>
@@ -62,16 +99,16 @@ namespace Tabalim.Core.controller
             IEnumerable<int> fullPolos = tablero.Circuitos.Values.Where(x => isMotor || x.HasMotor || cFases != x.Polos.Length).SelectMany(x => x.Polos);
             List<int> odd = new List<int>(), even = new List<int>();
             int oddCount = cFases, evenCount = cFases;
-            foreach(int i in Enumerable.Range(1, tablero.Sistema.Polo).Except(fullPolos))
+            foreach (int i in Enumerable.Range(1, tablero.Sistema.Polo).Except(fullPolos))
             {
-                if(oddCount == 0)
+                if (oddCount == 0)
                 {
-                    if(odd.Count == cFases)
+                    if (odd.Count == cFases)
                         circuitos.Add(Circuito.GetCircuito(cFases, odd.ToArray()));
                     oddCount = cFases;
                     odd = new List<int>();
                 }
-                if(i % 2 == 1)
+                if (i % 2 == 1)
                 {
                     if (!fullPolos.Contains(i))
                         odd.Add(i);

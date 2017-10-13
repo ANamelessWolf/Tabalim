@@ -31,6 +31,21 @@ namespace Tabalim.Core.runtime
             }
         }
         /// <summary>
+        /// Define el acceso al archivo base de tableros
+        /// </summary>
+        /// <value>
+        /// La ruta del archivo base de tableros
+        /// </value>
+        public static string TableroDBPath
+        {
+            get
+            {
+                string path = Assembly.GetAssembly(typeof(TabalimApp)).Location;
+                path = Path.Combine(Path.GetDirectoryName(path), DATA_FOLDER, APP_TABLERO_FILE);
+                return path;
+            }
+        }
+        /// <summary>
         /// Accede al último tablero seleccionado
         /// </summary>
         public static Tablero CurrentTablero;

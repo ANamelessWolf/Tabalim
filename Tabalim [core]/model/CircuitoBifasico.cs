@@ -9,7 +9,12 @@ namespace Tabalim.Core.model
 {
     class CircuitoBifasico : Circuito
     {
-
+        /// <summary>
+        /// Obtiene la corriente.
+        /// </summary>
+        /// <value>
+        /// La corriente dependiendo del numero de polos.
+        /// </value>
         public override double Corriente
         {
             get
@@ -29,5 +34,25 @@ namespace Tabalim.Core.model
         /// Inicializa una nueva instancia de la clase <see cref="CircuitoBifasico"/>.
         /// </summary>
         public CircuitoBifasico() : base() { }
+        /// <summary>
+        /// Realizá un clon de esta instancia.
+        /// </summary>
+        /// <returns>
+        /// Regresa el nuevo circuito creado
+        /// </returns>
+        public override Circuito Clone()
+        {
+            return new CircuitoBifasico()
+            {
+                Polos = this.Polos,
+                FactorAgrupacion = this.FactorAgrupacion,
+                FactorTemperatura = this.FactorTemperatura,
+                Interruptor = this.Interruptor,
+                Longitud = this.Longitud,
+                Id = -1,
+                TableroId = -1,
+                Tension = this.Tension
+            };
+        }
     }
 }

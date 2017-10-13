@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="assets\Constants.cs" />
     <Compile Include="controller\ComponentsUtils.cs" />
+    <Compile Include="controller\FileManager.cs" />
     <Compile Include="controller\IDatabaseMappable.cs" />
     <Compile Include="controller\InsertField.cs" />
     <Compile Include="controller\InsertFieldType.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="controller\TransactionUtils.cs" />
     <Compile Include="controller\UiUtils.cs" />
     <Compile Include="controller\UpdateField.cs" />
+    <Compile Include="mocking\controller\MockUpUtils.cs" />
     <Compile Include="model\CircuitoBifasico.cs" />
     <Compile Include="model\CircuitoTrifasico.cs" />
     <Compile Include="mocking\model\CtoItemMocking.cs" />

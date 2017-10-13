@@ -33,5 +33,25 @@ namespace Tabalim.Core.model
         /// Inicializa una nueva instancia de la clase <see cref="CircuitoMonofasico"/>.
         /// </summary>
         public CircuitoMonofasico() : base() { }
+        /// <summary>
+        /// Realizá un clon de esta instancia.
+        /// </summary>
+        /// <returns>
+        /// Regresa el nuevo circuito creado
+        /// </returns>
+        public override Circuito Clone()
+        {
+            return new CircuitoMonofasico()
+            {
+                Polos = this.Polos,
+                FactorAgrupacion = this.FactorAgrupacion,
+                FactorTemperatura = this.FactorTemperatura,
+                Interruptor = this.Interruptor,
+                Longitud = this.Longitud,
+                Id = -1,
+                TableroId = -1,
+                Tension = this.Tension
+            };
+        }
     }
 }
