@@ -126,20 +126,15 @@ namespace Tabalim.Core.controller
         {
             return type.GetComponentList().Contains(index);
         }
-        public static Double GetCorriente(this Componente componente, Circuito circuito, Tension tension)
+        public static Double GetCorriente(Componente componente, Circuito circuito, Tension tension)
         {
             if (!(componente is Motor)) return 0;
-            switch (circuito.Polos.Length)
+            HPItem SelectedMotor = TabalimApp.Motores.First(x => x.HP == componente.Potencia.HP);
+            switch (circuito.Polos.Length) 
             {
-                case 1:
-
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
+                case 1: return tension.TensionAlNeutro <= 127 ? SelectedMotor.I_1_127 : SelectedMotor.I_1_230;
+                case 2: return tension.Value <= 220 ? SelectedMotor.I_2_230 : SelectedMotor.I_2_460;
+                case 3: return tension.Value <= 208 ? SelectedMotor.I_3_208 : tension.Value <= 220 ? SelectedMotor.I_3_230 : SelectedMotor.I_3_460;
             }
             return 1;
         }

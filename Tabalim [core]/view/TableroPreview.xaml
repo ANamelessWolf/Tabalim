@@ -85,6 +85,11 @@
                             Protección
                         </GridViewColumnHeader>
                     </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Interruptor}">
+                        <GridViewColumnHeader>
+                            Interruptor
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

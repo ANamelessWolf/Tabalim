@@ -280,11 +280,6 @@ namespace Tabalim.Core.controller
                 {
                     Circuito cto = (Circuito)result[1];
                     Componente cmp = (Componente)result[2];
-
-                    if (cmp is Motor)
-                    {
-                        cto.Corriente = cmp.GetCorriente()
-                    }
                     if (!tablero.Circuitos.ContainsKey(cto.ToString()))
                         tablero.Circuitos.Add(cto.ToString(), cto);
                     if (!tablero.Componentes.ContainsKey(cmp.Id))
