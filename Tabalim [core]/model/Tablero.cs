@@ -83,7 +83,13 @@ namespace Tabalim.Core.model
                 compQ = TABLE_COMPONENT.SelectAll(String.Format("\"cir_id\" = {0}", c.Id));
                 this.Circuitos.Add(c.ToString(), c);
                 var cmps = conn.Select<Componente>(compQ, Componente.ComponentParser);
-                cmps.ForEach(x => { this.Componentes.Add(x.Id, x); c.Componentes.Add(x.Id, x); });
+                cmps.ForEach(x => 
+                {
+                    x.Circuito = c;
+                    x.CircuitoName = c.ToString();
+                    this.Componentes.Add(x.Id, x);
+                    c.Componentes.Add(x.Id, x);
+                });
             }
         }
         /// <summary>

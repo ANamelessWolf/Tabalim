@@ -55,17 +55,31 @@ namespace Tabalim.App
             if (dialog.DialogResult.Value)
             {
                 TabalimApp.CurrentTablero.AddComponentTr(dialog.SelectedComponent,
-                    (Object result)=> 
+                    (Object result) =>
                     {
                         tablero.UpdateData();
                     });
-               
+
             }
         }
 
         private void btnExportComponent_Click(object sender, RoutedEventArgs e)
         {
             this.ExporCurrentTablero();
+        }
+        private void btnImportComponent_Click(object sender, RoutedEventArgs e)
+        {
+            this.ImportTablero(TabalimApp.CurrentProject);
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new WinTableroSettings(TabalimApp.CurrentTablero);
+            win.ShowDialog();
+            if (win.DialogResult.Value)
+            {
+
+            }
         }
     }
 }

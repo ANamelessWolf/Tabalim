@@ -137,16 +137,17 @@ namespace Tabalim.Core.controller
                         TransactionTask = PickTableroName,
                         TaskCompleted = async (Object result) =>
                         {
-                            String tabName = result as String;
+                            Tablero fileTablero = result as Tablero;
+                            String tabName = fileTablero.NombreTablero;
                             Tablero existant = project.Tableros.Values.FirstOrDefault(x => x.NombreTablero == tabName);
                             if (existant != null)
                             {
                                 MessageDialogResult res = await window.ShowMessageAsync("Tablero Existente", "El tablero ya existe en el proyecto actual\n¿Quiere remplazarlo?", MessageDialogStyle.AffirmativeAndNegative);
                                 if (res == MessageDialogResult.Affirmative)
-                                    DeleteTableroAndLoadTr(project, existant, filePath, task_completed);
+                                    DeleteTableroAndLoadTr(project, existant, fileTablero, task_completed);
                             }
                             else
-                                LoadTableroTr(project, filePath, task_completed);
+                                LoadTableroTr(project, fileTablero, task_completed);
                         }
                     };
                     tr.Run(null);
@@ -166,83 +167,174 @@ namespace Tabalim.Core.controller
         private static object PickTableroName(SQLite_Connector conn, object input)
         {
             Tablero tab = conn.Select<Tablero>(TABLE_TABLERO.SelectAll()).FirstOrDefault();
-            return tab.NombreTablero;
+            tab.LoadComponentesAndCircuits(conn);
+            return tab;
         }
         /// <summary>
         /// Realizá la carga del tablero borrando el tablero existente
         /// </summary>
         /// <param name="project">El nombre del proyecto.</param>
         /// <param name="existant">El tablero existente.</param>
-        /// <param name="filePath">La ruta del archivo a importar.</param>
+        /// <param name="fileTablero">El tablero leido del archivo.</param>
         /// <param name="task_completed">La tarea que se ejecuta al terminar la transacción.</param>
-        private static void DeleteTableroAndLoadTr(Project project, Tablero existant, string filePath, Action<object> task_completed)
+        private static void DeleteTableroAndLoadTr(Project project, Tablero existant, Tablero fileTablero, Action<object> task_completed)
         {
-            SQLiteWrapper tr = new SQLiteWrapper(filePath)
+            SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
             {
                 TransactionTask = (SQLite_Connector conn, Object input) =>
                 {
                     Object[] data = input as Object[];
                     Tablero tab = data[0] as Tablero;
                     Project prj = data[1] as Project;
-                    String pth = data[2] as String;
+                    Tablero fileTab = data[2] as Tablero;
                     if (tab.Delete(conn))
                     {
                         prj.Tableros.Remove(tab.Id);
-                        return InsertTableroTr(conn, prj);
+                        //return new Object[] { false, "Error al borrar el tablero existente", null };
+                        return InsertTableroTr(conn, prj, fileTab);
                     }
                     else
-                        throw new Exception("Error al borrar el tablero existente");
+                        return new Object[] { false, "Error al borrar el tablero existente", null };
                 },
                 TaskCompleted = (Object result) => { task_completed(result); }
             };
-            tr.Run(new Object[] { existant, project, filePath });
+            tr.Run(new Object[] { existant, project, fileTablero });
         }
         /// <summary>
         /// Realizá la carga del tablero
         /// </summary>
         /// <param name="project">El nombre del proyecto.</param>
-        /// <param name="existant">El tablero existente.</param>
-        /// <param name="filePath">La ruta del archivo a importar.</param>
+        /// <param name="fileTablero">El tablero leido del archivo.</param>
         /// <param name="task_completed">La tarea que se ejecuta al terminar la transacción.</param>
-        private static void LoadTableroTr(Project project, string filePath, Action<object> task_completed)
+        private static void LoadTableroTr(Project project, Tablero fileTablero, Action<object> task_completed)
         {
-            SQLiteWrapper tr = new SQLiteWrapper(filePath)
+            SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
             {
                 TransactionTask = (SQLite_Connector conn, Object input) =>
                 {
                     Object[] data = input as Object[];
                     Project prj = data[0] as Project;
-                    String pth = data[1] as String;
-                    return InsertTableroTr(conn, prj);
+                    Tablero fileTab = data[1] as Tablero;
+                    return InsertTableroTr(conn, prj, fileTab);
                 },
                 TaskCompleted = (Object result) => { task_completed(result); }
             };
-            tr.Run(new Object[] { project, filePath });
+            tr.Run(new Object[] { project, fileTablero });
         }
         /// <summary>
         /// Inserta un nuevo tablero en la aplicación
         /// </summary>
-        /// <param name="conn">La conexión activa.</param>
+        /// <param name="conn">La conexión activa al archivo de conexión.</param>
         /// <param name="prj">El proyecto seleccionado.</param>
-        /// <param name="pth">La ruta del tablero a insertar.</param>
+        /// <param name="fileTablero">El tablero leido del archivo.</param>
         /// <returns>El resultado de la transacción</returns>
-        private static object InsertTableroTr(SQLite_Connector conn, Project prj)
+        private static object InsertTableroTr(SQLite_Connector conn, Project prj, Tablero fileTablero)
         {
-            Tablero tab = conn.Select<Tablero>(TABLE_TABLERO.SelectAll()).FirstOrDefault();
             Boolean flag = false;
             String msg = String.Empty;
+            Tablero result = null;
             try
             {
-                flag = true;
-
-                TabalimApp.CurrentTablero = tab;
-                msg = String.Format("El tablero se cargo en el proyecto actual");
+                if (fileTablero != null)
+                {
+                    try
+                    {
+                        List<Componente> cmps;
+                        List<Circuito> ctos;
+                        Tablero t = fileTablero.Clone(out cmps, out ctos);
+                        //Se inserta el tablero
+                        InsertTableroTask(conn, t);
+                        //Se se insertan los circuitos
+                        ctos.ForEach(x => x.GetLastId<Circuito>(conn, t));
+                        //Se insertan los componentes
+                        cmps.ForEach(cmp => cmp.GetLastId<Componente>(conn,
+                            ctos.FirstOrDefault(cto => cto.ToString() == cmp.CircuitoName)));
+                        result = t;
+                        result.LoadComponentesAndCircuits(conn);
+                        msg = String.Format("El tablero se cargo en el proyecto actual");
+                        flag = true;
+                    }
+                    catch (Exception exc)
+                    {
+                        conn.Dispose();
+                        msg = String.Format("Error al importar el tablero\nDetalles: {0}", exc.Message);
+                    }
+                }
+                else
+                    throw new Exception(String.Format("Error al leer el archivo\n", conn.Connection.DataSource));
             }
             catch (Exception exc)
             {
-                msg = String.Format("Error al cargar el tablero\nDetalles: {0}", exc.Message);
+                msg = String.Format("Error al importar el tablero\nDetalles: {0}", exc.Message);
             }
-            return new Object[] { flag, msg };
+            return new Object[] { flag, msg, result };
+        }
+        /// <summary>
+        /// Define la transacción que actualiza un tablero
+        /// El nombre del tablero debe ser único
+        /// </summary>
+        /// <param name="tablero">El tablero actualizar.</param>
+        /// <param name="project">El proyecto al que pertenece el tablero.</param>
+        /// <param name="task_completed">La tarea que se ejecuta al terminar la transacción.</param>
+        /// <param name="tab_name">El nombre del tablero.</param>
+        /// <param name="tab_desc">La descripción del tablero.</param>
+        public static void UpdateTableroTr(this Tablero tablero, Project project, Action<Object> task_completed,
+            String tab_name = null, string tab_desc = null)
+        {
+            KeyValuePair<string, object>[] updateData = new KeyValuePair<string, object>[]
+            {
+                tab_name != null ? new KeyValuePair<string, object>("tab_name", tab_name) : new KeyValuePair<string, object>(String.Empty, null),
+                tab_desc != null ? new KeyValuePair<string, object>("tab_desc", tab_desc) : new KeyValuePair<string, object>(String.Empty, null)
+            }.Where(x => x.Key != String.Empty).ToArray();
+            if (updateData.Length > 0)
+            {
+                SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+                {
+                    TransactionTask = (SQLite_Connector conn, Object input) =>
+                    {
+                        Boolean flag = false;
+                        String msg = String.Empty;
+                        try
+                        {
+                            Object[] data = input as Object[];
+                            Tablero tab = data[0] as Tablero;
+                            var uData = data[1] as KeyValuePair<string, object>[];
+                            Project prj = data[2] as Project;
+                            var uDataName = uData.FirstOrDefault(x => x.Key == "tab_name");
+                            if ((uDataName.Value != null && uDataName.Value.ToString() != tab.NombreTablero) &&
+                            prj.Tableros.Values.Count(x => x.NombreTablero == uDataName.Value.ToString()) > 0)
+                                throw new Exception("El nombre del tablero ya existe en el proyecto.\n Favor de utilizar otro nombre.");
+                            flag = tab.Update(conn, uData);
+                            msg = "El tablero ha sido actualizado";
+                        }
+                        catch (Exception exc)
+                        {
+                            msg = exc.Message;
+                        }
+                        return new Object[] { flag, msg };
+                    },
+                    TaskCompleted = (Object obj) => { task_completed(obj); },
+                };
+                tr.Run(new Object[] { tablero, updateData, project });
+            }
+        }
+        /// <summary>
+        /// Define la transacción que elimina un tablero
+        /// </summary>
+        /// <param name="tablero">El tablero a eliminar.</param>
+        /// <param name="task_completed">La tarea que se ejecuta al terminar la transacción.</param>
+        public static void DeleteTableroTr(this Tablero tablero, Action<Object> task_completed)
+        {
+            SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+            {
+                TransactionTask = (SQLite_Connector conn, Object input) =>
+                {
+                    Tablero tab = input as Tablero;
+                    return tab.Delete(conn);
+                },
+                TaskCompleted = (Object result) => { task_completed(result); }
+            };
+            tr.Run(tablero);
         }
         /// <summary>
         /// Define una transacción que agregá un componente a un tablero
