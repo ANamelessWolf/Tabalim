@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Button x:Name="btnPickSystem" Click="btnPickSystem_Click"
@@ -25,7 +26,11 @@
                 Content="(2) Crear Componente" Grid.ColumnSpan="1" />
         <Button x:Name="btnExportTablero" Click="btnExportComponent_Click"  Grid.Column="2"
                 Content="(3) Exportar" Grid.ColumnSpan="1" />
-        <ctr:CtoEditor Grid.Row="1" Grid.ColumnSpan="3"/>
-        <ctr:TableroPreview x:Name="tablero"  Grid.Row="2" Grid.ColumnSpan="3"/>
+        <Button x:Name="btnImportTablero" Click="btnImportComponent_Click"  Grid.Row="1"
+                Content="(4) Importar" Grid.ColumnSpan="1" />
+        <Button x:Name="btnSaveTablero" Click="btnSave_Click"  Grid.Row="1" Grid.Column="1"
+                Content="(5) Guardar" Grid.ColumnSpan="1" />
+        <ctr:CtoEditor Grid.Row="2" Grid.ColumnSpan="3"/>
+        <ctr:TableroPreview x:Name="tablero"  Grid.Row="3" Grid.ColumnSpan="3"/>
     </Grid>
 </metro:MetroWindow>

@@ -45,6 +45,10 @@
     <Style x:Key="TabalimInput" TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
         <Setter Property="Height" Value="32"/>
     </Style>
+    <Style x:Key="TabalimInputDesc" TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
     <Style x:Key="TabalimInputNumber" TargetType="TextBox" BasedOn="{StaticResource TabalimInput}">
         <Setter Property="Width" Value="50"/>
     </Style>
