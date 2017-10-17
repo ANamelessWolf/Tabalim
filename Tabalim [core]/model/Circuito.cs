@@ -123,7 +123,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Interruptor
         /// </summary>
-        public String Interruptor;
+        public String Interruptor { get { return model.Interruptor.GetInterruptor(Polos.Length, CorrienteProteccion).ToString(); } }
         /// <summary>
         /// Gets a value indicating whether this instance has motor.
         /// </summary>
@@ -258,7 +258,7 @@ namespace Tabalim.Core.model
                 this.FactorAgrupacion = result.GetValue<Double>("fac_agrup");
                 this.FactorTemperatura = result.GetValue<Double>("fac_temp");
                 this.Longitud = result.GetValue<Double>("longitud");
-                this.Interruptor = result.GetString("interruptor");
+                //this.Interruptor = result.GetString("interruptor");
             }
             catch (Exception exc)
             {
@@ -326,9 +326,6 @@ namespace Tabalim.Core.model
                         break;
                     case "longitud":
                         this.Longitud = (double)val.Value;
-                        break;
-                    case "interruptor":
-                        this.Interruptor = (val.Value.ToString());
                         break;
                 }
         }

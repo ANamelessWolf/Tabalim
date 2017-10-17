@@ -258,6 +258,7 @@ namespace Tabalim.Core.view
             if (this.CType != ComponentType.None && this.Fases > 0)
             {
                 this.powerSelector.Fases = this.Fases;
+                this.powerSelector.Tension = this.Sistema.Tension;
                 if (this.CType == ComponentType.Motor)
                     this.powerSelector.Power = PowerType.HP;
                 else

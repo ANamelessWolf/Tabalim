@@ -18,7 +18,7 @@ namespace Tabalim.Core.model
             get
             {
                 if (HasMotor)
-                    return 0;
+                    return ComponentsUtils.GetCorriente(Componentes.Values.First(x => x is Motor), this, Tension);
                 else
                     return PotenciaTotal / Tension.TensionAlNeutro;
             }
@@ -46,7 +46,7 @@ namespace Tabalim.Core.model
                 Polos = this.Polos,
                 FactorAgrupacion = this.FactorAgrupacion,
                 FactorTemperatura = this.FactorTemperatura,
-                Interruptor = this.Interruptor,
+                //Interruptor = this.Interruptor,
                 Longitud = this.Longitud,
                 Id = -1,
                 TableroId = -1,

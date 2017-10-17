@@ -113,6 +113,7 @@
     <Compile Include="model\CtoItem.cs" />
     <Compile Include="model\CtoRow.cs" />
     <Compile Include="model\HPItem.cs" />
+    <Compile Include="model\Interruptor.cs" />
     <Compile Include="model\Motor.cs" />
     <Compile Include="model\Potencia.cs" />
     <Compile Include="model\PowerType.cs" />
@@ -172,6 +173,9 @@
     </Compile>
     <Compile Include="view\WinTableroSettings.xaml.cs">
       <DependentUpon>WinTableroSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\TabView.xaml.cs">
+      <DependentUpon>TabView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -235,6 +239,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\WinTableroSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\TabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

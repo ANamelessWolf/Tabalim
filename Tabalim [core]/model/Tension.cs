@@ -40,7 +40,7 @@ namespace Tabalim.Core.model
             if (sistema.Fases == 1)
             {
                 this.Value = tn;
-                this.TensionAlNeutro = 0;
+                this.TensionAlNeutro = tn;
             }
             else
                 this.TensionAlNeutro = tn;

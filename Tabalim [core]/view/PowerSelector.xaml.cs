@@ -125,6 +125,8 @@ namespace Tabalim.Core.view
         /// The existant input
         /// </summary>
         public Object ExistantInput;
+        internal Tension Tension;
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PowerSelector"/>.
         /// </summary>
@@ -194,9 +196,13 @@ namespace Tabalim.Core.view
             if (this.Fases == 1)
                 return hpItem.HP <= 10;
             else if (this.Fases == 2)
-                return hpItem.HP <= 200;
+                return hpItem.HP <= 200 && hpItem.HP >= 0.5;
             else if (this.Fases == 3)
-                return hpItem.HP <= 500;
+            {
+                if(Tension?.Value > 220 )
+                    return hpItem.HP <= 500 && hpItem.HP >= 0.5;
+                return hpItem.HP <= 200 && hpItem.HP >= 0.5;
+            }
             else
                 return false;
         }
