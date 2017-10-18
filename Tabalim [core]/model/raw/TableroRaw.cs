@@ -22,6 +22,10 @@ namespace Tabalim.Core.model.raw
         /// </summary>
         public string Sistema => t.Sistema.ToString();
         /// <summary>
+        /// La temperatura del sistema
+        /// </summary>
+        public Double Temperatura => t.Sistema.Temperatura;
+        /// <summary>
         /// El total de VA en alumbrados
         /// </summary>
         public Double AlumbradosVA => CmpColumns.Where(x => x.Type == ComponentType.Alumbrado).Sum(x => x.VATotales);
