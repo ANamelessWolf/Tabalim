@@ -287,7 +287,100 @@
     <Resource Include="img\componentes\3_32x32.png" />
     <Resource Include="img\componentes\3_64x64.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="img\componentes\30_32x32.png" />
+    <Resource Include="img\componentes\30_64x64.png" />
+    <Resource Include="img\componentes\31_32x32.png" />
+    <Resource Include="img\componentes\31_64x64.png" />
+    <Resource Include="img\componentes\32_32x32.png" />
+    <Resource Include="img\componentes\32_64x64.png" />
+    <Resource Include="img\componentes\33_32x32.png" />
+    <Resource Include="img\componentes\33_64x64.png" />
+    <Resource Include="img\componentes\34_32x32.png" />
+    <Resource Include="img\componentes\34_64x64.png" />
+    <Resource Include="img\componentes\35_32x32.png" />
+    <Resource Include="img\componentes\35_64x64.png" />
+    <Resource Include="img\componentes\36_32x32.png" />
+    <Resource Include="img\componentes\36_64x64.png" />
+    <Resource Include="img\componentes\37_32x32.png" />
+    <Resource Include="img\componentes\37_64x64.png" />
+    <Resource Include="img\componentes\38_32x32.png" />
+    <Resource Include="img\componentes\38_64x64.png" />
+    <Resource Include="img\componentes\39_32x32.png" />
+    <Resource Include="img\componentes\39_64x64.png" />
+    <Resource Include="img\componentes\40_32x32.png" />
+    <Resource Include="img\componentes\40_64x64.png" />
+    <Resource Include="img\componentes\41_32x32.png" />
+    <Resource Include="img\componentes\41_64x64.png" />
+    <Resource Include="img\componentes\42_32x32.png" />
+    <Resource Include="img\componentes\42_64x64.png" />
+    <Resource Include="img\componentes\43_32x32.png" />
+    <Resource Include="img\componentes\43_64x64.png" />
+    <Resource Include="img\componentes\44_32x32.png" />
+    <Resource Include="img\componentes\44_64x64.png" />
+    <Resource Include="img\componentes\45_32x32.png" />
+    <Resource Include="img\componentes\45_64x64.png" />
+    <Resource Include="img\componentes\46_32x32.png" />
+    <Resource Include="img\componentes\46_64x64.png" />
+    <Resource Include="img\componentes\47_32x32.png" />
+    <Resource Include="img\componentes\47_64x64.png" />
+    <Resource Include="img\componentes\4_32x32.png" />
+    <Resource Include="img\componentes\4_64x64.png" />
+    <Resource Include="img\componentes\5_32x32.png" />
+    <Resource Include="img\componentes\5_64x64.png" />
+    <Resource Include="img\componentes\6_32x32.png" />
+    <Resource Include="img\componentes\6_64x64.png" />
+    <Resource Include="img\componentes\7_32x32.png" />
+    <Resource Include="img\componentes\7_64x64.png" />
+    <Resource Include="img\componentes\8_32x32.png" />
+    <Resource Include="img\componentes\8_64x64.png" />
+    <Resource Include="img\componentes\9_32x32.png" />
+    <Resource Include="img\componentes\9_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\componentes\14_32x32.png" />
+    <Resource Include="img\componentes\14_64x64.png" />
+    <Resource Include="img\componentes\15_32x32.png" />
+    <Resource Include="img\componentes\15_64x64.png" />
+    <Resource Include="img\componentes\16_32x32.png" />
+    <Resource Include="img\componentes\16_64x64.png" />
+    <Resource Include="img\componentes\17_32x32.png" />
+    <Resource Include="img\componentes\17_64x64.png" />
+    <Resource Include="img\componentes\18_32x32.png" />
+    <Resource Include="img\componentes\18_64x64.png" />
+    <Resource Include="img\componentes\19_32x32.png" />
+    <Resource Include="img\componentes\19_64x64.png" />
+    <Resource Include="img\componentes\20_32x32.png" />
+    <Resource Include="img\componentes\20_64x64.png" />
+    <Resource Include="img\componentes\21_32x32.png" />
+    <Resource Include="img\componentes\21_64x64.png" />
+    <Resource Include="img\componentes\22_32x32.png" />
+    <Resource Include="img\componentes\22_64x64.png" />
+    <Resource Include="img\componentes\23_32x32.png" />
+    <Resource Include="img\componentes\23_64x64.png" />
+    <Resource Include="img\componentes\24_32x32.png" />
+    <Resource Include="img\componentes\24_64x64.png" />
+    <Resource Include="img\componentes\25_32x32.png" />
+    <Resource Include="img\componentes\25_64x64.png" />
+    <Resource Include="img\componentes\26_32x32.png" />
+    <Resource Include="img\componentes\26_64x64.png" />
+    <Resource Include="img\componentes\27_32x32.png" />
+    <Resource Include="img\componentes\27_64x64.png" />
+    <Resource Include="img\componentes\28_32x32.png" />
+    <Resource Include="img\componentes\28_64x64.png" />
+    <Resource Include="img\componentes\29_32x32.png" />
+    <Resource Include="img\componentes\29_64x64.png" />
+    <Resource Include="img\componentes\2_32x32.png" />
+    <Resource Include="img\componentes\2_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\componentes\10_32x32.png" />
+    <Resource Include="img\componentes\10_64x64.png" />
+    <Resource Include="img\componentes\11_32x32.png" />
+    <Resource Include="img\componentes\11_64x64.png" />
+    <Resource Include="img\componentes\12_32x32.png" />
+    <Resource Include="img\componentes\12_64x64.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E

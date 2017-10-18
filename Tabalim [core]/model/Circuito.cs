@@ -257,6 +257,7 @@ namespace Tabalim.Core.model
                 this.Polos = result.GetString("polos").ParsePolos();
                 this.FactorAgrupacion = result.GetValue<Double>("fac_agrup");
                 this.Longitud = result.GetValue<Double>("longitud");
+                this.FactorTemperatura = Temperatura.GetFactor((int)TabalimApp.CurrentProject.Tableros[TableroId].Sistema.Temperatura);
             }
             catch (Exception exc)
             {
