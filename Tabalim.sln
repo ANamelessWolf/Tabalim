@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [App]", "Tabalim [A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [core]", "Tabalim [core]\Tabalim [core].csproj", "{867C949F-26D7-4319-AD0F-1E6AD01183D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [Addin] [R22]", "Tabalim [Addin] [R22]\Tabalim [Addin] [R22].csproj", "{7ACB2DA6-2F36-4F3E-9739-5367FD5DE10D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [Addin] [R19]", "Tabalim [Addin]\Tabalim [Addin] [R19].csproj", "{7ACB2DA6-2F36-4F3E-9739-5367FD5DE10D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [Addin] [R22]", "Tabalim [Addin]\Tabalim [Addin] [R22].csproj", "{5A332241-8180-4ADA-BD03-824420513F2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{7ACB2DA6-2F36-4F3E-9739-5367FD5DE10D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ACB2DA6-2F36-4F3E-9739-5367FD5DE10D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ACB2DA6-2F36-4F3E-9739-5367FD5DE10D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A332241-8180-4ADA-BD03-824420513F2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A332241-8180-4ADA-BD03-824420513F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A332241-8180-4ADA-BD03-824420513F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A332241-8180-4ADA-BD03-824420513F2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
