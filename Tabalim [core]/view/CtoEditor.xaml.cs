@@ -25,6 +25,7 @@ namespace Tabalim.Core.view
     /// </summary>
     public partial class CtoEditor : UserControl
     {
+        public event RoutedEventHandler IsRefreshed;
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CtoEditor"/>.
         /// </summary>
@@ -41,6 +42,7 @@ namespace Tabalim.Core.view
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(this.listOfCircuits.ItemsSource);
             PropertyGroupDescription groupBy = new PropertyGroupDescription("CtoFormat");
             view.GroupDescriptions.Add(groupBy);
+            IsRefreshed?.Invoke(this, new RoutedEventArgs());
         }
         /// <summary>
         /// Obtiene un componente con circuito especificando el id
@@ -129,7 +131,7 @@ namespace Tabalim.Core.view
                 String ctoFormat = "Cto({0}) L {1} [m]";
                 foreach (var it in this.listOfCircuits.ItemsSource.OfType<CtoCompItem>().Where(x => x.CtoKey == cKey))
                     it.CtoFormat = String.Format(ctoFormat, cto, cto.Longitud);
-                ((CollectionView)CollectionViewSource.GetDefaultView(this.listOfCircuits.ItemsSource)).Refresh();
+                this.Refresh();
             }
         }
         /// <summary>

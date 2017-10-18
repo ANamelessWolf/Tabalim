@@ -118,11 +118,15 @@
     <Compile Include="model\Potencia.cs" />
     <Compile Include="model\PowerType.cs" />
     <Compile Include="model\Project.cs" />
+    <Compile Include="model\raw\CircuitoRaw.cs" />
+    <Compile Include="model\raw\ComponenteRaw.cs" />
+    <Compile Include="model\raw\TableroRaw.cs" />
     <Compile Include="model\SistemaBifasico.cs" />
     <Compile Include="model\SistemaFases.cs" />
     <Compile Include="model\SistemaMonofasico.cs" />
     <Compile Include="model\SistemaTrifasico.cs" />
     <Compile Include="model\Tablero.cs" />
+    <Compile Include="model\TableroItem.cs" />
     <Compile Include="model\Temperatura.cs" />
     <Compile Include="model\Tension.cs" />
     <Compile Include="model\TensionVal.cs" />
@@ -165,6 +169,9 @@
     <Compile Include="view\PowerSelector.xaml.cs">
       <DependentUpon>PowerSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="view\TableroList.xaml.cs">
+      <DependentUpon>TableroList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\TableroPicker.xaml.cs">
       <DependentUpon>TableroPicker.xaml</DependentUpon>
     </Compile>
@@ -174,15 +181,13 @@
     <Compile Include="view\WinTableroSettings.xaml.cs">
       <DependentUpon>WinTableroSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="view\TabView.xaml.cs">
-      <DependentUpon>TabView.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="data\tabalim.sqlite" />
+    <None Include="json\tablero.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -230,6 +235,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="view\TableroList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="view\TableroPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,10 +248,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\WinTableroSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="view\TabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -273,6 +278,15 @@
   <ItemGroup>
     <Resource Include="Xcopy.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\componentes\13_32x32.png" />
+    <Resource Include="img\componentes\13_64x64.png" />
+    <Resource Include="img\componentes\1_32x32.png" />
+    <Resource Include="img\componentes\1_64x64.png" />
+    <Resource Include="img\componentes\3_32x32.png" />
+    <Resource Include="img\componentes\3_64x64.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E

@@ -15,7 +15,7 @@
                             Nombre
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Potencia}">
+                    <GridViewColumn x:Name="Limit" DisplayMemberBinding="{Binding Path=Potencia}">
                         <GridViewColumnHeader>
                             Potencia
                         </GridViewColumnHeader>

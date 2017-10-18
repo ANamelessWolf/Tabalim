@@ -256,9 +256,7 @@ namespace Tabalim.Core.model
                 this.TableroId = (int)result.GetValue<long>("tab_id");
                 this.Polos = result.GetString("polos").ParsePolos();
                 this.FactorAgrupacion = result.GetValue<Double>("fac_agrup");
-                this.FactorTemperatura = result.GetValue<Double>("fac_temp");
                 this.Longitud = result.GetValue<Double>("longitud");
-                //this.Interruptor = result.GetString("interruptor");
             }
             catch (Exception exc)
             {
@@ -275,10 +273,8 @@ namespace Tabalim.Core.model
             {
                 this.CreateFieldAsNumber("tab_id", this.TableroId),
                 this.CreateFieldAsString("polos", String.Join(",", Polos)),
-                this.CreateFieldAsNumber("fac_temp", this.FactorTemperatura),
                 this.CreateFieldAsNumber("fac_agrup", this.FactorAgrupacion),
-                this.CreateFieldAsNumber("longitud", this.Longitud),
-                this.CreateFieldAsString("interruptor", this.Interruptor)
+                this.CreateFieldAsNumber("longitud", this.Longitud)
             };
         }
         /// <summary>
@@ -295,12 +291,8 @@ namespace Tabalim.Core.model
             switch (input.Key)
             {
                 case "fac_agrup":
-                case "fac_temp":
                 case "longitud":
                     value = input.CreateFieldAsNumber(this.TableName, input.Value);
-                    break;
-                case "interruptor":
-                    value = input.CreateFieldAsString(this.TableName, input.Value);
                     break;
                 default:
                     value = null;
@@ -318,9 +310,6 @@ namespace Tabalim.Core.model
             foreach (var val in input)
                 switch (val.Key)
                 {
-                    case "fac_temp":
-                        this.FactorTemperatura = (double)val.Value;
-                        break;
                     case "fac_agrup":
                         this.FactorAgrupacion = (double)val.Value;
                         break;

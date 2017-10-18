@@ -11,21 +11,13 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
                 <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="0"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid Visibility="Hidden" Grid.Row="1">
@@ -115,6 +107,6 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-        <Button Style="{StaticResource TabalimCircleButton}" Content="&#xE117;" Click="btnRefresh_Click" HorizontalAlignment="Right"/>
+        <!--<Button Style="{StaticResource TabalimCircleButton}" Content="&#xE117;" Click="btnRefresh_Click" HorizontalAlignment="Right"/>-->
     </Grid>
 </UserControl>

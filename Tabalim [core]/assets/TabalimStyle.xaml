@@ -2,9 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                     xmlns:local="clr-namespace:Tabalim.Core.assets">
+    <ResourceDictionary.MergedDictionaries>
+        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+        <!-- Accent and AppTheme setting -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Yellow.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+    </ResourceDictionary.MergedDictionaries>
     <!--Estilos de Text blocks-->
     <Style x:Key="TabalimHeader" TargetType="TextBlock" BasedOn="{StaticResource MetroTextBlock}">
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
@@ -21,10 +31,10 @@
         <Setter Property="VerticalAlignment" Value="Bottom"/>
     </Style>
     <Style x:Key="TabalimGroupHighlight" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
-        <Setter Property="Foreground" Value="LightGreen"/>
+        <Setter Property="Foreground" Value="DarkGreen"/>
     </Style>
     <Style x:Key="TabalimGroupLess" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
-        <Setter Property="Foreground" Value="Silver"/>
+        <Setter Property="Foreground" Value="DarkGreen"/>
         <Setter Property="FontSize" Value="18"/>
     </Style>
     <Style x:Key="TabalimButton" TargetType="TextBlock" BasedOn="{StaticResource MetroTextBlock}">
@@ -86,5 +96,12 @@
     </Style>
     <Style x:Key="TabalimCheck" TargetType="CheckBox" BasedOn="{StaticResource MetroCheckBox}">
         <Setter Property="Margin" Value="10,0"/>
+    </Style>
+    <Style x:Key="TabalimListItem" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="0 5 5 5" />
     </Style>
 </ResourceDictionary>
