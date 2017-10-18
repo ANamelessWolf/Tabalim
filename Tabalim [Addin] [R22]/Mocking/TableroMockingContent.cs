@@ -58,7 +58,7 @@ namespace Tabalim.Addin.Mocking
                 {
                     CaidaVoltaje = 0.07,
                     Calibre = 10,
-                    Corriente = 1.25,
+                    Corriente = 1.250,
                     Cto = "1,3",
                     Count="1,1,1",
                     Fases = 2,

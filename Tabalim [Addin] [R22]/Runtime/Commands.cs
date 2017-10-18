@@ -22,6 +22,9 @@ namespace Tabalim.Addin.Runtime
         public void InsertTablero()
         {
             TableroContent cont = new TableroMockingContent();
+            string cp = System.Windows.Clipboard.GetText();
+            if (cp != null)
+                cont = Newtonsoft.Json.JsonConvert.DeserializeObject<TableroContent>(cp);
             Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
             var res = ed.GetPoint("Selecciona el punto de inserción de la tabla");
             if (res.Status == PromptStatus.OK)
@@ -34,7 +37,7 @@ namespace Tabalim.Addin.Runtime
                     table.Init();
                     table.Insert(doc, tr);
                 });
-                
+
             }
         }
     }

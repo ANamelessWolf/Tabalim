@@ -22,6 +22,10 @@ namespace Tabalim.Addin.Model
         /// </summary>
         public string Tablero;
         /// <summary>
+        /// La temperatura del tablero
+        /// </summary>
+        public double Temperatura;
+        /// <summary>
         /// El nombre de la imagen del tablero
         /// </summary>
         public int ImagenTablero;
@@ -49,6 +53,22 @@ namespace Tabalim.Addin.Model
         /// El total de VA
         /// </summary>
         public Double TotalVA { get { return AlumbradosVA + ContactosVA + MotoresVA + ReservaVA; } }
+        /// <summary>
+        /// Obtiene la caída máxima
+        /// </summary>
+        /// <value>
+        /// La caída máxima
+        /// </value>
+        public Double CaidaMax { get { return this.CtoRows.Max(x => x.CaidaVoltaje); } }
+        /// <summary>
+        /// Devuelve los watts totales
+        /// </summary>
+        /// <value>
+        /// Los watts totales.
+        /// </value>
+        public Double TotalWatts { get { return this.CmpColumns.Sum(x => x.WattsTotales); } }
+
+
         /// <summary>
         /// La desviación máxima
         /// </summary>
