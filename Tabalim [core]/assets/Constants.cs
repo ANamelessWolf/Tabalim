@@ -22,6 +22,10 @@ namespace Tabalim.Core.assets
         /// El formato que se usa para desplegar el nombre de un sistema bifasico o mofasico
         /// </summary>
         public const String FORMAT_SYS_ITEM = "Sistema {0} {1} Volts, {2} Fases, {3} Hilos {4} Hz";
+        /// <summary>
+        /// El formato que se asocia a la imagen de los sistemas
+        /// </summary>
+        public const String FORMAT_SYS_IMG = "{0}{1}_{2}";
         /***********************************/
         /************* CAPTIONS ************/
         /***********************************/

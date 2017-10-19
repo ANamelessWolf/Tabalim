@@ -62,6 +62,7 @@ namespace Tabalim.App
             if (win.DialogResult.Value)
             {
                 this.ExporCurrentTablero();
+                tablerosList.UpdateList();
             }
         }
 

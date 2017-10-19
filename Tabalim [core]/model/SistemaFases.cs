@@ -67,6 +67,13 @@ namespace Tabalim.Core.model
         /// </value>
         public int Hilos { get { return this.Fases + 1; } }
         /// <summary>
+        /// Devuelve el nombre de la imágen
+        /// </summary>
+        /// <value>
+        /// Nombre de la imagen en formato [Z|I][#Fases]_[#Polos]
+        /// </value>
+        public string ImageName { get { return String.Format(FORMAT_SYS_IMG, TpAlimentacion > 0 ? 'Z' : 'I', Fases, Polo); } }
+        /// <summary>
         /// Establece el valor de la tensión
         /// </summary>
         /// <returns>El valor de la tensión</returns>

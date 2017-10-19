@@ -43,7 +43,6 @@ namespace Tabalim.Core.view
             if (Tablero != null)
             {
                 this.dataCollection = new ObservableCollection<CtoRow>(Tablero.Circuitos.Select(x => new CtoRow(x.Value)));
-                Debug.WriteLine(JsonConvert.SerializeObject(new TableroRaw(Tablero), Newtonsoft.Json.Formatting.Indented));
                 var components = Tablero.Componentes.Values.GroupBy(x => x.Key).Select(y => y.First());
                 int i = 0;
                 while((circuitos.View as GridView).Columns.Count > originalColumns)
