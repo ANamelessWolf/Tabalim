@@ -61,5 +61,10 @@ namespace Tabalim.Core.view
                 TabalimApp.CurrentTablero.LoadComponentesAndCircuits(conn);
             return null;
         }
+
+        private void copyBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

@@ -1,0 +1,36 @@
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\Tabalim.exe.config
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\Tabalim.exe
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\Tabalim.pdb
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\elekid.dll
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\EntityFramework.dll
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\MahApps.Metro.dll
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\System.Data.SQLite.dll
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\elekid.pdb
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\elekid.dll.config
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\EntityFramework.xml
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\MahApps.Metro.pdb
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\MahApps.Metro.xml
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\System.Data.SQLite.xml
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\Tabalim [App].csprojResolveAssemblyReference.cache
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\MainWindow.g.cs
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\TabWindow.g.cs
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\App.g.cs
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\Tabalim_MarkupCompile.cache
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\Tabalim_MarkupCompile.lref
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\App.baml
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\MainWindow.baml
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\TabWindow.baml
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\Tabalim.g.resources
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\Tabalim.App.Properties.Resources.resources
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\Tabalim [App].csproj.GenerateResource.Cache
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\Tabalim [App].csproj.CoreCompileInputs.cache
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\Tabalim.exe
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\obj\Debug\Tabalim.pdb
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Wicho\Documents\Visual Studio 2017\Projects\Tabalim\Tabalim [App]\bin\Debug\Newtonsoft.Json.xml
