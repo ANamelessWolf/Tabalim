@@ -74,7 +74,18 @@ namespace Tabalim.Addin.Model
             this.InitComponentes(this.Content.CmpColumns);
             this.InitRows(this.Content.CtoRows);
             this.InitTotales();
+            this.InsertTablero(this.Content.ImagenTablero);
             this.Table.GenerateLayout();
+        }
+        /// <summary>
+        /// Inserta la imagen del tablero
+        /// </summary>
+        /// <param name="imagenTablero">La imagen del tablero a insertar.</param>
+        private void InsertTablero(string imagenTablero)
+        {
+            if (this.Blocks != null && this.Blocks.ContainsKey(imagenTablero))
+                this.Table.Cells[8, 0].BlockTableRecordId = this.Blocks[imagenTablero];
+            this.Table.Cells[8, 0].Alignment = CellAlignment.TopCenter;
         }
 
         private void InitTotales()

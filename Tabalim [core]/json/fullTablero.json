@@ -1,6 +1,6 @@
 ﻿{
   "Tablero": "Tablero 001",
-  "ImagenTablero": 0,
+  "ImagenTablero": "I3_12",
   "Sistema": "220 - 127 Volts, 3 Fases, 4 Hilos, No. de Polos 12",
   "Temperatura": 21.0,
   "AlumbradosVA": 605.55555555555543,

@@ -125,6 +125,7 @@ namespace Tabalim.Addin.Model
             blkDirectory = Path.GetDirectoryName(blkDirectory);
             blkDirectory = Path.Combine(blkDirectory, BLOCK_DIR);
             var blocks = this.CmpColumns.Select(x => new KeyValuePair<String, String>(x.ImageIndex.ToString(), String.Format("{0}.dwg", x.ImageIndex)));
+            blocks = blocks.Union(new KeyValuePair<String, String>[] { new KeyValuePair<String, String>(this.ImagenTablero, String.Format("{0}.dwg", this.ImagenTablero)) });
             string file;
             AutoCADUtils.VoidTransaction((Document doc, Transaction tr) =>
             {
@@ -133,6 +134,7 @@ namespace Tabalim.Addin.Model
                     file = Path.Combine(blkDirectory, blkName.Value);
                     tr.LoadBlock(doc.Database, file, blkName.Key);
                 }
+                tr.UpdatePath(doc, this.ImagenTablero);
             });
         }
     }

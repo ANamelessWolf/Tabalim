@@ -111,6 +111,46 @@ namespace Tabalim.Addin.Controller
             }
         }
         /// <summary>
+        /// Actualizamos la ruta de las imagenes del tablero
+        /// </summary>
+        /// <param name="tr">La transacción activa.</param>
+        /// <param name="doc">El documento a cargar.</param>
+        /// <param name="tablero">El nombre del bloque.</param>
+        public static void UpdatePath(this Transaction tr, Document doc, string tablero)
+        {
+            BlockTable blk = doc.Database.BlockTableId.GetObject(OpenMode.ForWrite) as BlockTable;
+            if (blk.Has(tablero))
+            {
+                BlockTableRecord tabRec = blk[tablero].GetObject(OpenMode.ForRead) as BlockTableRecord;
+                DBObject obj;
+                foreach (ObjectId objId in tabRec)
+                {
+                    obj = objId.GetObject(OpenMode.ForRead);
+                    if (obj is RasterImage)
+                    {
+                        obj.UpgradeOpen();
+                        RasterImage img = obj as RasterImage;
+                        String appData = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                        String imgFile = Path.Combine(appData, "Autodesk", "ApplicationPlugins", "Tabalim.bundle", "contents", "img", "tableros", String.Format("{0}.BMP", tablero));
+                        DBDictionary imgDic = RasterImageDef.GetImageDictionary(doc.Database).GetObject(OpenMode.ForRead) as DBDictionary;
+                        if (File.Exists(imgFile) && imgDic.Contains(tablero))
+                        {
+                            RasterImageDef imgDef = imgDic.GetAt(tablero).GetObject( OpenMode.ForWrite) as RasterImageDef;
+                            if (imgDef.SourceFileName != imgFile)
+                            {
+                                imgDef.SourceFileName = imgFile;
+                                imgDef.Load();
+                                //img.UpgradeOpen();
+                                //img.ImageDefId = imgDef.Id;
+                                //img.AssociateRasterDef(imgDef);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Obtiene la información que crea un tablero desde los datos en JSON
         /// que obtiene del porta papeles
         /// </summary>
@@ -123,6 +163,8 @@ namespace Tabalim.Addin.Controller
                 string cp = System.Windows.Clipboard.GetText();
                 if (cp != null)
                     cont = Newtonsoft.Json.JsonConvert.DeserializeObject<TableroContent>(cp);
+                if (cont == null)
+                    throw new Exception("Error al cargar la información del tablero. JSON no válido.");
             }
             catch (Exception exc)
             {
