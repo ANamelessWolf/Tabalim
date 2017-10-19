@@ -17,7 +17,7 @@
         <ListView x:Name="circuitos" ItemsSource="{Binding DataCollection}">
             <ListView.View>
                 <GridView x:Name="gridView" AllowsColumnReorder="True">
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Nombre}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Nombre}" >
                         <GridViewColumnHeader>
                             Nombre
                         </GridViewColumnHeader>

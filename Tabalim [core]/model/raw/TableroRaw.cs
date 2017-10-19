@@ -16,7 +16,7 @@ namespace Tabalim.Core.model.raw
         /// <summary>
         /// El nombre de la imagen del tablero
         /// </summary>
-        public int ImagenTablero => 0;
+        public String ImagenTablero => t.Sistema.ImageName;
         /// <summary>
         /// El sistema a utilizar
         /// </summary>
