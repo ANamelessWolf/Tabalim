@@ -82,9 +82,12 @@ namespace Tabalim.Core.controller
                  Object[] rData = result as Object[];
                  Boolean succed = (Boolean)rData[0];
                  String msg = (string)rData[1];
-                 TabalimApp.CurrentTablero = (Tablero)rData[2];
+                 if (msg.Length > 0)
+                 {
+                     TabalimApp.CurrentTablero = (Tablero)rData[2];
+                     await window.ShowMessageAsync(succed ? "Tablero Cargado" : "Error", msg);
+                 }
                  await controller.CloseAsync();
-                 await window.ShowMessageAsync(succed ? "Tablero Cargado" : "Error", msg);
              })));
         }
         /// <summary>

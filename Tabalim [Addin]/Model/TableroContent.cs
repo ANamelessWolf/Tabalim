@@ -28,7 +28,7 @@ namespace Tabalim.Addin.Model
         /// <summary>
         /// El nombre de la imagen del tablero
         /// </summary>
-        public int ImagenTablero;
+        public string ImagenTablero;
         /// <summary>
         /// El sistema a utilizar
         /// </summary>

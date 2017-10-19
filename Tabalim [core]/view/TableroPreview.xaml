@@ -6,6 +6,13 @@
              xmlns:local="clr-namespace:Tabalim.Core.view"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
              d:DesignHeight="300" d:DesignWidth="1100">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <ListView x:Name="circuitos" ItemsSource="{Binding DataCollection}">
             <ListView.View>

@@ -80,43 +80,45 @@ namespace Tabalim.Core.controller
         {
             FileManager fm = new FileManager("Tabalim", "Guardar Tablero", "tabalim");
             string savePath;
-            fm.SaveDialog((String filePath, Object tab) =>
-            {
-                try
-                {
-                    //Copiamos el archivo base de tableros
-                    File.Copy(TabalimApp.TableroDBPath, filePath, true);
-                    SQLiteWrapper tr = new SQLiteWrapper(filePath)
-                    {
-                        TransactionTask = (SQLite_Connector conn, Object input) =>
-                        {
-                            try
-                            {
-                                List<Componente> cmps;
-                                List<Circuito> ctos;
-                                Tablero t = ((Tablero)input).Clone(out cmps, out ctos);
-                                //Se inserta el tablero
-                                InsertTableroTask(conn, t);
-                                //Se se insertan los circuitos
-                                ctos.ForEach(x => x.GetLastId<Circuito>(conn, t));
-                                //Se insertan los componentes
-                                cmps.ForEach(cmp => cmp.GetLastId<Componente>(conn, ctos.FirstOrDefault(cto => cto.ToString() == cmp.CircuitoName)));
-                                return new object[] { true, String.Format("Tablero guardado de forma correcta en \n{0}.", filePath) };
-                            }
-                            catch (Exception exc)
-                            {
-                                return new object[] { false, String.Format("Error al exportar el tablero\nDetalles: {0}", exc.Message) };
-                            }
-                        },
-                        TaskCompleted = (Object result) => { task_completed(result); }
-                    };
-                    tr.Run(tablero);
-                }
-                catch (Exception exc)
-                {
-                    task_completed(new object[] { false, String.Format("Error al exportar el tablero\nDetalles: {0}", exc.Message) });
-                }
-            }, tablero, out savePath);
+            bool saveResult = fm.SaveDialog((String filePath, Object tab) =>
+              {
+                  try
+                  {
+                      //Copiamos el archivo base de tableros
+                      File.Copy(TabalimApp.TableroDBPath, filePath, true);
+                      SQLiteWrapper tr = new SQLiteWrapper(filePath)
+                      {
+                          TransactionTask = (SQLite_Connector conn, Object input) =>
+                          {
+                              try
+                              {
+                                  List<Componente> cmps;
+                                  List<Circuito> ctos;
+                                  Tablero t = ((Tablero)input).Clone(out cmps, out ctos);
+                                  //Se inserta el tablero
+                                  InsertTableroTask(conn, t);
+                                  //Se se insertan los circuitos
+                                  ctos.ForEach(x => x.GetLastId<Circuito>(conn, t));
+                                  //Se insertan los componentes
+                                  cmps.ForEach(cmp => cmp.GetLastId<Componente>(conn, ctos.FirstOrDefault(cto => cto.ToString() == cmp.CircuitoName)));
+                                  return new object[] { true, String.Format("Tablero guardado de forma correcta en \n{0}.", filePath) };
+                              }
+                              catch (Exception exc)
+                              {
+                                  return new object[] { false, String.Format("Error al exportar el tablero\nDetalles: {0}", exc.Message) };
+                              }
+                          },
+                          TaskCompleted = (Object result) => { task_completed(result); }
+                      };
+                      tr.Run(tablero);
+                  }
+                  catch (Exception exc)
+                  {
+                      task_completed(new object[] { false, String.Format("Error al exportar el tablero\nDetalles: {0}", exc.Message) });
+                  }
+              }, tablero, out savePath);
+            if (!saveResult)
+                task_completed(new object[] { false, "Se cancelo el guardado del tablero" });
         }
         /// <summary>
         /// Importa un tablero al proyecto seleccionado
@@ -157,6 +159,8 @@ namespace Tabalim.Core.controller
                     task_completed(new object[] { false, String.Format("Error al abrir el tablero\nDetalles: {0}", exc.Message) });
                 }
             }
+            else
+                task_completed(new object[] { false, String.Empty });
         }
         /// <summary>
         /// Picks the name of the tablero.

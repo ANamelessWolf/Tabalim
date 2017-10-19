@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:Tabalim.App"
         mc:Ignorable="d"
         GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="Tab" Height="768" Width="1366">
+        Title="Tabalim - Administrador de Tableros" Height="768" Width="1366">
     <metro:MetroWindow.RightWindowCommands>
         <metro:WindowCommands>
             <Button Content="nuevo tablero" Click="CreateTablero_Click"/>

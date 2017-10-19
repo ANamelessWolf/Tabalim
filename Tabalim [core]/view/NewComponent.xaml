@@ -11,14 +11,6 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
                 <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -45,8 +37,8 @@
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Componente" Style="{StaticResource TabalimHeader}"/>
-                <TextBlock Text="Cantidad" Style="{StaticResource TabalimHeader}" Grid.Column="2"/>
+                <TextBlock Text="Componente" Style="{StaticResource TabalimHeaderLighten}"/>
+                <TextBlock Text="Cantidad" Style="{StaticResource TabalimHeaderLighten}" Grid.Column="2"/>
                 <TextBox x:Name="tboComCount" Style="{StaticResource TabalimInputNumber}" Grid.Column="3"/>
                 <Button x:Name="btnPickComponent" Style="{StaticResource TabalimPickButton}" HorizontalAlignment="Center"
                         Grid.Column="1" Click="btnPickComponent_Click">
