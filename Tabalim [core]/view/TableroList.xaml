@@ -45,9 +45,9 @@
                         <TextBlock x:Name="id" Text="" Visibility="Hidden" />
                         <TextBlock Style="{StaticResource TabalimHeader}" Text="buuuuuuuuuuuuuu"/>
                         <TextBlock Grid.Row="1" Text="{Binding Path=Description}" />
-                        <StackPanel x:Name="btnPanel" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
-                            <Button x:Name="copyBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe16f;" Click="copyBtn_Click"/>
-                            <Button x:Name="deleteBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe107;"/>
+                        <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
+                            <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe107;"/>
+                            <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe16f;"/>
                         </StackPanel>
                     </Grid>
                 </Button>
