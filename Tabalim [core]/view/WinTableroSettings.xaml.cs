@@ -74,7 +74,7 @@ namespace Tabalim.Core.view
                       Boolean succed = (Boolean)rData[0];
                       String msg = (string)rData[1];
                       await controller.CloseAsync();
-                      await this.ShowMessageAsync(succed ? "Tablero Actualizado" : "Error", msg);
+                      //await this.ShowMessageAsync(succed ? "Tablero Actualizado" : "Error", msg);
                       if (succed)
                       {
                           this.DialogResult = true;

@@ -136,7 +136,7 @@ namespace Tabalim.Addin.Mocking
                 },
             };
             this.DesbMax = 10;
-            this.ImagenTablero = 1;
+            this.ImagenTablero = String.Empty;
             this.MotoresVA = 100;
             this.ReservaVA = 120;
             this.Sistema = "220-127 Volts, 3 fases, 4 hilos No. de polos 24";

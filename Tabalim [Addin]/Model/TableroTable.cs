@@ -114,9 +114,9 @@ namespace Tabalim.Addin.Model
             this.Write(String.Format("DESB. MAX = {0:P2}", this.Content.DesbMax), 1, valuesStartColumn + 4);
             this.Table.MergeCells(CellRange.Create(this.Table, 1, 4, 2, 4));
             this.Table.Cells[1, 4].Alignment = CellAlignment.MiddleLeft;
-            this.ChangeBorders(1, 4, leftIsVisible: false, bottomIsVisible: false);
+            this.ChangeBorders(1, 4, leftIsVisible: true, bottomIsVisible: false);
             this.Write(this.Content.Sistema, 3, 4);
-            this.ChangeBorders(3, 4, false, false, false, false);
+            this.ChangeBorders(3, 4, true, false, false, false);
             this.Table.MergeCells(CellRange.Create(this.Table, 3, 4, 3, 11));
             this.Table.MergeCells(CellRange.Create(this.Table, t.Length + 1, valuesStartColumn, t.Length + 2, this.Table.Columns.Count - 1));
             this.ChangeBorders(t.Length + 1, valuesStartColumn, false, false, false, false);

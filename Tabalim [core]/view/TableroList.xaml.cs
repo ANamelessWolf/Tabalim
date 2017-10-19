@@ -30,7 +30,8 @@ namespace Tabalim.Core.view
         }
         public void UpdateList()
         {
-            tableros.ItemsSource = TabalimApp.CurrentProject.Tableros.Values.Select(x => new TableroItem(x));
+            
+            tableros.ItemsSource = TabalimApp.CurrentProject?.Tableros.Values.Select(x => new TableroItem(x));
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

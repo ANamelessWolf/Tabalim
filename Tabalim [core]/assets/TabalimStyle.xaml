@@ -20,9 +20,12 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>
+    <Style x:Key="TabalimHeaderLighten" TargetType="TextBlock" BasedOn="{StaticResource TabalimHeader}">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
     <Style x:Key="TabalimForm" TargetType="TextBlock" BasedOn="{StaticResource TabalimHeader}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
-        
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="TextAlignment" Value="Right"/>
     </Style>
     <Style x:Key="TabalimGroupHeader" TargetType="TextBlock" BasedOn="{StaticResource TabalimHeader}">
@@ -32,6 +35,9 @@
     </Style>
     <Style x:Key="TabalimGroupHighlight" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
         <Setter Property="Foreground" Value="DarkGreen"/>
+    </Style>
+    <Style x:Key="TabalimGroupHighlightLighten" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
+        <Setter Property="Foreground" Value="LightGreen"/>
     </Style>
     <Style x:Key="TabalimGroupLess" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
         <Setter Property="Foreground" Value="DarkGreen"/>
