@@ -254,12 +254,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\tableros\INTC2.bmp" />
-    <Resource Include="img\tableros\INTC4.bmp" />
-    <Resource Include="img\tableros\ZAPC6.bmp" />
-    <Resource Include="img\tableros\ZAPC8.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="img\componentes\no_img_64x64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -369,10 +363,29 @@
     <Resource Include="img\componentes\12_32x32.png" />
     <Resource Include="img\componentes\12_64x64.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\tableros\Z1_2.bmp" />
+    <Resource Include="img\tableros\Z1_4.bmp" />
+    <Resource Include="img\tableros\Z1_6.bmp" />
+    <Resource Include="img\tableros\Z1_8.bmp" />
+    <Resource Include="img\tableros\Z3_12.bmp" />
+    <Resource Include="img\tableros\Z3_18.bmp" />
+    <Resource Include="img\tableros\Z3_24.bmp" />
+    <Resource Include="img\tableros\Z3_30.bmp" />
+    <Resource Include="img\tableros\Z3_36.bmp" />
+    <Resource Include="img\tableros\Z3_42.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\tableros\I3_12.bmp" />
+    <Resource Include="img\tableros\I3_18.bmp" />
+    <Resource Include="img\tableros\I3_24.bmp" />
+    <Resource Include="img\tableros\I3_30.bmp" />
+    <Resource Include="img\tableros\I3_36.bmp" />
+    <Resource Include="img\tableros\I3_42.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E
-xcopy "$(ProjectDir)blocks\*" "$(SolutionDir)Tabalim [Addin] [R22]\bin\Debug\img\" /Y /E</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

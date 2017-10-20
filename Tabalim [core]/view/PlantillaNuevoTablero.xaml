@@ -44,7 +44,7 @@
         </TextBlock>
         <Slider x:Name="slidTemperature" Minimum="21" Maximum="70" Grid.Column="1" Grid.Row="3"
                 Style="{StaticResource TabalimSliderInt}"/>
-        <TextBlock Grid.Column="2" Grid.Row="3" Style="{StaticResource TabalimHeader}" >
+        <TextBlock Grid.Column="2" Grid.Row="3" Style="{StaticResource TabalimHeaderLighten}" >
             <TextBlock Text="{Binding ElementName=slidTemperature, Path=Value}"/>
             <TextBlock Text="°C"/>
         </TextBlock>
