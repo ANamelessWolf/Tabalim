@@ -63,7 +63,7 @@ namespace Tabalim.Core.view
             {
                 if (Power == PowerType.HP)
                 {
-                    int index = this.cboHP.ItemsSource.OfType<HPItem>().Select(x => new Potencia(x.HP, true).HP).ToList().IndexOf(value.HP);
+                    int index = this.cboHP.Items.OfType<HPItem>().Select(x => new Potencia(x.HP, true).HP).ToList().IndexOf(value.HP);
                     this.cboHP.SelectedIndex = index;
                 }
                 else

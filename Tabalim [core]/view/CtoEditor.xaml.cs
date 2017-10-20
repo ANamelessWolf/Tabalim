@@ -92,8 +92,8 @@ namespace Tabalim.Core.view
                     {
                         if ((Boolean)result)
                         {
-                            if (!TabalimApp.CurrentTablero.Circuitos.ContainsKey(item.Circuit.ToString()))
-                                TabalimApp.CurrentTablero.Circuitos.Add(item.Circuit.ToString(), item.Circuit);
+                            if (!TabalimApp.CurrentTablero.Circuitos.ContainsKey(item.Component.Circuito.ToString()))
+                                TabalimApp.CurrentTablero.Circuitos.Add(item.Component.Circuito.ToString(), item.Component.Circuito);
                             this.Refresh();
                         }
                     },
