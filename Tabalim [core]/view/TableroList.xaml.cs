@@ -81,13 +81,16 @@ namespace Tabalim.Core.view
 
         private void tableros_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TabalimApp.CurrentTablero = TabalimApp.CurrentProject.Tableros[(tableros.SelectedItem as TableroItem).Id];
-            SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+            if (tableros.SelectedIndex != -1)
             {
-                TransactionTask = LoadTablero,
-                TaskCompleted = TableroLoaded
-            };
-            tr.Run(TabalimApp.CurrentTablero);
+                TabalimApp.CurrentTablero = TabalimApp.CurrentProject.Tableros[(tableros.SelectedItem as TableroItem).Id];
+                SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+                {
+                    TransactionTask = LoadTablero,
+                    TaskCompleted = TableroLoaded
+                };
+                tr.Run(TabalimApp.CurrentTablero);
+            }
         }
 
         private async void deleteBtn_Click(object sender, RoutedEventArgs e)

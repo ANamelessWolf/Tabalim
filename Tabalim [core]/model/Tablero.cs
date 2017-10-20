@@ -81,9 +81,10 @@ namespace Tabalim.Core.model
             foreach (Circuito c in ctos)
             {
                 compQ = TABLE_COMPONENT.SelectAll(String.Format("\"cir_id\" = {0}", c.Id));
-                this.Circuitos.Add(c.ToString(), c);
+                if (!this.Circuitos.ContainsKey(c.ToString()))
+                    this.Circuitos.Add(c.ToString(), c);
                 var cmps = conn.Select<Componente>(compQ, Componente.ComponentParser);
-                cmps.ForEach(x => 
+                cmps.ForEach(x =>
                 {
                     x.Circuito = c;
                     x.CircuitoName = c.ToString();

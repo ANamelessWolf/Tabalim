@@ -84,20 +84,27 @@ namespace Tabalim.Core.runtime
         /// <returns>La información de la base de datos</returns>
         private Object InitApplication(SQLite_Connector conn, Object input)
         {
-            var prjs = conn.Select<Project>(TABLE_PROYECTOS.SelectAll("\"prj_name\" = 'Sin Proyecto'"));
-            CurrentProject = prjs[0];
-            //Se carga las referencias de los tableros
-            //sin cargar circuitos ni componentes
-            var tabs = conn.Select<Tablero>(TABLE_TABLERO.SelectAll(CurrentProject.CreatePrimaryKeyCondition()));
-            foreach (Tablero tab in tabs)
-                CurrentProject.Tableros.Add(tab.Id, tab);
-            //Se cargan las referencias del tablero actual que es el último creado
-            CurrentTablero = tabs.LastOrDefault();
-            if (CurrentTablero != null)
-                CurrentTablero.LoadComponentesAndCircuits(conn);
-            string query = TABLE_HP_WATTS.SelectAll();
-            List<HPItem> items = conn.Select<HPItem>(query);
-            return new Object[] { prjs, tabs, items };
+            try
+            {
+                var prjs = conn.Select<Project>(TABLE_PROYECTOS.SelectAll("\"prj_name\" = 'Sin Proyecto'"));
+                CurrentProject = prjs[0];
+                string query = TABLE_HP_WATTS.SelectAll();
+                List<HPItem> items = conn.Select<HPItem>(query);
+                //Se carga las referencias de los tableros
+                //sin cargar circuitos ni componentes
+                var tabs = conn.Select<Tablero>(TABLE_TABLERO.SelectAll(CurrentProject.CreatePrimaryKeyCondition()));
+                foreach (Tablero tab in tabs)
+                    CurrentProject.Tableros.Add(tab.Id, tab);
+                //Se cargan las referencias del tablero actual que es el último creado
+                CurrentTablero = tabs.LastOrDefault();
+                if (CurrentTablero != null)
+                    CurrentTablero.LoadComponentesAndCircuits(conn);
+                return new Object[] { prjs, tabs, items };
+            }
+            catch (Exception exc)
+            {
+                return new Object[] { exc };
+            }
         }
         /// <summary>
         /// Se ejecuta una vez que la aplicación a sido cargada
@@ -105,10 +112,20 @@ namespace Tabalim.Core.runtime
         /// <param name="result">Los resultados cargados de la base de datos.</param>
         private void AppLoaded(Object result)
         {
-            var qResult = (Object[])(result);
-            this.OpenProjects = qResult[0] as List<Project>;
-            this.Tableros = qResult[1] as List<Tablero>;
-            Motores = qResult[2] as List<HPItem>;
+            if (result is Exception)
+            {
+                this.OpenProjects = new List<Project>();
+                this.Tableros = new List<Tablero>();
+                Motores = new List<HPItem>();
+                System.Windows.MessageBox.Show("Error de carga de aplicación\n" + (result as Exception).Message, "Error de aplicación", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+            else
+            {
+                var qResult = (Object[])(result);
+                this.OpenProjects = qResult[0] as List<Project>;
+                this.Tableros = qResult[1] as List<Tablero>;
+                Motores = qResult[2] as List<HPItem>;
+            }
         }
     }
 }

@@ -364,10 +364,6 @@
     <Resource Include="img\componentes\12_64x64.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\tableros\Z1_2.bmp" />
-    <Resource Include="img\tableros\Z1_4.bmp" />
-    <Resource Include="img\tableros\Z1_6.bmp" />
-    <Resource Include="img\tableros\Z1_8.bmp" />
     <Resource Include="img\tableros\Z3_12.bmp" />
     <Resource Include="img\tableros\Z3_18.bmp" />
     <Resource Include="img\tableros\Z3_24.bmp" />

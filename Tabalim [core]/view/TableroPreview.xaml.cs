@@ -70,8 +70,11 @@ namespace Tabalim.Core.view
         private DataTemplate CreateDataTemplate(Componente c)
         {
             String imageName = File.Exists("img/componentes/" + c.ImageIndex + "_32x32.png") ? c.ImageIndex.ToString() : "no_img";
-            StringReader data = new StringReader(
-                @"<DataTemplate 
+            StringReader data = new StringReader(@"<DataTemplate xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Grid></Grid></DataTemplate>");
+            try
+            {
+                data = new StringReader(
+                    @"<DataTemplate 
                     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -79,10 +82,15 @@ namespace Tabalim.Core.view
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Image Width=""32"" Height=""32"" Source=""/elekid;component/img/componentes/" + imageName + @"_32x32.png""/>
-                        <TextBlock Grid.Row=""1"" Text=""" + (c is Motor ? runtime.TabalimApp.Motores.FirstOrDefault(x => x.HP == c.Potencia.HP )?.HPFormat : c.Potencia.ToString()) +  @""" />
+                        <TextBlock Grid.Row=""1"" Text=""" + (c is Motor ? runtime.TabalimApp.Motores.FirstOrDefault(x => x.HP == c.Potencia.HP)?.HPFormat : c.Potencia.ToString()) + @""" />
                     </Grid>
                 </DataTemplate>"
-            );
+                );
+            }
+            catch (Exception)
+            {
+
+            }
             return XamlReader.Load(XmlReader.Create(data)) as DataTemplate;
         }
     }

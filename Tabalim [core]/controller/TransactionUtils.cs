@@ -23,21 +23,21 @@ namespace Tabalim.Core.controller
         /// </summary>
         /// <param name="app">La aplicación</param>
         /// <param name="tablero">El tablero a insertar</param>
-        public static void CreateTableroTr(this TabalimApp app, Tablero tablero)
+        public static void CreateTableroTr(this TabalimApp app, Tablero tablero, Action<Object> tableroAddedTask = null)
         {
             tablero.CreateTableroTr(
                 (Object qResult) =>
             {
                 var result = (Object[])qResult;
                 Tablero tab = (Tablero)result[1];
-                if (tab.NombreTablero == "")
-                    tab.NombreTablero = String.Format("Tablero {0:000}", TabalimApp.CurrentProject.Tableros.Count);
-                if (tab.Description == "")
-                    tab.Description = "Sin descripción";
+       
                 if ((Boolean)result[0] && tab != null)
                 {
-                    app.Tableros.Add(tablero);
+                    app.Tableros.Add(tab);
                     TabalimApp.CurrentTablero = tab;
+                    if (!TabalimApp.CurrentProject.Tableros.ContainsKey(tab.Id))
+                        TabalimApp.CurrentProject.Tableros.Add(tab.Id, tab);
+                    tableroAddedTask?.Invoke(tablero);
                 }
             });
         }
@@ -65,6 +65,10 @@ namespace Tabalim.Core.controller
         private static object InsertTableroTask(SQLite_Connector conn, object input)
         {
             Tablero tab = (Tablero)input;
+            if (tab.NombreTablero == "")
+                tab.NombreTablero = String.Format("Tablero {0:000}", TabalimApp.CurrentProject.Tableros.Count + 1);
+            if (tab.Description == "")
+                tab.Description = "Sin descripción";
             Boolean flag = false;
             flag = tab.Create(conn, null);
             if (flag)

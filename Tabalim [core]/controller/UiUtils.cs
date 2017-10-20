@@ -50,6 +50,7 @@ namespace Tabalim.Core.controller
             MessageDialogResult res = await metroWindow.ShowMessageAsync(title, msg, MessageDialogStyle.AffirmativeAndNegative);
             return res == MessageDialogResult.Affirmative;
         }
+
         /// <summary>
         /// Ejecuta la acción que realizá la exportación del tablero actual
         /// </summary>

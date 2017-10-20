@@ -91,7 +91,11 @@ namespace Tabalim.Core.view
                     (Object result) =>
                     {
                         if ((Boolean)result)
+                        {
+                            if (!TabalimApp.CurrentTablero.Circuitos.ContainsKey(item.Circuit.ToString()))
+                                TabalimApp.CurrentTablero.Circuitos.Add(item.Circuit.ToString(), item.Circuit);
                             this.Refresh();
+                        }
                     },
                     updateC.Circuito, updateC.Count, updateC.Potencia);
             }

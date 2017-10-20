@@ -33,7 +33,7 @@ namespace Tabalim.App
             var dialog = new TableroPicker();
             dialog.ShowDialog();
             if (dialog.DialogResult.Value)
-                App.Tabalim.CreateTableroTr(dialog.CreateTablero());
+                App.Tabalim.CreateTableroTr(dialog.CreateTablero(), (Object result) => { tablerosList.UpdateList(); });
         }
 
         private void CreateComponente_Click(object sender, RoutedEventArgs e)
