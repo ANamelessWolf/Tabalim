@@ -103,13 +103,16 @@ namespace Tabalim.Core.view
         /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.txtCto.Text = String.Format("Cto. [{0}]", this.SelectedCircuit.ToString());
-            this.tboLong.Text = this.SelectedCircuit.LongitudAsString;
-            string cboInput = ((ComboBoxItem)this.cboFactAgrup.Items[0]).Content.ToString();
-            if (double.Parse(cboInput) == this.SelectedCircuit.FactorAgrupacion)
-                this.cboFactAgrup.SelectedIndex = 0;
-            else
-                this.cboFactAgrup.SelectedIndex = 1;
+            if (this.SelectedCircuit != null)
+            {
+                this.txtCto.Text = String.Format("Cto. [{0}]", this.SelectedCircuit.ToString());
+                this.tboLong.Text = this.SelectedCircuit.LongitudAsString;
+                string cboInput = ((ComboBoxItem)this.cboFactAgrup.Items[0]).Content.ToString();
+                if (double.Parse(cboInput) == this.SelectedCircuit.FactorAgrupacion)
+                    this.cboFactAgrup.SelectedIndex = 0;
+                else
+                    this.cboFactAgrup.SelectedIndex = 1;
+            }
         }
     }
 }

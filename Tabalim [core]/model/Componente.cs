@@ -182,7 +182,8 @@ namespace Tabalim.Core.model
             {
                 this.Id = (int)result.GetValue<long>(this.PrimaryKey);
                 int cirId = (int)result.GetValue<long>("cir_id");
-                this.Circuito = TabalimApp.CurrentTablero.Circuitos.Values.FirstOrDefault(x => x.Id == cirId);
+                if (TabalimApp.CurrentTablero != null)
+                    this.Circuito = TabalimApp.CurrentTablero.Circuitos.Values.FirstOrDefault(x => x.Id == cirId);
                 this.ImageIndex = result.GetInteger("img_index");
                 double potencia = result.GetValue<double>("potencia");
                 this.Potencia = new Potencia(potencia, this.ImageIndex.IsComponent(ComponentType.Motor));

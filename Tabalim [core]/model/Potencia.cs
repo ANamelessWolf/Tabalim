@@ -37,7 +37,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Regresa potencia en HP
         /// </summary>
-        public Double HP { get { return watts / HP_to_Watts; } }
+        public Double HP { get { return Math.Round(watts / HP_to_Watts, 5); } }
         /// <summary>
         /// Devuelve la <see cref="System.String" /> que representa la tensión
         /// </summary>

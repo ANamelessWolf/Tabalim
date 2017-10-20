@@ -66,7 +66,21 @@ namespace Tabalim.Core.model
         /// <summary>
         /// El factor de temperatura
         /// </summary>
-        public double FactorTemperatura;
+        public double FactorTemperatura
+        {
+            get
+            {
+                try
+                {
+                    return Temperatura.GetFactor((int)TabalimApp.CurrentProject.Tableros[TableroId].Sistema.Temperatura);
+                }
+                catch (Exception)
+                {
+                    return 1;
+                }
+
+            }
+        }
         /// <summary>
         /// El factor de agrupacion
         /// </summary>
@@ -138,7 +152,13 @@ namespace Tabalim.Core.model
         /// La longitud del circuito como una cadena
         /// </value>
         public string LongitudAsString { get { return String.Format("{0:N2}", this.Longitud); } }
-
+        /// <summary>
+        /// Devuelve si el circuito requiere ser revisado
+        /// </summary>
+        /// <value>
+        /// The needs review.
+        /// </value>
+        public int NeedsReview { get { return CorrienteProteccion < 50 ? 0 : CorrienteProteccion < 55 ? 1 : 2; } }
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
@@ -155,7 +175,7 @@ namespace Tabalim.Core.model
         public Circuito()
         {
             this.Componentes = new Dictionary<int, Componente>();
-            
+
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Circuito"/>.
@@ -164,7 +184,8 @@ namespace Tabalim.Core.model
         public Circuito(SelectionResult[] result) : this()
         {
             this.Parse(result);
-            this.Tension = TabalimApp.CurrentTablero.Sistema.Tension;
+            if (TabalimApp.CurrentTablero != null)
+                this.Tension = TabalimApp.CurrentTablero.Sistema.Tension;
         }
         /// <summary>
         /// Crea un registro del objeto en la base de datos.
@@ -176,7 +197,6 @@ namespace Tabalim.Core.model
             Tablero tablero = input as Tablero;
             this.TableroId = tablero.Id;
             this.Tension = tablero.Sistema.Tension;
-            this.FactorTemperatura = Temperatura.GetFactor((int)tablero.Sistema.Temperatura);
             return conn.Insert(this);
         }
         /// <summary>
@@ -216,7 +236,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Actualiza un registro del objeto en la base de datos
         /// </summary>
-                /// <param name="conn">La conexión a SQLite.</param>
+        /// <param name="conn">La conexión a SQLite.</param>
         /// <param name="input">La entrada que recibe la operación</param>
         /// <returns>
         /// Verdadero si realizá la actualización.
@@ -228,7 +248,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Borra la instancia de la base de datos
         /// </summary>
-                /// <param name="conn">La conexión a SQLite.</param>
+        /// <param name="conn">La conexión a SQLite.</param>
         /// <returns>
         /// Verdadero si se borra el elemento
         /// </returns>
@@ -257,7 +277,6 @@ namespace Tabalim.Core.model
                 this.Polos = result.GetString("polos").ParsePolos();
                 this.FactorAgrupacion = result.GetValue<Double>("fac_agrup");
                 this.Longitud = result.GetValue<Double>("longitud");
-                this.FactorTemperatura = Temperatura.GetFactor((int)TabalimApp.CurrentProject.Tableros[TableroId].Sistema.Temperatura);
             }
             catch (Exception exc)
             {

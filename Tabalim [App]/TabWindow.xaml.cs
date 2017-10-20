@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,18 +37,23 @@ namespace Tabalim.App
                 App.Tabalim.CreateTableroTr(dialog.CreateTablero(), (Object result) => { tablerosList.UpdateList(); });
         }
 
-        private void CreateComponente_Click(object sender, RoutedEventArgs e)
+        private async void CreateComponente_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new ComponentPicker();
-            dialog.ShowDialog();
-            if (dialog.DialogResult.Value)
+            if (TabalimApp.CurrentProject?.Tableros.Count > 0)
             {
-                TabalimApp.CurrentTablero.AddComponentTr(dialog.SelectedComponent,
-                    (Object result) =>
-                    {
-                        circuitosList.Refresh();
-                    });
+                var dialog = new ComponentPicker();
+                dialog.ShowDialog();
+                if (dialog.DialogResult.Value)
+                {
+                    TabalimApp.CurrentTablero.AddComponentTr(dialog.SelectedComponent,
+                        (Object result) =>
+                        {
+                            circuitosList.Refresh();
+                        });
+                }
             }
+            else
+                await (this as MetroWindow).ShowMessageAsync("", "Debe existir al menos un tablero.");
         }
 
         private void circuitosList_IsRefreshed(object sender, RoutedEventArgs e)
@@ -55,20 +61,25 @@ namespace Tabalim.App
             tablero.UpdateData();
         }
 
-        private void Guardar_Click(object sender, RoutedEventArgs e)
+        private async void Guardar_Click(object sender, RoutedEventArgs e)
         {
-            var win = new WinTableroSettings(TabalimApp.CurrentTablero);
-            win.ShowDialog();
-            if (win.DialogResult.Value)
+            if (TabalimApp.CurrentProject?.Tableros.Count > 0)
             {
-                this.ExporCurrentTablero();
-                tablerosList.UpdateList();
+                var win = new WinTableroSettings(TabalimApp.CurrentTablero);
+                win.ShowDialog();
+                if (win.DialogResult.Value)
+                {
+                    this.ExporCurrentTablero();
+                    tablerosList.UpdateList();
+                }
             }
+            else
+                await (this as MetroWindow).ShowMessageAsync("", "Debe existir al menos un tablero.");
         }
 
         private void Abrir_Click(object sender, RoutedEventArgs e)
         {
-            this.ImportTablero(TabalimApp.CurrentProject);
+            this.ImportTablero(TabalimApp.CurrentProject, (object result) => { tablerosList.UpdateList(); });
         }
 
         private void tablerosList_TableroChanged(object sender, RoutedEventArgs e)

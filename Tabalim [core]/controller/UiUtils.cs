@@ -43,6 +43,19 @@ namespace Tabalim.Core.controller
         /// <param name="title">El titulo del mensaje</param>
         /// <param name="msg">El mensaje.</param>
         /// <returns>Verdadero cuando el usuario da clic en Ok</returns>
+        public static async Task ShowMessageDialog(this System.Windows.Controls.UserControl control, String title, String msg)
+        {
+            var metroWindow = Application.Current.Windows.OfType<Window>()
+                             .SingleOrDefault(x => x.IsActive) as MetroWindow;
+            MessageDialogResult res = await metroWindow.ShowMessageAsync(title, msg);
+        }
+        /// <summary>
+        /// Muestra un dialogo que realizá una pregunta al usuario
+        /// </summary>
+        /// <param name="control">El control que solicita la pregunta.</param>
+        /// <param name="title">El titulo del mensaje</param>
+        /// <param name="msg">El mensaje.</param>
+        /// <returns>Verdadero cuando el usuario da clic en Ok</returns>
         public static async Task<Boolean> ShowQuestionDialog(this System.Windows.Controls.UserControl control, String title, String msg)
         {
             var metroWindow = Application.Current.Windows.OfType<Window>()
@@ -73,7 +86,7 @@ namespace Tabalim.Core.controller
         /// Ejecuta la acción que realizá la importación de un tablero al proyecto actual
         /// </summary>
         /// <param name="window">La ventana metro activa.</param>
-        public static async void ImportTablero(this MetroWindow window, Project prj)
+        public static async void ImportTablero(this MetroWindow window, Project prj, Action<object> TableroLoaded = null)
         {
             var controller = await window.ShowProgressAsync("Abriendo por favor espere...", "Abriendo tablero");
             controller.SetCancelable(false);
@@ -86,7 +99,10 @@ namespace Tabalim.Core.controller
                  if (msg.Length > 0)
                  {
                      TabalimApp.CurrentTablero = (Tablero)rData[2];
+                     if (!TabalimApp.CurrentProject.Tableros.ContainsKey(TabalimApp.CurrentTablero.Id))
+                         TabalimApp.CurrentProject.Tableros.Add(TabalimApp.CurrentTablero.Id, TabalimApp.CurrentTablero);
                      await window.ShowMessageAsync(succed ? "Tablero Cargado" : "Error", msg);
+                     TableroLoaded?.Invoke(TabalimApp.CurrentTablero);
                  }
                  await controller.CloseAsync();
              })));

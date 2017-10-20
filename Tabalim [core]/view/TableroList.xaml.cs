@@ -33,20 +33,20 @@ namespace Tabalim.Core.view
             InitializeComponent();
         }
         public void UpdateList()
-        {            
+        {
             tableros.ItemsSource = TabalimApp.CurrentProject?.Tableros.Values.Select(x => new TableroItem(x));
+            tableros.SelectedIndex = 0;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             this.UpdateList();
-            tableros.SelectedIndex = tableros.Items.Count - 1;
         }
 
         private void tabItem_Clicked(object sender, RoutedEventArgs e)
         {
             int id = int.Parse(((sender as Button).FindName("id") as TextBlock).Text);
-            
+
         }
 
         private void TableroLoaded(object result)
@@ -57,7 +57,7 @@ namespace Tabalim.Core.view
         private object LoadTablero(SQLite_Connector conn, object input)
         {
             Tablero t = input as Tablero;
-            if(t.Componentes.Count == 0)
+            if (t.Componentes.Count == 0)
                 t.LoadComponentesAndCircuits(conn);
             return t;
         }
@@ -73,10 +73,10 @@ namespace Tabalim.Core.view
             tr.Run(TabalimApp.CurrentProject.Tableros[id]);
         }
 
-        private void TableroReady(object result)
+        private async void TableroReady(object result)
         {
             Clipboard.SetText(JsonConvert.SerializeObject(new TableroRaw(result as Tablero)));
-            ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("", "Tablero guardado en portapapeles.");
+            await UiUtils.ShowMessageDialog(this, "", "Tablero guardado en portapapeles.");
         }
 
         private void tableros_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -96,13 +96,14 @@ namespace Tabalim.Core.view
         private async void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             int id = int.Parse((sender as Button).Tag.ToString());
-            if(await ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("", "¿Desea eliminar el tablero?", MessageDialogStyle.AffirmativeAndNegative) == MessageDialogResult.Affirmative)
+            if (await UiUtils.ShowQuestionDialog(this, "", "¿Desea eliminar el tablero?"))
             {
                 TabalimApp.CurrentProject.Tableros[id].DeleteTableroTr((object result) =>
                 {
                     if ((bool)result) TabalimApp.CurrentProject.Tableros.Remove(id);
                     this.UpdateList();
-                });               
+                    TableroLoaded(result);
+                });
             }
 
         }

@@ -30,7 +30,7 @@ namespace Tabalim.Core.controller
             {
                 var result = (Object[])qResult;
                 Tablero tab = (Tablero)result[1];
-       
+
                 if ((Boolean)result[0] && tab != null)
                 {
                     app.Tableros.Add(tab);
@@ -175,7 +175,7 @@ namespace Tabalim.Core.controller
         private static object PickTableroName(SQLite_Connector conn, object input)
         {
             Tablero tab = conn.Select<Tablero>(TABLE_TABLERO.SelectAll()).FirstOrDefault();
-            tab.LoadComponentesAndCircuits(conn);
+            tab.LoadComponentesAndCircuits(conn, tab);
             return tab;
         }
         /// <summary>
@@ -225,7 +225,10 @@ namespace Tabalim.Core.controller
                     Tablero fileTab = data[1] as Tablero;
                     return InsertTableroTr(conn, prj, fileTab);
                 },
-                TaskCompleted = (Object result) => { task_completed(result); }
+                TaskCompleted = (Object result) => 
+                {
+                    task_completed(result);
+                }
             };
             tr.Run(new Object[] { project, fileTablero });
         }
@@ -258,7 +261,7 @@ namespace Tabalim.Core.controller
                         cmps.ForEach(cmp => cmp.GetLastId<Componente>(conn,
                             ctos.FirstOrDefault(cto => cto.ToString() == cmp.CircuitoName)));
                         result = t;
-                        result.LoadComponentesAndCircuits(conn);
+                        result.LoadComponentesAndCircuits(conn, result);
                         msg = String.Format("El tablero se cargo en el proyecto actual");
                         flag = true;
                     }

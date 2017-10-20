@@ -45,7 +45,7 @@ namespace Tabalim.Core.model
             {
                 Polos = this.Polos,
                 FactorAgrupacion = this.FactorAgrupacion,
-                FactorTemperatura = this.FactorTemperatura,
+                //FactorTemperatura = this.FactorTemperatura,
                 Longitud = this.Longitud,
                 Id = -1,
                 TableroId = -1,

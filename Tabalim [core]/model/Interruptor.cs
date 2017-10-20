@@ -13,7 +13,7 @@ namespace Tabalim.Core.model
         static int[] Corrientes = new int[] { 15, 20, 30, 40, 50 };
         public static Interruptor GetInterruptor(int polos, double corriente)
         {
-            return new Interruptor() { Polos = polos, CorrienteMaxima = Corrientes.First(x => x > corriente) };
+            return new Interruptor() { Polos = polos, CorrienteMaxima = corriente <= Corrientes.Last() ? Corrientes.First(x => x > corriente) : Corrientes.Last() };
         }
         public override string ToString()
         {

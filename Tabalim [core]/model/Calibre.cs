@@ -20,7 +20,7 @@ namespace Tabalim.Core.model
         };
         public static Calibre GetCalibre(double corriente)
         {
-            return Calibres.First(x => x.CorrienteMaxima > corriente);
+            return Calibres.FirstOrDefault(x => x.CorrienteMaxima > corriente) ?? Calibres.Last();
         }
     }
 }

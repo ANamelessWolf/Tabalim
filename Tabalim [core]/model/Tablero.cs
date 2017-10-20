@@ -73,13 +73,15 @@ namespace Tabalim.Core.model
         /// Values the tuple.
         /// </summary>
         /// <param name="conn">La conexión a SQLite.</param>
-        public void LoadComponentesAndCircuits(SQLite_Connector conn)
+        public void LoadComponentesAndCircuits(SQLite_Connector conn, Tablero tab = null)
         {
             var ctos = conn.Select<Circuito>(TABLE_CIRCUIT.SelectAll(this.CreatePrimaryKeyCondition()), Circuito.CircuitoParser);
             //Guarda los circuitos existentes
             string compQ;
             foreach (Circuito c in ctos)
             {
+                if (tab != null)
+                    c.Tension = tab.Sistema.Tension;
                 compQ = TABLE_COMPONENT.SelectAll(String.Format("\"cir_id\" = {0}", c.Id));
                 if (!this.Circuitos.ContainsKey(c.ToString()))
                     this.Circuitos.Add(c.ToString(), c);
