@@ -15,43 +15,28 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <ListBox x:Name="tableros" >
+        <ListBox x:Name="tableros" SelectionChanged="tableros_SelectionChanged" ItemContainerStyle="{StaticResource TabalimListItem}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Click="tabItem_Clicked" Style="{StaticResource TabalimListItem}">
-                        <Grid  HorizontalAlignment="Stretch">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock x:Name="id" Text="{Binding Path=Id}" Visibility="Hidden" />
-                            <TextBlock FontSize="20" Style="{StaticResource TabalimHeader}" Text="{Binding Path=Name}"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Path=Description}" />
-                        </Grid>
-                    </Button>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBoxItem>
-                <Button Click="tabItem_Clicked" Style="{StaticResource TabalimListItem}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="250" />
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="id" Text="" Visibility="Hidden" />
-                        <TextBlock Style="{StaticResource TabalimHeader}" Text="buuuuuuuuuuuuuu"/>
+                        <TextBlock x:Name="id" Text="{Binding Path=Id}" Visibility="Hidden" />
+                        <TextBlock FontSize="20" MaxWidth="{Binding ElementName=tableros, Path=ActualWidth}" TextWrapping="Wrap" Text="{Binding Path=Name}"/>
                         <TextBlock Grid.Row="1" Text="{Binding Path=Description}" />
-                        <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
-                            <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe107;"/>
-                            <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe16f;"/>
+                        <StackPanel x:Name="btnPanel" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
+                            <Button x:Name="copyBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe16f;" Click="copyBtn_Click"/>
+                            <Button x:Name="deleteBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe107;" Click="deleteBtn_Click"/>
                         </StackPanel>
                     </Grid>
-                </Button>
-            </ListBoxItem>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </UserControl>

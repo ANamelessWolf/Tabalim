@@ -6,31 +6,14 @@
         xmlns:ctr="clr-namespace:Tabalim.Core.view;assembly=elekid"
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.App"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        mc:Ignorable="d" 
+        Title="TABALIM" Height="350" Width="525" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>            
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Button x:Name="btnPickSystem" Click="btnPickSystem_Click"
-                Content="(1) Cargar Sistema" />
-        <Button x:Name="btnCreateComponent" Click="btnCreateComponent_Click"  Grid.Column="1"
-                Content="(2) Crear Componente" Grid.ColumnSpan="1" />
-        <Button x:Name="btnExportTablero" Click="btnExportComponent_Click"  Grid.Column="2"
-                Content="(3) Exportar" Grid.ColumnSpan="1" />
-        <Button x:Name="btnImportTablero" Click="btnImportComponent_Click"  Grid.Row="1"
-                Content="(4) Importar" Grid.ColumnSpan="1" />
-        <Button x:Name="btnSaveTablero" Click="btnSave_Click"  Grid.Row="1" Grid.Column="1"
-                Content="(5) Guardar" Grid.ColumnSpan="1" />
-        <ctr:CtoEditor Grid.Row="2" Grid.ColumnSpan="3"/>
-        <ctr:TableroPreview x:Name="tablero"  Grid.Row="3" Grid.ColumnSpan="3"/>
+        <Button x:Name="tabBtn" BorderBrush="#d2b90c" FontSize="50" Foreground="#d2b90c" Click="tabBtn_Click" HorizontalContentAlignment="Right" Content="TAB"/>
+        <Button  BorderBrush="#d2b90c" FontSize="50" Foreground="#d2b90c" HorizontalContentAlignment="Left" Content="ALIM" Grid.Column="1" />
     </Grid>
 </metro:MetroWindow>

@@ -75,5 +75,10 @@ namespace Tabalim.App
         {
             circuitosList.Refresh();
         }
+
+        private void MetroWindow_Closed(object sender, EventArgs e)
+        {
+            new MainWindow().Show();
+        }
     }
 }

@@ -254,20 +254,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\tableros\INTC12.bmp" />
-    <Resource Include="img\tableros\INTC18.bmp" />
     <Resource Include="img\tableros\INTC2.bmp" />
-    <Resource Include="img\tableros\INTC24.bmp" />
-    <Resource Include="img\tableros\INTC30.bmp" />
-    <Resource Include="img\tableros\INTC36.bmp" />
     <Resource Include="img\tableros\INTC4.bmp" />
-    <Resource Include="img\tableros\INTC42.bmp" />
-    <Resource Include="img\tableros\ZAPC12.bmp" />
-    <Resource Include="img\tableros\ZAPC18.bmp" />
-    <Resource Include="img\tableros\ZAPC24.bmp" />
-    <Resource Include="img\tableros\ZAPC30.bmp" />
-    <Resource Include="img\tableros\ZAPC36.bmp" />
-    <Resource Include="img\tableros\ZAPC42.bmp" />
     <Resource Include="img\tableros\ZAPC6.bmp" />
     <Resource Include="img\tableros\ZAPC8.bmp" />
   </ItemGroup>
@@ -383,7 +371,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E
+xcopy "$(ProjectDir)blocks\*" "$(SolutionDir)Tabalim [Addin] [R22]\bin\Debug\img\" /Y /E</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
