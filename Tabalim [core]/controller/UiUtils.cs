@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Tabalim.Core.model;
 using Tabalim.Core.runtime;
+using Tabalim.Core.view;
 
 namespace Tabalim.Core.controller
 {
@@ -68,7 +69,7 @@ namespace Tabalim.Core.controller
         /// Ejecuta la acción que realizá la exportación del tablero actual
         /// </summary>
         /// <param name="window">La ventana metro activa.</param>
-        public static async void ExporCurrentTablero(this MetroWindow window)
+        public static async void ExporCurrentTablero(this MetroWindow window, Action updateTask)
         {
             var controller = await window.ShowProgressAsync("Guardando por favor espere...", "Guardando tablero");
             controller.SetCancelable(false);
@@ -79,8 +80,32 @@ namespace Tabalim.Core.controller
                  Boolean succed = (Boolean)rData[0];
                  String msg = (string)rData[1];
                  await controller.CloseAsync();
-                 await window.ShowMessageAsync(succed ? "Tablero Guardado" : "Error", msg);
+                  if (msg.Length > 0)
+                     await window.ShowMessageAsync(succed ? "Tablero Guardado" : "Error", msg);
+                 if (succed)
+                     updateTask();
              }));
+        }
+        /// <summary>
+        /// Ejecuta la acción que realizá el guardado como del tablero actual
+        /// </summary>
+        /// <param name="window">La ventana metro activa.</param>
+        public static async void SaveCurrentTableroAs(this MetroWindow window, Action updateTask)
+        {
+            var controller = await window.ShowProgressAsync("Guardando por favor espere...", "Guardando tablero");
+            controller.SetCancelable(false);
+            controller.SetIndeterminate();
+            TabalimApp.CurrentTablero.ExportTableroTr((async (object result) =>
+            {
+                Object[] rData = result as Object[];
+                Boolean succed = (Boolean)rData[0];
+                String msg = (string)rData[1];
+                await controller.CloseAsync();
+                if (msg.Length > 0)
+                    await window.ShowMessageAsync(succed ? "Tablero Guardado" : "Error", msg);
+                if (succed)
+                    updateTask();
+            }));
         }
         /// <summary>
         /// Ejecuta la acción que realizá la importación de un tablero al proyecto actual

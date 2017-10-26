@@ -22,6 +22,10 @@ namespace Tabalim.Core.model
         /// </summary>
         public int ProjectId;
         /// <summary>
+        /// La ruta a donde esta guardado el tablero
+        /// </summary>
+        public string Path;
+        /// <summary>
         /// El nombre de la tabla que administra tableros
         /// </summary>
         public string TableName { get { return TABLE_TABLERO; } }
@@ -170,6 +174,7 @@ namespace Tabalim.Core.model
                 this.Sistema.TpAlimentacion = result.GetValue<Boolean>("is_interruptor") ? TipoAlimentacion.Interruptor : TipoAlimentacion.Zapata;
                 this.Sistema.Polo = result.GetInteger("polos");
                 this.Sistema.Temperatura = result.GetInteger("temperature");
+                this.Path = result.GetString("ruta");
             }
             catch (Exception exc)
             {
@@ -192,7 +197,8 @@ namespace Tabalim.Core.model
                 this.CreateFieldAsNumber("sys_index", this.Sistema.GetIndexOfSystem()),
                 this.CreateFieldAsNumber("is_interruptor", this.Sistema.TpAlimentacion == TipoAlimentacion.Interruptor ? 1 : 0),
                 this.CreateFieldAsNumber("polos", this.Sistema.Polo),
-                this.CreateFieldAsNumber("temperature", this.Sistema.Temperatura)
+                this.CreateFieldAsNumber("temperature", this.Sistema.Temperatura),
+                this.CreateFieldAsString("ruta",this.Path)
             };
         }
         /// <summary>
@@ -213,6 +219,7 @@ namespace Tabalim.Core.model
                     break;
                 case "tab_name":
                 case "tab_desc":
+                case "ruta":
                     value = input.CreateFieldAsString(this.TableName, input.Value);
                     break;
                 case "is_interruptor":
@@ -250,6 +257,9 @@ namespace Tabalim.Core.model
                         break;
                     case "temperature":
                         this.Sistema.Temperatura = (double)val.Value;
+                        break;
+                    case "ruta":
+                        this.Path = val.Value.ToString();
                         break;
                 }
         }

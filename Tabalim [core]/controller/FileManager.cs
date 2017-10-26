@@ -51,7 +51,7 @@ namespace Tabalim.Core.controller
         /// <param name="savePth">Como parámetro de salida la ruta seleccionada</param>
         /// <exception cref="Exception">Una Excepción puede suceder al guardar en un área restringida</exception>
         /// <returns>Verdadero si el archivo fue guardado en la ruta seleccionada</returns>
-        public Boolean SaveDialog(Action<String, Object> saveTask, Object input, out string savePth)
+        public Boolean SaveDialog(Func<String, Object, Boolean> saveTask, Object input, out string savePth)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Tabalim.Core.controller
                 flag = saveDialog.ShowDialog().Value && saveDialog.FileName != String.Empty;
                 if (flag)
                 {
-                    saveTask(saveDialog.FileName, input);
+                    flag = saveTask(saveDialog.FileName, input);
                     savePth = saveDialog.FileName;
                 }
                 return flag;

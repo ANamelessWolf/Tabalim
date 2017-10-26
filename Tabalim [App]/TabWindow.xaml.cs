@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,12 +66,14 @@ namespace Tabalim.App
         {
             if (TabalimApp.CurrentProject?.Tableros.Count > 0)
             {
-                var win = new WinTableroSettings(TabalimApp.CurrentTablero);
-                win.ShowDialog();
-                if (win.DialogResult.Value)
+                if (File.Exists(TabalimApp.CurrentTablero.Path))
+                    this.ExporCurrentTablero(() => this.tablerosList.UpdateList());
+                else
                 {
-                    this.ExporCurrentTablero();
-                    tablerosList.UpdateList();
+                    var win = new WinTableroSettings(TabalimApp.CurrentTablero);
+                    win.ShowDialog();
+                    if (win.DialogResult.Value)
+                        this.ExporCurrentTablero(() => this.tablerosList.UpdateList());
                 }
             }
             else

@@ -48,10 +48,12 @@ namespace Tabalim.Core.mocking.controller
                         TaskCompleted = (Object result) => { task_completed(result); }
                     };
                     tr.Run(tablero);
+                    return true;
                 }
                 catch (Exception exc)
                 {
                     task_completed(new object[] { false, String.Format("Error al exportar el tablero\nDetalles: {0}", exc.Message) });
+                    return false;
                 }
             }, tablero, out savePath);
         }
