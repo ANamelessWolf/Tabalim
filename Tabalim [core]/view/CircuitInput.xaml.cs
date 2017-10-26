@@ -47,19 +47,20 @@ namespace Tabalim.Core.view
             double l, f;
             string cboItem = ((ComboBoxItem)this.cboFactAgrup.SelectedItem).Content.ToString();
             if (double.TryParse(this.tboLong.Text, out l) && this.cboFactAgrup.SelectedIndex != -1 &&
-                Double.TryParse(cboItem, out f))
+                Double.TryParse(cboItem, out f) && this.cboCalibre.SelectedIndex != -1)
                 this.SelectedCircuit.UpdateCircuitTr(async (Object result) =>
                {
                    if (result is bool && (Boolean)result)
                    {
                        this.SelectedCircuit.Longitud = l;
                        this.SelectedCircuit.FactorAgrupacion = f;
+                       this.SelectedCircuit.Calibre = this.cboCalibre.SelectedItem as Calibre;
                        this.DialogResult = true;
                        this.Close();
                    }
                    else
                        await this.ShowMessageAsync("Error al actualizar", result.ToString());
-               }, l, f);
+               }, l, f, calibre: (this.cboCalibre.SelectedItem as Calibre).AWG);
             else
                 await this.ShowMessageAsync("Información incompleta", "Seleccione una longitud y factor de agrupamiento válido");
         }
@@ -103,6 +104,7 @@ namespace Tabalim.Core.view
         /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            this.cboCalibre.ItemsSource = Calibre.GetTableroCalibres();
             if (this.SelectedCircuit != null)
             {
                 this.txtCto.Text = String.Format("Cto. [{0}]", this.SelectedCircuit.ToString());
@@ -112,6 +114,7 @@ namespace Tabalim.Core.view
                     this.cboFactAgrup.SelectedIndex = 0;
                 else
                     this.cboFactAgrup.SelectedIndex = 1;
+                this.cboCalibre.SelectedItem = this.SelectedCircuit.Calibre;
             }
         }
     }

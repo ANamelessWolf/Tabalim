@@ -552,13 +552,14 @@ namespace Tabalim.Core.controller
         /// </summary>
         /// <param name="circuit">El circuito actualizar.</param>
         /// <param name="task_completed">La tarea que se ejecuta al terminar la transacción.</param>
-        public static void UpdateCircuitTr(this Circuito circuit, Action<Object> task_completed, double longitud = Double.NaN, double fac_agrup = Double.NaN, string interruptor = null)
+        public static void UpdateCircuitTr(this Circuito circuit, Action<Object> task_completed, double longitud = Double.NaN, double fac_agrup = Double.NaN, string interruptor = null, string calibre = null)
         {
             KeyValuePair<string, object>[] updateData = new KeyValuePair<string, object>[]
             {
                 !Double.IsNaN(longitud) ? new KeyValuePair<string, object>("longitud", longitud) : new KeyValuePair<string, object>(String.Empty, null),
                 !Double.IsNaN(fac_agrup) ? new KeyValuePair<string, object>("fac_agrup", fac_agrup) : new KeyValuePair<string, object>(String.Empty, null),
-                interruptor !=null ? new KeyValuePair<string, object>("interruptor", interruptor) : new KeyValuePair<string, object>(String.Empty, null)
+                interruptor !=null ? new KeyValuePair<string, object>("interruptor", interruptor) : new KeyValuePair<string, object>(String.Empty, null),
+                calibre !=null ? new KeyValuePair<string, object>("calibre", calibre) : new KeyValuePair<string, object>(String.Empty, null)
             }.Where(x => x.Key != String.Empty).ToArray();
             if (updateData.Length > 0)
             {

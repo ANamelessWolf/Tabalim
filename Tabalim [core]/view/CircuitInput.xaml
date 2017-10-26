@@ -6,7 +6,7 @@
              xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                
              xmlns:local="clr-namespace:Tabalim.Core.view"
              mc:Ignorable="d" Title="Tabalim - Entradas del circuito" Loaded="MetroWindow_Loaded"
-             d:DesignHeight="206" d:DesignWidth="415" Height="206" Width="415" ResizeMode="NoResize">
+             d:DesignHeight="241" d:DesignWidth="415" Height="241" Width="415" ResizeMode="NoResize">
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,6 +23,7 @@
             <RowDefinition Height="32"/>
             <RowDefinition Height="35"/>
             <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <TextBlock x:Name="txtCto" Text="Cto. [1,2,3]" Style="{StaticResource TabalimGroupHighlightLighten}"
@@ -36,7 +37,9 @@
             <ComboBoxItem Content="0.8"/>
             <ComboBoxItem Content="1"/>
         </ComboBox>
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2"
+        <TextBlock  Text="Calibre" Grid.Row="3"  Style="{StaticResource TabalimForm}"/>
+        <ComboBox x:Name="cboCalibre" Grid.Column="1" Grid.Row="3" Style="{StaticResource TabalimCboxNumber}"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2"
                     HorizontalAlignment="Right">
             <Button x:Name="btnOk" Content="Ok" Style="{StaticResource TabalimMenuButton}"
                     Click="btnClick"/>

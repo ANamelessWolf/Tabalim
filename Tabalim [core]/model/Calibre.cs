@@ -22,5 +22,15 @@ namespace Tabalim.Core.model
         {
             return Calibres.FirstOrDefault(x => x.CorrienteMaxima > corriente) ?? Calibres.Last();
         }
+        public static IEnumerable<Calibre> GetTableroCalibres()
+        {
+            return Calibres.Where(x => x.CorrienteMaxima <= 55);
+        }
+        public static Calibre GetCalibre(string awg)
+        {
+            if (Calibres.Count(x => x.AWG.CompareTo(awg) == 0) > 0)
+                return Calibres.First(x => x.AWG.CompareTo(awg) == 0);
+            return Calibres.First();
+        }
     }
 }

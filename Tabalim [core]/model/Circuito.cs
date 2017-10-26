@@ -109,7 +109,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Calibre.
         /// </value>
-        public Calibre Calibre { get { return Calibre.GetCalibre(CorrienteProteccion); } }
+        public Calibre Calibre;
         /// <summary>
         /// Obtiene la caida de voltaje.
         /// </summary>
@@ -277,6 +277,7 @@ namespace Tabalim.Core.model
                 this.Polos = result.GetString("polos").ParsePolos();
                 this.FactorAgrupacion = result.GetValue<Double>("fac_agrup");
                 this.Longitud = result.GetValue<Double>("longitud");
+                this.Calibre = Calibre.GetCalibre(result.GetString("calibre"));
             }
             catch (Exception exc)
             {
@@ -294,7 +295,8 @@ namespace Tabalim.Core.model
                 this.CreateFieldAsNumber("tab_id", this.TableroId),
                 this.CreateFieldAsString("polos", String.Join(",", Polos)),
                 this.CreateFieldAsNumber("fac_agrup", this.FactorAgrupacion),
-                this.CreateFieldAsNumber("longitud", this.Longitud)
+                this.CreateFieldAsNumber("longitud", this.Longitud),
+                this.CreateFieldAsString("calibre", this.Calibre?.AWG ?? String.Empty)
             };
         }
         /// <summary>
@@ -313,6 +315,9 @@ namespace Tabalim.Core.model
                 case "fac_agrup":
                 case "longitud":
                     value = input.CreateFieldAsNumber(this.TableName, input.Value);
+                    break;
+                case "calibre":
+                    value = input.CreateFieldAsString(this.TableName, input.Value);
                     break;
                 default:
                     value = null;
@@ -335,6 +340,9 @@ namespace Tabalim.Core.model
                         break;
                     case "longitud":
                         this.Longitud = (double)val.Value;
+                        break;
+                    case "calibre":
+                        this.Calibre = Calibre.GetCalibre(val.Value.ToString());
                         break;
                 }
         }
