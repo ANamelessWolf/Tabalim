@@ -24,7 +24,7 @@ namespace Tabalim.Core.model
             }
         }
 
-        public override double CaidaVoltaje { get => (4 * Longitud * CorrienteCorregida) / (Tension.TensionAlNeutro * Calibre.AreaTransversal); }
+        public override double CaidaVoltaje { get => (4 * Longitud * CorrienteCorregida) / (Tension.TensionAlNeutro * Calibre?.AreaTransversal ?? 1); }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CircuitoMonofasico"/>.
         /// </summary>

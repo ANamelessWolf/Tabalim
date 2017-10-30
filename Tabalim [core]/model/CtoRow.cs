@@ -17,8 +17,8 @@ namespace Tabalim.Core.model
         public int Longitud => (int)Circuito.Longitud;
         public String FacAgr => Circuito.FactorAgrupacion.ToString("#.##");
         public String FacTmp => Circuito.FactorTemperatura.ToString("#.##");
-        public String Calibre => Circuito.Calibre.AWG;
-        public String Seccion => Circuito.Calibre.AreaTransversal.ToString("#.##");
+        public String Calibre => Circuito.Calibre?.AWG;
+        public String Seccion => Circuito.Calibre?.AreaTransversal.ToString("#.##");
         public String Caida => Circuito.CaidaVoltaje.ToString("#.##");
         public String PotenciaA => Circuito.PotenciaEnFases[0].ToString("#.##");
         public String PotenciaB => Circuito.PotenciaEnFases[1].ToString("#.##");
