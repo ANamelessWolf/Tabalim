@@ -110,5 +110,36 @@ namespace Tabalim.Core.controller
                 throw exc;
             }
         }
+        /// <summary>
+        /// Crea un wraper sencillo que realiza una transacción a la base
+        /// de datos y no retorna ningun valor
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="action">La acción que realizá la transacción.</param>
+        /// <param name="input">La entrada de la transacción.</param>
+        /// <exception cref="Exception">En caso de encontrar un error en la transacción o que no se haya definido alguna acción para la transacción.</exception>
+        public static void QuickTransaction(String path, Action<SQLite_Connector, Object[]> action, params Object[] input)
+        {
+            if (action == null)
+                throw new Exception("No se ha definido acción para la transacción.");
+            try
+            {
+                using (SQLite_Connector conn = new SQLite_Connector(path))
+                {
+                    try
+                    {
+                        action(conn, input);
+                    }
+                    catch (System.Exception exc)
+                    {
+                        throw exc;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+        }
     }
 }

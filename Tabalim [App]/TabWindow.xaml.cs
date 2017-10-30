@@ -79,6 +79,24 @@ namespace Tabalim.App
             else
                 await (this as MetroWindow).ShowMessageAsync("", "Debe existir al menos un tablero.");
         }
+        /// <summary>
+        /// Maneja el evento que realizá la tarea de hacer clic en el botón guardar como
+        /// </summary>
+        /// <param name="sender">La fuente del evento.</param>
+        /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
+        private async void SaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            if (TabalimApp.CurrentProject?.Tableros.Count > 0)
+            {
+                var win = new WinTableroSettings(TabalimApp.CurrentTablero, true);
+                win.ShowDialog();
+                if (win.DialogResult.Value)
+                    this.SaveCurrentTableroAs(win.SelectedTabName, win.SelectedDescription, 
+                        () => this.tablerosList.UpdateList());
+            }
+            else
+                await (this as MetroWindow).ShowMessageAsync("Error", "Debe existir al menos un tablero.");
+        }
 
         private void Abrir_Click(object sender, RoutedEventArgs e)
         {
@@ -94,5 +112,7 @@ namespace Tabalim.App
         {
             new MainWindow().Show();
         }
+
+
     }
 }

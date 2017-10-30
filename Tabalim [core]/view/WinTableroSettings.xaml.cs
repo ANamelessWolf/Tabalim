@@ -41,13 +41,21 @@ namespace Tabalim.Core.view
         /// </summary>
         private String Description { get { return this.ActiveTablero.Description; } }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="WinTableroSettings"/>.
+        /// El nombrero seleccionado por el usuario
         /// </summary>
-        /// <param name="name">El nombre del tablero</param>
-        /// <param name="desc">La descripción del tablero</param>
-        public WinTableroSettings(Tablero tablero, Boolean saveMode = false)
+        public String SelectedTabName { get { return this.txtName.Text; } }
+        /// <summary>
+        /// La descripción selecciona por el usuario
+        /// </summary>
+        public String SelectedDescription { get { return this.txtDexc.Text; } }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="WinTableroSettings" />.
+        /// </summary>
+        /// <param name="tablero">El tablero actual.</param>
+        /// <param name="saveAsMode">Si esta bandera esta habilitada el modo de guardado es guardar como</param>
+        public WinTableroSettings(Tablero tablero, Boolean saveAsMode = false)
         {
-            this.SaveAsMode = saveMode;
+            this.SaveAsMode = saveAsMode;
             this.ActiveTablero = tablero;
             InitializeComponent();
         }
@@ -88,7 +96,10 @@ namespace Tabalim.Core.view
                   })), this.txtName.Text, this.txtDexc.Text);
             }
             else if (this.txtName.Text != String.Empty && this.txtDexc.Text != String.Empty && SaveAsMode && TabalimApp.CurrentProject.Tableros.Values.Count(x => x.NombreTablero == this.txtName.Text) == 0)
+            {
+                this.DialogResult = true;
                 this.Close();
+            }
             else if (this.txtName.Text != String.Empty && this.txtDexc.Text != String.Empty && SaveAsMode && TabalimApp.CurrentProject.Tableros.Values.Count(x => x.NombreTablero == this.txtName.Text) > 0)
                 await this.ShowMessageAsync("Nombre de Tablero en uso", "Favor de proporcionar un nombre único para guardar como el tablero.");
             else

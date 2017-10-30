@@ -64,7 +64,20 @@ namespace Tabalim.Core.controller
             MessageDialogResult res = await metroWindow.ShowMessageAsync(title, msg, MessageDialogStyle.AffirmativeAndNegative);
             return res == MessageDialogResult.Affirmative;
         }
-
+        /// <summary>
+        /// Muestra un dialogo que realizá una pregunta al usuario
+        /// </summary>
+        /// <param name="control">El control que solicita la pregunta.</param>
+        /// <param name="title">El titulo del mensaje</param>
+        /// <param name="msg">El mensaje.</param>
+        /// <returns>Verdadero cuando el usuario da clic en Ok</returns>
+        public static async Task<Boolean> ShowQuestionDialog(String title, String msg)
+        {
+            var metroWindow = Application.Current.Windows.OfType<Window>()
+                             .SingleOrDefault(x => x.IsActive) as MetroWindow;
+            MessageDialogResult res = await metroWindow.ShowMessageAsync(title, msg, MessageDialogStyle.AffirmativeAndNegative);
+            return res == MessageDialogResult.Affirmative;
+        }
         /// <summary>
         /// Ejecuta la acción que realizá la exportación del tablero actual
         /// </summary>
@@ -80,7 +93,7 @@ namespace Tabalim.Core.controller
                  Boolean succed = (Boolean)rData[0];
                  String msg = (string)rData[1];
                  await controller.CloseAsync();
-                  if (msg.Length > 0)
+                 if (msg.Length > 0)
                      await window.ShowMessageAsync(succed ? "Tablero Guardado" : "Error", msg);
                  if (succed)
                      updateTask();
@@ -90,22 +103,28 @@ namespace Tabalim.Core.controller
         /// Ejecuta la acción que realizá el guardado como del tablero actual
         /// </summary>
         /// <param name="window">La ventana metro activa.</param>
-        public static async void SaveCurrentTableroAs(this MetroWindow window, Action updateTask)
+        public static async void SaveCurrentTableroAs(this MetroWindow window, string tabName, string tabDesc, Action updateTask)
         {
             var controller = await window.ShowProgressAsync("Guardando por favor espere...", "Guardando tablero");
             controller.SetCancelable(false);
             controller.SetIndeterminate();
-            TabalimApp.CurrentTablero.ExportTableroTr((async (object result) =>
-            {
-                Object[] rData = result as Object[];
-                Boolean succed = (Boolean)rData[0];
-                String msg = (string)rData[1];
-                await controller.CloseAsync();
-                if (msg.Length > 0)
-                    await window.ShowMessageAsync(succed ? "Tablero Guardado" : "Error", msg);
-                if (succed)
-                    updateTask();
-            }));
+            //Se realizá la copia del tablero a exportar
+            List<Componente> cmps;
+            List<Circuito> ctos;
+            var copy = TabalimApp.CurrentTablero.Clone(out cmps, out ctos);
+            copy.NombreTablero = tabName;
+            copy.Description = tabDesc;
+            copy.ExportTableroAsTr(cmps, ctos, (async (object result) =>
+              {
+                  Object[] rData = result as Object[];
+                  Boolean succed = (Boolean)rData[0];
+                  String msg = (string)rData[1];
+                  await controller.CloseAsync();
+                  if (msg.Length > 0)
+                      await window.ShowMessageAsync(succed ? "Tablero Guardado" : "Error", msg);
+                  if (succed)
+                      updateTask();
+              }));
         }
         /// <summary>
         /// Ejecuta la acción que realizá la importación de un tablero al proyecto actual

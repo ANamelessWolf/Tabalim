@@ -97,8 +97,117 @@ namespace Tabalim.Core.controller
             else
                 UpdateTableroPathTr(tablero, savePath);
         }
+        /// <summary>
+        /// Exporta el archivo de tablero
+        /// </summary>
+        /// <param name="tablero">El tablero a exportar.</param>
+        /// <param name="task_completed">La tarea que se ejecuta al terminar la transacción.</param>
+        public static void ExportTableroAsTr(this Tablero tablero, List<Componente> cmps, List<Circuito> cto, Action<Object> task_completed)
+        {
+            FileManager fm = new FileManager("Tabalim", "Guardar Tablero como ...", "tabalim");
+            string savePath;
+            bool saveResult;
+            saveResult = fm.SaveDialog(SaveTableroAs, new Object[] { tablero, cmps, cto, task_completed }, out savePath);
+            if (!saveResult)
+                task_completed(new object[] { false, "" });
+        }
 
 
+        /// <summary>
+        /// Guarda una copia del tablero en la ruta del archivo especificado.
+        /// </summary>
+        /// <param name="filePath">La ruta en donde se guardará el archivo.</param>
+        /// <param name="saveInput">Los parametros de entrada que recibe la función de guardado.</param>
+        private static Boolean SaveTableroAs(String filePath, Object saveInput)
+        {
+            var data = (Object[])saveInput;
+            Tablero tablero = data[0] as Tablero;
+            List<Componente> componentes = data[1] as List<Componente>;
+            List<Circuito> circuitos = data[2] as List<Circuito>;
+            Action<Object> task_completed = data[3] as Action<Object>;
+            Boolean flag = false;
+            try
+            {
+                SQLiteWrapper.QuickTransaction(TabalimApp.AppDBPath, (SQLite_Connector conn, Object[] input) =>
+                {
+                    String query = TABLE_TABLERO.SelectAll(String.Format("ruta ='{0}'", filePath));
+                    Tablero t = conn.Select<Tablero>(query).FirstOrDefault();
+                    if (t != null)
+                    {
+                        t.Delete(conn);
+                        TabalimApp.CurrentProject.Tableros.Remove(t.Id);
+                    }
+                }, filePath);
+                //Copiamos el archivo base de tableros
+                File.Copy(TabalimApp.TableroDBPath, filePath, true);
+                SQLiteWrapper tr = new SQLiteWrapper(filePath)
+                {
+                    TransactionTask = (SQLite_Connector conn, Object input) =>
+                    {
+                        try
+                        {
+                            Object[] tData = input as Object[];
+                            Tablero t = tData[0] as Tablero;
+                            List<Componente> cmps = tData[1] as List<Componente>;
+                            List<Circuito> ctos = tData[2] as List<Circuito>;
+                            //Primero se realiza la copia externa, luego la interna
+                            if (InsertTablero(conn, t, cmps, ctos))
+                            {
+                                var localClone = t.Clone(out cmps, out ctos);
+                                SQLiteWrapper.QuickTransaction(TabalimApp.AppDBPath,
+                                    (SQLite_Connector localConn, Object[] localInput) =>
+                                    {
+                                        (localInput[0] as Tablero).Path = localInput[3] as String;
+                                        var succed = InsertTablero(localConn,
+                                               localInput[0] as Tablero,
+                                               localInput[1] as List<Componente>,
+                                               localInput[2] as List<Circuito>);
+                                        Tablero nT = localInput[0] as Tablero;
+                                        if (succed && !TabalimApp.CurrentProject.Tableros.ContainsKey(nT.Id))
+                                            TabalimApp.CurrentProject.Tableros.Add(nT.Id, nT);
+                                    }, t, cmps, ctos, new SQLiteConnectionStringBuilder(conn.Connection.ConnectionString).DataSource);
+                            }
+                            return new object[] { true, String.Format("Tablero guardado de forma correcta en \n{0}.", filePath) };
+                        }
+                        catch (Exception exc)
+                        {
+                            return new object[] { false, String.Format("Error al guardar el tablero\nDetalles: {0}", exc.Message) };
+                        }
+                    },
+                    TaskCompleted = (Object result) => { task_completed(result); }
+                };
+                tr.Run(new object[] { tablero, componentes, circuitos });
+                flag = true;
+            }
+            catch (IOException exc)
+            {
+                task_completed(new object[] { false, String.Format("Error al guardar el tablero\nDetalles: {0}\nPara remplazar el archivo utilice guardar como.", exc.Message) });
+            }
+            catch (Exception exc)
+            {
+                task_completed(new object[] { false, String.Format("Error al guardar el tablero\nDetalles: {0}", exc.Message) });
+            }
+            return flag;
+        }
+        /// <summary>
+        /// Realiza el proceso de inserción de un tablero con sus componentes y circuitos separados
+        /// </summary>
+        /// <param name="conn">Define la conexión a SQLite.</param>
+        /// <param name="tablero">El tablero a insertar.</param>
+        /// <param name="componentes">Los componenentes asociados al tablero.</param>
+        /// <param name="circuitos">Los circuitos asociados al tablero.</param>
+        /// <returns>Verdadero si la inserción se realizá de manera correcta</returns>
+        private static Boolean InsertTablero(SQLite_Connector conn, Tablero tablero, List<Componente> componentes, List<Circuito> circuitos)
+        {
+            //Se inserta el tablero
+            InsertTableroTask(conn, tablero);
+            //Se se insertan los circuitos
+            circuitos.ForEach(x => x.GetLastId<Circuito>(conn, tablero));
+            //Se insertan los componentes
+            componentes.ForEach(cmp => cmp.GetLastId<Componente>(conn, circuitos.FirstOrDefault(cto => cto.ToString() == cmp.CircuitoName)));
+            tablero.LoadComponentesAndCircuits(conn, tablero);
+            return conn.QuerySucced;
+        }
         /// <summary>
         /// Guarda una copia del tablero en la ruta del archivo especificado.
         /// </summary>

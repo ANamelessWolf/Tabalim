@@ -14,6 +14,7 @@
             <Button Content="nuevo tablero" Click="CreateTablero_Click"/>
             <Button Content="nuevo componente" Click="CreateComponente_Click"/>
             <Button Content="guardar" Click="Guardar_Click"/>
+            <Button Content="guardar como" Click="SaveAs_Click"/>
             <Button Content="abrir" Click="Abrir_Click"/>
         </metro:WindowCommands>
     </metro:MetroWindow.RightWindowCommands>
