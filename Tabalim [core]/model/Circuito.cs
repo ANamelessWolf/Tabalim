@@ -102,7 +102,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Corriente de proteccion.
         /// </value>
-        public double CorrienteProteccion { get { return Corriente * Componentes.First().Value.FactorProteccion; } }
+        public double CorrienteProteccion { get { return CorrienteCorregida * Componentes.First().Value?.FactorProteccion ?? 1; } }
         /// <summary>
         /// Obtiene el calibre utilizando la corriente de protección.
         /// </summary>

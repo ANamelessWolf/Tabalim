@@ -161,36 +161,38 @@ namespace Tabalim.Core.controller
         public static IEnumerable<Circuito> GetAvailableCircuitos(this Tablero tablero, int cFases, bool isMotor)
         {
             List<Circuito> circuitos = new List<Circuito>();
-            IEnumerable<int> fullPolos = tablero.Circuitos.Values.Where(x => isMotor || x.HasMotor || cFases != x.Polos.Length).SelectMany(x => x.Polos);
+            IEnumerable<int> motorPolos = tablero.Circuitos.Values.Where(x => isMotor || x.HasMotor).SelectMany(x => x.Polos);
+            IEnumerable<int> usedPolos = tablero.Circuitos.Values.Where(x => isMotor || !x.HasMotor).SelectMany(x => x.Polos);
             List<int> odd = new List<int>(), even = new List<int>();
-            int oddCount = cFases, evenCount = cFases;
-            foreach (int i in Enumerable.Range(1, tablero.Sistema.Polo).Except(fullPolos))
+            int oddCount = cFases, evenCount = cFases;Circuito c;
+            foreach (int i in Enumerable.Range(1, tablero.Sistema.Polo).Except(motorPolos))
             {
-                if (oddCount == 0)
-                {
-                    if (odd.Count == cFases)
-                        circuitos.Add(Circuito.GetCircuito(cFases, odd.ToArray()));
-                    oddCount = cFases;
-                    odd = new List<int>();
-                }
-                if (i % 2 == 1)
-                {
-                    if (!fullPolos.Contains(i))
+                if (!usedPolos.Contains(i))
+                    if (i % 2 == 1)
                         odd.Add(i);
-                    oddCount--;
-                }
-                else
-                {
-                    if (!fullPolos.Contains(i))
+                    else
                         even.Add(i);
-                    evenCount--;
-                }
-                if (evenCount == 0)
+                else if (!isMotor && (c = tablero.Circuitos.Values.First(x => x.Polos.Contains(i))).Polos.Count() == cFases && !circuitos.Contains(c))
+                    circuitos.Add(c);
+                if(odd.Count == cFases)
                 {
-                    if (even.Count == cFases)
+                    if (odd.Last() - odd.First() == (cFases - 1) * 2)
+                    {
+                        circuitos.Add(Circuito.GetCircuito(cFases, odd.ToArray()));
+                        odd.Clear();
+                    }
+                    else
+                        odd.RemoveAt(0);                    
+                }
+                if (even.Count == cFases)
+                {
+                    if (even.Last() - even.First() == (cFases - 1) * 2)
+                    {
                         circuitos.Add(Circuito.GetCircuito(cFases, even.ToArray()));
-                    evenCount = cFases;
-                    even = new List<int>();
+                        even.Clear();
+                    }
+                    else
+                        even.RemoveAt(0);
                 }
             }
             return circuitos;
