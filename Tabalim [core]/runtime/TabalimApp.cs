@@ -1,10 +1,13 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Tabalim.Core.controller;
 using Tabalim.Core.model;
 using static Tabalim.Core.assets.Constants;
@@ -71,12 +74,15 @@ namespace Tabalim.Core.runtime
         public TabalimApp()
         {
             this.Tableros = new List<Tablero>();
-            SQLiteWrapper tr = new SQLiteWrapper(AppDBPath)
+            if (File.Exists(AppDBPath))
             {
-                TransactionTask = InitApplication,
-                TaskCompleted = AppLoaded
-            };
-            tr.Run(null);
+                SQLiteWrapper tr = new SQLiteWrapper(AppDBPath)
+                {
+                    TransactionTask = InitApplication,
+                    TaskCompleted = AppLoaded
+                };
+                tr.Run(null);
+            }
         }
         /// <summary>
         /// Inicializa la información de la aplicación

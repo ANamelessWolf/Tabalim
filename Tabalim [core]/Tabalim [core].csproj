@@ -94,6 +94,7 @@
     <Compile Include="controller\SQLiteUtils.cs" />
     <Compile Include="controller\SQLiteWrapper.cs" />
     <Compile Include="controller\SQLite_Connector.cs" />
+    <Compile Include="controller\TableroTransactionUtils.cs" />
     <Compile Include="controller\TransactionUtils.cs" />
     <Compile Include="controller\UiUtils.cs" />
     <Compile Include="controller\UpdateField.cs" />
