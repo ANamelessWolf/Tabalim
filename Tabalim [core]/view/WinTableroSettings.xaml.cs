@@ -25,6 +25,10 @@ namespace Tabalim.Core.view
     public partial class WinTableroSettings : MetroWindow
     {
         /// <summary>
+        /// Si esta activa la bandera la información se guarda como
+        /// </summary>
+        public Boolean SaveAsMode;
+        /// <summary>
         /// El tablero selecionado
         /// </summary>
         public Tablero ActiveTablero;
@@ -41,8 +45,9 @@ namespace Tabalim.Core.view
         /// </summary>
         /// <param name="name">El nombre del tablero</param>
         /// <param name="desc">La descripción del tablero</param>
-        public WinTableroSettings(Tablero tablero)
+        public WinTableroSettings(Tablero tablero, Boolean saveMode = false)
         {
+            this.SaveAsMode = saveMode;
             this.ActiveTablero = tablero;
             InitializeComponent();
         }
@@ -63,7 +68,7 @@ namespace Tabalim.Core.view
         /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
         private async void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            if (this.txtName.Text != String.Empty && this.txtDexc.Text != String.Empty)
+            if (this.txtName.Text != String.Empty && this.txtDexc.Text != String.Empty && !this.SaveAsMode)
             {
                 var controller = await this.ShowProgressAsync("Guardando cambios...", "Por favor espere");
                 controller.SetCancelable(false);
@@ -82,6 +87,10 @@ namespace Tabalim.Core.view
                       }
                   })), this.txtName.Text, this.txtDexc.Text);
             }
+            else if (this.txtName.Text != String.Empty && this.txtDexc.Text != String.Empty && SaveAsMode && TabalimApp.CurrentProject.Tableros.Values.Count(x => x.NombreTablero == this.txtName.Text) == 0)
+                this.Close();
+            else if (this.txtName.Text != String.Empty && this.txtDexc.Text != String.Empty && SaveAsMode && TabalimApp.CurrentProject.Tableros.Values.Count(x => x.NombreTablero == this.txtName.Text) > 0)
+                await this.ShowMessageAsync("Nombre de Tablero en uso", "Favor de proporcionar un nombre único para guardar como el tablero.");
             else
                 await this.ShowMessageAsync("Información incompleta", "Favor de proporcionar un nombre y una descripción.");
         }
