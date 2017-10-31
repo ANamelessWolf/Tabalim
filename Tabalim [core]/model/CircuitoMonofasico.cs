@@ -49,7 +49,8 @@ namespace Tabalim.Core.model
                 Longitud = this.Longitud,
                 Id = -1,
                 TableroId = -1,
-                Tension = this.Tension
+                Tension = this.Tension,
+                Calibre = this.Calibre,
             };
         }
     }

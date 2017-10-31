@@ -132,11 +132,9 @@ namespace Tabalim.Core.controller
                 {
                     String query = TABLE_TABLERO.SelectAll(String.Format("ruta ='{0}'", filePath));
                     Tablero t = conn.Select<Tablero>(query).FirstOrDefault();
+                    t.LoadComponentesAndCircuits(conn, t);
                     if (t != null)
-                    {
                         t.Delete(conn);
-                        TabalimApp.CurrentProject.Tableros.Remove(t.Id);
-                    }
                 }, filePath);
                 //Copiamos el archivo base de tableros
                 File.Copy(TabalimApp.TableroDBPath, filePath, true);
