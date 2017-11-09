@@ -15,7 +15,7 @@ namespace Tabalim.Addin.Model
     /// <summary>
     /// Define el contenido del tablero
     /// </summary>
-    public class TableroContent : ITableroFunctionability
+    public class TableroContent :  ITableroFunctionability
     {
         /// <summary>
         /// El nombre del tablero

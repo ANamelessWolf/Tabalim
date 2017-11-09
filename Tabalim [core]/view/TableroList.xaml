@@ -31,8 +31,21 @@
                         <TextBlock FontSize="20" MaxWidth="{Binding ElementName=tableros, Path=ActualWidth}" TextWrapping="Wrap" Text="{Binding Path=Name}"/>
                         <TextBlock Grid.Row="1" Text="{Binding Path=Description}" />
                         <StackPanel x:Name="btnPanel" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
-                            <Button x:Name="copyBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe16f;" Click="copyBtn_Click"/>
-                            <Button x:Name="deleteBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe107;" Click="deleteBtn_Click"/>
+                            <Button x:Name="copyBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe16f;" Click="copyBtn_Click">
+                                <Button.ToolTip>
+                                    Copiar
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="cloneBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe2AE;" Click="cloneBtn_Click">
+                                <Button.ToolTip>
+                                    Clonar
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="deleteBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe107;" Click="deleteBtn_Click">
+                                <Button.ToolTip>
+                                    Eliminar
+                                </Button.ToolTip>
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

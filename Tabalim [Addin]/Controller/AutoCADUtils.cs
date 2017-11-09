@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tabalim.Addin.Mocking;
 using Tabalim.Addin.Model;
 
 namespace Tabalim.Addin.Controller
@@ -173,6 +174,24 @@ namespace Tabalim.Addin.Controller
             }
             return cont;
         }
-
+        /// <summary>
+        /// Obtiene la información que crea una tabla de alimentadores desde los datos en JSON
+        /// que obtiene del porta papeles
+        /// </summary>
+        /// <returns>La información del tablero a insertar</returns>
+        public static AlimentadorContent GetAlimentadorFromJSON()
+        {
+            AlimentadorContent cont = null;
+            try
+            {
+                cont = new AlimentadorMockingContent();
+            }
+            catch (Exception exc)
+            {
+                Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage(exc.Message);
+                Autodesk.AutoCAD.ApplicationServices.Application.ShowAlertDialog("La información del portapapeles actual no coincide con la información de un tablero.");
+            }
+            return cont;
+        }
     }
 }

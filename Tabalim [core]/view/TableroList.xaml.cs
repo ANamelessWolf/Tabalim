@@ -107,5 +107,10 @@ namespace Tabalim.Core.view
             }
 
         }
+
+        private void cloneBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse((sender as Button).Tag.ToString());
+        }
     }
 }
