@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tabalim.Addin.Controller;
 
 namespace Tabalim.Addin.Model
 {
@@ -116,5 +117,39 @@ namespace Tabalim.Addin.Model
         /// EL interruptor asociado a la línea
         /// </summary>
         public string Interruptor;
+        /// <summary>
+        /// Obtiene los valores de la línea seleccionada
+        /// </summary>
+        /// <returns>Los valores de la línea seleccionada.</returns>
+        public string[] GetValues()
+        {
+            return new String[]
+            {
+                this.No,                                        //0
+                this.Origin,                                    //1
+                this.To,                                        //2
+                this.PotInstVA.ToNumberFormat(),                //3
+                this.PotInstWatts.ToNumberFormat(),             //4
+                this.FacDemanda.ToNumberFormat(),               //5
+                this.PotDemAlum.ToNumberFormat(),               //6
+                this.PotDemCont.ToNumberFormat(),               //7
+                this.PotDemForce.ToNumberFormat(),              //8
+                this.PotDemVA.ToNumberFormat(),                 //9
+                this.PotDemWatts.ToNumberFormat(),              //10
+                this.FacPotencia.ToNumberFormat(),              //11
+                this.VoltajeNominal.ToNumberFormat(),           //12
+                this.CorrienteNominal.ToNumberFormat(),         //13
+                this.FacTem.ToNumberFormat(),                   //14
+                this.FacAgr.ToNumberFormat(),                   //15
+                this.CorrienteCorregida.ToNumberFormat(),       //16
+                this.Aliment,                                   //17
+                this.Length.ToNumberFormat(),                   //18
+                this.Imped.ToExpFormat(),                       //19
+                this.Resist.ToExpFormat(),                      //20
+                this.React.ToExpFormat(),                       //21
+                this.CaidaDeVoltaje.ToNumberFormat(),           //22
+                this.Interruptor                                //23
+            };
+        }
     }
 }

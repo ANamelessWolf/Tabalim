@@ -29,27 +29,27 @@ namespace Tabalim.Addin.Model
         /// <value>
         /// Los valores de la cabecera.
         /// </value>
-        public override Tuple<String, String, Double>[] Headers
+        public override HeaderOptions[] Headers
         {
             get
             {
-                return new Tuple<String, String, Double>[]
+                return new HeaderOptions[]
                 {
-                    new Tuple<string, string, double>( "Potencia", "V.A.", COLUMNWIDTH * 2.4d),
-                    new Tuple<string, string, double>( "Tensión", "VOLT", COLUMNWIDTH * 2d),
-                    new Tuple<string, string, double>( "Fases", String.Empty, COLUMNWIDTH * 1.5d),
-                    new Tuple<string, string, double>( "I", "AMP", COLUMNWIDTH * 1.5d),
-                    new Tuple<string, string, double>( "Longitud del\nCircuito", "L mts.", COLUMNWIDTH * 3d),
-                    new Tuple<string, string, double>( "Factor de\nAgrupamiento", String.Empty, COLUMNWIDTH * 2.5d),
-                    new Tuple<string, string, double>( "Temp\n{0}C°", "Factor de\nTemp", COLUMNWIDTH * 1.9d),
-                    new Tuple<string, string, double>( "Calibre", "#", COLUMNWIDTH * 2d),
-                    new Tuple<string, string, double>( "Sección", "mm2", COLUMNWIDTH * 2d),
-                    new Tuple<string, string, double>( "Caida de voltaje", "e%", COLUMNWIDTH * 3d),
-                    new Tuple<string, string, double>( "Potencia", "fase a", COLUMNWIDTH * 2d),
-                    new Tuple<string, string, double>( "Potencia", "fase b", COLUMNWIDTH * 2d),
-                    new Tuple<string, string, double>( "Potencia", "fase c", COLUMNWIDTH * 2d),
-                    new Tuple<string, string, double>( "Protección", "Ideal", COLUMNWIDTH * 2.5d),
-                    new Tuple<string, string, double>( "Interruptor", "Polos Amp", COLUMNWIDTH * 2.8d)
+                    new HeaderOptions( "Potencia", "V.A.", COLUMNWIDTH * 2.4d),
+                    new HeaderOptions( "Tensión", "VOLT", COLUMNWIDTH * 2d),
+                    HeaderOptions.NoSubHeader( "Fases", COLUMNWIDTH * 2d,2),
+                    new HeaderOptions( "I", "AMP", COLUMNWIDTH * 1.5d),
+                    new HeaderOptions( "Longitud del\nCircuito", "L mts.", COLUMNWIDTH * 3d),
+                    HeaderOptions.NoSubHeader( "Factor de\nAgrup.", COLUMNWIDTH * 2.8d,2),
+                    new HeaderOptions( "Temp\n{0}C°", "Factor de\nTemp", COLUMNWIDTH * 1.9d),
+                    new HeaderOptions( "Calibre", "#", COLUMNWIDTH * 2d),
+                    new HeaderOptions( "Sección", "mm2", COLUMNWIDTH * 2d),
+                    new HeaderOptions( "Caida de voltaje", "e%", COLUMNWIDTH * 3d),
+                    new HeaderOptions( "Potencia", "fase a", COLUMNWIDTH * 2.4d),
+                    new HeaderOptions( "Potencia", "fase b", COLUMNWIDTH * 2.4d),
+                    new HeaderOptions( "Potencia", "fase c", COLUMNWIDTH * 2.4d),
+                    HeaderOptions.NoSubHeader("Protección\nIdeal", COLUMNWIDTH * 2.9d, 2),
+                    new HeaderOptions( "Interruptor", "Polos Amp", COLUMNWIDTH * 3.2d)
                 };
             }
         }
@@ -120,13 +120,13 @@ namespace Tabalim.Addin.Model
                 CellRange.Create(this.Table,13,this.Table.Columns.Count-5,13,this.Table.Columns.Count-1),
                 CellRange.Create(this.Table,this.Table.Rows.Count - 2,6 + this.Content.CmpColumns.Length,this.Table.Rows. Count - 2,this.Table.Columns.Count-1),
                 CellRange.Create(this.Table,this.Table.Rows.Count - 1,6 + this.Content.CmpColumns.Length,this.Table.Rows. Count - 1,this.Table.Columns.Count-6),
-                             CellRange.Create(this.Table,this.Table.Rows.Count - 1,this.Table.Columns.Count-2,this.Table.Rows.Count - 1,this.Table.Columns.Count-1),
+                CellRange.Create(this.Table,this.Table.Rows.Count - 1,this.Table.Columns.Count-2,this.Table.Rows.Count - 1,this.Table.Columns.Count-1),
             }.Union(this.CreateHeaders(9, 5 + this.Content.CmpColumns.Length)).ToList();
             this.ChangeBorders(1, 0, true, true, false, false);
             this.ChangeBorders(8, 0, true, true, false, false);
             //Se insertan los titulos de circuitos
             int rowCount = this.Table.Rows.Count - 1;
-            this.Write("W", 8, 4, COLUMNWIDTH * 2.5);
+            this.Write("W", 8, 4, columnWidth: COLUMNWIDTH * 2.5);
             this.Write("Simbolo", 9, 4, rowHeight: COLUMNWIDTH * 2);
             this.Write("Potencia", 10, 4);
             this.Write("V.A.", 11, 4);
@@ -246,7 +246,7 @@ namespace Tabalim.Addin.Model
             int rowCount = this.Table.Rows.Count - 1;
             for (int i = 0; i < components.Length; i++)
             {
-                this.Write(components[i].W.ToString(), 8, 5 + i, COLUMNWIDTH * 2.5);
+                this.Write(components[i].W.ToString(), 8, 5 + i, columnWidth: COLUMNWIDTH * 2.5);
                 this.CreateBlock(components[i].ImageIndex, 9, 5 + i);
                 this.Write(components[i].Potencia, 10, 5 + i);
                 this.Write(components[i].VA.ToNumberFormat(), 11, 5 + i);

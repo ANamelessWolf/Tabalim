@@ -24,7 +24,7 @@ namespace Tabalim.Addin.Controller
         public static CellRange AddHeader(this TabalimTable table, string header, string subheader,
             int row, int startColumn, int columnOffset, double colWidth = COLUMNWIDTH)
         {
-            table.Write(header, row, startColumn + columnOffset, colWidth);
+            table.Write(header, row, startColumn + columnOffset, columnWidth: colWidth);
             table.Table.Cells[row, startColumn + columnOffset].TextHeight = HEADER_TEXTHEIGHT;
             table.Write(subheader, row + 1, startColumn + columnOffset);
             table.Table.Cells[row + 1, startColumn + columnOffset].TextHeight = SUB_HEADER_TEXTHEIGHT;
@@ -62,8 +62,8 @@ namespace Tabalim.Addin.Controller
         /// <param name="topIsVisible">if set to <c>true</c> [top is visible].</param>
         /// <param name="rightIsVisible">if set to <c>true</c> [right is visible].</param>
         /// <param name="bottomIsVisible">if set to <c>true</c> [bottom is visible].</param>
-        public static void ChangeBorders(this TabalimTable table, int row, int column, 
-            bool leftIsVisible = true, bool topIsVisible = true, 
+        public static void ChangeBorders(this TabalimTable table, int row, int column,
+            bool leftIsVisible = true, bool topIsVisible = true,
             bool rightIsVisible = true, bool bottomIsVisible = true)
         {
             var borders = table.Table.Cells[row, column].Borders;

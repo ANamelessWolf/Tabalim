@@ -14,6 +14,7 @@ namespace Tabalim.Addin.Mocking
     /// <seealso cref="Tabalim.Addin.Model.AlimentadorContent" />
     public class AlimentadorMockingContent : AlimentadorContent
     {
+        static Random ran;
         /// <summary>
         /// Devuelve un valor aleatorio.
         /// </summary>
@@ -24,7 +25,8 @@ namespace Tabalim.Addin.Mocking
         {
             get
             {
-                var ran = new Random((int)DateTime.Now.Ticks);
+                if(ran==null)
+                ran = new Random((int)DateTime.Now.Ticks);
                 return (double)ran.Next(0, 200) * ran.NextDouble();
             }
         }
@@ -78,7 +80,27 @@ namespace Tabalim.Addin.Mocking
                 NewAlim(7),
                 NewAlim(8),
                 NewAlim(9),
-                NewAlim(10)
+                NewAlim(10),
+                                NewAlim(11),
+                NewAlim(12),
+                NewAlim(13),
+                NewAlim(14),
+                NewAlim(15),
+                NewAlim(16),
+                NewAlim(17),
+                NewAlim(18),
+                NewAlim(19),
+                NewAlim(20),
+                                NewAlim(21),
+                NewAlim(22),
+                NewAlim(23),
+                NewAlim(24),
+                NewAlim(25),
+                NewAlim(26),
+                NewAlim(27),
+                NewAlim(28),
+                NewAlim(29),
+                NewAlim(30)
             };
         }
     }
