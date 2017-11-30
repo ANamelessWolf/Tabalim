@@ -84,6 +84,7 @@
     <Compile Include="Model\AlimTable.cs" />
     <Compile Include="Model\CircuitoRow.cs" />
     <Compile Include="Model\ComponentColumn.cs" />
+    <Compile Include="Model\HeaderOptions.cs" />
     <Compile Include="Model\TabalimTable.cs" />
     <Compile Include="Model\TableContent.cs" />
     <Compile Include="Model\TableroContent.cs" />

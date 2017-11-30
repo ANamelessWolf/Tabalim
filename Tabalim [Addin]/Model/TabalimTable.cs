@@ -42,7 +42,7 @@ namespace Tabalim.Addin.Model
         /// <value>
         /// Los valores de la cabecera.
         /// </value>
-        public abstract Tuple<String, String, Double>[] Headers { get; }
+        public abstract HeaderOptions[] Headers { get; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TabalimTable"/>.
         /// </summary>
@@ -51,8 +51,9 @@ namespace Tabalim.Addin.Model
         public TabalimTable(Point3d insPt, ITableroFunctionability content)
         {
             Database db = Application.DocumentManager.MdiActiveDocument.Database;
-            this.Table.TableStyle = db.Tablestyle;
             this.Table = new Table();
+            this.Table.TableStyle = db.Tablestyle;
+
             this.Content = content;
             this.Table.Position = insPt;
             this.SetTableSize();
@@ -87,12 +88,14 @@ namespace Tabalim.Addin.Model
             {
                 if (Headers[i] != null)
                 {
-                    header = Headers[i].Item1;
-                    subheader = Headers[i].Item2;
-                    colWidth = Headers[i].Item3;
+                    header = Headers[i].Header;
+                    subheader = Headers[i].SubHeader;
+                    colWidth = Headers[i].ColumnWidth;
                     cell = this.AddHeader(header, subheader, row, column, i, colWidth);
                     if (subheader == String.Empty)
-                        cell = CellRange.Create(this.Table, row, column + i, row + 3, column + i);
+                        cell = CellRange.Create(this.Table, row, column + i, row + Headers[i].RowSpan, column + i);
+                    //else if (subheader != string.Empty && Headers[i].RowSpan > 2)
+                    //    cell = CellRange.Create(this.Table, row + 1, column + i, row +Headers[i].RowSpan, column + i);
                     cells.Add(cell);
                 }
             }
