@@ -124,6 +124,9 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="TabalimTabItem" TargetType="TabItem" BasedOn="{StaticResource MetroTabItem}">
+        <Setter Property="metro:ControlsHelper.HeaderFontSize" Value="14"></Setter>
+    </Style>
     <Style x:Key="MainButtons" TargetType="Button">
         <Setter Property="FontSize" Value="50" />
         <Setter Property="Foreground" Value="#d2b90c" />

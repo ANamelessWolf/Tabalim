@@ -14,6 +14,6 @@
             <ColumnDefinition Width="1*"/>            
         </Grid.ColumnDefinitions>
         <Button x:Name="tabBtn" BorderBrush="#d2b90c" FontSize="50" Foreground="#d2b90c" Click="tabBtn_Click" HorizontalContentAlignment="Right" Content="TAB"/>
-        <Button  BorderBrush="#d2b90c" FontSize="50" Foreground="#d2b90c" HorizontalContentAlignment="Left" Content="ALIM" Grid.Column="1" />
+        <Button x:Name="alimBtn" BorderBrush="#d2b90c" FontSize="50" Foreground="#d2b90c" HorizontalContentAlignment="Left" Content="ALIM" Grid.Column="1" Click="alimBtn_Click" />
     </Grid>
 </metro:MetroWindow>

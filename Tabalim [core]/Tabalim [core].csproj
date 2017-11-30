@@ -99,6 +99,8 @@
     <Compile Include="controller\UiUtils.cs" />
     <Compile Include="controller\UpdateField.cs" />
     <Compile Include="mocking\controller\MockUpUtils.cs" />
+    <Compile Include="model\AlimentadorRow.cs" />
+    <Compile Include="model\BigMotor.cs" />
     <Compile Include="model\CircuitoBifasico.cs" />
     <Compile Include="model\CircuitoTrifasico.cs" />
     <Compile Include="mocking\model\CtoItemMocking.cs" />
@@ -113,8 +115,12 @@
     <Compile Include="model\CtoCompItem.cs" />
     <Compile Include="model\CtoItem.cs" />
     <Compile Include="model\CtoRow.cs" />
+    <Compile Include="model\Destination.cs" />
+    <Compile Include="model\DestinationType.cs" />
+    <Compile Include="model\ExtraData.cs" />
     <Compile Include="model\HPItem.cs" />
     <Compile Include="model\Interruptor.cs" />
+    <Compile Include="model\Linea.cs" />
     <Compile Include="model\Motor.cs" />
     <Compile Include="model\Potencia.cs" />
     <Compile Include="model\PowerType.cs" />
@@ -146,6 +152,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="runtime\TabalimApp.cs" />
+    <Compile Include="view\AlimentadorPicker.xaml.cs">
+      <DependentUpon>AlimentadorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\CargaPicker.xaml.cs">
+      <DependentUpon>CargaPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\CircuitInput.xaml.cs">
       <DependentUpon>CircuitInput.xaml</DependentUpon>
     </Compile>
@@ -161,8 +173,20 @@
     <Compile Include="view\CtoEditor.xaml.cs">
       <DependentUpon>CtoEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="view\MotorPicker.xaml.cs">
+      <DependentUpon>MotorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\NewAlimentador.xaml.cs">
+      <DependentUpon>NewAlimentador.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\NewCarga.xaml.cs">
+      <DependentUpon>NewCarga.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\NewComponent.xaml.cs">
       <DependentUpon>NewComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\NewMotor.xaml.cs">
+      <DependentUpon>NewMotor.xaml</DependentUpon>
     </Compile>
     <Compile Include="view\PlantillaNuevoTablero.xaml.cs">
       <DependentUpon>PlantillaNuevoTablero.xaml</DependentUpon>
@@ -205,6 +229,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="view\AlimentadorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\CargaPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="view\CircuitInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,7 +257,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="view\MotorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\NewAlimentador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\NewCarga.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="view\NewComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\NewMotor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

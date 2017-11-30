@@ -64,5 +64,18 @@ namespace Tabalim.App
                 task();
             }
         }
+        /// <summary>
+        /// Handles the Click event of the alimBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void alimBtn_Click(object sender, RoutedEventArgs e)
+        {
+            InitModule(() =>
+            {
+                new AlimentadorPicker().Show();
+                this.Close();
+            });
+        }
     }
 }
