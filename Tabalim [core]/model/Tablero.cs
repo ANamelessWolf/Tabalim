@@ -147,14 +147,19 @@ namespace Tabalim.Core.model
         /// </returns>
         public bool Delete(SQLite_Connector conn)
         {
-            Boolean ctoFlag = false, tabFlag = false;
+            Boolean ctoFlag = false, tabFlag = false, destTab;
             //El circuito borrará los componentes
             string[] keys = this.Circuitos.Keys.ToArray();
             foreach (string key in keys)
                 ctoFlag = this.Circuitos[key].Delete(conn);
             tabFlag = conn.DeletebyColumn(this.TableName, this.PrimaryKey, this.Id);
             if (tabFlag)
+            {
                 TabalimApp.CurrentProject.Tableros.Remove(this.Id);
+                //Tambien se debe borrar de la tabla destination
+                string condition = String.Format(" conn_id = {0} AND conn_type = 1 ", this.Id);
+                destTab = conn.Delete("destination", condition);
+            }
             return ctoFlag && tabFlag;
         }
         #region ISQLiteParser

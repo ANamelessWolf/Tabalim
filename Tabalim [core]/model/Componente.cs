@@ -100,7 +100,7 @@ namespace Tabalim.Core.model
             this.Id = -1;
         }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Alumbrado"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="Componente"/>.
         /// </summary>
         /// <param name="potencia">Potencia en watts.</param>
         public Componente(SelectionResult[] result)
@@ -158,7 +158,6 @@ namespace Tabalim.Core.model
         /// <returns>
         /// Verdadero si se borra el elemento
         /// </returns>
-        /// <exception cref="NotImplementedException"></exception>
         public bool Delete(SQLite_Connector conn)
         {
             Boolean cmpFlag = conn.DeletebyColumn(this.TableName, this.PrimaryKey, this.Id);
@@ -215,7 +214,6 @@ namespace Tabalim.Core.model
         /// <returns>
         /// El campo actualizar
         /// </returns>
-        /// <exception cref="NotImplementedException"></exception>
         public UpdateField PickUpdateFields(KeyValuePair<string, object> input)
         {
             UpdateField value;

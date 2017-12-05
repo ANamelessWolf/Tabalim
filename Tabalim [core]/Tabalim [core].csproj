@@ -100,6 +100,7 @@
     <Compile Include="controller\UpdateField.cs" />
     <Compile Include="mocking\controller\MockUpUtils.cs" />
     <Compile Include="model\AlimentadorRow.cs" />
+    <Compile Include="model\AlimInput.cs" />
     <Compile Include="model\BigMotor.cs" />
     <Compile Include="model\CircuitoBifasico.cs" />
     <Compile Include="model\CircuitoTrifasico.cs" />

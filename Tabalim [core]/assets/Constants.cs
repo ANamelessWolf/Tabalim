@@ -52,5 +52,6 @@ namespace Tabalim.Core.assets
         public const string TABLE_TABLERO = "tableros";
         public const string TABLE_CIRCUIT = "circuitos";
         public const string TABLE_COMPONENT = "componentes";
+        public const string TABLE_MOTOR = "motores";
     }
 }

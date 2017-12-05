@@ -46,6 +46,24 @@ namespace Tabalim.Core.model
                 this.TensionAlNeutro = tn;
         }
         /// <summary>
+        /// Inicializa una nueva instancia de la <see cref="Tension"/>.
+        /// </summary>
+        /// <param name="tension">El valor de la tensión.</param>
+        /// <param name="fases">El número de fases del sistema</param>
+        public Tension(TensionVal tension, int fases)
+        {
+            this.Sistema = null;
+            this.Value = (int)tension;
+            int tn = (int)(Math.Round((double)this.Value / Math.Sqrt(3)));
+            if (fases == 1)
+            {
+                this.Value = tn;
+                this.TensionAlNeutro = tn;
+            }
+            else
+                this.TensionAlNeutro = tn;
+        }
+        /// <summary>
         /// Devuelve la <see cref="System.String" /> que representa la tensión
         /// </summary>
         /// <returns>

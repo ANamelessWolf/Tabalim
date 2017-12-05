@@ -4,74 +4,72 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tabalim.Core.controller;
-using static Tabalim.Core.assets.Constants;
+
 namespace Tabalim.Core.model
 {
-    public class BigMotor : IDatabaseMappable, ISQLiteParser
+    /// <summary>
+    /// Define la entrada necesaria para crear un alimentador
+    /// </summary>
+    public class AlimInput : IDatabaseMappable, ISQLiteParser
     {
-        const string MOTOR_FORMAT = "Motor {0}, {1} fases, {2}V";
         /// <summary>
-        /// El id del componente es único en la aplicación.
-        /// </summary>
-        public int Id { get; set; }
-        /// <summary>
-        /// Establece el nombre de la base de datos
+        /// Establece el nombre de tabla
         /// </summary>
         /// <value>
         /// El nombre de la base de datos
         /// </value>
-        public string TableName => TABLE_MOTOR;
+        public string TableName => "extras";
         /// <summary>
         /// Establece el nombre de la columna usada como llave primaria
         /// </summary>
         /// <value>
         /// El nombre de la llave primaria
         /// </value>
-        public string PrimaryKey => "motor_id";
+        public string PrimaryKey => "extra_id";
         /// <summary>
-        /// Define o establece el valor númerico de la tensión del motor
+        /// Representa el id de la instancia en la
+        /// base de datos
         /// </summary>
         /// <value>
-        /// Los Tensión
+        /// El id que usa el elemento en la tabla de la base de datos.
         /// </value>
-        public Tension Tension { get; set; }
+        public int Id { get; set; }
         /// <summary>
-        /// Define o establece el número de fases del motor
+        /// El id del proyecto al que pertenecen los tableros.
         /// </summary>
-        /// <value>
-        /// El número de fases del motor
-        /// </value>
-        public int Fases { get; set; }
+        public int ProjectId;
         /// <summary>
-        /// Define o establece el valor númerico de la potencia del motor
+        /// El inicio de la línea de conexión
         /// </summary>
-        /// <value>
-        /// La potencía del motor
-        /// </value>
-        public Potencia Potencia { get; set; }
+        public String Start;
         /// <summary>
-        /// Devuelve el valor de la potencia como string
+        /// El fin de la línea de conexión
         /// </summary>
-        /// <value>
-        /// El valor de la potencia en string.
-        /// </value>
-        public String PotenciaString { get { if (Potencia != null) return runtime.TabalimApp.Motores.First(x => x.HP == Potencia.HP).ToString(); return String.Empty; } }
+        public DestinationType End;
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="BigMotor"/>.
+        /// El factor de demanda
         /// </summary>
-        public BigMotor()
-        {
-
-        }
+        public double FactorDemanda;
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="BigMotor"/>.
+        /// El factor de temperatura
         /// </summary>
-        /// <param name="potencia">Potencia en watts.</param>
-        public BigMotor(SelectionResult[] result)
-            : this()
-        {
-            this.Parse(result);
-        }
+        public double FactorTemperatura;
+        /// <summary>
+        /// El factor de agrupamiento
+        /// </summary>
+        public double FactorAgrupamiento;
+        /// <summary>
+        /// El factor de potencia
+        /// </summary>
+        public double FactorPotencia;
+        /// <summary>
+        /// La longitud del alimentador
+        /// </summary>
+        public double Longitud;
+        /// <summary>
+        /// Evalua que el cable sea de cobre
+        /// </summary>
+        public Boolean IsCobre;
         /// <summary>
         /// Crea un registro del objeto en la base de datos.
         /// </summary>
@@ -91,13 +89,14 @@ namespace Tabalim.Core.model
         /// <returns>
         /// Verdadero si se borra el elemento
         /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public bool Delete(SQLite_Connector conn)
         {
             Boolean succed = conn.DeletebyColumn(this.TableName, this.PrimaryKey, this.Id);
             if (succed)
             {
                 //Tambien se debe borrar de la tabla destination
-                string condition = String.Format(" conn_id = {0} AND conn_type = 0 ", this.Id);
+                string condition = String.Format(" alim_id = {0} ", this.Id);
                 succed = conn.Delete("destination", condition);
                 if (succed)//Actualizar la memoria
                 {
@@ -117,9 +116,15 @@ namespace Tabalim.Core.model
         {
             return new InsertField[]
             {
-                this.CreateFieldAsNumber("potencia", this.Potencia.HP),
-                this.CreateFieldAsNumber("fases", this.Fases),
-                this.CreateFieldAsNumber("tension", this.Tension.Value),
+                this.CreateFieldAsNumber("prj_id", this.ProjectId),
+                this.CreateFieldAsString("dest_from", this.Start),
+                this.CreateFieldAsString("dest_end",this.End.Id),
+                this.CreateFieldAsNumber("fact_demanda", this.FactorDemanda),
+                this.CreateFieldAsNumber("fact_temperatura", this.FactorTemperatura),
+                this.CreateFieldAsNumber("fact_agrupamiento", this.FactorAgrupamiento),
+                this.CreateFieldAsNumber("fact_potencia", this.FactorPotencia),
+                this.CreateFieldAsNumber("longitud", this.Longitud),
+                this.CreateFieldAsNumber("is_cobre", this.IsCobre?1:0),
             };
         }
         /// <summary>
@@ -131,11 +136,16 @@ namespace Tabalim.Core.model
             try
             {
                 this.Id = (int)result.GetValue<long>(this.PrimaryKey);
-                double potencia = result.GetValue<double>("potencia");
-                int tension = (int)result.GetValue<long>("tension");
-                this.Fases = (int)result.GetValue<long>("fases");
-                this.Potencia = new Potencia(potencia, true);
-                this.Tension = new Tension((TensionVal)tension, this.Fases);
+                this.ProjectId = (int)result.GetValue<long>("prj_id");
+                this.Start = result.GetString("dest_from");
+                int endId = (int)result.GetValue<long>("dest_end");
+                this.End = DestinationType.Types.FirstOrDefault(x => x.Id == endId);
+                this.FactorDemanda = result.GetValue<double>("fact_demanda");
+                this.FactorTemperatura = result.GetValue<double>("fact_temperatura");
+                this.FactorAgrupamiento = result.GetValue<double>("fact_agrupamiento");
+                this.FactorPotencia = result.GetValue<double>("fact_potencia");
+                this.Longitud = result.GetValue<double>("longitud");
+                this.IsCobre = result.GetInteger("is_cobre") == 1;
             }
             catch (Exception exc)
             {
@@ -154,16 +164,19 @@ namespace Tabalim.Core.model
             UpdateField value;
             switch (input.Key)
             {
-                case "potencia":
-                    Potencia val = (Potencia)input.Value;
-                    value = input.CreateFieldAsNumber(this.TableName, val.HP);
+                case "dest_from":
+                    value = input.CreateFieldAsString(this.TableName, input.Value);
                     break;
-                case "fases":
+                case "fact_demanda":
+                case "fact_temperatura":
+                case "fact_agrupamiento":
+                case "fact_potencia":
+                case "longitud":
                     value = input.CreateFieldAsNumber(this.TableName, input.Value);
                     break;
-                case "tension":
-                    Tension tval = (Tension)input.Value;
-                    value = input.CreateFieldAsNumber(this.TableName, tval.Value);
+                case "is_cobre":
+                    Boolean val = (Boolean)input.Value;
+                    value = input.CreateFieldAsNumber(this.TableName, val ? 1 : 0);
                     break;
                 default:
                     value = null;
@@ -192,26 +205,28 @@ namespace Tabalim.Core.model
             foreach (var val in input)
                 switch (val.Key)
                 {
-                    case "potencia":
-                        this.Potencia = (Potencia)val.Value;
+                    case "dest_from":
+                        this.Start = input.ToString();
                         break;
-                    case "comp_count":
-                        this.Tension = (Tension)val.Value;
+                    case "fact_demanda":
+                        this.FactorAgrupamiento = (Double)val.Value;
                         break;
-                    case "fases":
-                        this.Fases = (int)val.Value;
+                    case "fact_temperatura":
+                        this.FactorTemperatura = (Double)val.Value;
+                        break;
+                    case "fact_agrupamiento":
+                        this.FactorAgrupamiento = (Double)val.Value;
+                        break;
+                    case "fact_potencia":
+                        this.FactorPotencia = (Double)val.Value;
+                        break;
+                    case "longitud":
+                        this.Longitud = (Double)val.Value;
+                        break;
+                    case "is_cobre":
+                        this.IsCobre = ((int)val.Value) == 1;
                         break;
                 }
-        }
-        /// <summary>
-        /// Generá una <see cref="System.String" /> que representa la instancia.
-        /// </summary>
-        /// <returns>
-        /// La <see cref="System.String" /> que representa a la instancia.
-        /// </returns>
-        public override string ToString()
-        {
-            return String.Format(MOTOR_FORMAT, PotenciaString, Fases, Tension);
         }
     }
 }
