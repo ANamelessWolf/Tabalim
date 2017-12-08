@@ -99,6 +99,8 @@
     <Compile Include="controller\UiUtils.cs" />
     <Compile Include="controller\UpdateField.cs" />
     <Compile Include="mocking\controller\MockUpUtils.cs" />
+    <Compile Include="model\AlimValues.cs" />
+    <Compile Include="model\Conductor.cs" />
     <Compile Include="model\AlimentadorRow.cs" />
     <Compile Include="model\AlimInput.cs" />
     <Compile Include="model\BigMotor.cs" />
@@ -171,6 +173,9 @@
     <Compile Include="view\ComponentPicker.xaml.cs">
       <DependentUpon>ComponentPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="view\ConductorPicker.xaml.cs">
+      <DependentUpon>ConductorPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\CtoEditor.xaml.cs">
       <DependentUpon>CtoEditor.xaml</DependentUpon>
     </Compile>
@@ -185,6 +190,9 @@
     </Compile>
     <Compile Include="view\NewComponent.xaml.cs">
       <DependentUpon>NewComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\NewConductor.xaml.cs">
+      <DependentUpon>NewConductor.xaml</DependentUpon>
     </Compile>
     <Compile Include="view\NewMotor.xaml.cs">
       <DependentUpon>NewMotor.xaml</DependentUpon>
@@ -254,6 +262,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="view\ConductorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="view\CtoEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +283,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\NewComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\NewConductor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

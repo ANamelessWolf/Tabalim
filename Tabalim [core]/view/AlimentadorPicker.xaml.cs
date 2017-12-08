@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tabalim.Core.model;
 
 namespace Tabalim.Core.view
 {
@@ -20,14 +22,24 @@ namespace Tabalim.Core.view
     /// </summary>
     public partial class AlimentadorPicker : MetroWindow
     {
+        public Linea SelectedLinea;
         public AlimentadorPicker()
         {
             InitializeComponent();
         }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
+        private async void btnOk_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                if (alimentadorPicker.IsValid())
+                {
+                    SelectedLinea = alimentadorPicker.GetLinea();
+                }
+            } catch(Exception exc)
+            {
+                await this.ShowMessageAsync("Alimentador Incompleto", "Debe seleccionar todos los campos del alimentador para poder crearlo.\n" + exc.Message);
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

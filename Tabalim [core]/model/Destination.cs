@@ -21,8 +21,8 @@ namespace Tabalim.Core.model
         public Double PotenciaDemandada => GetPotenciaDemandada();
         public Double CorrienteNominal => GetCorrienteNominal();
         public Double CorrienteContinua => GetCorrienteContinua();
-        
-
+        public int Fases => GetFases();
+        public double Tension => GetTension();
         public Destination(DestinationType type, Double demanda = 0.5, IEnumerable<BigMotor> motors = null, IEnumerable<Tablero> cargas = null, ExtraData kvar = null)
         {
             this.motors = motors;
@@ -136,11 +136,51 @@ namespace Tabalim.Core.model
         {
             return tablero.Componentes.Values.OfType<T>().Cast<Componente>().Sum(x => x.Potencia.PotenciaAparente);
         }
-
+        private double GetTension()
+        {
+            switch (type.Id)
+            {
+                case 0:
+                    return cargas.First().Sistema.Tension.Value;
+                case 1:
+                    return motors.First().Tension.Value;
+                case 2:
+                    return Math.Max(motors.First().Tension.Value, cargas.Max(x => x.Sistema.Tension.Value));
+                case 3:
+                    return motors.Max(x => x.Tension.Value);
+                case 4:
+                    return Math.Max(motors.Max(x => x.Tension.Value), cargas.Max(x => x.Sistema.Tension.Value));
+                case 6: case 5:
+                    return kvar.Tension.Value;
+            }
+            return 0;
+        }
         private string GetColumnTension(int value)
         {
             int[] values = new int[] { 230, 460 };
             return (value > 230 ? values[0] : values[1]).ToString();
         }
+        private int GetFases()
+        {
+            switch (type.Id)
+            {
+                case 0:
+                    return cargas.First().Sistema.Fases;
+                case 1:
+                    return motors.First().Fases;
+                case 2:
+                    return Math.Max(motors.First().Fases, cargas.Max(x => x.Sistema.Fases));
+                case 3:
+                    return motors.Max(x => x.Fases);
+                case 4:
+                    return Math.Max(motors.Max(x => x.Fases), cargas.Max(x => x.Sistema.Fases));
+                case 5: case 6:
+                    return kvar.Fases;
+                case 7:
+                    return cargas.Max(x => x.Sistema.Fases);
+            }
+            return 3;
+        }
+
     }
 }

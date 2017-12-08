@@ -62,6 +62,8 @@ namespace Tabalim.Core.view
             this.tableros = new List<TableroItem>();
             this.toTypeCbo.ItemsSource = DestinationType.Types;
             this.listOfTableros = runtime.TabalimApp.CurrentProject.Tableros.Values.ToList();
+            this.fasesCbo.ItemsSource = new int[] { 2, 3 };
+            this.tensionCbo.ItemsSource = Enum.GetValues(typeof(TensionVal)).Cast<TensionVal>().Select(x => new Tension(x, new SistemaBifasico()));
         }
 
         private void addCargaBtn_Click(object sender, RoutedEventArgs e)
@@ -94,7 +96,62 @@ namespace Tabalim.Core.view
                 ProcessType();
             }
         }
+        public bool IsValid()
+        {
+            if (this.fromTbo.Text.Trim() == "")
+                throw new Exception("Falta definir el orígen.");
+            else if (this.toTypeCbo.SelectedIndex == -1)
+                throw new Exception("Falta definir el tipo de destino.");
+            else if (DestinationIsValid())
+                return true;
+            else
+                return false;
+        }
 
+        private bool DestinationIsValid()
+        {
+            double d;
+            if (SelectedType != null)
+            {
+                if (SelectedType.OnlyOneMotor == true && motors.Count != 1)
+                    throw new Exception("Este tipo de destino sólo permite un motor.");
+                else if (SelectedType.OnlyOneMotor == false && motors.Count == 0)
+                    throw new Exception("Este tipo de destino requiere al menos un motor.");
+                else if (SelectedType.OnlyOneCarga == true && tableros.Count != 1)
+                    throw new Exception("Este tipo de destino sólo permite un tablero.");
+                else if (SelectedType.OnlyOneCarga == false && tableros.Count == 0)
+                    throw new Exception("Este tipo de destino requiere al menos un motor.");
+                else if (SelectedType.UseExtraData)
+                {
+                    if (kvarTbo.Text.Trim() == String.Empty || !double.TryParse(kvarTbo.Text.Trim(), out d))
+                        throw new Exception("Falta el campo KVAR o se intridujo un valor inválido.");
+                    else if (fasesCbo.SelectedIndex == -1)
+                        throw new Exception("Falta seleccionar las fases.");
+                    else if (tensionCbo.SelectedIndex == -1)
+                        throw new Exception("Falta selleccionar la tensión.");
+                    else return true;
+                }
+                else return true;
+            }
+            else return false;
+        }
+
+        public Linea GetLinea()
+        {
+            Linea linea = new Linea();
+            linea.From = fromTbo.Text.Trim();
+            linea.Type = SelectedType;
+            ExtraData extraData = new ExtraData();
+            extraData.Fases = (int)fasesCbo.SelectedItem;
+            extraData.Tension = tensionCbo.SelectedItem as Tension;
+            extraData.KVar = double.Parse(kvarTbo.Text.Trim());
+            linea.Destination = new Destination(SelectedType, slidDemanda.Value, motors, tableros.Select(x => x.Tablero), extraData);
+            linea.IsCobre = isCopper.IsChecked == true;
+            linea.FactorAgrupamiento = slidGroup.Value;
+            linea.FactorPotencia = slidPower.Value;
+            linea.FactorTemperartura = Temperatura.GetFactor((int)slidTemp.Value);
+            return linea;
+        }
         private void ProcessType()
         {
             if(SelectedType != null)
