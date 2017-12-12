@@ -203,6 +203,9 @@
     <Compile Include="view\PowerSelector.xaml.cs">
       <DependentUpon>PowerSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="view\TableAlim.xaml.cs">
+      <DependentUpon>TableAlim.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\TableroList.xaml.cs">
       <DependentUpon>TableroList.xaml</DependentUpon>
     </Compile>
@@ -299,6 +302,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\PowerSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\TableAlim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

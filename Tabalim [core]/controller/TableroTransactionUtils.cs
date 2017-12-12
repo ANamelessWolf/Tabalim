@@ -222,7 +222,7 @@ namespace Tabalim.Core.controller
             try
             {
                 //Copiamos el archivo base de tableros
-                File.Copy(TabalimApp.TableroDBPath, filePath, false);
+                File.Copy(TabalimApp.TableroDBPath, filePath, tablero.Path == filePath);
                 SQLiteWrapper tr = new SQLiteWrapper(filePath)
                 {
                     TransactionTask = (SQLite_Connector conn, Object input) =>
