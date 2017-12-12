@@ -9,10 +9,10 @@ namespace Tabalim.Core.model
     public class Conductor
     {
         const string ALIM_FORMAT = "{0}#{1}, {2}#{3}";
-        const string CANAL_FORMAT = "{1}T - {2}";
+        const string CANAL_FORMAT = "{0}T - {1}";
         //Salidas
-        public String Alimentador => String.Format(ALIM_FORMAT, this.NoHilos[SelectedIndex] * (Single ? 1 : 2), this.Calibre, Tierra * (Single ? 1 : 2), this.CalibreTierra);
-        public String Canalizacion => String.Format(CANAL_FORMAT, this.NoTubos * (Single ? 1 : 2), this.DiametroTubos[SelectedIndex]);
+        public String Alimentador => String.Format(ALIM_FORMAT, this.NoHilos[SelectedIndex] * (this.Single ? 1 : 2), this.Calibre, Tierra * (this.Single ? 1 : 2), this.CalibreTierra);
+        public String Canalizacion => String.Format(CANAL_FORMAT, this.NoTubos * (this.Single ? 1 : 2), this.DiametroTubos[SelectedIndex]);
         //Datos
         int CorrienteMaxima;
         int NoTubos;

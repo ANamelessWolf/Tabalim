@@ -5,9 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.Core.view"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Loaded="MetroWindow_Loaded"
         Title="ConductorPicker" Height="300" Width="300">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        <local:NewConductor />
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <local:NewConductor x:Name="conductorPicker" />
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" Grid.Row="4" HorizontalAlignment="Right">
+            <Button x:Name="btnOk" Content="Ok" Style="{StaticResource TabalimMenuButton}"
+                    Click="btnOk_Click"/>
+            <Button x:Name="btnCancel" Content="Cancelar" Style="{StaticResource TabalimMenuButton}"
+                    Click="btnCancel_Click"/>
+        </StackPanel>
     </Grid>
 </metro:MetroWindow>

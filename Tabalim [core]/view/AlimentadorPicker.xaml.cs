@@ -34,7 +34,9 @@ namespace Tabalim.Core.view
             {
                 if (alimentadorPicker.IsValid())
                 {
-                    SelectedLinea = alimentadorPicker.GetLinea();
+                    SelectedLinea = alimentadorPicker.GetLinea();                    
+                    new ConductorPicker(SelectedLinea).Show();
+                    this.Close();
                 }
             } catch(Exception exc)
             {

@@ -141,10 +141,14 @@ namespace Tabalim.Core.view
             Linea linea = new Linea();
             linea.From = fromTbo.Text.Trim();
             linea.Type = SelectedType;
-            ExtraData extraData = new ExtraData();
-            extraData.Fases = (int)fasesCbo.SelectedItem;
-            extraData.Tension = tensionCbo.SelectedItem as Tension;
-            extraData.KVar = double.Parse(kvarTbo.Text.Trim());
+            ExtraData extraData = null;
+            if (SelectedType.UseExtraData)
+            {
+                extraData = new ExtraData();
+                extraData.Fases = (int)fasesCbo.SelectedItem;
+                extraData.Tension = tensionCbo.SelectedItem as Tension;
+                extraData.KVar = double.Parse(kvarTbo.Text.Trim());
+            }
             linea.Destination = new Destination(SelectedType, slidDemanda.Value, motors, tableros.Select(x => x.Tablero), extraData);
             linea.IsCobre = isCopper.IsChecked == true;
             linea.FactorAgrupamiento = slidGroup.Value;
