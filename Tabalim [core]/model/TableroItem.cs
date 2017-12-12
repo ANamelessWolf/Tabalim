@@ -17,5 +17,9 @@ namespace Tabalim.Core.model
         {
             this.Tablero = t;
         }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
