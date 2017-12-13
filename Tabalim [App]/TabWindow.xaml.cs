@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Tabalim.Core.controller;
+using Tabalim.Core.model;
 using Tabalim.Core.runtime;
 using Tabalim.Core.view;
 
@@ -91,7 +92,7 @@ namespace Tabalim.App
                 var win = new WinTableroSettings(TabalimApp.CurrentTablero, true);
                 win.ShowDialog();
                 if (win.DialogResult.Value)
-                    this.SaveCurrentTableroAs(win.SelectedTabName, win.SelectedDescription, 
+                    this.SaveCurrentTableroAs(win.SelectedTabName, win.SelectedDescription,
                         () => this.tablerosList.UpdateList());
             }
             else
@@ -113,6 +114,13 @@ namespace Tabalim.App
             new MainWindow().Show();
         }
 
+        private void tablerosList_TableroClonned(object sender, RoutedEventArgs e)
+        {
+            TableroEventArgs args = e as TableroEventArgs;
+            Tablero tab = App.Tabalim.Tableros.FirstOrDefault(x => x.Id == args.TableroId);
+            if (tab != null)
+                App.Tabalim.CloneCurrentTablero(tab, (Object result) => { tablerosList.UpdateList(); });
+        }
 
     }
 }
