@@ -90,6 +90,12 @@ namespace Tabalim.Core.view
                 this.slidGroup.Value = ExistantLinea.FactorAgrupamiento;
                 this.slidPower.Value = ExistantLinea.FactorPotencia;
                 this.slidTemp.Value = ExistantLinea.Temperatura;
+                //UI
+                this.toTypeCbo.IsEnabled = false;
+                addMotorBtn.Visibility = Visibility.Collapsed;
+                addCargaBtn.Visibility = Visibility.Collapsed;
+                deleteBtn.Visibility = Visibility.Collapsed;
+                deleteCargaBtn.Visibility = Visibility.Collapsed;
             }
         }
 

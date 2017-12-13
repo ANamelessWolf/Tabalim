@@ -109,7 +109,7 @@ namespace Tabalim.Core.runtime
                 {
                     var destinations = conn.Select<DestinationRow>("destination".SelectAll(alimInput.CreatePrimaryKeyCondition()));
                     line = alimInput.CreateLinea(tabs, motores, extras, destinations);
-                    CurrentProject.Lineas.Add(int.Parse(line.No.Substring(1)), line);
+                    CurrentProject.Lineas.Add(line.Id, line);
                 }
                 //Se cargan las referencias del tablero actual que es el último creado
                 CurrentTablero = tabs.LastOrDefault();

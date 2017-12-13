@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tabalim.Core.model;
+using Tabalim.Core.runtime;
 
 namespace Tabalim.Core.view
 {
@@ -42,7 +43,25 @@ namespace Tabalim.Core.view
         private void btnEditLine_Click(object sender, RoutedEventArgs e)
         {
             int i = int.Parse((((sender as Button).Parent as Viewbox).Parent as StackPanel).Children.OfType<TextBlock>().ToArray()[1].Text);
-            var updateData = new KeyValuePair<String, Object>[] { };
+            var dialog = new AlimentadorPicker(TabalimApp.CurrentProject.Lineas[i]);
+            dialog.ShowDialog();
+            if (dialog.DialogResult.Value == true)
+            {
+                Linea linea = dialog.SelectedLinea;
+                var updateData = new KeyValuePair<String, Object>[] {
+                    new KeyValuePair<string, object>("dest_from", linea.From),
+                    new KeyValuePair<string, object>("dest_end",linea.Type.Id),
+                    new KeyValuePair<string, object>("fact_demanda", linea.Destination.FactorDemanda),
+                    new KeyValuePair<string, object>("fact_temperatura", linea.Temperatura),
+                    new KeyValuePair<string, object>("fac_agrupamiento", linea.FactorAgrupamiento),
+                    new KeyValuePair<string, object>("fac_potencia", linea.FactorPotencia),
+                    new KeyValuePair<string, object>("longitud", linea.Longitud),
+                    new KeyValuePair<string, object>("is_cobre", linea.IsCobre),
+                    new KeyValuePair<string, object>("dest_name", linea.To),
+                    new KeyValuePair<string, object>("dest_desc", linea.ToDesc),
+                    new KeyValuePair<string, object>("conductor", linea.SelectedConductor)
+                };
+            }
             
         }
 

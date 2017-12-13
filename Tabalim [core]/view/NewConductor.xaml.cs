@@ -40,6 +40,7 @@ namespace Tabalim.Core.view
         public Linea GetLinea()
         {
             SelectedLinea.Conductor = conductorCbo.SelectedItem as Conductor;
+            SelectedLinea.SelectedConductor = conductorCbo.SelectedIndex;
             SelectedLinea.Longitud = double.Parse(longitudTbo.Text.Trim());
             return SelectedLinea;
         }

@@ -92,7 +92,7 @@ namespace Tabalim.App
                 var win = new WinTableroSettings(TabalimApp.CurrentTablero, true);
                 win.ShowDialog();
                 if (win.DialogResult.Value)
-                    this.SaveCurrentTableroAs(win.SelectedTabName, win.SelectedDescription,
+                    this.SaveCurrentTableroAs(win.SelectedTabName, win.SelectedDescription, 
                         () => this.tablerosList.UpdateList());
             }
             else

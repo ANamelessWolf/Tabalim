@@ -28,7 +28,6 @@ namespace Tabalim.Core.view
     public partial class TableroList : UserControl
     {
         public event RoutedEventHandler TableroChanged;
-        public event RoutedEventHandler TableroClonned;
         public TableroList()
         {
             InitializeComponent();
@@ -112,7 +111,6 @@ namespace Tabalim.Core.view
         private void cloneBtn_Click(object sender, RoutedEventArgs e)
         {
             int id = int.Parse((sender as Button).Tag.ToString());
-            TableroClonned(sender, new TableroEventArgs() { TableroId = id });
         }
     }
 }

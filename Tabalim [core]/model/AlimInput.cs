@@ -115,7 +115,7 @@ namespace Tabalim.Core.model
                 succed = conn.Delete("destination", condition);
                 if (succed)//Actualizar la memoria
                 {
-                    //ToDo
+                    runtime.TabalimApp.CurrentProject.Lineas.Remove(this.Id);
                 }
             }
             return succed;
@@ -157,6 +157,7 @@ namespace Tabalim.Core.model
         internal Linea CreateLinea(List<Tablero> tabs, List<BigMotor> motores, List<ExtraData> extras, List<DestinationRow> destinations )
         {
             Linea linea = new Linea();
+            linea.Id = this.Id;
             linea.From = this.Start;
             linea.Type = this.End;
             linea.To = this.ToName;

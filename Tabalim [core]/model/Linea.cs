@@ -9,6 +9,7 @@ namespace Tabalim.Core.model
     public class Linea
     {
         const string NUMBER_FORMAT = "L{0}";
+        public int Id;
         public String No;
         public String From;
         public String To;

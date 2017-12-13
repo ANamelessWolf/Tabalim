@@ -43,11 +43,11 @@ namespace Tabalim.App
             if (dialog.DialogResult.Value)
             {
                 App.Tabalim.CreateAlimentadorTr(dialog.SelectedLinea.ToAlimInput(TabalimApp.CurrentProject), dialog.SelectedLinea.Destination,
-                (Object result) =>
+                (Object result, int alimId) =>
                     {
                         if (result is bool && (bool)result)
                         {
-                            TabalimApp.CurrentProject.Lineas.Add(int.Parse(dialog.SelectedLinea.No.Substring(1)), dialog.SelectedLinea);
+                            TabalimApp.CurrentProject.Lineas.Add(alimId, dialog.SelectedLinea);
                             alimTable.SetItemSource(TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
                         }
 

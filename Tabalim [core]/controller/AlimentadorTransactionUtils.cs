@@ -10,7 +10,7 @@ namespace Tabalim.Core.controller
 {
     public static partial class TransactionUtils
     {
-        public static void CreateAlimentadorTr(this TabalimApp app, AlimInput input, Destination destination, Action<Object> alimoAddedTask = null)
+        public static void CreateAlimentadorTr(this TabalimApp app, AlimInput input, Destination destination, Action<Object,int> alimoAddedTask = null)
         {
             input.CreateAlimentadorTr(
                 (Object qResult) =>
@@ -49,12 +49,12 @@ namespace Tabalim.Core.controller
         /// <param name="extraData">The extra data.</param>
         /// <param name="alimoAddedTask">The alimo added task.</param>
         /// <exception cref="NotImplementedException"></exception>
-        private static void CreateExtraDataAndDestinations(int alimId, ExtraData extraData, Action<object> connectionCreated)
+        private static void CreateExtraDataAndDestinations(int alimId, ExtraData extraData, Action<object,int> connectionCreated)
         {
             SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
             {
                 TransactionTask = CreateExtraDataConnections,
-                TaskCompleted = (Object result) => { connectionCreated(result); }
+                TaskCompleted = (Object result) => { connectionCreated(result,alimId); }
             };
             tr.Run(new Object[] { alimId, extraData });
         }
@@ -94,12 +94,12 @@ namespace Tabalim.Core.controller
         /// <param name="motors">The motors.</param>
         /// <param name="alimoAddedTask">The alimo added task.</param>
         /// <exception cref="NotImplementedException"></exception>
-        private static void CreateMotorAndCargasAndDestinations(int alimId, IEnumerable<Tablero> cargas, IEnumerable<BigMotor> motors, Action<object> connectionCreated)
+        private static void CreateMotorAndCargasAndDestinations(int alimId, IEnumerable<Tablero> cargas, IEnumerable<BigMotor> motors, Action<object,int> connectionCreated)
         {
             SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
             {
                 TransactionTask = CreateMotorsCargasConnections,
-                TaskCompleted = (Object result) => { connectionCreated(result); }
+                TaskCompleted = (Object result) => { connectionCreated(result,alimId); }
             };
             tr.Run(new Object[] { alimId, cargas, motors });
         }
@@ -152,12 +152,12 @@ namespace Tabalim.Core.controller
         /// <param name="alimId">The alim identifier.</param>
         /// <param name="motors">The motors.</param>
         /// <param name="connectionCreated">The connection created.</param>
-        private static void CreateMotorAndDestinations(int alimId, IEnumerable<BigMotor> motors, Action<object> connectionCreated)
+        private static void CreateMotorAndDestinations(int alimId, IEnumerable<BigMotor> motors, Action<object,int> connectionCreated)
         {
             SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
             {
                 TransactionTask = CreateMotorsConnections,
-                TaskCompleted = (Object result) => { connectionCreated(result); }
+                TaskCompleted = (Object result) => { connectionCreated(result,alimId); }
             };
             tr.Run(new Object[] { alimId, motors });
         }
@@ -208,12 +208,12 @@ namespace Tabalim.Core.controller
         /// <param name="conn_id">El id del elemento conectado.</param>
         /// <param name="typeId">El tipo de elemento conectado al alimentador.</param>
         /// <param name="connectionCreated">La tarea a ejecutarse una vez que la conexión fue creada.</param>
-        private static void CreateAlimentadorDestinationTr(int alimId, int conn_id, int typeId, Action<Object> connectionCreated)
+        private static void CreateAlimentadorDestinationTr(int alimId, int conn_id, int typeId, Action<Object,int> connectionCreated)
         {
             SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
             {
                 TransactionTask = CreateAlimentadorConnection,
-                TaskCompleted = (Object result) => { connectionCreated(result); }
+                TaskCompleted = (Object result) => { connectionCreated(result,alimId); }
             };
             tr.Run(new Object[] { alimId, conn_id, typeId });
 

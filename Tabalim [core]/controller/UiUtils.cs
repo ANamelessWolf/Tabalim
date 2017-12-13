@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using Tabalim.Core.model;
 using Tabalim.Core.runtime;
 using Tabalim.Core.view;
-using static Tabalim.Core.assets.Constants;
+
 namespace Tabalim.Core.controller
 {
     /// <summary>
@@ -149,54 +149,6 @@ namespace Tabalim.Core.controller
                   if (succed)
                       updateTask();
               }));
-        }
-        public static void CloneCurrentTablero(this TabalimApp app, Tablero tablero, Action<Object> tableroAddedTask = null)
-        {
-            List<Componente> components;
-            List<Circuito> circuits;
-            var copy = TabalimApp.CurrentTablero.Clone(out components, out circuits);
-            SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
-            {
-                TransactionTask = (SQLite_Connector conn, object input) =>
-                {
-                    Object[] data = input as Object[];
-                    Tablero tab = (Tablero)data[0];
-                    List<Componente> cmps = (List<Componente>)data[1];
-                    List<Circuito> ctos = (List<Circuito>)data[2];
-                    tab.NombreTablero = String.Format("Tablero {0:000}", TabalimApp.CurrentProject.Tableros.Count + 1);
-                    tab.Description = "Sin descripción";
-                    Boolean flag = false;
-                    flag = tab.Create(conn, null);
-                    if (flag)
-                    {
-                        tab.Id = (int)conn.SelectValue<long>(TABLE_TABLERO.SelectLastId(tab.PrimaryKey));
-                        //Se se insertan los circuitos
-                        ctos.ForEach(x => x.GetLastId<Circuito>(conn, tab));
-                        //Se insertan los componentes
-                        cmps.ForEach(cmp => cmp.GetLastId<Componente>(conn,
-                            ctos.FirstOrDefault(cto => cto.ToString() == cmp.CircuitoName)));
-                        tab.LoadComponentesAndCircuits(conn);
-                        return new Object[] { true, tab };
-                    }
-                    else
-                        return new Object[] { false, tab };
-                },
-                TaskCompleted = (Object qResult) =>
-                {
-                    var result = (Object[])qResult;
-                    Boolean flag = (Boolean)result[0];
-                    Tablero newTab = (Tablero)result[1];
-                    if (flag && newTab != null)
-                    {
-                        app.Tableros.Add(newTab);
-                        TabalimApp.CurrentTablero = newTab;
-                        if (!TabalimApp.CurrentProject.Tableros.ContainsKey(newTab.Id))
-                            TabalimApp.CurrentProject.Tableros.Add(newTab.Id, newTab);
-                        tableroAddedTask?.Invoke(tablero);
-                    }
-                }
-            };
-            tr.Run(new Object[] { copy, components, circuits });
         }
         /// <summary>
         /// Ejecuta la acción que realizá la importación de un tablero al proyecto actual
