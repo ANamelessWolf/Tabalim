@@ -6,7 +6,7 @@
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.Core.view"
         mc:Ignorable="d"
-        Title="Alimentador" Height="600" Width="300">
+        Title="AlimentadorPicker" Height="600" Width="300">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,7 +19,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer>
             <local:NewAlimentador x:Name="alimentadorPicker"/>
         </ScrollViewer>
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" Grid.Row="4" HorizontalAlignment="Right">

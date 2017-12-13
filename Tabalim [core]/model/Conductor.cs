@@ -22,12 +22,8 @@ namespace Tabalim.Core.model
         int Tierra = 1;
         String CalibreTierra;
         int SelectedIndex = 0;
-        bool Single;
+        bool Single = true;
         Conductor SelectedConductor;
-        public Conductor()
-        {
-            this.Single = true;
-        }
         static IEnumerable<Conductor> Data = new Conductor[]
         {
             new Conductor() { CorrienteMaxima = 20, NoTubos = 1, DiametroTubos = new String[] { "16mm", "16mm", "16mm" }, Calibre = "14", CalibreTierra = "14" },
@@ -61,23 +57,13 @@ namespace Tabalim.Core.model
         };
         public static Conductor[] GetConductorOptions (int fases, double corriente, bool normal = true)
         {
-            List<Conductor> list = new List<Conductor>();
-            Conductor result = Data.First(x => x.CorrienteMaxima > corriente);
-            result.SelectedIndex = fases == 3 ? normal ? 0 : 1 : 2;
-            result.Single = true;
-            list.Add(result);
-            result = Data.First(x => x.CorrienteMaxima > corriente / 2);
-            result.SelectedIndex = list[0].SelectedIndex;
-            if (list[0] != result)
-            {
-                result.Single = false;
-                list.Add(result);
-            }
-            return list.ToArray();
-        }
-        public override string ToString()
-        {
-            return Alimentador + " | " + Canalizacion;
+            Conductor[] result = new Conductor[2];
+            result[0] = Data.First(x => x.CorrienteMaxima > corriente);
+            result[0].SelectedIndex = fases == 3 ? normal ? 0 : 1 : 2;
+            result[1] = Data.First(x => x.CorrienteMaxima > corriente / 2);
+            result[1].SelectedIndex = result[0].SelectedIndex;
+            result[1].Single = false;
+            return result;
         }
     }
 }

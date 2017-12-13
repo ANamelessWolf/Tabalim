@@ -34,8 +34,7 @@ namespace Tabalim.Core.view
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            if (this.conductorPicker.IsValid())
-                Linea = this.conductorPicker.GetLinea();
+
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

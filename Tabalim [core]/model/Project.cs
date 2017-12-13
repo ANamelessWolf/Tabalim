@@ -28,10 +28,6 @@ namespace Tabalim.Core.model
         /// </summary>
         public Dictionary<int, Tablero> Tableros;
         /// <summary>
-        /// La colección de lineas de alimentadores que contiene el proyecto
-        /// </summary>
-        public Dictionary<int, Linea> Lineas;
-        /// <summary>
         /// Establece el nombre de la columna usada como llave primaria
         /// </summary>
         /// <value>
@@ -53,7 +49,6 @@ namespace Tabalim.Core.model
         public Project(SelectionResult[] result)
         {
             this.Tableros = new Dictionary<int, Tablero>();
-            this.Lineas = new Dictionary<int, Linea>();
             this.Parse(result);
         }
         /// <summary>

@@ -6,7 +6,7 @@
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.Core.view"
         mc:Ignorable="d" Loaded="MetroWindow_Loaded"
-        Title="Selección de Conductor" Height="200" Width="300">
+        Title="ConductorPicker" Height="300" Width="300">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,7 +19,7 @@
             <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <local:NewConductor x:Name="conductorPicker" Margin="15" />
+        <local:NewConductor x:Name="conductorPicker" />
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" Grid.Row="4" HorizontalAlignment="Right">
             <Button x:Name="btnOk" Content="Ok" Style="{StaticResource TabalimMenuButton}"
                     Click="btnOk_Click"/>
