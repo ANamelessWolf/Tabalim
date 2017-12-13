@@ -88,7 +88,7 @@ namespace Tabalim.Core.runtime
         /// Inicializa la información de la aplicación
         /// </summary>
         /// <returns>La información de la base de datos</returns>
-        private Object InitApplication(SQLite_Connector conn, Object input)
+        public Object InitApplication(SQLite_Connector conn, Object input)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace Tabalim.Core.runtime
         /// Se ejecuta una vez que la aplicación a sido cargada
         /// </summary>
         /// <param name="result">Los resultados cargados de la base de datos.</param>
-        private void AppLoaded(Object result)
+        public void AppLoaded(Object result)
         {
             if (result is Exception)
             {

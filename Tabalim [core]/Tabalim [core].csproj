@@ -90,6 +90,7 @@
     <Compile Include="controller\InsertField.cs" />
     <Compile Include="controller\InsertFieldType.cs" />
     <Compile Include="controller\ISQLiteParser.cs" />
+    <Compile Include="controller\ProjectUtils.cs" />
     <Compile Include="controller\SelectionResult.cs" />
     <Compile Include="controller\SistemaFaseUtils.cs" />
     <Compile Include="controller\SQLiteUtils.cs" />

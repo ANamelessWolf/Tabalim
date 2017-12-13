@@ -82,6 +82,7 @@ namespace Tabalim.Core.controller
         /// Ejecuta la acción que realizá la exportación del tablero actual
         /// </summary>
         /// <param name="window">La ventana metro activa.</param>
+        /// <param name="updateTask">La tarea a ejecutar al terminar de actualizar</param>
         public static async void ExporCurrentTablero(this MetroWindow window, Action updateTask)
         {
             var controller = await window.ShowProgressAsync("Guardando por favor espere...", "Guardando tablero");
@@ -99,6 +100,29 @@ namespace Tabalim.Core.controller
                      updateTask();
              }));
         }
+        /// <summary>
+        /// Exporta el proyecto actual
+        /// </summary>
+        /// <param name="window">La ventana del proyecto actual.</param>
+        /// <param name="updateTask">The update task.</param>
+        public static async void ExportCurrentProject(this MetroWindow window, Action updateTask, Boolean saveAs = false)
+        {
+            var controller = await window.ShowProgressAsync("Guardando por favor espere...", "Guardando proyecto de Alimentadores");
+            controller.SetCancelable(false);
+            controller.SetIndeterminate();
+            TabalimApp.CurrentProject.ExportProjectTr((async (object result) =>
+            {
+                Object[] rData = result as Object[];
+                Boolean succed = (Boolean)rData[0];
+                String msg = (string)rData[1];
+                await controller.CloseAsync();
+                if (msg.Length > 0)
+                    await window.ShowMessageAsync(succed ? "Proyecto alimentador guardado" : "Error", msg);
+                if (succed && updateTask != null)
+                    updateTask();
+            }), saveAs);
+        }
+
         /// <summary>
         /// Ejecuta la acción que realizá el guardado como del tablero actual
         /// </summary>
@@ -152,6 +176,27 @@ namespace Tabalim.Core.controller
              })));
         }
         /// <summary>
+        /// Exporta el proyecto actual
+        /// </summary>
+        /// <param name="window">La ventana del proyecto actual.</param>
+        /// <param name="updateTask">The update task.</param>
+        public static async void ImportProject(this MetroWindow window, TabalimApp app, Action<Boolean> importEnded)
+        {
+            var controller = await window.ShowProgressAsync("Abriendo por favor espere...", "Abriendo proyecto de Alimentadores");
+            controller.SetCancelable(false);
+            controller.SetIndeterminate();
+            app.ImportProjectTr(((async (object result) =>
+            {
+                Object[] rData = result as Object[];
+                Boolean succed = (Boolean)rData[0];
+                String msg = (string)rData[1];
+                await window.ShowMessageAsync(succed ? "Tablero Cargado" : "Error", msg);
+                await controller.CloseAsync();
+                if (succed && importEnded != null)
+                    importEnded(succed);
+            })));
+        }
+        /// <summary>
         /// Devuelve la colección de circuitos disponibles.
         /// </summary>
         /// <param name="tablero">El tablero actual.</param>
@@ -164,7 +209,7 @@ namespace Tabalim.Core.controller
             IEnumerable<int> motorPolos = tablero.Circuitos.Values.Where(x => isMotor || x.HasMotor).SelectMany(x => x.Polos);
             IEnumerable<int> usedPolos = tablero.Circuitos.Values.Where(x => isMotor || !x.HasMotor).SelectMany(x => x.Polos);
             List<int> odd = new List<int>(), even = new List<int>();
-            int oddCount = cFases, evenCount = cFases;Circuito c;
+            int oddCount = cFases, evenCount = cFases; Circuito c;
             foreach (int i in Enumerable.Range(1, tablero.Sistema.Polo).Except(motorPolos))
             {
                 if (!usedPolos.Contains(i))
@@ -174,7 +219,7 @@ namespace Tabalim.Core.controller
                         even.Add(i);
                 else if (!isMotor && (c = tablero.Circuitos.Values.First(x => x.Polos.Contains(i))).Polos.Count() == cFases && !circuitos.Contains(c))
                     circuitos.Add(c);
-                if(odd.Count == cFases)
+                if (odd.Count == cFases)
                 {
                     if (odd.Last() - odd.First() == (cFases - 1) * 2)
                     {
@@ -182,7 +227,7 @@ namespace Tabalim.Core.controller
                         odd.Clear();
                     }
                     else
-                        odd.RemoveAt(0);                    
+                        odd.RemoveAt(0);
                 }
                 if (even.Count == cFases)
                 {
