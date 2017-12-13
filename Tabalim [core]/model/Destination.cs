@@ -169,7 +169,7 @@ namespace Tabalim.Core.model
         private string GetColumnTension(int value)
         {
             int[] values = new int[] { 230, 460 };
-            return (value > 230 ? values[0] : values[1]).ToString();
+            return (value < 230 ? values[0] : values[1]).ToString();
         }
         private int GetFases()
         {

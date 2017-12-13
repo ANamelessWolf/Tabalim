@@ -11,6 +11,8 @@ namespace Tabalim.Core.model
         const string NUMBER_FORMAT = "L{0}";
         public String No;
         public String From;
+        public String To;
+        public String ToDesc;
         public DestinationType Type;
         public Destination Destination;
         public Double FactorPotencia;
@@ -19,13 +21,14 @@ namespace Tabalim.Core.model
         public Double CorrienteCorregida => GetCorrienteCorregida();
         public Double CorrienteProteccion => GetCorrienteProteccion();
         public Conductor Conductor;
+        public int SelectedConductor;
         public double Longitud;
         public bool IsCobre;
         public int Temperatura;
         AlimValues AlimValues => Conductor != null ? AlimValues.GetValues(Conductor.Calibre) : AlimValues.GetValues();
-        public Double Reactancia => AlimValues.Reactancia;
-        public Double Resistencia => AlimValues.Resistencia[IsCobre ? 0 : 1];
-        public Double Impedancia => AlimValues.Impedancia[IsCobre ? 0 : 1];
+        public Double Reactancia => AlimValues.Reactancia / 1000;
+        public Double Resistencia => AlimValues.Resistencia[IsCobre ? 0 : 1] / 1000;
+        public Double Impedancia => AlimValues.Impedancia[IsCobre ? 0 : 1] / 1000;
         public Double CaidaVoltaje => Destination.CorrienteNominal * Longitud * Impedancia * (Destination.Fases == 3 ? Math.Sqrt(3) : 1) * 100 / Destination.Tension;
         public String Interruptor => model.Interruptor.GetInterruptor(Destination.Fases, CorrienteProteccion).ToString();
 
@@ -88,7 +91,8 @@ namespace Tabalim.Core.model
                  FactorDemanda = this.Destination.FactorDemanda,
                  FactorPotencia = this.FactorPotencia,
                  Temperatura = this.Temperatura,
-                 
+                 ToDesc = this.ToDesc,
+                 ToName = this.To,
                  IsCobre = this.IsCobre,
                  Longitud = this.Longitud,
                  Start = this.From,

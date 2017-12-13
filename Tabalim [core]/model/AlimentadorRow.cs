@@ -21,30 +21,30 @@ namespace Tabalim.Core.model
         /// Descripción
         /// </summary>
         public string ToDesc { get; set; }
-        public string PotInstVA => Linea.Destination.PotenciaInstalada.ToString("#.##");
-        public string PotInstWatts => (Linea.Destination.PotenciaInstalada * 0.9).ToString("#.##");
+        public string PotInstVA => Linea.Destination.PotenciaInstalada.ToString("0.00");
+        public string PotInstWatts => (Linea.Destination.PotenciaInstalada * 0.9).ToString("0.00");
         public Double FacDemanda => Linea.Destination.FactorDemanda;
 
 
-        public string PotDemAlum => Linea.Destination.PotenciaDemandadaAlumbrado.ToString("#.##");
-        public string PotDemCont => Linea.Destination.PotenciaDemandadaContactos.ToString("#.##");
-        public string PotDemForce => Linea.Destination.PotenciaDemandadaFuerza.ToString("#.##");
-        public string PotDemVA => Linea.Destination.PotenciaDemandada.ToString("#.##");
-        public string PotDemWatts => (Linea.Destination.PotenciaDemandada * 0.9).ToString("#.##");
+        public string PotDemAlum => Linea.Destination.PotenciaDemandadaAlumbrado.ToString("0.00");
+        public string PotDemCont => Linea.Destination.PotenciaDemandadaContactos.ToString("0.00");
+        public string PotDemForce => Linea.Destination.PotenciaDemandadaFuerza.ToString("0.00");
+        public string PotDemVA => Linea.Destination.PotenciaDemandada.ToString("0.00");
+        public string PotDemWatts => (Linea.Destination.PotenciaDemandada * 0.9).ToString("0.00");
         public Double FacTem => Linea.FactorTemperartura;
         public Double FacAgr => Linea.FactorAgrupamiento;
         public Double FacPotencia => Linea.FactorPotencia;
         public int VoltajeNominal => (int)Linea.Destination.Tension;
-        public string CorrienteNominal => Linea.Destination.CorrienteNominal.ToString("#.##");
-        public string CorrienteContinua => Linea.Destination.CorrienteContinua.ToString("#.##");
-        public string CorrienteCorregida => Linea.CorrienteCorregida.ToString("#.##");
+        public string CorrienteNominal => Linea.Destination.CorrienteNominal.ToString("0.00");
+        public string CorrienteContinua => Linea.Destination.CorrienteContinua.ToString("0.00");
+        public string CorrienteCorregida => Linea.CorrienteCorregida.ToString("0.00");
         public String Aliment => Linea.Conductor.Alimentador;
         public String Canal => Linea.Conductor.Canalizacion;
-        public String Length => Linea.Longitud.ToString("#.##");
-        public String Imped => Linea.Impedancia.ToString("#.##");
-        public String Resist => Linea.Resistencia.ToString("#.##");
-        public String React => Linea.Reactancia.ToString("#.##");
-        public String CaidaDeVoltaje => Linea.CaidaVoltaje.ToString("#.##");
+        public String Length => Linea.Longitud.ToString("0.00");
+        public String Imped => Linea.Impedancia.ToString("0.0####E+0");
+        public String Resist => Linea.Resistencia.ToString("0.0####E+0");
+        public String React => Linea.Reactancia.ToString("0.0####E+0");
+        public String CaidaDeVoltaje => Linea.CaidaVoltaje.ToString("0.00");
         /// <summary>
         /// Gets or sets the interruptor.
         /// </summary>
@@ -56,6 +56,8 @@ namespace Tabalim.Core.model
         public AlimentadorRow(Linea linea)
         {
             Linea = linea;
+            if (Linea.Conductor == null)
+                Linea.Conductor = Conductor.GetConductorOptions(Linea.Destination.Fases, Linea.CorrienteCorregida)[Linea.SelectedConductor];
         }
     }
 }

@@ -70,6 +70,9 @@ namespace Tabalim.Core.model
         /// Evalua que el cable sea de cobre
         /// </summary>
         public Boolean IsCobre;
+        public String ToName;
+        public String ToDesc;
+        public int Conductor;
         public AlimInput()
         {
 
@@ -137,6 +140,9 @@ namespace Tabalim.Core.model
                 this.CreateFieldAsNumber("fac_potencia", this.FactorPotencia),
                 this.CreateFieldAsNumber("longitud", this.Longitud),
                 this.CreateFieldAsNumber("is_cobre", this.IsCobre?1:0),
+                this.CreateFieldAsString("dest_name", this.ToName),
+                this.CreateFieldAsString("dest_desc", this.ToDesc),
+                this.CreateFieldAsNumber("conductor", this.Conductor)
             };
         }
         /// <summary>
@@ -153,6 +159,8 @@ namespace Tabalim.Core.model
             Linea linea = new Linea();
             linea.From = this.Start;
             linea.Type = this.End;
+            linea.To = this.ToName;
+            linea.ToDesc = this.ToDesc;
             ExtraData extraData = null;
             if (this.End.UseExtraData)
                 extraData = extras.FirstOrDefault(y => destinations.Where(x => x.TypeId == 2 && x.AlimId == this.Id).Select(x => x.ConnId).Contains(y.Id));
@@ -166,7 +174,7 @@ namespace Tabalim.Core.model
             linea.Temperatura = (int)this.Temperatura;
             linea.FactorTemperartura = model.Temperatura.GetFactor(linea.Temperatura);
             linea.Longitud = this.Longitud;
-
+            linea.SelectedConductor = this.Conductor;
             linea.GetNumber();
             return linea;
         }
@@ -189,7 +197,10 @@ namespace Tabalim.Core.model
                 this.FactorAgrupamiento = result.GetValue<double>("fac_agrupamiento");
                 this.FactorPotencia = result.GetValue<double>("fac_potencia");
                 this.Longitud = result.GetValue<double>("longitud");
-                this.IsCobre = result.GetInteger("is_cobre") == 1;
+                this.IsCobre = result.GetValue<bool>("is_cobre");
+                this.ToName = result.GetString("dest_name");
+                this.ToDesc = result.GetString("dest_desc");
+                this.Conductor = result.GetValue<int>("conductor");
             }
             catch (Exception exc)
             {
@@ -209,6 +220,8 @@ namespace Tabalim.Core.model
             switch (input.Key)
             {
                 case "dest_from":
+                case "dest_name":
+                case "dest_desc":
                     value = input.CreateFieldAsString(this.TableName, input.Value);
                     break;
                 case "fact_demanda":
@@ -216,6 +229,7 @@ namespace Tabalim.Core.model
                 case "fac_agrupamiento":
                 case "fac_potencia":
                 case "longitud":
+                case "conductor":
                     value = input.CreateFieldAsNumber(this.TableName, input.Value);
                     break;
                 case "is_cobre":
@@ -252,6 +266,12 @@ namespace Tabalim.Core.model
                     case "dest_from":
                         this.Start = input.ToString();
                         break;
+                    case "dest_name":
+                        this.ToName = input.ToString();
+                        break;
+                    case "dest_desc":
+                        this.ToDesc = input.ToString();
+                        break;
                     case "fact_demanda":
                         this.FactorAgrupamiento = (Double)val.Value;
                         break;
@@ -269,6 +289,9 @@ namespace Tabalim.Core.model
                         break;
                     case "is_cobre":
                         this.IsCobre = ((int)val.Value) == 1;
+                        break;
+                    case "conductor":
+                        this.Conductor = (int)val.Value;
                         break;
                 }
         }

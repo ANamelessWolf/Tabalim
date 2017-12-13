@@ -70,6 +70,8 @@ namespace Tabalim.Core.view
             {
                 this.fromTbo.Text = ExistantLinea.From;
                 this.toTypeCbo.SelectedItem = ExistantLinea.Type;
+                this.toNameTbo.Text = ExistantLinea.To;
+                this.toDescTbo.Text = ExistantLinea.ToDesc;
                 //Destination
                 this.motors = ExistantLinea.Destination.Motors.ToList();
                 motorList.ItemsSource = this.motors;
@@ -127,6 +129,10 @@ namespace Tabalim.Core.view
                 throw new Exception("Falta definir el orígen.");
             else if (this.toTypeCbo.SelectedIndex == -1)
                 throw new Exception("Falta definir el tipo de destino.");
+            else if (this.toNameTbo.Text.Trim() == "")
+                throw new Exception("Falta definir el nombre del destino.");
+            else if (this.toDescTbo.Text.Trim() == "")
+                throw new Exception("Falta definir la descripción del destino.");
             else if (DestinationIsValid())
                 return true;
             else
@@ -166,6 +172,8 @@ namespace Tabalim.Core.view
             Linea linea = new Linea();
             linea.From = fromTbo.Text.Trim();
             linea.Type = SelectedType;
+            linea.To = toNameTbo.Text.Trim();
+            linea.ToDesc = toDescTbo.Text.Trim();
             ExtraData extraData = null;
             if (SelectedType.UseExtraData)
             {

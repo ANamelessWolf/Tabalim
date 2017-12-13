@@ -326,7 +326,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock TextAlignment="Center" Text="{Binding VoltajeNominal}" Visibility="Visible"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding CorrienteNominal}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

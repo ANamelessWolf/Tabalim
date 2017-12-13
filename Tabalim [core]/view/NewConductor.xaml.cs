@@ -47,7 +47,7 @@ namespace Tabalim.Core.view
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             conductorCbo.ItemsSource = Conductor.GetConductorOptions(SelectedLinea.Destination.Fases, SelectedLinea.CorrienteCorregida);
-            conductorCbo.SelectedItem = SelectedLinea.Conductor;
+            conductorCbo.SelectedIndex = SelectedLinea.SelectedConductor;
             longitudTbo.Text = SelectedLinea.Longitud.ToString();
         }
     }

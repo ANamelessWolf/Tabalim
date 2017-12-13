@@ -57,13 +57,21 @@ namespace Tabalim.Core.model
         };
         public static Conductor[] GetConductorOptions (int fases, double corriente, bool normal = true)
         {
-            Conductor[] result = new Conductor[2];
-            result[0] = Data.First(x => x.CorrienteMaxima > corriente);
-            result[0].SelectedIndex = fases == 3 ? normal ? 0 : 1 : 2;
-            result[1] = Data.First(x => x.CorrienteMaxima > corriente / 2);
-            result[1].SelectedIndex = result[0].SelectedIndex;
-            result[1].Single = false;
-            return result;
+            List<Conductor> result = new List<Conductor>();
+            Conductor tmp =  Data.First(x => x.CorrienteMaxima > corriente);
+            tmp.SelectedIndex = fases == 3 ? normal ? 0 : 1 : 2;
+            result.Add(tmp);
+            tmp = Data.First(x => x.CorrienteMaxima > corriente / 2);
+            if (result[0] != tmp)
+            {
+                tmp.SelectedIndex = result[0].SelectedIndex;
+                tmp.Single = false;
+            }
+            return result.ToArray();
+        }
+        public override string ToString()
+        {
+            return Alimentador + ", " + Canalizacion;
         }
     }
 }

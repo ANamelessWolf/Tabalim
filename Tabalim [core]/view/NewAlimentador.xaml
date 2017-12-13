@@ -37,68 +37,88 @@
             </Grid>
         </GroupBox>
         <GroupBox Header="Destino" Grid.Row="1">
-            <TabControl x:Name="tabs">
-                <TabItem x:Name="tabMotor" Header="Motores" Style="{StaticResource TabalimTabItem}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button x:Name="addMotorBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe109;" Click="addMotorBtn_Click" />
-                            <Button x:Name="deleteBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe107;" Click="deleteBtn_Click" Visibility="{Binding deleteMotor}" />
-                        </StackPanel>
-                        <ListBox x:Name="motorList" Grid.Row="1" SelectionMode="Single">
-                            
-                        </ListBox>
-                    </Grid>
-                </TabItem>
-                <TabItem x:Name="tabCargas" Header="Cargas" Style="{StaticResource TabalimTabItem}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button x:Name="addCargaBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe109;" Click="addCargaBtn_Click" />
-                            <Button x:Name="deleteCargaBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe107;" Click="deleteCargaBtn_Click" />
-                        </StackPanel>
-                        <ListBox x:Name="tablerosList" Grid.Row="1">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="auto"/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Style="{StaticResource TabalimGroupHighlightLighten}" Text="{Binding Path=Name}"/>
-                                        <TextBlock Text="{Binding Path=Description}" Grid.Row="1"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-                </TabItem>
-                <TabItem x:Name="tabDatos">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock Style="{StaticResource TabalimHeaderLighten}" Text="KVAR" />
-                        <TextBox x:Name="kvarTbo" Style="{StaticResource TabalimInput}" Grid.Column="1"/>
-                        <TextBlock Style="{StaticResource TabalimHeaderLighten}" Text="Tensión" Grid.Row="1" />
-                        <ComboBox x:Name="tensionCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1" Grid.Row="1" />
-                        <TextBlock Style="{StaticResource TabalimHeaderLighten}" Text="Fases" Grid.Row="2" />
-                        <ComboBox x:Name="fasesCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1" Grid.Row="2" />
-                    </Grid>
-                </TabItem>
-            </TabControl>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Nombre" Style="{StaticResource TabalimHeaderLighten}" />
+                    <TextBox x:Name="toNameTbo" Style="{StaticResource TabalimInputDesc}" Grid.Column="1" />
+                    <TextBlock Text="Descripción" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="1" />
+                    <TextBox x:Name="toDescTbo" Style="{StaticResource TabalimInputDesc}" Grid.Row="1" Grid.Column="1" />
+                </Grid>
+                <TabControl Grid.Row="1" x:Name="tabs">
+                    <TabItem x:Name="tabMotor" Header="Motores" Style="{StaticResource TabalimTabItem}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="addMotorBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe109;" Click="addMotorBtn_Click" />
+                                <Button x:Name="deleteBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe107;" Click="deleteBtn_Click" Visibility="{Binding deleteMotor}" />
+                            </StackPanel>
+                            <ListBox x:Name="motorList" Grid.Row="1" SelectionMode="Single">
+
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="tabCargas" Header="Cargas" Style="{StaticResource TabalimTabItem}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="addCargaBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe109;" Click="addCargaBtn_Click" />
+                                <Button x:Name="deleteCargaBtn" Style="{StaticResource TabalimCircleButton}" Content="&#xe107;" Click="deleteCargaBtn_Click" />
+                            </StackPanel>
+                            <ListBox x:Name="tablerosList" Grid.Row="1">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Style="{StaticResource TabalimGroupHighlightLighten}" Text="{Binding Path=Name}"/>
+                                            <TextBlock Text="{Binding Path=Description}" Grid.Row="1"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="tabDatos">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Style="{StaticResource TabalimHeaderLighten}" Text="KVAR" />
+                            <TextBox x:Name="kvarTbo" Style="{StaticResource TabalimInput}" Grid.Column="1"/>
+                            <TextBlock Style="{StaticResource TabalimHeaderLighten}" Text="Tensión" Grid.Row="1" />
+                            <ComboBox x:Name="tensionCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1" Grid.Row="1" />
+                            <TextBlock Style="{StaticResource TabalimHeaderLighten}" Text="Fases" Grid.Row="2" />
+                            <ComboBox x:Name="fasesCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1" Grid.Row="2" />
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
         </GroupBox>
         <GroupBox Header="Conductor" Grid.Row="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
