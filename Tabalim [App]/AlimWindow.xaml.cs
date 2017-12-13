@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tabalim.Core.controller;
+using Tabalim.Core.model;
 
 namespace Tabalim.App
 {
@@ -27,7 +29,19 @@ namespace Tabalim.App
 
         private void CreateLinea_Click(object sender, RoutedEventArgs e)
         {
-
+   
         }
+
+
+
+
+        //         AlimInput alim;
+        //Destination dest;
+        //App.Tabalim.CreateAlimentadorTr(alim, dest,
+        //    (Object result) => 
+        //        {
+        //            IEnumerable<AlimInput> rows;
+        //alimTable.SetItemSource(rows);
+        //        });
     }
 }

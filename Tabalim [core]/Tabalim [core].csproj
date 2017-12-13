@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assets\Constants.cs" />
+    <Compile Include="controller\AlimentadorTransactionUtils.cs" />
     <Compile Include="controller\ComponentsUtils.cs" />
     <Compile Include="controller\FileManager.cs" />
     <Compile Include="controller\IDatabaseMappable.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="model\CtoItem.cs" />
     <Compile Include="model\CtoRow.cs" />
     <Compile Include="model\Destination.cs" />
+    <Compile Include="model\DestinationRow.cs" />
     <Compile Include="model\DestinationType.cs" />
     <Compile Include="model\ExtraData.cs" />
     <Compile Include="model\HPItem.cs" />
