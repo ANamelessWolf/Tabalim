@@ -24,7 +24,7 @@ namespace Tabalim.Core.view
         public event RoutedEventHandler IsRefreshed;
         public TableAlim()
         {
-            InitializeComponent();
+            InitializeComponent();//Hola
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

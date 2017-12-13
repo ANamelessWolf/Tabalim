@@ -46,6 +46,12 @@ namespace Tabalim.Core.model
         public Double Resist { get; set; }
         public Double React { get; set; }
         public Double CaidaDeVoltaje { get; set; }
+        /// <summary>
+        /// Gets or sets the interruptor.
+        /// </summary>
+        /// <value>
+        /// The interruptor.
+        /// </value>
         public String Interruptor { get; set; }
     }
 }

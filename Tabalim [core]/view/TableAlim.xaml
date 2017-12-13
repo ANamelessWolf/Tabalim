@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Tabalim.Core.view"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
              d:DesignHeight="300" Width="2003.896">
-    <Grid>
+    <Grid><!--Hola-->
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="67*"/>
