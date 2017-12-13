@@ -76,17 +76,9 @@
     <Compile Include="Assets\AddinConstants.cs" />
     <Compile Include="Controller\AutoCADUtils.cs" />
     <Compile Include="Controller\ITableroFunctionability.cs" />
-    <Compile Include="Controller\TableUtils.cs" />
-    <Compile Include="Mocking\AlimentadorMockingContent.cs" />
     <Compile Include="Mocking\TableroMockingContent.cs" />
-    <Compile Include="Model\AlimentadorContent.cs" />
-    <Compile Include="Model\AlimentadorRow.cs" />
-    <Compile Include="Model\AlimTable.cs" />
     <Compile Include="Model\CircuitoRow.cs" />
     <Compile Include="Model\ComponentColumn.cs" />
-    <Compile Include="Model\HeaderOptions.cs" />
-    <Compile Include="Model\TabalimTable.cs" />
-    <Compile Include="Model\TableContent.cs" />
     <Compile Include="Model\TableroContent.cs" />
     <Compile Include="Model\TableroTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
