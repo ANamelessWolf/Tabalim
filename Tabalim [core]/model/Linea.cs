@@ -19,7 +19,6 @@ namespace Tabalim.Core.model
         public Conductor Conductor;
         public double Longitud;
         public bool IsCobre;
-        public int Temperatura;
         AlimValues AlimValues => Conductor != null ? AlimValues.GetValues(Conductor.Calibre) : AlimValues.GetValues();
         public Double Reactancia => AlimValues.Reactancia;
         public Double Resistencia => AlimValues.Resistencia[IsCobre ? 0 : 1];
@@ -50,8 +49,6 @@ namespace Tabalim.Core.model
                     return Destination.CorrienteNominal * 1.35;
                 case 6:
                     return Destination.CorrienteNominal;
-                case 7:
-                    return CorrienteCorregida * 1.25;
                 default:
                     return 0;
 

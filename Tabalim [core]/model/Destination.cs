@@ -12,12 +12,8 @@ namespace Tabalim.Core.model
         DestinationType type;
         IEnumerable<BigMotor> motors;
         IEnumerable<Tablero> cargas;
-        ExtraData extraData;
+        ExtraData kvar;
         double demanda;
-        public IEnumerable<BigMotor> Motors => motors;
-        public IEnumerable<Tablero> Cargas => cargas;
-        public ExtraData ExtraData => extraData;
-        public Double FactorDemanda => demanda;
         public Double PotenciaInstalada => GetPotencia();
         public Double PotenciaDemandadaAlumbrado => GetPotenciaDemandada(0);
         public Double PotenciaDemandadaContactos => GetPotenciaDemandada(1);
@@ -27,11 +23,11 @@ namespace Tabalim.Core.model
         public Double CorrienteContinua => GetCorrienteContinua();
         public int Fases => GetFases();
         public double Tension => GetTension();
-        public Destination(DestinationType type, Double demanda = 0.5, IEnumerable<BigMotor> motors = null, IEnumerable<Tablero> cargas = null, ExtraData extraData = null)
+        public Destination(DestinationType type, Double demanda = 0.5, IEnumerable<BigMotor> motors = null, IEnumerable<Tablero> cargas = null, ExtraData kvar = null)
         {
             this.motors = motors;
             this.cargas = cargas;
-            this.extraData = extraData;
+            this.kvar = kvar;
             this.demanda = demanda;
             this.type = type;
         }
@@ -42,8 +38,8 @@ namespace Tabalim.Core.model
                 potencia += cargas.SelectMany(x => x.Componentes.Values).Sum(x => x.Potencia.PotenciaAparente);
             if (type.OnlyOneMotor != null && motors != null)
                 potencia += motors.Sum(x => x.Potencia.PotenciaAparente);
-            if (type.UseExtraData && extraData != null)
-                potencia += extraData.KVar / 1000;
+            if (type.UseExtraData && kvar != null)
+                potencia += kvar.KVar / 1000;
             return potencia;
         }
         private double GetPotenciaDemandada()
@@ -53,8 +49,8 @@ namespace Tabalim.Core.model
                 potencia += cargas.Sum(x => GetPotenciaDemandadaTotal(x));
             if (type.OnlyOneMotor != null && motors != null)
                 potencia += motors.Sum(x => x.Potencia.PotenciaAparente);
-            if (type.UseExtraData && extraData != null)
-                potencia += extraData.KVar / 1000;
+            if (type.UseExtraData && kvar != null)
+                potencia += kvar.KVar / 1000;
             return potencia;
         }
         private double GetPotenciaDemandada(int v)
@@ -83,7 +79,7 @@ namespace Tabalim.Core.model
                 return 0;
             if (type.OnlyOneMotor != null && motors == null)
                 return 0;
-            if (type.UseExtraData && extraData == null)
+            if (type.UseExtraData && kvar == null)
                 return 0;
             switch (type.Id)
             {
@@ -102,10 +98,7 @@ namespace Tabalim.Core.model
                     return tmp.First() * 1.25 + tmp.Skip(1).Sum() + cargas.Sum(x => CalculateCorrienteCarga(x));
                 case 5:
                 case 6:
-                    return extraData.KVar / 1000 / (extraData.Tension.Value * extraData.Fases == 3 ? Math.Sqrt(3) : 1);
-                case 7:
-                    tmp = cargas.Select(x => CalculateCorrienteCarga(x)).OrderByDescending(x => x);
-                    return tmp.First() * 1.25 + tmp.Skip(1).Sum();
+                    return kvar.KVar / 1000 / (kvar.Tension.Value * kvar.Fases == 3 ? Math.Sqrt(3) : 1);
             }
         }
         private double GetCorrienteContinua()
@@ -122,8 +115,6 @@ namespace Tabalim.Core.model
                     return motors.Sum(x => CalculateCorrienteMotor(x)) * 1.25;
                 case 4:
                     return (motors.Sum(x => CalculateCorrienteMotor(x)) + cargas.Sum(x => CalculateCorrienteCarga(x))) * 1.25;
-                case 7:
-                    return cargas.Sum(x => CalculateCorrienteMotor(x)) * 1.25;
                 default:
                     return 0;
             }
@@ -160,7 +151,7 @@ namespace Tabalim.Core.model
                 case 4:
                     return Math.Max(motors.Max(x => x.Tension.Value), cargas.Max(x => x.Sistema.Tension.Value));
                 case 6: case 5:
-                    return extraData.Tension.Value;
+                    return kvar.Tension.Value;
             }
             return 0;
         }
@@ -184,7 +175,7 @@ namespace Tabalim.Core.model
                 case 4:
                     return Math.Max(motors.Max(x => x.Fases), cargas.Max(x => x.Sistema.Fases));
                 case 5: case 6:
-                    return extraData.Fases;
+                    return kvar.Fases;
                 case 7:
                     return cargas.Max(x => x.Sistema.Fases);
             }
