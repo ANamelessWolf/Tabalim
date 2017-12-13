@@ -79,5 +79,21 @@ namespace Tabalim.Core.model
         {
             No = String.Empty;
         }
+
+        public AlimInput ToAlimInput(Project parent)
+        {
+            return new AlimInput() {
+                 End = this.Type,
+                 FactorAgrupamiento = this.FactorAgrupamiento,
+                 FactorDemanda = this.Destination.FactorDemanda,
+                 FactorPotencia = this.FactorPotencia,
+                 Temperatura = this.Temperatura,
+                 
+                 IsCobre = this.IsCobre,
+                 Longitud = this.Longitud,
+                 Start = this.From,
+                 ProjectId = parent.Id
+            };
+        }
     }
 }

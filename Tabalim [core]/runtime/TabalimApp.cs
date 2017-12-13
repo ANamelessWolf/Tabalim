@@ -101,6 +101,16 @@ namespace Tabalim.Core.runtime
                 var tabs = conn.Select<Tablero>(TABLE_TABLERO.SelectAll(CurrentProject.CreatePrimaryKeyCondition()));
                 foreach (Tablero tab in tabs)
                     CurrentProject.Tableros.Add(tab.Id, tab);
+                var alims = conn.Select<AlimInput>("alimentador".SelectAll(CurrentProject.CreatePrimaryKeyCondition()));
+                var motores = conn.Select<BigMotor>("motores".SelectAll());
+                var extras = conn.Select<ExtraData>("extras".SelectAll());
+                Linea line;
+                foreach (var alimInput in alims)
+                {
+                    var destinations = conn.Select<DestinationRow>("destination".SelectAll(alimInput.CreatePrimaryKeyCondition()));
+                    line = alimInput.CreateLinea(tabs, motores, extras, destinations);
+                    CurrentProject.Lineas.Add(int.Parse(line.No.Substring(1)), line);
+                }
                 //Se cargan las referencias del tablero actual que es el último creado
                 CurrentTablero = tabs.LastOrDefault();
                 if (CurrentTablero != null)

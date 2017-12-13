@@ -18,14 +18,14 @@ namespace Tabalim.Core.model
         /// <value>
         /// El nombre de la base de datos
         /// </value>
-        public string TableName => "extras";
+        public string TableName => "alimentador";
         /// <summary>
         /// Establece el nombre de la columna usada como llave primaria
         /// </summary>
         /// <value>
         /// El nombre de la llave primaria
         /// </value>
-        public string PrimaryKey => "extra_id";
+        public string PrimaryKey => "alim_id";
         /// <summary>
         /// Representa el id de la instancia en la
         /// base de datos
@@ -53,7 +53,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// El factor de temperatura
         /// </summary>
-        public double FactorTemperatura;
+        public double Temperatura;
         /// <summary>
         /// El factor de agrupamiento
         /// </summary>
@@ -70,6 +70,18 @@ namespace Tabalim.Core.model
         /// Evalua que el cable sea de cobre
         /// </summary>
         public Boolean IsCobre;
+        public AlimInput()
+        {
+
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="AlimInput"/>.
+        /// </summary>
+        /// <param name="result">The result.</param>
+        public AlimInput(SelectionResult[] result)
+        {
+            this.Parse(result);
+        }
         /// <summary>
         /// Crea un registro del objeto en la base de datos.
         /// </summary>
@@ -120,13 +132,45 @@ namespace Tabalim.Core.model
                 this.CreateFieldAsString("dest_from", this.Start),
                 this.CreateFieldAsString("dest_end",this.End.Id),
                 this.CreateFieldAsNumber("fact_demanda", this.FactorDemanda),
-                this.CreateFieldAsNumber("fact_temperatura", this.FactorTemperatura),
-                this.CreateFieldAsNumber("fact_agrupamiento", this.FactorAgrupamiento),
-                this.CreateFieldAsNumber("fact_potencia", this.FactorPotencia),
+                this.CreateFieldAsNumber("fact_temperatura", this.Temperatura),
+                this.CreateFieldAsNumber("fac_agrupamiento", this.FactorAgrupamiento),
+                this.CreateFieldAsNumber("fac_potencia", this.FactorPotencia),
                 this.CreateFieldAsNumber("longitud", this.Longitud),
                 this.CreateFieldAsNumber("is_cobre", this.IsCobre?1:0),
             };
         }
+        /// <summary>
+        /// Creates the linea.
+        /// </summary>
+        /// <param name="tabs">The tabs.</param>
+        /// <param name="motores">The motores.</param>
+        /// <param name="extras">The extras.</param>
+        /// <param name="destinations">The destinations.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        internal Linea CreateLinea(List<Tablero> tabs, List<BigMotor> motores, List<ExtraData> extras, List<DestinationRow> destinations )
+        {
+            Linea linea = new Linea();
+            linea.From = this.Start;
+            linea.Type = this.End;
+            ExtraData extraData = null;
+            if (this.End.UseExtraData)
+                extraData = extras.FirstOrDefault(y => destinations.Where(x => x.TypeId == 2 && x.AlimId == this.Id).Select(x => x.ConnId).Contains(y.Id));
+            linea.Destination = new Destination(this.End, 
+                this.FactorDemanda, 
+                motores.Where( x => destinations.Where(y => y.TypeId == 0 && y.AlimId == this.Id).Select(y => y.ConnId).Contains(x.Id)),
+                tabs.Where(x => destinations.Where(y => y.TypeId == 1 && y.AlimId == this.Id).Select(y => y.ConnId).Contains(x.Id)), extraData);
+            linea.IsCobre = this.IsCobre;
+            linea.FactorAgrupamiento = this.FactorAgrupamiento;
+            linea.FactorPotencia = this.FactorPotencia;
+            linea.Temperatura = (int)this.Temperatura;
+            linea.FactorTemperartura = model.Temperatura.GetFactor(linea.Temperatura);
+            linea.Longitud = this.Longitud;
+
+            linea.GetNumber();
+            return linea;
+        }
+
         /// <summary>
         /// Realiza el parsing de un elemento seleccionado en SQLite
         /// </summary>
@@ -136,14 +180,14 @@ namespace Tabalim.Core.model
             try
             {
                 this.Id = (int)result.GetValue<long>(this.PrimaryKey);
-                this.ProjectId = (int)result.GetValue<long>("prj_id");
+                this.ProjectId = (int)result.GetValue<int>("prj_id");
                 this.Start = result.GetString("dest_from");
                 int endId = (int)result.GetValue<long>("dest_end");
                 this.End = DestinationType.Types.FirstOrDefault(x => x.Id == endId);
                 this.FactorDemanda = result.GetValue<double>("fact_demanda");
-                this.FactorTemperatura = result.GetValue<double>("fact_temperatura");
-                this.FactorAgrupamiento = result.GetValue<double>("fact_agrupamiento");
-                this.FactorPotencia = result.GetValue<double>("fact_potencia");
+                this.Temperatura = result.GetValue<double>("fact_temperatura");
+                this.FactorAgrupamiento = result.GetValue<double>("fac_agrupamiento");
+                this.FactorPotencia = result.GetValue<double>("fac_potencia");
                 this.Longitud = result.GetValue<double>("longitud");
                 this.IsCobre = result.GetInteger("is_cobre") == 1;
             }
@@ -169,8 +213,8 @@ namespace Tabalim.Core.model
                     break;
                 case "fact_demanda":
                 case "fact_temperatura":
-                case "fact_agrupamiento":
-                case "fact_potencia":
+                case "fac_agrupamiento":
+                case "fac_potencia":
                 case "longitud":
                     value = input.CreateFieldAsNumber(this.TableName, input.Value);
                     break;
@@ -212,12 +256,12 @@ namespace Tabalim.Core.model
                         this.FactorAgrupamiento = (Double)val.Value;
                         break;
                     case "fact_temperatura":
-                        this.FactorTemperatura = (Double)val.Value;
+                        this.Temperatura = (Double)val.Value;
                         break;
-                    case "fact_agrupamiento":
+                    case "fac_agrupamiento":
                         this.FactorAgrupamiento = (Double)val.Value;
                         break;
-                    case "fact_potencia":
+                    case "fac_potencia":
                         this.FactorPotencia = (Double)val.Value;
                         break;
                     case "longitud":
@@ -228,7 +272,7 @@ namespace Tabalim.Core.model
                         break;
                 }
         }
-
+        
 
     }
 }

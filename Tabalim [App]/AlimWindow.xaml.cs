@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tabalim.Core.controller;
 using Tabalim.Core.model;
 using Tabalim.Core.runtime;
 using Tabalim.Core.view;
@@ -34,8 +35,16 @@ namespace Tabalim.App
             dialog.ShowDialog();
             if (dialog.DialogResult.Value)
             {
-                TabalimApp.CurrentProject.Lineas.Add(int.Parse(dialog.SelectedLinea.No.Substring(1)), dialog.SelectedLinea);
-                alimTable.SetItemSource(TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
+                App.Tabalim.CreateAlimentadorTr(dialog.SelectedLinea.ToAlimInput(TabalimApp.CurrentProject), dialog.SelectedLinea.Destination,
+                (Object result) =>
+                    {
+                        if (result is bool && (bool)result)
+                        {
+                            TabalimApp.CurrentProject.Lineas.Add(int.Parse(dialog.SelectedLinea.No.Substring(1)), dialog.SelectedLinea);
+                            alimTable.SetItemSource(TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
+                        }
+
+                    });
             }
         }
 

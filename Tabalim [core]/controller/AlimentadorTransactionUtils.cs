@@ -266,12 +266,12 @@ namespace Tabalim.Core.controller
         /// <returns>El resultado de la transacción</returns>
         private static object InsertAlimTask(SQLite_Connector conn, object input)
         {
-            AlimInput tab = (AlimInput)input;
+            AlimInput alim = (AlimInput)input;
             Boolean flag = false;
-            flag = tab.Create(conn, null);
+            flag = alim.Create(conn, null);
             if (flag)
-                tab.Id = (int)conn.SelectValue<long>(TABLE_TABLERO.SelectLastId(tab.PrimaryKey));
-            return new Object[] { flag, tab.Id > 0 ? tab : null };
+                alim.Id = (int)conn.SelectValue<long>("alimentador".SelectLastId(alim.PrimaryKey));
+            return new Object[] { flag, alim.Id > 0 ? alim : null };
         }
     }
 }

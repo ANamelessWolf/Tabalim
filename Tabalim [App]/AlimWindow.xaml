@@ -16,8 +16,8 @@
         </metro:WindowCommands>
     </metro:MetroWindow.RightWindowCommands>
     <Grid>
-        
+        <ScrollViewer>
             <core:TableAlim x:Name="alimTable" />
-        
+        </ScrollViewer>
     </Grid>
 </metro:MetroWindow>

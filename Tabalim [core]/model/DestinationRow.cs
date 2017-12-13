@@ -43,6 +43,18 @@ namespace Tabalim.Core.model
         /// El id que usa el elemento en la tabla de la base de datos.
         /// </value>
         public int Id { get { return this.AlimId; } set { this.AlimId = value; } }
+        public DestinationRow()
+        {
+
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="AlimInput"/>.
+        /// </summary>
+        /// <param name="result">The result.</param>
+        public DestinationRow(SelectionResult[] result)
+        {
+            this.Parse(result);
+        }
         /// <summary>
         /// Crea un registro del objeto en la base de datos.
         /// </summary>
