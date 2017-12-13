@@ -21,7 +21,9 @@ namespace Tabalim.Core.view
     /// </summary>
     public partial class ConductorPicker : MetroWindow
     {
-        Linea Linea;
+        public Linea Linea;
+        internal Linea linea;
+
         public ConductorPicker()
         {
             InitializeComponent();
@@ -34,12 +36,15 @@ namespace Tabalim.Core.view
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-
+            this.DialogResult = true;
+            Linea = conductorPicker.GetLinea();
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.DialogResult = false;
+            this.Close();
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)

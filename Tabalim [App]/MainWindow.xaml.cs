@@ -73,7 +73,7 @@ namespace Tabalim.App
         {
             InitModule(() =>
             {
-                new AlimentadorPicker().Show();
+                new AlimWindow().Show();
                 this.Close();
             });
         }

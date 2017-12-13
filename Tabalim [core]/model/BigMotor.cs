@@ -132,7 +132,7 @@ namespace Tabalim.Core.model
             {
                 this.Id = (int)result.GetValue<long>(this.PrimaryKey);
                 double potencia = result.GetValue<double>("potencia");
-                int tension = (int)result.GetValue<long>("tension");
+                int tension = (int)result.GetValue<double>("tension");
                 this.Fases = (int)result.GetValue<long>("fases");
                 this.Potencia = new Potencia(potencia, true);
                 this.Tension = new Tension((TensionVal)tension, this.Fases);

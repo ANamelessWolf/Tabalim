@@ -74,8 +74,10 @@ namespace Tabalim.Core.model
             try
             {
                 this.Id = (int)result.GetValue<long>(this.PrimaryKey);
-                this.KVar = (int)result.GetValue<long>("kvar");
+                this.KVar = (double)result.GetValue<double>("kvar");
                 this.Fases = (int)result.GetValue<long>("fases");
+                int tension = (int)result.GetValue<double>("tension");
+                this.Tension = new Tension((TensionVal)tension, this.Fases);
             }
             catch (Exception exc)
             {
@@ -93,7 +95,8 @@ namespace Tabalim.Core.model
             return new InsertField[]
             {
                 this.CreateFieldAsNumber("kvar", this.KVar),
-                this.CreateFieldAsNumber("fases", this.Fases)
+                this.CreateFieldAsNumber("fases", this.Fases),
+                  this.CreateFieldAsNumber("tension", this.Tension.Value),
             };
         }
         /// <summary>

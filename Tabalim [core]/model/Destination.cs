@@ -123,14 +123,14 @@ namespace Tabalim.Core.model
                 case 4:
                     return (motors.Sum(x => CalculateCorrienteMotor(x)) + cargas.Sum(x => CalculateCorrienteCarga(x))) * 1.25;
                 case 7:
-                    return cargas.Sum(x => CalculateCorrienteMotor(x)) * 1.25;
+                    return cargas.Sum(x => CalculateCorrienteCarga(x)) * 1.25;
                 default:
                     return 0;
             }
         }
         private double CalculateCorrienteMotor(BigMotor motor)
         {
-            return (double)typeof(HPItem).GetType().GetProperty(String.Format(PROPERTY_NAME, motor.Fases, GetColumnTension(motor.Tension.Value))).GetValue(runtime.TabalimApp.Motores.First(x => x.HP == motor.Potencia.HP));
+            return (double)runtime.TabalimApp.Motores.First(x => x.HP == motor.Potencia.HP).GetType().GetProperty(String.Format(PROPERTY_NAME, motor.Fases, GetColumnTension(motor.Tension.Value))).GetValue(runtime.TabalimApp.Motores.First(x => x.HP == motor.Potencia.HP));
         }
 
         private double CalculateCorrienteCarga(Tablero tablero)
@@ -161,6 +161,8 @@ namespace Tabalim.Core.model
                     return Math.Max(motors.Max(x => x.Tension.Value), cargas.Max(x => x.Sistema.Tension.Value));
                 case 6: case 5:
                     return extraData.Tension.Value;
+                case 7:
+                    return cargas.Max(x => x.Sistema.Tension.Value);
             }
             return 0;
         }

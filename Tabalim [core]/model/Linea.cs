@@ -8,6 +8,8 @@ namespace Tabalim.Core.model
 {
     public class Linea
     {
+        const string NUMBER_FORMAT = "L{0}";
+        public String No;
         public String From;
         public DestinationType Type;
         public Destination Destination;
@@ -26,6 +28,22 @@ namespace Tabalim.Core.model
         public Double Impedancia => AlimValues.Impedancia[IsCobre ? 0 : 1];
         public Double CaidaVoltaje => Destination.CorrienteNominal * Longitud * Impedancia * (Destination.Fases == 3 ? Math.Sqrt(3) : 1) * 100 / Destination.Tension;
         public String Interruptor => model.Interruptor.GetInterruptor(Destination.Fases, CorrienteProteccion).ToString();
+
+        internal void GetNumber()
+        {
+            int i;
+            var lineas = runtime.TabalimApp.CurrentProject.Lineas;
+            if (lineas.Count == 0)
+                i = 1;
+            else if (lineas.Count == lineas.Max(x => x.Key))
+                i = lineas.Count + 1;
+            else
+            {
+                i = Enumerable.Range(1, lineas.Max(x => x.Key)).First(x => !lineas.Keys.Contains(x));
+            }
+            this.No = String.Format(NUMBER_FORMAT, i.ToString());
+        }
+
         private double GetCorrienteCorregida()
         {
             if (Destination != null)
@@ -56,6 +74,26 @@ namespace Tabalim.Core.model
                     return 0;
 
             }
+        }
+        public Linea()
+        {
+            No = String.Empty;
+        }
+
+        public AlimInput ToAlimInput(Project parent)
+        {
+            return new AlimInput() {
+                 End = this.Type,
+                 FactorAgrupamiento = this.FactorAgrupamiento,
+                 FactorDemanda = this.Destination.FactorDemanda,
+                 FactorPotencia = this.FactorPotencia,
+                 Temperatura = this.Temperatura,
+                 
+                 IsCobre = this.IsCobre,
+                 Longitud = this.Longitud,
+                 Start = this.From,
+                 ProjectId = parent.Id
+            };
         }
     }
 }

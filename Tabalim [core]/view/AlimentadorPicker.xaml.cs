@@ -39,9 +39,18 @@ namespace Tabalim.Core.view
             {
                 if (alimentadorPicker.IsValid())
                 {
-                    SelectedLinea = alimentadorPicker.GetLinea();                    
-                    new ConductorPicker(SelectedLinea).Show();
-                    this.Close();
+                    SelectedLinea = alimentadorPicker.GetLinea();
+                    if (SelectedLinea.No == "")
+                        SelectedLinea.GetNumber();
+                    var dialog = new ConductorPicker(SelectedLinea);
+                    dialog.ShowDialog();
+                    dialog.Hide();
+                    if (dialog.DialogResult.Value)
+                    {
+                        SelectedLinea = dialog.Linea;
+                        this.DialogResult = true;
+                        this.Close();
+                    }
                 }
             } catch(Exception exc)
             {
@@ -51,6 +60,7 @@ namespace Tabalim.Core.view
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = false;
             this.Close();
         }
     }

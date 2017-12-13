@@ -29,7 +29,7 @@ namespace Tabalim.Core.view
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
+           SetItemSource(runtime.TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
         }
 
         public void SetItemSource(IEnumerable<AlimentadorRow> rows)
