@@ -12,6 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tabalim.Core.model;
+using Tabalim.Core.runtime;
+using Tabalim.Core.view;
 
 namespace Tabalim.App
 {
@@ -26,6 +29,22 @@ namespace Tabalim.App
         }
 
         private void CreateLinea_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new AlimentadorPicker();
+            dialog.ShowDialog();
+            if (dialog.DialogResult.Value)
+            {
+                TabalimApp.CurrentProject.Lineas.Add(int.Parse(dialog.SelectedLinea.No.Substring(1)), dialog.SelectedLinea);
+                alimTable.SetItemSource(TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
+            }
+        }
+
+        private void Guardar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Abrir_Click(object sender, RoutedEventArgs e)
         {
 
         }

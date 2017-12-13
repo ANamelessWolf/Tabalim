@@ -16,8 +16,8 @@
         </metro:WindowCommands>
     </metro:MetroWindow.RightWindowCommands>
     <Grid>
-        <Viewbox VerticalAlignment="Top">
-            <core:TableAlim />
-        </Viewbox>
+        
+            <core:TableAlim x:Name="alimTable" />
+        
     </Grid>
 </metro:MetroWindow>

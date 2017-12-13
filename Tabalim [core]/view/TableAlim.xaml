@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <Grid Visibility="Hidden" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="400"/>
                 <!--0-->
                 <ColumnDefinition Width="80"/>
                 <!--1-->
@@ -94,7 +94,7 @@
 
                     <GridViewColumn  Width="{Binding ElementName=col0, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <Grid VerticalAlignment="Center" Width="190">
+                            <Grid VerticalAlignment="Center" Width="390">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="1*"/>
                                     <RowDefinition Height="1*"/>
@@ -124,8 +124,8 @@
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="2*"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal"  Grid.Column="1">
-                                        <TextBlock Text="{Binding No}" TextWrapping="Wrap"/>
+                                    <StackPanel Orientation="Horizontal"  Grid.Column="0">
+                                        <TextBlock TextAlignment="Center" Text="{Binding No}" TextWrapping="Wrap"/>
                                         <TextBlock Text="{Binding Id}" Visibility="Collapsed"/>
                                         <Viewbox>
                                             <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe104;" Click="btnEditLine_Click"/>
@@ -134,9 +134,9 @@
                                             <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe107;" Click="btnDeleteLine_Click"/>
                                         </Viewbox>
                                     </StackPanel>
-                                    <TextBlock Text="{Binding From}" TextWrapping="Wrap" Grid.Column="1"/>
-                                    <TextBlock Text="{Binding To}" TextWrapping="Wrap" Grid.Column="1"/>
-                                    <TextBlock Text="{Binding ToDesc}" TextWrapping="Wrap" Grid.Row="1" Grid.ColumnSpan="3"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding From}" TextWrapping="Wrap" Grid.Column="1"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding To}" TextWrapping="Wrap" Grid.Column="2"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding ToDesc}" TextWrapping="Wrap" Grid.Row="1" Grid.ColumnSpan="3"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -151,15 +151,13 @@
                         </GridViewColumnHeader>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Grid>
-                                    <TextBlock Text="{Binding PotInstVA}" Visibility="Collapsed"/>
-                                </Grid>
+                                <TextBlock TextAlignment="Center" Text="{Binding PotInstVA}" Visibility="Visible"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="{Binding ElementName=col2, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col2, Path=ActualWidth}" TextAlignment="Center" Margin="-12,0">
+                            <TextBlock TextAlignment="Center" Width="{Binding ElementName=col2, Path=ActualWidth}"  Margin="-12,0">
                                 Potencia
                                 <LineBreak/>
                                 Watts
@@ -168,7 +166,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding PotInstWatts}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding PotInstWatts}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -186,7 +184,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding FacDemanda}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding FacDemanda}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -204,7 +202,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding PotDemAlum}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding PotDemAlum}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -222,7 +220,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding PotDemCont}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding PotDemCont}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -240,7 +238,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding PotDemForce}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding PotDemForce}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -258,7 +256,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding PotDemVA}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding PotDemVA}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -276,7 +274,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding PotDemWatts}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding PotDemWatts}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -296,7 +294,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding FacPotencia}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding FacPotencia}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -312,7 +310,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding VoltajeNominal}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding VoltajeNominal}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -328,7 +326,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding VoltajeNominal}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding VoltajeNominal}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -363,8 +361,8 @@
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="1*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding FacTem}" TextAlignment="Center"/>
-                                    <TextBlock Text="{Binding FacAgr}" TextAlignment="Center"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding FacTem}" />
+                                    <TextBlock TextAlignment="Center" Text="{Binding FacAgr}" Grid.Column="1" />
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -380,7 +378,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding CorrienteCorregida}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding CorrienteCorregida}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -402,8 +400,8 @@
                                         <RowDefinition Height="1*"/>
                                         <RowDefinition Height="1*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Text="{Binding Aliment}" Visibility="Collapsed"/>
-                                    <TextBlock Text="{Binding Canal}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding Aliment}" Visibility="Visible"/>
+                                    <TextBlock TextAlignment="Center"  Text="{Binding Canal}" Grid.Row="1" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -419,7 +417,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding Length}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding Length}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -435,7 +433,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding Imped}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding Imped}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -453,7 +451,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding Resist}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding Resist}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -471,7 +469,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding React}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding React}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -497,7 +495,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding CaidaDeVoltaje}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding CaidaDeVoltaje}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -513,7 +511,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding Interruptor}" Visibility="Collapsed"/>
+                                    <TextBlock TextAlignment="Center" Text="{Binding Interruptor}" Visibility="Visible"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
