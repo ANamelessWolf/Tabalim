@@ -27,6 +27,8 @@ namespace Tabalim.Core.view
         List<TableroItem> tableros;
         public List<Tablero> listOfTableros { get; set; }
         DestinationType SelectedType;
+        internal Linea ExistantLinea;
+
         public NewAlimentador()
         {
             InitializeComponent();
@@ -64,6 +66,29 @@ namespace Tabalim.Core.view
             this.listOfTableros = runtime.TabalimApp.CurrentProject.Tableros.Values.ToList();
             this.fasesCbo.ItemsSource = new int[] { 2, 3 };
             this.tensionCbo.ItemsSource = Enum.GetValues(typeof(TensionVal)).Cast<TensionVal>().Select(x => new Tension(x, new SistemaBifasico()));
+            if (ExistantLinea != null)
+            {
+                this.fromTbo.Text = ExistantLinea.From;
+                this.toTypeCbo.SelectedItem = ExistantLinea.Type;
+                //Destination
+                this.motors = ExistantLinea.Destination.Motors.ToList();
+                motorList.ItemsSource = this.motors;
+                this.tableros = ExistantLinea.Destination.Cargas.Select(x => new TableroItem(x)).ToList();
+                tablerosList.ItemsSource = this.tableros;
+                if (ExistantLinea.Destination.ExtraData != null)
+                {
+                    this.kvarTbo.Text = ExistantLinea.Destination.ExtraData.KVar.ToString();
+                    this.fasesCbo.SelectedItem = ExistantLinea.Destination.ExtraData.Fases;
+                    this.tensionCbo.SelectedItem = ExistantLinea.Destination.ExtraData.Tension;
+                }
+                //Conductor
+                this.isCopper.IsChecked = ExistantLinea.IsCobre;
+                //Factors
+                this.slidDemanda.Value = ExistantLinea.Destination.FactorDemanda;
+                this.slidGroup.Value = ExistantLinea.FactorAgrupamiento;
+                this.slidPower.Value = ExistantLinea.FactorPotencia;
+                this.slidTemp.Value = ExistantLinea.Temperatura;
+            }
         }
 
         private void addCargaBtn_Click(object sender, RoutedEventArgs e)
@@ -154,6 +179,12 @@ namespace Tabalim.Core.view
             linea.FactorAgrupamiento = slidGroup.Value;
             linea.FactorPotencia = slidPower.Value;
             linea.FactorTemperartura = Temperatura.GetFactor((int)slidTemp.Value);
+            linea.Temperatura = (int)slidTemp.Value;
+            if(ExistantLinea != null)
+            {
+                linea.Conductor = ExistantLinea.Conductor;
+                linea.Longitud = ExistantLinea.Longitud;
+            }
             return linea;
         }
         private void ProcessType()
