@@ -39,5 +39,14 @@ namespace Tabalim.Core.view
             IsRefreshed?.Invoke(this, new RoutedEventArgs());
         }
 
+        private void btnEditLine_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteLine_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

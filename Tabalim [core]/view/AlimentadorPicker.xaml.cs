@@ -27,6 +27,11 @@ namespace Tabalim.Core.view
         {
             InitializeComponent();
         }
+        public AlimentadorPicker(Linea existantLinea) :
+            this()
+        {
+            this.alimentadorPicker.ExistantLinea = existantLinea;
+        }
 
         private async void btnOk_Click(object sender, RoutedEventArgs e)
         {
@@ -46,7 +51,7 @@ namespace Tabalim.Core.view
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

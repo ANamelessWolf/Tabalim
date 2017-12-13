@@ -6,34 +6,63 @@
              xmlns:local="clr-namespace:Tabalim.Core.view"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
              d:DesignHeight="300" Width="2003.896">
-    <Grid><!--Hola-->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <!--Hola-->
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="67*"/>
         </Grid.RowDefinitions>
         <Grid Visibility="Hidden" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/><!--0-->
-                <ColumnDefinition Width="80"/><!--1-->
-                <ColumnDefinition Width="80"/><!--2-->
-                <ColumnDefinition Width="90"/><!--3-->
-                <ColumnDefinition Width="100"/><!--4-->
-                <ColumnDefinition Width="80"/><!--5-->
-                <ColumnDefinition Width="80"/><!--6-->
-                <ColumnDefinition Width="80"/><!--7-->
-                <ColumnDefinition Width="90"/><!--8-->
-                <ColumnDefinition Width="0"/><!--9-->
-                <ColumnDefinition Width="90"/><!--10-->
-                <ColumnDefinition Width="80"/><!--11-->
-                <ColumnDefinition Width="80"/><!--12-->
-                <ColumnDefinition Width="120"/><!--13-->
-                <ColumnDefinition Width="80"/><!--14-->
-                <ColumnDefinition Width="80"/><!--15-->
-                <ColumnDefinition Width="80"/><!--16-->
-                <ColumnDefinition Width="80"/><!--17-->
-                <ColumnDefinition Width="90"/><!--18-->
-                <ColumnDefinition Width="160"/><!--19-->
-                <ColumnDefinition Width="80"/><!--20-->
+                <ColumnDefinition Width="200"/>
+                <!--0-->
+                <ColumnDefinition Width="80"/>
+                <!--1-->
+                <ColumnDefinition Width="80"/>
+                <!--2-->
+                <ColumnDefinition Width="90"/>
+                <!--3-->
+                <ColumnDefinition Width="100"/>
+                <!--4-->
+                <ColumnDefinition Width="80"/>
+                <!--5-->
+                <ColumnDefinition Width="80"/>
+                <!--6-->
+                <ColumnDefinition Width="80"/>
+                <!--7-->
+                <ColumnDefinition Width="90"/>
+                <!--8-->
+                <ColumnDefinition Width="0"/>
+                <!--9-->
+                <ColumnDefinition Width="90"/>
+                <!--10-->
+                <ColumnDefinition Width="80"/>
+                <!--11-->
+                <ColumnDefinition Width="80"/>
+                <!--12-->
+                <ColumnDefinition Width="120"/>
+                <!--13-->
+                <ColumnDefinition Width="80"/>
+                <!--14-->
+                <ColumnDefinition Width="80"/>
+                <!--15-->
+                <ColumnDefinition Width="80"/>
+                <!--16-->
+                <ColumnDefinition Width="80"/>
+                <!--17-->
+                <ColumnDefinition Width="90"/>
+                <!--18-->
+                <ColumnDefinition Width="160"/>
+                <!--19-->
+                <ColumnDefinition Width="80"/>
+                <!--20-->
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" x:Name="col0"/>
@@ -62,6 +91,7 @@
         <ListView x:Name="listOfLines" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
+
                     <GridViewColumn  Width="{Binding ElementName=col0, Path=ActualWidth}">
                         <GridViewColumnHeader>
                             <Grid VerticalAlignment="Center" Width="190">
@@ -70,9 +100,9 @@
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
                                     <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Alimentador" Grid.ColumnSpan="3" TextAlignment="Center"/>
                                 <TextBlock Text="No." Grid.Row="1" TextAlignment="Center"/>
@@ -90,11 +120,20 @@
                                         <RowDefinition Height="1*"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="2*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding No}" TextWrapping="Wrap" Grid.Column="1"/>
+                                    <StackPanel Orientation="Horizontal"  Grid.Column="1">
+                                        <TextBlock Text="{Binding No}" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Id}" Visibility="Collapsed"/>
+                                        <Viewbox>
+                                            <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe104;" Click="btnEditLine_Click"/>
+                                        </Viewbox>
+                                        <Viewbox>
+                                            <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe107;" Click="btnDeleteLine_Click"/>
+                                        </Viewbox>
+                                    </StackPanel>
                                     <TextBlock Text="{Binding From}" TextWrapping="Wrap" Grid.Column="1"/>
                                     <TextBlock Text="{Binding To}" TextWrapping="Wrap" Grid.Column="1"/>
                                     <TextBlock Text="{Binding ToDesc}" TextWrapping="Wrap" Grid.Row="1" Grid.ColumnSpan="3"/>
