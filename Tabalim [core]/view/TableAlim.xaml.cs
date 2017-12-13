@@ -41,11 +41,14 @@ namespace Tabalim.Core.view
 
         private void btnEditLine_Click(object sender, RoutedEventArgs e)
         {
-
+            int i = int.Parse((((sender as Button).Parent as Viewbox).Parent as StackPanel).Children.OfType<TextBlock>().ToArray()[1].Text);
+            var updateData = new KeyValuePair<String, Object>[] { };
+            
         }
 
         private void btnDeleteLine_Click(object sender, RoutedEventArgs e)
         {
+            int i = int.Parse((((sender as Button).Parent as Viewbox).Parent as StackPanel).Children.OfType<TextBlock>().ToArray()[1].Text);
 
         }
     }
