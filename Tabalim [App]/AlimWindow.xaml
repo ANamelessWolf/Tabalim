@@ -6,13 +6,15 @@
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.App"
         xmlns:core="clr-namespace:Tabalim.Core.view;assembly=elekid"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Closing="MetroWindow_Closed"
         Title="Alimentadores" Height="768" Width="1366">
     <metro:MetroWindow.RightWindowCommands>
         <metro:WindowCommands>
             <Button Content="nueva linea" Click="CreateLinea_Click"/>
-            <Button Content="guardar" Click="Guardar_Click"/>
             <Button Content="abrir" Click="Abrir_Click"/>
+            <Button Content="guardar" Click="Guardar_Click"/>
+            <Button Content="guardar_como" Click="Guardar_Como_Click"/>
+            
         </metro:WindowCommands>
     </metro:MetroWindow.RightWindowCommands>
     <Grid>

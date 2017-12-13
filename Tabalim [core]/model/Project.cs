@@ -17,6 +17,10 @@ namespace Tabalim.Core.model
         /// </summary>
         public int Id { get; set; }
         /// <summary>
+        /// La ruta a donde esta guardado el proyecto
+        /// </summary>
+        public string Path;
+        /// <summary>
         /// Establece el nombre de tabla
         /// </summary>
         /// <value>
@@ -102,6 +106,7 @@ namespace Tabalim.Core.model
             this.Id = (int)result.GetValue<long>("prj_id");
             this.ProjectName = result.GetString("prj_name");
             this.Start = DateTime.Parse(result.GetString("start_date"));
+            this.Path = result.GetString("ruta");
         }
         /// <summary>
         /// Obtiene los campos de inserción de un objeto
@@ -114,7 +119,8 @@ namespace Tabalim.Core.model
             return new InsertField[]
             {
                 this.CreateFieldAsString("prj_name", this.ProjectName),
-                this.CreateFieldAsDate("start_date", this.Start)
+                this.CreateFieldAsDate("start_date", this.Start),
+                 this.CreateFieldAsString("ruta",this.Path)
             };
         }
         /// <summary>
@@ -127,6 +133,8 @@ namespace Tabalim.Core.model
         public UpdateField PickUpdateFields(KeyValuePair<string, object> input)
         {
             if (input.Key == "prj_name")
+                return input.CreateFieldAsString(this.TableName, input.Value);
+            else if (input.Key == "ruta")
                 return input.CreateFieldAsString(this.TableName, input.Value);
             else
                 return null;
@@ -141,6 +149,8 @@ namespace Tabalim.Core.model
             foreach (var val in input)
                 if (val.Key == "prj_name")
                     this.ProjectName = val.Value.ToString();
+                else if (val.Key == "ruta")
+                    this.Path = val.Value.ToString();
         }
         #endregion
     }
