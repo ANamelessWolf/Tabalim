@@ -132,8 +132,10 @@
     <Compile Include="model\Potencia.cs" />
     <Compile Include="model\PowerType.cs" />
     <Compile Include="model\Project.cs" />
+    <Compile Include="model\raw\AlimentadorRaw.cs" />
     <Compile Include="model\raw\CircuitoRaw.cs" />
     <Compile Include="model\raw\ComponenteRaw.cs" />
+    <Compile Include="model\raw\ProjectRaw.cs" />
     <Compile Include="model\raw\TableroRaw.cs" />
     <Compile Include="model\SistemaBifasico.cs" />
     <Compile Include="model\SistemaFases.cs" />
@@ -218,6 +220,9 @@
     </Compile>
     <Compile Include="view\TableroPreview.xaml.cs">
       <DependentUpon>TableroPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\WinSaveProject.xaml.cs">
+      <DependentUpon>WinSaveProject.xaml</DependentUpon>
     </Compile>
     <Compile Include="view\WinTableroSettings.xaml.cs">
       <DependentUpon>WinTableroSettings.xaml</DependentUpon>
@@ -322,6 +327,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\TableroPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\WinSaveProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -455,6 +464,9 @@
     <Resource Include="img\tableros\I3_30.bmp" />
     <Resource Include="img\tableros\I3_36.bmp" />
     <Resource Include="img\tableros\I3_42.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="data\config_alim.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

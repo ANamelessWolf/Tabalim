@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Tabalim.Core.controller;
 using Tabalim.Core.model;
+using Tabalim.Core.model.raw;
 using Tabalim.Core.runtime;
 using Tabalim.Core.view;
 
@@ -79,22 +80,27 @@ namespace Tabalim.App
         /// </summary>
         /// <param name="sender">La fuente del evento.</param>
         /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
-            private void Guardar_Click(object sender, RoutedEventArgs e)
-            {
-                this.ExportCurrentProject(null);
-            }
-            /// <summary>
-            /// Maneja el evento que realizá la tarea de hacer clic en el botón guardar como
-            /// </summary>
-            /// <param name="sender">La fuente del evento.</param>
-            /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
-            private void Guardar_Como_Click(object sender, RoutedEventArgs e)
-            {
-                this.ExportCurrentProject(null, true);
-            }
+        private void Guardar_Click(object sender, RoutedEventArgs e)
+        {
+            this.ExportCurrentProject(null);
+        }
+        /// <summary>
+        /// Maneja el evento que realizá la tarea de hacer clic en el botón guardar como
+        /// </summary>
+        /// <param name="sender">La fuente del evento.</param>
+        /// <param name="e">Los argumentos de tipo <see cref="RoutedEventArgs"/> que contienen la información del evento.</param>
+        private void Guardar_Como_Click(object sender, RoutedEventArgs e)
+        {
+            this.ExportCurrentProject(null, true);
+        }
         private void MetroWindow_Closed(object sender, EventArgs e)
         {
             new MainWindow().Show();
+        }
+
+        private void Copiar_Click(object sender, RoutedEventArgs e)
+        {
+            alimTable.Copy();
         }
     }
     }

@@ -8,7 +8,7 @@ namespace Tabalim.Core.model
 {
     public class AlimentadorRow
     {
-        public int Id { get; set; }
+        public int Id => Linea.Id;
         /// <summary>
         /// El número de línea
         /// </summary>

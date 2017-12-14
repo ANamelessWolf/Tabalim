@@ -97,8 +97,24 @@ namespace Tabalim.Core.model
                  IsCobre = this.IsCobre,
                  Longitud = this.Longitud,
                  Start = this.From,
+                 Conductor = this.SelectedConductor,
                  ProjectId = parent.Id
             };
+        }
+
+        internal void Update(AlimInput alimInput)
+        {
+            this.Type = alimInput.End;
+            this.FactorAgrupamiento = alimInput.FactorAgrupamiento;
+            this.Destination.FactorDemanda = alimInput.FactorDemanda;
+            this.FactorPotencia = alimInput.FactorPotencia;
+            this.Temperatura = (int)alimInput.Temperatura;
+            this.To = alimInput.ToName;
+            this.ToDesc = alimInput.ToDesc;
+            this.IsCobre = alimInput.IsCobre;
+            this.Longitud = alimInput.Longitud;
+            this.From = alimInput.Start;
+            this.SelectedConductor = alimInput.Conductor;
         }
     }
 }

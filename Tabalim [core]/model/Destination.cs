@@ -17,7 +17,7 @@ namespace Tabalim.Core.model
         public IEnumerable<BigMotor> Motors => motors;
         public IEnumerable<Tablero> Cargas => cargas;
         public ExtraData ExtraData => extraData;
-        public Double FactorDemanda => demanda;
+        public Double FactorDemanda { get { return demanda; } set { this.demanda = value; } }
         public Double PotenciaInstalada => GetPotencia();
         public Double PotenciaDemandadaAlumbrado => GetPotenciaDemandada(0);
         public Double PotenciaDemandadaContactos => GetPotenciaDemandada(1);

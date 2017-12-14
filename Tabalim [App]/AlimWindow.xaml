@@ -13,8 +13,8 @@
             <Button Content="nueva linea" Click="CreateLinea_Click"/>
             <Button Content="abrir" Click="Abrir_Click"/>
             <Button Content="guardar" Click="Guardar_Click"/>
-            <Button Content="guardar_como" Click="Guardar_Como_Click"/>
-            
+            <Button Content="guardar como" Click="Guardar_Como_Click"/>
+            <Button Content="copiar AutoCAD"  Click="Copiar_Click" />
         </metro:WindowCommands>
     </metro:MetroWindow.RightWindowCommands>
     <Grid>

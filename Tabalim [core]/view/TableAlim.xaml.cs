@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tabalim.Core.controller;
 using Tabalim.Core.model;
+using Tabalim.Core.model.raw;
 using Tabalim.Core.runtime;
 
 namespace Tabalim.Core.view
@@ -30,7 +33,7 @@ namespace Tabalim.Core.view
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-           SetItemSource(runtime.TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
+            SetItemSource(runtime.TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
         }
 
         public void SetItemSource(IEnumerable<AlimentadorRow> rows)
@@ -61,14 +64,66 @@ namespace Tabalim.Core.view
                     new KeyValuePair<string, object>("dest_desc", linea.ToDesc),
                     new KeyValuePair<string, object>("conductor", linea.SelectedConductor)
                 };
+                SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+                {
+                    TransactionTask = (SQLite_Connector conn, Object input) =>
+                     {
+                         Object[] data = input as Object[];
+                         int alimId = (int)data[0];
+                         AlimInput inAlim = (AlimInput)data[1];
+                         var uData = (KeyValuePair<String, Object>[])data[2];
+                         if (inAlim.Update(conn, uData))
+                             return inAlim;
+                         else
+                             return null;
+                     },
+                    TaskCompleted = (Object result) =>
+                    {
+                        if (result is AlimInput)
+                        {
+                            TabalimApp.CurrentProject.Lineas[i].Update(result as AlimInput);
+                            SetItemSource(runtime.TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
+                        }
+                    }
+                };
+                tr.Run(new Object[] { i, linea.ToAlimInput(TabalimApp.CurrentProject), updateData });
             }
-            
+
         }
 
         private void btnDeleteLine_Click(object sender, RoutedEventArgs e)
         {
             int i = int.Parse((((sender as Button).Parent as Viewbox).Parent as StackPanel).Children.OfType<TextBlock>().ToArray()[1].Text);
+            SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
+            {
+                TransactionTask = (SQLite_Connector conn, Object input) =>
+                {
+                    Object[] data = input as Object[];
+                    int alimId = (int)data[0];
+                    AlimInput inAlim = (AlimInput)data[1];
+                    return inAlim.Delete(conn);
+                },
+                TaskCompleted = (Object result) =>
+                {
+                    if ((Boolean)result)
+                    {
+                        TabalimApp.CurrentProject.Lineas.Values.ToList().ForEach(x => x.GetNumber());
+                        SetItemSource(runtime.TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
+                    }
+                }
+            };
+            tr.Run(new Object[] { i, TabalimApp.CurrentProject.Lineas[i].ToAlimInput(TabalimApp.CurrentProject) });
+        }
 
+        public async void Copy()
+        {
+            var dialog = new WinSaveProject();
+            dialog.ShowDialog();
+            if (dialog.DialogResult == true)
+            {
+                Clipboard.SetText(JsonConvert.SerializeObject(new ProjectRaw(TabalimApp.CurrentProject, dialog.Description) { Tablero = dialog.AlimTitle }));
+                await UiUtils.ShowMessageDialog(this, "", "Alimentador guardado en portapapeles.");
+            }
         }
     }
 }
