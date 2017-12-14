@@ -77,5 +77,11 @@ namespace Tabalim.App
                 this.Close();
             });
         }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new WinAbout();
+            win.Show();
+        }
     }
 }

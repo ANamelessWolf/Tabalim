@@ -8,6 +8,11 @@
         xmlns:local="clr-namespace:Tabalim.App"
         mc:Ignorable="d" 
         Title="TABALIM" Height="350" Width="525" WindowStartupLocation="CenterScreen">
+    <metro:MetroWindow.RightWindowCommands>
+        <metro:WindowCommands>
+            <Button Content="Acerca de" Click="About_Click"/>
+        </metro:WindowCommands>
+    </metro:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>

@@ -69,7 +69,11 @@ namespace Tabalim.App
                     SQLiteWrapper tr = new SQLiteWrapper(TabalimApp.AppDBPath)
                     {
                         TransactionTask = App.Tabalim.InitApplication,
-                        TaskCompleted = App.Tabalim.AppLoaded
+                        TaskCompleted = (Object result) =>
+                        {
+                            App.Tabalim.AppLoaded(result);
+                            alimTable.SetItemSource(TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
+                        }
                     };
                     tr.Run(null);
                 }
@@ -103,4 +107,4 @@ namespace Tabalim.App
             alimTable.Copy();
         }
     }
-    }
+}

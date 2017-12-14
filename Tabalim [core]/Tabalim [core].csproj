@@ -221,6 +221,9 @@
     <Compile Include="view\TableroPreview.xaml.cs">
       <DependentUpon>TableroPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="view\WinAbout.xaml.cs">
+      <DependentUpon>WinAbout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\WinSaveProject.xaml.cs">
       <DependentUpon>WinSaveProject.xaml</DependentUpon>
     </Compile>
@@ -233,6 +236,7 @@
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="data\tabalim.sqlite" />
+    <None Include="json\FullAlimentador.json" />
     <None Include="json\fullTablero.json" />
     <None Include="json\tablero.json" />
     <None Include="packages.config" />
@@ -327,6 +331,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\TableroPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\WinAbout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -467,6 +475,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="data\config_alim.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\dasoft_32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
