@@ -184,7 +184,11 @@ namespace Tabalim.Addin.Controller
             AlimentadorContent cont = null;
             try
             {
-                cont = new AlimentadorMockingContent();
+                string cp = System.Windows.Clipboard.GetText();
+                if (cp != null)
+                    cont = Newtonsoft.Json.JsonConvert.DeserializeObject<AlimentadorContent>(cp);
+                if (cont == null)
+                    throw new Exception("Error al cargar la información del proyecto de alimentador. JSON no válido.");
             }
             catch (Exception exc)
             {

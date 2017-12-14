@@ -20,6 +20,7 @@ namespace Tabalim.Core.model.raw
         public ProjectRaw(Project project, String description = "")
         {
             Tablero = project.ProjectName;
+            this.Description = description;
             Lineas = project.Lineas.Values.Select(x => new AlimentadorRaw(x)).ToArray();
         }
     }

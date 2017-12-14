@@ -122,7 +122,8 @@ namespace Tabalim.Core.view
             dialog.ShowDialog();
             if (dialog.DialogResult == true)
             {
-                Clipboard.SetText(JsonConvert.SerializeObject(new ProjectRaw(TabalimApp.CurrentProject, dialog.Description) { Tablero = dialog.AlimTitle }));
+                var raw = new ProjectRaw(TabalimApp.CurrentProject, dialog.Description) { Tablero = dialog.AlimTitle };
+                Clipboard.SetText(JsonConvert.SerializeObject(raw));
                 await UiUtils.ShowMessageDialog(this, "", "Alimentador guardado en portapapeles.");
             }
         }
