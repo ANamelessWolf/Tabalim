@@ -99,11 +99,16 @@ namespace Tabalim.Core.view
             int id = int.Parse((sender as Button).Tag.ToString());
             if (await UiUtils.ShowQuestionDialog(this, "", "¿Desea eliminar el tablero?"))
             {
-                TabalimApp.CurrentProject.Tableros[id].DeleteTableroTr((object result) =>
+                TabalimApp.CurrentProject.Tableros[id].DeleteTableroTr(async (object result) =>
                 {
-                    if ((bool)result) TabalimApp.CurrentProject.Tableros.Remove(id);
-                    this.UpdateList();
-                    TableroLoaded(result);
+                    if ((bool)result)
+                    {
+                        TabalimApp.CurrentProject.Tableros.Remove(id);
+                        this.UpdateList();
+                        TableroLoaded(result);
+                    }
+                    else await this.ShowMessageDialog("Error al borrar tablero", "Existen alimentadores asociados a este tablero.");
+                    
                 });
             }
 

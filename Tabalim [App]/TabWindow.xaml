@@ -27,7 +27,7 @@
             <ColumnDefinition Width="420"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        <ctr:TableroList x:Name="tablerosList" TableroChanged="tablerosList_TableroChanged" />
+        <ctr:TableroList x:Name="tablerosList" TableroChanged="tablerosList_TableroChanged" TableroClonned="tablerosList_TableroClonned" />
         <ctr:CtoEditor x:Name="circuitosList" Grid.Column="1" IsRefreshed="circuitosList_IsRefreshed"  />
         <ctr:TableroPreview x:Name="tablero" Grid.Column="2"/>
     </Grid>

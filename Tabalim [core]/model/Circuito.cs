@@ -184,8 +184,9 @@ namespace Tabalim.Core.model
         public Circuito(SelectionResult[] result) : this()
         {
             this.Parse(result);
-            if (TabalimApp.CurrentTablero != null)
-                this.Tension = TabalimApp.CurrentTablero.Sistema.Tension;
+            //if (TabalimApp.CurrentTablero != null)
+            //    this.Tension = TabalimApp.CurrentTablero.Sistema.Tension;
+            this.Tension = TabalimApp.CurrentProject.Tableros[TableroId].Sistema.Tension;
         }
         /// <summary>
         /// Crea un registro del objeto en la base de datos.

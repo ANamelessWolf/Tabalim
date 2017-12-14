@@ -75,6 +75,7 @@ namespace Tabalim.Core.controller
         /// <returns>El valor seleccionado</returns>
         public T SelectValue<T>(string query) where T : struct
         {
+            this.QuerySucced = true;
             try
             {
                 List<SelectionResult[]> result = this.GetCommandResult(query);

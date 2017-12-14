@@ -6,7 +6,7 @@
         xmlns:ctr="clr-namespace:Tabalim.Core.view;assembly=elekid"
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.App"
-        mc:Ignorable="d" 
+        mc:Ignorable="d" Visibility="Collapsed" 
         Title="TABALIM" Height="350" Width="525" WindowStartupLocation="CenterScreen">
     <metro:MetroWindow.RightWindowCommands>
         <metro:WindowCommands>

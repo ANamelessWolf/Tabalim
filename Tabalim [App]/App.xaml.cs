@@ -24,6 +24,10 @@ namespace Tabalim.App
         public App() : base()
         {
             Tabalim = new TabalimApp();
+            Tabalim.DataLoaded = () => 
+            {
+                App.Current.MainWindow.Visibility = Visibility.Visible;
+            };
         }
     }
 }

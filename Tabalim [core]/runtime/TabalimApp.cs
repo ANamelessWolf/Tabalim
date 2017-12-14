@@ -18,6 +18,7 @@ namespace Tabalim.Core.runtime
     /// </summary>
     public class TabalimApp
     {
+        public Action DataLoaded;
         /// <summary>
         /// Define el acceso a la base de datos de la aplicación
         /// </summary>
@@ -141,6 +142,11 @@ namespace Tabalim.Core.runtime
                 this.OpenProjects = qResult[0] as List<Project>;
                 this.Tableros = qResult[1] as List<Tablero>;
                 Motores = qResult[2] as List<HPItem>;
+                if (DataLoaded != null)
+                {
+                    DataLoaded();
+                    DataLoaded = null;
+                }
             }
         }
     }
