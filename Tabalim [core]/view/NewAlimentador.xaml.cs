@@ -196,6 +196,7 @@ namespace Tabalim.Core.view
             linea.Temperatura = (int)slidTemp.Value;
             if(ExistantLinea != null)
             {
+                linea.Id = ExistantLinea.Id;
                 linea.Conductor = ExistantLinea.Conductor;
                 linea.Longitud = ExistantLinea.Longitud;
             }

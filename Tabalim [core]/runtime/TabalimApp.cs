@@ -108,7 +108,7 @@ namespace Tabalim.Core.runtime
                 foreach (var alimInput in alims)
                 {
                     var destinations = conn.Select<DestinationRow>("destination".SelectAll(alimInput.CreatePrimaryKeyCondition()));
-                    line = alimInput.CreateLinea(tabs, motores, extras, destinations);
+                    line = alimInput.CreateLinea(tabs, motores, extras, destinations, conn);
                     CurrentProject.Lineas.Add(line.Id, line);
                 }
                 //Se cargan las referencias del tablero actual que es el último creado

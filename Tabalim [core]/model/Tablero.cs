@@ -94,8 +94,11 @@ namespace Tabalim.Core.model
                 {
                     x.Circuito = c;
                     x.CircuitoName = c.ToString();
-                    this.Componentes.Add(x.Id, x);
-                    c.Componentes.Add(x.Id, x);
+                    if (!this.Componentes.ContainsKey(x.Id))
+                    {
+                        this.Componentes.Add(x.Id, x);
+                        c.Componentes.Add(x.Id, x);
+                    }
                 });
             }
         }

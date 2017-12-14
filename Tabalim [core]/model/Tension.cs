@@ -71,7 +71,7 @@ namespace Tabalim.Core.model
         /// </returns>
         public override string ToString()
         {
-            if (this.Sistema.Fases == 3)
+            if (this.Sistema != null && this.Sistema.Fases == 3 )
                 return String.Format("{0} - {1}", this.Value, this.TensionAlNeutro);
             else
                 return this.Value.ToString();

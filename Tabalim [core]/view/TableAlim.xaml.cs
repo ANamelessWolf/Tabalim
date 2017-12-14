@@ -72,6 +72,7 @@ namespace Tabalim.Core.view
                          int alimId = (int)data[0];
                          AlimInput inAlim = (AlimInput)data[1];
                          var uData = (KeyValuePair<String, Object>[])data[2];
+                         //inAlim.Id = alimId;
                          if (inAlim.Update(conn, uData))
                              return inAlim;
                          else

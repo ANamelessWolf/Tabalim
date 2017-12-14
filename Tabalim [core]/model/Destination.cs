@@ -43,7 +43,7 @@ namespace Tabalim.Core.model
             if (type.OnlyOneMotor != null && motors != null)
                 potencia += motors.Sum(x => x.Potencia.PotenciaAparente);
             if (type.UseExtraData && extraData != null)
-                potencia += extraData.KVar / 1000;
+                potencia += extraData.KVar * 1000;
             return potencia;
         }
         private double GetPotenciaDemandada()
@@ -54,7 +54,7 @@ namespace Tabalim.Core.model
             if (type.OnlyOneMotor != null && motors != null)
                 potencia += motors.Sum(x => x.Potencia.PotenciaAparente);
             if (type.UseExtraData && extraData != null)
-                potencia += extraData.KVar / 1000;
+                potencia += extraData.KVar * 1000;
             return potencia;
         }
         private double GetPotenciaDemandada(int v)
@@ -102,7 +102,7 @@ namespace Tabalim.Core.model
                     return tmp.First() * 1.25 + tmp.Skip(1).Sum() + cargas.Sum(x => CalculateCorrienteCarga(x));
                 case 5:
                 case 6:
-                    return extraData.KVar / 1000 / (extraData.Tension.Value * extraData.Fases == 3 ? Math.Sqrt(3) : 1);
+                    return extraData.KVar * 1000 / (extraData.Tension.Value * (extraData.Fases == 3 ? Math.Sqrt(3) : 1));
                 case 7:
                     tmp = cargas.Select(x => CalculateCorrienteCarga(x)).OrderByDescending(x => x);
                     return tmp.First() * 1.25 + tmp.Skip(1).Sum();

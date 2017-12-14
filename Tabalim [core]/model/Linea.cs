@@ -39,7 +39,7 @@ namespace Tabalim.Core.model
             var lineas = runtime.TabalimApp.CurrentProject.Lineas;
             if (lineas.Count == 0)
                 i = 1;
-            else if (lineas.Count == lineas.Max(x => x.Key))
+            else if (lineas.Count == lineas.Max(x => int.Parse(x.Value.No.Substring(1))))
                 i = lineas.Count + 1;
             else
             {
@@ -98,7 +98,8 @@ namespace Tabalim.Core.model
                  Longitud = this.Longitud,
                  Start = this.From,
                  Conductor = this.SelectedConductor,
-                 ProjectId = parent.Id
+                 ProjectId = parent.Id,
+                 Id = this.Id
             };
         }
 

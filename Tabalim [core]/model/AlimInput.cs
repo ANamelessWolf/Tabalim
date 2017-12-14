@@ -154,7 +154,7 @@ namespace Tabalim.Core.model
         /// <param name="destinations">The destinations.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        internal Linea CreateLinea(List<Tablero> tabs, List<BigMotor> motores, List<ExtraData> extras, List<DestinationRow> destinations )
+        internal Linea CreateLinea(List<Tablero> tabs, List<BigMotor> motores, List<ExtraData> extras, List<DestinationRow> destinations, SQLite_Connector conn )
         {
             Linea linea = new Linea();
             linea.Id = this.Id;
@@ -165,10 +165,13 @@ namespace Tabalim.Core.model
             ExtraData extraData = null;
             if (this.End.UseExtraData)
                 extraData = extras.FirstOrDefault(y => destinations.Where(x => x.TypeId == 2 && x.AlimId == this.Id).Select(x => x.ConnId).Contains(y.Id));
+            var tableros = tabs.Where(x => destinations.Where(y => y.TypeId == 1 && y.AlimId == this.Id).Select(y => y.ConnId).Contains(x.Id));
+            if(tableros != null)
+                tableros.ToList().ForEach(x => x.LoadComponentesAndCircuits(conn));
             linea.Destination = new Destination(this.End, 
                 this.FactorDemanda, 
                 motores.Where( x => destinations.Where(y => y.TypeId == 0 && y.AlimId == this.Id).Select(y => y.ConnId).Contains(x.Id)),
-                tabs.Where(x => destinations.Where(y => y.TypeId == 1 && y.AlimId == this.Id).Select(y => y.ConnId).Contains(x.Id)), extraData);
+                tableros, extraData);
             linea.IsCobre = this.IsCobre;
             linea.FactorAgrupamiento = this.FactorAgrupamiento;
             linea.FactorPotencia = this.FactorPotencia;
@@ -265,19 +268,19 @@ namespace Tabalim.Core.model
                 switch (val.Key)
                 {
                     case "dest_from":
-                        this.Start = input.ToString();
+                        this.Start = val.Value.ToString();
                         break;
                     case "dest_name":
-                        this.ToName = input.ToString();
+                        this.ToName = val.Value.ToString();
                         break;
                     case "dest_desc":
-                        this.ToDesc = input.ToString();
+                        this.ToDesc = val.Value.ToString();
                         break;
                     case "fact_demanda":
-                        this.FactorAgrupamiento = (Double)val.Value;
+                        this.FactorDemanda = (Double)val.Value;
                         break;
                     case "fact_temperatura":
-                        this.Temperatura = (Double)val.Value;
+                        this.Temperatura = (int)val.Value;
                         break;
                     case "fac_agrupamiento":
                         this.FactorAgrupamiento = (Double)val.Value;
@@ -289,7 +292,7 @@ namespace Tabalim.Core.model
                         this.Longitud = (Double)val.Value;
                         break;
                     case "is_cobre":
-                        this.IsCobre = ((int)val.Value) == 1;
+                        this.IsCobre = (bool)val.Value;
                         break;
                     case "conductor":
                         this.Conductor = (int)val.Value;
