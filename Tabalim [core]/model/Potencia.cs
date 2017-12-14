@@ -51,16 +51,20 @@ namespace Tabalim.Core.model
         /// <value>
         /// Potencia aparente(VA).
         /// </value>
-        public Double PotenciaAparente { get { return this.Watts / 0.9; } }
+        public Double PotenciaAparente { get { return Math.Ceiling(this.Watts / 0.9); } }
         /// <summary>
         /// Devuelve el formato de la potencia aparente.
         /// </summary>
         /// <value>
         /// Potencia aparente(VA).
         /// </value>
-        public string PotenciaAparenteAsString { get
+        public string PotenciaAparenteAsString
+        {
+            get
             {
-                return String.Format("{0:N2}", this.PotenciaAparente); } }
+                return String.Format("{0:N2}", this.PotenciaAparente);
+            }
+        }
         /// <summary>
         /// Inicializa una instancia de la <see cref="Tension"/>.
         /// </summary>

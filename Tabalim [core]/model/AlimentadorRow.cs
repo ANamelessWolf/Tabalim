@@ -15,12 +15,12 @@ namespace Tabalim.Core.model
         public string No { get { return Linea.No; } }
         public String From { get { return Linea.From; } }
         public DestinationType ToType => Linea.Type;
-        public String To { get { return ToType.ToString(); } }
+        public String To { get { return Linea.To; } }
         /// <summary>
         /// El destino de la línea usado en el campo "A"
         /// Descripción
         /// </summary>
-        public string ToDesc { get; set; }
+        public string ToDesc { get { return Linea.ToDesc; } }
         public string PotInstVA => Linea.Destination.PotenciaInstalada.ToString("0.00");
         public string PotInstWatts => (Linea.Destination.PotenciaInstalada * 0.9).ToString("0.00");
         public Double FacDemanda => Linea.Destination.FactorDemanda;

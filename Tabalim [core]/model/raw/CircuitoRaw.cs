@@ -57,7 +57,7 @@ namespace Tabalim.Core.model.raw
         /// <summary>
         /// La caida del voltaje
         /// </summary>
-        public double CaidaVoltaje => Circuito.CaidaVoltaje;
+        public double CaidaVoltaje => Circuito.CaidaVoltaje / 100d;
         /// <summary>
         /// La potencia en la fase A
         /// </summary>

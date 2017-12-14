@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tabalim.Core.view"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
-             d:DesignHeight="300" Width="2003.896">
+             d:DesignHeight="300" MinWidth="2000">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

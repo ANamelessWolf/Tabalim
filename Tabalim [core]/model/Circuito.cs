@@ -55,7 +55,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// La potencia total 
         /// </summary>
-        public double PotenciaTotal { get { return Componentes != null ? Componentes.Values.Sum(x => x.Potencia.Watts * x.Count) : 0; } }
+        public double PotenciaTotal { get { return Componentes != null ? Componentes.Values.Sum(x => x.Potencia.PotenciaAparente * x.Count) : 0; } }
         /// <summary>
         /// Obtiene la corriente.
         /// </summary>

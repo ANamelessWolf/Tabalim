@@ -39,7 +39,7 @@ namespace Tabalim.Core.model
         {
             double potencia = 0;
             if (type.OnlyOneCarga != null && cargas != null)
-                potencia += cargas.SelectMany(x => x.Componentes.Values).Sum(x => x.Potencia.PotenciaAparente);
+                potencia += cargas.SelectMany(x => x.Componentes.Values).Sum(x => x.Potencia.PotenciaAparente * x.Count);
             if (type.OnlyOneMotor != null && motors != null)
                 potencia += motors.Sum(x => x.Potencia.PotenciaAparente);
             if (type.UseExtraData && extraData != null)
@@ -143,7 +143,7 @@ namespace Tabalim.Core.model
         }
         private double GetPotenciaDemandada<T>(Tablero tablero)
         {
-            return tablero.Componentes.Values.OfType<T>().Cast<Componente>().Sum(x => x.Potencia.PotenciaAparente);
+            return tablero.Componentes.Values.OfType<T>().Cast<Componente>().Sum(x => x.Potencia.PotenciaAparente * x.Count);
         }
         private double GetTension()
         {

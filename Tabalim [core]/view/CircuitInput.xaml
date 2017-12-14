@@ -34,6 +34,7 @@
         <TextBlock  Text="Factor de Agrupamiento" Grid.Row="2"  Style="{StaticResource TabalimForm}"/>
         <ComboBox x:Name="cboFactAgrup" Grid.Column="1" Grid.Row="2" 
                   Style="{StaticResource TabalimCboxNumber}">
+            <ComboBoxItem Content="0.7"/>
             <ComboBoxItem Content="0.8"/>
             <ComboBoxItem Content="1"/>
         </ComboBox>
