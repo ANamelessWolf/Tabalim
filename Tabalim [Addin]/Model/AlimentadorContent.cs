@@ -53,7 +53,12 @@ namespace Tabalim.Addin.Model
             }
 
         }
-
+        /// <summary>
+        /// Fixes the content by pages.
+        /// </summary>
+        /// <param name="fullContent">The full content.</param>
+        /// <returns>La lista de contenidos</returns>
+        /// <exception cref="Exception">Ningun contenido especificado</exception>
         internal static List<AlimentadorContent> FixContentByPages(AlimentadorContent fullContent)
         {
             List<AlimentadorContent> contentByPages = new List<AlimentadorContent>();
