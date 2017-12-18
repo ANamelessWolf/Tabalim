@@ -6,7 +6,7 @@
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.Core.view"
         mc:Ignorable="d" GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="Selector de tableros" Height="300" Width="300">
+        Title="CargaPicker" Height="300" Width="300">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

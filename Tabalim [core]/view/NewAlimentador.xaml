@@ -51,7 +51,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Nombre" Style="{StaticResource TabalimHeaderLighten}" />
+                    <TextBlock Text="Destino" Style="{StaticResource TabalimHeaderLighten}" />
                     <TextBox x:Name="toNameTbo" Style="{StaticResource TabalimInputDesc}" Grid.Column="1" />
                     <TextBlock Text="Descripción" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="1" />
                     <TextBox x:Name="toDescTbo" Style="{StaticResource TabalimInputDesc}" Grid.Row="1" Grid.Column="1" />

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.Core.view"
-        mc:Ignorable="d" GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="Alimentador" Height="600" Width="300">
+        mc:Ignorable="d"
+        Title="AlimentadorPicker" Height="600" Width="300">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
