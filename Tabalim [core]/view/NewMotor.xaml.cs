@@ -28,7 +28,13 @@ namespace Tabalim.Core.view
 
         public BigMotor GetMotor()
         {
-            return new BigMotor() { Fases = (int)fasesTbo.SelectedItem, Tension = tensionTbo.SelectedItem as Tension, Potencia = powerSelector.SelectedPower };
+            return new BigMotor()
+            {
+                Fases = (int)fasesTbo.SelectedItem,
+                Tension = tensionTbo.SelectedItem as Tension,
+                Potencia = powerSelector.SelectedPower,
+                Hilos = (int)hilosCbo.SelectedItem
+            };
         }
 
         public bool IsValid()
@@ -36,7 +42,9 @@ namespace Tabalim.Core.view
             if (fasesTbo.SelectedIndex == -1)
                 throw new Exception("Falta definir las fases del motor.");
             else if (tensionTbo.SelectedIndex == -1)
-                throw new Exception("Falta definri la tensión.");
+                throw new Exception("Falta definir la tensión.");
+            else if (hilosCbo.SelectedIndex == -1)
+                throw new Exception("Falta definir el numero de hilos.");
             else if (powerSelector.SelectedPower == null)
                 throw new Exception("Falta definir la potencia.");
             else
@@ -48,6 +56,7 @@ namespace Tabalim.Core.view
             fasesTbo.ItemsSource = new int[] { 2, 3 };
             tensionTbo.ItemsSource = Enum.GetValues(typeof(TensionVal)).Cast<TensionVal>().Select(x => new Tension(x, new SistemaBifasico()));
             powerSelector.Power = PowerType.HP;
+            hilosCbo.ItemsSource = new int[] { 3, 4 };
         }
 
         private void fasesTbo_SelectionChanged(object sender, SelectionChangedEventArgs e)

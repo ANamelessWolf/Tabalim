@@ -26,6 +26,7 @@ namespace Tabalim.Core.model
         public Double CorrienteNominal => GetCorrienteNominal();
         public Double CorrienteContinua => GetCorrienteContinua();
         public int Fases => GetFases();
+        public int Hilos => GetHilos();
         public double Tension => GetTension();
         public Destination(DestinationType type, Double demanda = 0.5, IEnumerable<BigMotor> motors = null, IEnumerable<Tablero> cargas = null, ExtraData extraData = null)
         {
@@ -189,6 +190,28 @@ namespace Tabalim.Core.model
                     return extraData.Fases;
                 case 7:
                     return cargas.Max(x => x.Sistema.Fases);
+            }
+            return 3;
+        }
+        private int GetHilos()
+        {
+            switch (type.Id)
+            {
+                case 0:
+                    return cargas.First().Sistema.Fases + 1;
+                case 1:
+                    return motors.First().Hilos;
+                case 2:
+                    return Math.Max(motors.First().Hilos, cargas.Max(x => x.Sistema.Fases) + 1);
+                case 3:
+                    return motors.Max(x => x.Hilos);
+                case 4:
+                    return Math.Max(motors.Max(x => x.Hilos), cargas.Max(x => x.Sistema.Fases) + 1);
+                case 5:
+                case 6:
+                    return extraData.Hilos;
+                case 7:
+                    return cargas.Max(x => x.Sistema.Fases) + 1;
             }
             return 3;
         }

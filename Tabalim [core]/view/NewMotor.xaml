@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="36" />
             <RowDefinition Height="36" />
+            <RowDefinition Height="36" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,6 +28,8 @@
         <ComboBox x:Name="fasesTbo" Style="{StaticResource TabalimCboxNumber}" Grid.Column="1" SelectionChanged="fasesTbo_SelectionChanged" />
         <TextBlock Text="Tensión" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="1" />
         <ComboBox x:Name="tensionTbo" Style="{StaticResource TabalimCboxNumber}" Grid.Row="1" Grid.Column="1" />
-        <local:PowerSelector x:Name="powerSelector" Grid.Row="2" Grid.ColumnSpan="2" />
+        <TextBlock Text="Hilos" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="2" />
+        <ComboBox x:Name="hilosCbo" Style="{StaticResource TabalimCboxNumber}" Grid.Row="2" Grid.Column="1" />
+        <local:PowerSelector x:Name="powerSelector" Grid.Row="3" Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>

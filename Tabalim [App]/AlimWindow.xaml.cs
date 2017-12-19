@@ -48,6 +48,7 @@ namespace Tabalim.App
                     {
                         if (result is bool && (bool)result)
                         {
+                            dialog.SelectedLinea.Id = alimId;
                             TabalimApp.CurrentProject.Lineas.Add(alimId, dialog.SelectedLinea);
                             alimTable.SetItemSource(TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
                         }

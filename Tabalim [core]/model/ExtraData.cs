@@ -46,6 +46,13 @@ namespace Tabalim.Core.model
         /// </value>
         public int Fases { get; set; }
         /// <summary>
+        /// Define o establece el valor númerico de hilos.
+        /// </summary>
+        /// <value>
+        /// El número de hilos
+        /// </value>
+        public int Hilos { get; set; }
+        /// <summary>
         /// La tensión del componente
         /// </summary>
         public Tension Tension;
@@ -76,6 +83,7 @@ namespace Tabalim.Core.model
                 this.Id = (int)result.GetValue<long>(this.PrimaryKey);
                 this.KVar = (double)result.GetValue<double>("kvar");
                 this.Fases = (int)result.GetValue<long>("fases");
+                this.Hilos = (int)result.GetValue<int>("hilos");
                 int tension = (int)result.GetValue<double>("tension");
                 this.Tension = new Tension((TensionVal)tension, this.Fases);
             }
@@ -96,7 +104,8 @@ namespace Tabalim.Core.model
             {
                 this.CreateFieldAsNumber("kvar", this.KVar),
                 this.CreateFieldAsNumber("fases", this.Fases),
-                  this.CreateFieldAsNumber("tension", this.Tension.Value),
+                this.CreateFieldAsNumber("tension", this.Tension.Value),
+                this.CreateFieldAsNumber("hilos", this.Hilos)
             };
         }
         /// <summary>

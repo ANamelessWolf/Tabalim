@@ -65,9 +65,11 @@ namespace Tabalim.Core.view
             this.toTypeCbo.ItemsSource = DestinationType.Types;
             this.listOfTableros = runtime.TabalimApp.CurrentProject.Tableros.Values.ToList();
             this.fasesCbo.ItemsSource = new int[] { 2, 3 };
+            this.hilosCbo.ItemsSource = new int[] { 3, 4 };
             this.tensionCbo.ItemsSource = Enum.GetValues(typeof(TensionVal)).Cast<TensionVal>().Select(x => new Tension(x, new SistemaBifasico()));
             if (ExistantLinea != null)
             {
+                this.lineTbo.Text = ExistantLinea.No;
                 this.fromTbo.Text = ExistantLinea.From;
                 this.toTypeCbo.SelectedItem = ExistantLinea.Type;
                 this.toNameTbo.Text = ExistantLinea.To;
@@ -82,6 +84,7 @@ namespace Tabalim.Core.view
                     this.kvarTbo.Text = ExistantLinea.Destination.ExtraData.KVar.ToString();
                     this.fasesCbo.SelectedItem = ExistantLinea.Destination.ExtraData.Fases;
                     this.tensionCbo.SelectedItem = ExistantLinea.Destination.ExtraData.Tension;
+                    this.hilosCbo.SelectedItem = ExistantLinea.Destination.ExtraData.Hilos;
                 }
                 //Conductor
                 this.isCopper.IsChecked = ExistantLinea.IsCobre;
@@ -131,7 +134,9 @@ namespace Tabalim.Core.view
         }
         public bool IsValid()
         {
-            if (this.fromTbo.Text.Trim() == "")
+            if (this.lineTbo.Text.Trim() == "")
+                throw new Exception("Falta definir el número de linea.");
+            else if (this.fromTbo.Text.Trim() == "")
                 throw new Exception("Falta definir el orígen.");
             else if (this.toTypeCbo.SelectedIndex == -1)
                 throw new Exception("Falta definir el tipo de destino.");
@@ -165,7 +170,9 @@ namespace Tabalim.Core.view
                     else if (fasesCbo.SelectedIndex == -1)
                         throw new Exception("Falta seleccionar las fases.");
                     else if (tensionCbo.SelectedIndex == -1)
-                        throw new Exception("Falta selleccionar la tensión.");
+                        throw new Exception("Falta seleccionar la tensión.");
+                    else if (hilosCbo.SelectedIndex == -1)
+                        throw new Exception("Falta seleccionar la cantidad de hilos.");
                     else return true;
                 }
                 else return true;
@@ -176,6 +183,7 @@ namespace Tabalim.Core.view
         public Linea GetLinea()
         {
             Linea linea = new Linea();
+            linea.No = lineTbo.Text.Trim();
             linea.From = fromTbo.Text.Trim();
             linea.Type = SelectedType;
             linea.To = toNameTbo.Text.Trim();
@@ -187,6 +195,7 @@ namespace Tabalim.Core.view
                 extraData.Fases = (int)fasesCbo.SelectedItem;
                 extraData.Tension = tensionCbo.SelectedItem as Tension;
                 extraData.KVar = double.Parse(kvarTbo.Text.Trim());
+                extraData.Hilos = (int)hilosCbo.SelectedItem;
             }
             linea.Destination = new Destination(SelectedType, slidDemanda.Value, motors, tableros.Select(x => x.Tablero), extraData);
             linea.IsCobre = isCopper.IsChecked == true;

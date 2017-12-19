@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.Core.view"
-        mc:Ignorable="d"
+        mc:Ignorable="d" GlowBrush="{DynamicResource AccentColorBrush}"
         Title="Tabalim - Selección de tipo de sistemas" Height="350" Width="600" MinWidth="600">
     <Window.Resources>
         <ResourceDictionary>

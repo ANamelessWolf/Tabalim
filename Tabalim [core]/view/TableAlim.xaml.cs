@@ -108,7 +108,7 @@ namespace Tabalim.Core.view
                 {
                     if ((Boolean)result)
                     {
-                        TabalimApp.CurrentProject.Lineas.Values.ToList().ForEach(x => x.GetNumber());
+                        //TabalimApp.CurrentProject.Lineas.Values.ToList().ForEach(x => x.GetNumber());
                         SetItemSource(runtime.TabalimApp.CurrentProject.Lineas.Values.Select(x => new AlimentadorRow(x)));
                     }
                 }

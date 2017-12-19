@@ -99,7 +99,8 @@ namespace Tabalim.Core.model
                  Start = this.From,
                  Conductor = this.SelectedConductor,
                  ProjectId = parent.Id,
-                 Id = this.Id
+                 Id = this.Id,
+                 No = this.No
             };
         }
 

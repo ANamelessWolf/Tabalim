@@ -29,11 +29,14 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36"/>
                     <RowDefinition Height="36"/>
+                    <RowDefinition Height="36"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Orígen" Style="{StaticResource TabalimHeaderLighten}"/>
-                <TextBox x:Name="fromTbo" Grid.Column="1" Style="{StaticResource TabalimInput}" />
-                <TextBlock Text="Tipo de Destino" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="1" />
-                <ComboBox x:Name="toTypeCbo" Grid.Column="1" Grid.Row="1" Style="{StaticResource TabalimCbox}" SelectionChanged="toTypeCbo_SelectionChanged"/>
+                <TextBlock Text="No. de Linea" Style="{StaticResource TabalimHeaderLighten}"/>
+                <TextBox x:Name="lineTbo" Grid.Column="1" Style="{StaticResource TabalimInput}" />
+                <TextBlock Text="Orígen" Grid.Row="1" Style="{StaticResource TabalimHeaderLighten}"/>
+                <TextBox x:Name="fromTbo" Grid.Row="1" Grid.Column="1" Style="{StaticResource TabalimInput}" />
+                <TextBlock Text="Tipo de Destino" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="2" />
+                <ComboBox x:Name="toTypeCbo" Grid.Column="1" Grid.Row="2" Style="{StaticResource TabalimCbox}" SelectionChanged="toTypeCbo_SelectionChanged"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Destino" Grid.Row="1">
@@ -108,6 +111,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                                 <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <TextBlock Style="{StaticResource TabalimHeaderLighten}" Text="KVAR" />
                             <TextBox x:Name="kvarTbo" Style="{StaticResource TabalimInput}" Grid.Column="1"/>
@@ -115,6 +119,8 @@
                             <ComboBox x:Name="tensionCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1" Grid.Row="1" />
                             <TextBlock Style="{StaticResource TabalimHeaderLighten}" Text="Fases" Grid.Row="2" />
                             <ComboBox x:Name="fasesCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1" Grid.Row="2" />
+                            <TextBlock Style="{StaticResource TabalimHeaderLighten}" Text="Hilos" Grid.Row="3" />
+                            <ComboBox x:Name="hilosCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1" Grid.Row="3" />
                         </Grid>
                     </TabItem>
                 </TabControl>

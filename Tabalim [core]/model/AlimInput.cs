@@ -41,6 +41,10 @@ namespace Tabalim.Core.model
         /// <summary>
         /// El inicio de la línea de conexión
         /// </summary>
+        public String No;
+        /// <summary>
+        /// El inicio de la línea de conexión
+        /// </summary>
         public String Start;
         /// <summary>
         /// El fin de la línea de conexión
@@ -142,7 +146,8 @@ namespace Tabalim.Core.model
                 this.CreateFieldAsNumber("is_cobre", this.IsCobre?1:0),
                 this.CreateFieldAsString("dest_name", this.ToName),
                 this.CreateFieldAsString("dest_desc", this.ToDesc),
-                this.CreateFieldAsNumber("conductor", this.Conductor)
+                this.CreateFieldAsNumber("conductor", this.Conductor),
+                this.CreateFieldAsString("label", this.No)
             };
         }
         /// <summary>
@@ -158,6 +163,7 @@ namespace Tabalim.Core.model
         {
             Linea linea = new Linea();
             linea.Id = this.Id;
+            linea.No = this.No;
             linea.From = this.Start;
             linea.Type = this.End;
             linea.To = this.ToName;
@@ -179,7 +185,7 @@ namespace Tabalim.Core.model
             linea.FactorTemperartura = model.Temperatura.GetFactor(linea.Temperatura);
             linea.Longitud = this.Longitud;
             linea.SelectedConductor = this.Conductor;
-            linea.GetNumber();
+            //linea.GetNumber();
             return linea;
         }
 
@@ -192,6 +198,7 @@ namespace Tabalim.Core.model
             try
             {
                 this.Id = (int)result.GetValue<long>(this.PrimaryKey);
+                this.No = result.GetString("label");
                 this.ProjectId = (int)result.GetValue<int>("prj_id");
                 this.Start = result.GetString("dest_from");
                 int endId = (int)result.GetValue<long>("dest_end");
@@ -226,6 +233,7 @@ namespace Tabalim.Core.model
                 case "dest_from":
                 case "dest_name":
                 case "dest_desc":
+                case "label":
                     value = input.CreateFieldAsString(this.TableName, input.Value);
                     break;
                 case "fact_demanda":
@@ -274,6 +282,9 @@ namespace Tabalim.Core.model
                         this.ToName = val.Value.ToString();
                         break;
                     case "dest_desc":
+                        this.ToDesc = val.Value.ToString();
+                        break;
+                    case "label":
                         this.ToDesc = val.Value.ToString();
                         break;
                     case "fact_demanda":

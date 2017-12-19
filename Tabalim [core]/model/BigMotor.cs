@@ -50,6 +50,13 @@ namespace Tabalim.Core.model
         /// </value>
         public Potencia Potencia { get; set; }
         /// <summary>
+        /// Define o establece el número de hilos del motor
+        /// </summary>
+        /// <value>
+        /// El número de hilos del motor
+        /// </value>
+        public int Hilos { get; set; }
+        /// <summary>
         /// Devuelve el valor de la potencia como string
         /// </summary>
         /// <value>
@@ -120,6 +127,7 @@ namespace Tabalim.Core.model
                 this.CreateFieldAsNumber("potencia", this.Potencia.HP),
                 this.CreateFieldAsNumber("fases", this.Fases),
                 this.CreateFieldAsNumber("tension", this.Tension.Value),
+                this.CreateFieldAsNumber("hilos", this.Hilos)
             };
         }
         /// <summary>
@@ -134,6 +142,7 @@ namespace Tabalim.Core.model
                 double potencia = result.GetValue<double>("potencia");
                 int tension = (int)result.GetValue<double>("tension");
                 this.Fases = (int)result.GetValue<long>("fases");
+                this.Hilos = result.GetValue<int>("hilos");
                 this.Potencia = new Potencia(potencia, true);
                 this.Tension = new Tension((TensionVal)tension, this.Fases);
             }
@@ -159,6 +168,9 @@ namespace Tabalim.Core.model
                     value = input.CreateFieldAsNumber(this.TableName, val.HP);
                     break;
                 case "fases":
+                    value = input.CreateFieldAsNumber(this.TableName, input.Value);
+                    break;
+                case "hilos":
                     value = input.CreateFieldAsNumber(this.TableName, input.Value);
                     break;
                 case "tension":
@@ -200,6 +212,9 @@ namespace Tabalim.Core.model
                         break;
                     case "fases":
                         this.Fases = (int)val.Value;
+                        break;
+                    case "hilos":
+                        this.Hilos = (int)val.Value;
                         break;
                 }
         }

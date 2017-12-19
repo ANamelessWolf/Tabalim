@@ -40,8 +40,8 @@ namespace Tabalim.Core.view
                 if (alimentadorPicker.IsValid())
                 {
                     SelectedLinea = alimentadorPicker.GetLinea();
-                    if (SelectedLinea.No == "")
-                        SelectedLinea.GetNumber();
+                    //if (SelectedLinea.No == "")
+                    //    SelectedLinea.GetNumber();
                     var dialog = new ConductorPicker(SelectedLinea);
                     dialog.ShowDialog();
                     dialog.Hide();

@@ -57,7 +57,7 @@ namespace Tabalim.Core.model
         {
             Linea = linea;
             if (Linea.Conductor == null)
-                Linea.Conductor = Conductor.GetConductorOptions(Linea.Destination.Fases, Linea.CorrienteCorregida)[Linea.SelectedConductor];
+                Linea.Conductor = Conductor.GetConductorOptions(Linea.Destination.Fases, Linea.CorrienteCorregida, Linea.IsCobre, Linea.Destination.Hilos)[Linea.SelectedConductor];
         }
     }
 }
