@@ -134,7 +134,7 @@ namespace Tabalim.Addin.Model
                     file = Path.Combine(blkDirectory, blkName.Value);
                     tr.LoadBlock(doc.Database, file, blkName.Key);
                 }
-                tr.UpdatePath(doc, this.ImagenTablero);
+             //   tr.UpdatePath(doc, this.ImagenTablero);
             });
         }
     }

@@ -128,7 +128,7 @@ namespace Tabalim.Addin.Runtime
                 {
                     BlockReference blkRef = new BlockReference(res.Value, blkTab[blockName]);
                     blkRef.Rotation = 0;
-                    blkRef.ScaleFactors = new Scale3d(1);
+                    blkRef.ScaleFactors = new Scale3d(16);
                     currentSpace.AppendEntity(blkRef);
                     tr.AddNewlyCreatedDBObject(blkRef, true);
                 }
