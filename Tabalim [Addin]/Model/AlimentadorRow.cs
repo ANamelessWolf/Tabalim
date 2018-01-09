@@ -123,7 +123,7 @@ namespace Tabalim.Addin.Model
         /// <returns>The line format</returns>
         public string GetHorizontalFormat()
         {
-            return String.Format("In={0:N2} {1}\n{2} L={3:N2}m e%={4:N2}", CorrienteNominal, Aliment, Canal, Length, CaidaDeVoltaje);
+            return String.Format("In={0:N2}@{1}@{2}@L={3:N2}m@e%={4:N2}", CorrienteNominal, Aliment, Canal, Length, CaidaDeVoltaje);
         }
         /// <summary>
         /// Gets the vertical format.
@@ -131,7 +131,7 @@ namespace Tabalim.Addin.Model
         /// <returns>The line format</returns>
         public string GetVerticalFormat()
         {
-            return String.Format("{1}\n{2}\nIn={0:N2}\nL={3:N2}m\ne%={4:N2}", CorrienteNominal, Aliment, Canal, Length, CaidaDeVoltaje);
+            return String.Format("{1}@{2}@In={0:N2}@L={3:N2}m@e%={4:N2}", CorrienteNominal, Aliment, Canal, Length, CaidaDeVoltaje);
         }
         /// <summary>
         /// Obtiene los valores de la línea seleccionada

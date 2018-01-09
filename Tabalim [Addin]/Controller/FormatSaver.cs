@@ -130,27 +130,66 @@ namespace Tabalim.Addin.Controller
                     if (res.Status == PromptStatus.OK && rec.Data != null)
                     {
                         var data = rec.Data.OfType<TypedValue>().Select(x => x.Value.ToString());
-                        Vector3d offset = entryName == TAG_HOR_REC ? new Vector3d(0, TEXTHEIGHT * 4, 0) : new Vector3d(0, TEXTHEIGHT *8, 0);
                         Point3d insPoint = res.Value;
-                        MText text;
+                        MText text, prevText = null;
+                        Double startX = insPoint.X;
                         BlockTableRecord model = (BlockTableRecord)doc.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite);
+                        Vector3d offset = entryName == TAG_HOR_REC ? new Vector3d(0, TEXTHEIGHT * -4, 0) : new Vector3d(0, TEXTHEIGHT * -4, 0);
+
                         foreach (String val in data)
                         {
-                            text = new MText();
-                            text.SetDatabaseDefaults();
-                            text.Contents = val;
-                            text.Height = TEXTHEIGHT;
-                            text.Rotation = 0;
-                            text.Location = insPoint;
+                            String[] tags = val.Split('@');
+                            for (int i = 0; i < tags.Length; i++)
+                            {
+                                text = new MText();
+                                text.SetDatabaseDefaults();
+                                text.Contents = tags[i];
+                                text.Height = TEXTHEIGHT;
+                                text.Rotation = 0;
+                                this.UpdateOffset(i, ref insPoint, prevText, text, entryName == TAG_HOR_REC);
+                                text.Location = insPoint;
+                                model.AppendEntity(text);
+                                tr.AddNewlyCreatedDBObject(text, true);
+                                //Dos textos en línea horizontal
+                                if (entryName == TAG_HOR_REC && i % 2 != 0)
+                                    insPoint = new Point3d(startX, insPoint.Y, insPoint.Z);
+                                prevText = text;
+                            }
+                            insPoint = new Point3d(startX, insPoint.Y, insPoint.Z);
                             insPoint += offset;
-                            model.AppendEntity(text);
-                            tr.AddNewlyCreatedDBObject(text, true);
                         }
                     }
                 }
             }
             else
                 Application.ShowAlertDialog("Primero inserte una tabla de Alimentadores.");
+        }
+
+        private void UpdateOffset(int index, ref Point3d location, MText prvText, MText text, bool isHorizontalAligment)
+        {
+            Double tagWidth = Math.Abs(text.GeometricExtents.MinPoint.X - text.GeometricExtents.MaxPoint.X),
+                   tagPrevWidth = prvText != null ? Math.Abs(prvText.GeometricExtents.MinPoint.X - prvText.GeometricExtents.MaxPoint.X) : 0;
+            text.Location = location;
+            Vector3d[] offset;
+            if (isHorizontalAligment)
+                offset = new Vector3d[]
+                {
+                    new Vector3d(0, 0, 0), //In
+                    new Vector3d(tagPrevWidth + TEXTHEIGHT * 1.5, 0, 0), //Cables
+                    new Vector3d(0, TEXTHEIGHT * -1.5d, 0), //Conector
+                    new Vector3d(tagPrevWidth + TEXTHEIGHT * 1.5, 0, 0), //Longitud
+                    new Vector3d(0, TEXTHEIGHT * -1.5d, 0), //e%
+                };
+            else
+                offset = new Vector3d[]
+                {
+                    new Vector3d(0, 0, 0), //In
+                    new Vector3d(0, TEXTHEIGHT*-1.5d, 0), //Cables
+                    new Vector3d(0, TEXTHEIGHT*-1.5d, 0), //Conector
+                    new Vector3d(0, TEXTHEIGHT*-1.5d, 0), //Longitud
+                    new Vector3d(0, TEXTHEIGHT*-1.5d, 0), //e%
+                };
+            location += offset[index];
         }
 
         /// <summary>
