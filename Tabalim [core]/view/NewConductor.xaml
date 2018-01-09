@@ -16,15 +16,33 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition  />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Conductor" Style="{StaticResource TabalimHeaderLighten}" />
-        <ComboBox x:Name="conductorCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1"/>
-        <TextBlock Text="Longitud" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="1" />
-        <TextBox x:Name="longitudTbo" Style="{StaticResource TabalimInputNumber}" Grid.Column="1" Grid.Row="1" />
+        <!--<TextBlock Text="Conductor" Style="{StaticResource TabalimHeaderLighten}" />
+        <ComboBox x:Name="conductorCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1"/>-->
+        <TextBlock Text="Calibre" Style="{StaticResource TabalimHeaderLighten}" />
+        <ComboBox x:Name="calibreCbo" Style="{StaticResource TabalimCbox}" Grid.Column="1" SelectionChanged="calibreCbo_SelectionChanged" />
+        <TextBlock Text="Tubos en paralelo" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="1" />
+        <ComboBox x:Name="numberCbo" Style="{StaticResource TabalimCboxNumber}" Grid.Row="1" Grid.Column="1" SelectionChanged="numberCbo_SelectionChanged" />
+        <TextBlock Text="Longitud" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="2" />
+        <TextBox x:Name="longitudTbo" Style="{StaticResource TabalimInputNumber}" Grid.Column="1" Grid.Row="2" TextChanged="longitudTbo_TextChanged" />        
+        <TextBlock Text="Caida de Voltaje Máxima" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="3" />
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="45" />
+            </Grid.ColumnDefinitions>
+            <Slider x:Name="slidCaida" Minimum="0.1" Maximum="3" Ticks="0.1" Style="{StaticResource TabalimSliderInt}" Value="3"  />
+            <TextBlock Grid.Column="1" Style="{StaticResource TabalimHeaderLighten}" Text="{Binding ElementName=slidCaida, Path=Value}" />
+        </Grid>
+        <TextBlock Text="Caida de Voltaje Calculada" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="4" />
+        <TextBlock x:Name="caidaLbl" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="4" Grid.Column="1" />
     </Grid>
 </UserControl>

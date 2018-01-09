@@ -16,16 +16,16 @@ namespace Tabalim.Core.model
         //Datos
         int CorrienteMaxima;
         int CorrienteMaximaAl;
-        int NoTubos;
+        public int NoTubos;
         String[] DiametroTubos;
-        int[] NoHilos = new int[] { 4, 3, 3 };
+        int[] NoHilos = new int[] { 4, 3 };
         public String Calibre;
         int Tierra = 1;
         String CalibreTierra;
         int SelectedIndex = 0;
         bool Single = true;
         Conductor SelectedConductor;
-        static IEnumerable<Conductor> Data = new Conductor[]
+        /*static IEnumerable<Conductor> Data = new Conductor[]
         {
             new Conductor() { CorrienteMaxima = 20, CorrienteMaximaAl = 0, NoTubos = 1, DiametroTubos = new String[] { "16mm", "16mm", "16mm" }, Calibre = "14", CalibreTierra = "14" },
             new Conductor() { CorrienteMaxima = 25, CorrienteMaximaAl = 0, NoTubos = 1, DiametroTubos = new String[] { "16mm", "16mm", "16mm" }, Calibre = "12", CalibreTierra = "12" },
@@ -55,6 +55,47 @@ namespace Tabalim.Core.model
             new Conductor() { CorrienteMaxima = 1100, CorrienteMaximaAl = 0, NoTubos = 3, DiametroTubos = new String[] { "103mm", "103mm", "103mm" }, Calibre = "500MCM", CalibreTierra = "3/0" },
             new Conductor() { CorrienteMaxima = 1200, CorrienteMaximaAl = 0, NoTubos = 4, DiametroTubos = new String[] { "103mm", "78mm", "78mm" }, Calibre = "350MCM", CalibreTierra = "3/0" },
             new Conductor() { CorrienteMaxima = 1600, CorrienteMaximaAl = 0, NoTubos = 5, DiametroTubos = new String[] { "103mm", "78mm", "78mm" }, Calibre = "400MCM", CalibreTierra = "4/0" }
+        };*/
+        static IEnumerable<Conductor> Data = new Conductor[]
+        {
+            new Conductor() { Calibre = "14", CorrienteMaxima = 15, CorrienteMaximaAl = 0, DiametroTubos = new String[] { "16mm", "16mm" } },
+            new Conductor() { Calibre = "12", CorrienteMaxima = 20, CorrienteMaximaAl = 0, DiametroTubos = new String[] { "16mm", "16mm" } },
+            new Conductor() { Calibre = "10", CorrienteMaxima = 30, CorrienteMaximaAl = 0, DiametroTubos = new String[] { "21mm", "16mm" } },
+            new Conductor() { Calibre = "8", CorrienteMaxima = 40, CorrienteMaximaAl = 0, DiametroTubos = new String[] { "27mm", "21mm" } },
+            new Conductor() { Calibre = "6", CorrienteMaxima = 55, CorrienteMaximaAl = 40, DiametroTubos = new String[] { "35mm", "27mm" } },
+            new Conductor() { Calibre = "4", CorrienteMaxima = 70, CorrienteMaximaAl = 55, DiametroTubos = new String[] { "35mm", "35mm" } },
+            new Conductor() { Calibre = "2", CorrienteMaxima = 95, CorrienteMaximaAl = 75, DiametroTubos = new String[] { "41mm", "35mm" } },
+            new Conductor() { Calibre = "1/0", CorrienteMaxima = 150, CorrienteMaximaAl = 120, DiametroTubos = new String[] { "53mm", "53mm" } },
+            new Conductor() { Calibre = "2/0", CorrienteMaxima = 175, CorrienteMaximaAl = 135, DiametroTubos = new String[] { "53mm", "53mm" } },
+            new Conductor() { Calibre = "3/0", CorrienteMaxima = 200, CorrienteMaximaAl = 155, DiametroTubos = new String[] { "63mm", "53mm" } },
+            new Conductor() { Calibre = "4/0", CorrienteMaxima = 230, CorrienteMaximaAl = 180, DiametroTubos = new String[] { "63mm", "63mm" } },
+            new Conductor() { Calibre = "250MCM", CorrienteMaxima = 255, CorrienteMaximaAl = 205, DiametroTubos = new String[] { "78mm", "63mm" } },
+            new Conductor() { Calibre = "300MCM", CorrienteMaxima = 285, CorrienteMaximaAl = 230, DiametroTubos = new String[] { "78mm", "78mm" } },
+            new Conductor() { Calibre = "350MCM", CorrienteMaxima = 310, CorrienteMaximaAl = 250, DiametroTubos = new String[] { "78mm", "78mm" } },
+            new Conductor() { Calibre = "400MCM", CorrienteMaxima = 350, CorrienteMaximaAl = 270, DiametroTubos = new String[] { "103mm", "78mm" } },
+            new Conductor() { Calibre = "500MCM", CorrienteMaxima = 400, CorrienteMaximaAl = 310, DiametroTubos = new String[] { "103mm", "103mm" } }
+        };
+        static Tuple<int, string, string>[] Tierras = new Tuple<int, string, string>[]
+        {
+            new Tuple<int, string, string>(15, "14", "4"),
+            new Tuple<int, string, string>(20, "12", "4"),
+            new Tuple<int, string, string>(60, "10", "4"),
+            new Tuple<int, string, string>(100, "8", "4"),
+            new Tuple<int, string, string>(200, "6", "4"),
+            new Tuple<int, string, string>(300, "4", "2"),
+            new Tuple<int, string, string>(400, "2", "1/0"),
+            new Tuple<int, string, string>(500, "2", "1/0"),
+            new Tuple<int, string, string>(600, "1/0", "2/0"),
+            new Tuple<int, string, string>(800, "1/0", "3/0"),
+            new Tuple<int, string, string>(1000, "2/0", "4/0"),
+            new Tuple<int, string, string>(1200, "3/0", "250"),
+            new Tuple<int, string, string>(1600, "4/0", "350"),
+            new Tuple<int, string, string>(2000, "250", "400"),
+            new Tuple<int, string, string>(2500, "350", "600"),
+            new Tuple<int, string, string>(3000, "400", "600"),
+            new Tuple<int, string, string>(4000, "500", "750"),
+            new Tuple<int, string, string>(5000, "700", "1200"),
+            new Tuple<int, string, string>(6000, "800", "1200")
         };
         public static Conductor[] GetConductorOptions (int fases, double corriente, bool isCobre = true, int hilos = 0)
         {
@@ -70,6 +111,36 @@ namespace Tabalim.Core.model
                 result.Add(tmp);
             }
             return result.ToArray();
+        }
+        public static String[] GetAvailableCalibres(double corriente, bool isCobre = true)
+        {
+            int maxValue = isCobre ? Data.Last().CorrienteMaxima : Data.Last().CorrienteMaximaAl;
+            if (corriente > maxValue)
+                return Data.Where(x => x.CorrienteMaxima >= 150).Select(x => x.Calibre).ToArray();
+            return Data.Where(x => corriente < (isCobre ? x.CorrienteMaxima : x.CorrienteMaximaAl)).Select(x => x.Calibre).ToArray();
+        }
+        public static int[] GetAllowedPipes(double corriente, string calibre, bool isCobre = true)
+        {
+            if (Data.Select(x => x.Calibre).ToList().IndexOf(calibre) < Data.Select(x => x.Calibre).ToList().IndexOf("1/0"))
+                return new int[] { 1 };
+            else {
+                Conductor tmp = Data.First(x => x.Calibre == calibre);
+                int value = isCobre ? tmp.CorrienteMaxima : tmp.CorrienteMaximaAl;
+                return Enumerable.Range((int)Math.Ceiling(corriente / value), 3).ToArray();
+            }
+        }
+        public Conductor()
+        {
+
+        }
+        public static Conductor GetConductor (string calibre, double corriente, int hilos, int noTubos, bool isCobre = true)
+        {
+            Conductor tmp = Data.First(x => x.Calibre == calibre);
+            tmp.SelectedIndex = hilos == 4 ? 0 : 1;
+            tmp.NoTubos = noTubos;
+            var t = Tierras.First(x => x.Item1 > corriente);
+            tmp.CalibreTierra = isCobre ? t.Item2 : t.Item3;
+            return tmp;
         }
         public override string ToString()
         {

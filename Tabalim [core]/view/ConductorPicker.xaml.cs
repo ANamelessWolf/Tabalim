@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,6 @@ namespace Tabalim.Core.view
     public partial class ConductorPicker : MetroWindow
     {
         public Linea Linea;
-        internal Linea linea;
 
         public ConductorPicker()
         {
@@ -34,11 +34,21 @@ namespace Tabalim.Core.view
             this.Linea = linea;
         }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
+        private async void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
-            Linea = conductorPicker.GetLinea();
-            this.Close();
+            try
+            {
+                if (conductorPicker.IsValid())
+                {
+                    this.DialogResult = true;
+                    Linea = conductorPicker.GetLinea();
+                    this.Close();
+                }
+            }
+            catch(Exception exc)
+            {
+                await this.ShowMessageAsync("Conductor incompleto.", "Existen datos inválidos. " + exc.Message);
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

@@ -43,8 +43,9 @@ namespace Tabalim.Core.view
                     //if (SelectedLinea.No == "")
                     //    SelectedLinea.GetNumber();
                     var dialog = new ConductorPicker(SelectedLinea);
+                    //this.Hide();
                     dialog.ShowDialog();
-                    dialog.Hide();
+                    
                     if (dialog.DialogResult.Value)
                     {
                         SelectedLinea = dialog.Linea;

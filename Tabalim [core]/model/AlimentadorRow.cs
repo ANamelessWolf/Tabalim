@@ -56,8 +56,10 @@ namespace Tabalim.Core.model
         public AlimentadorRow(Linea linea)
         {
             Linea = linea;
+            //Crear conductor aqui
             if (Linea.Conductor == null)
-                Linea.Conductor = Conductor.GetConductorOptions(Linea.Destination.Fases, Linea.CorrienteCorregida, Linea.IsCobre, Linea.Destination.Hilos)[Linea.SelectedConductor];
+                Linea.Conductor = Conductor.GetConductor(Linea.SelectedCalibre, Linea.CorrienteCorregida, Linea.Destination.Hilos, Linea.SelectedConductor, Linea.IsCobre);
+                //Linea.Conductor = Conductor.GetConductorOptions(Linea.Destination.Fases, Linea.CorrienteCorregida, Linea.IsCobre, Linea.Destination.Hilos)[Linea.SelectedConductor];
         }
     }
 }

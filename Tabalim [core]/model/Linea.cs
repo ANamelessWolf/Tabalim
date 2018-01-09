@@ -23,13 +23,14 @@ namespace Tabalim.Core.model
         public Double CorrienteProteccion => GetCorrienteProteccion();
         public Conductor Conductor;
         public int SelectedConductor;
+        public String SelectedCalibre;
         public double Longitud;
         public bool IsCobre;
         public int Temperatura;
         AlimValues AlimValues => Conductor != null ? AlimValues.GetValues(Conductor.Calibre) : AlimValues.GetValues();
         public Double Reactancia => AlimValues.Reactancia / 1000;
         public Double Resistencia => AlimValues.Resistencia[IsCobre ? 0 : 1] / 1000;
-        public Double Impedancia => AlimValues.Impedancia[IsCobre ? 0 : 1] / 1000;
+        public Double Impedancia => AlimValues.Impedancia[IsCobre ? 0 : 1] / 1000 / Conductor.NoTubos;
         public Double CaidaVoltaje => Destination.CorrienteNominal * Longitud * Impedancia * (Destination.Fases == 3 ? Math.Sqrt(3) : 1) * 100 / Destination.Tension;
         public String Interruptor => model.Interruptor.GetInterruptor(Destination.Fases, CorrienteProteccion).ToString();
 
@@ -87,20 +88,21 @@ namespace Tabalim.Core.model
         public AlimInput ToAlimInput(Project parent)
         {
             return new AlimInput() {
-                 End = this.Type,
-                 FactorAgrupamiento = this.FactorAgrupamiento,
-                 FactorDemanda = this.Destination.FactorDemanda,
-                 FactorPotencia = this.FactorPotencia,
-                 Temperatura = this.Temperatura,
-                 ToDesc = this.ToDesc,
-                 ToName = this.To,
-                 IsCobre = this.IsCobre,
-                 Longitud = this.Longitud,
-                 Start = this.From,
-                 Conductor = this.SelectedConductor,
-                 ProjectId = parent.Id,
-                 Id = this.Id,
-                 No = this.No
+                End = this.Type,
+                FactorAgrupamiento = this.FactorAgrupamiento,
+                FactorDemanda = this.Destination.FactorDemanda,
+                FactorPotencia = this.FactorPotencia,
+                Temperatura = this.Temperatura,
+                ToDesc = this.ToDesc,
+                ToName = this.To,
+                IsCobre = this.IsCobre,
+                Longitud = this.Longitud,
+                Start = this.From,
+                Conductor = this.Conductor.NoTubos,
+                ProjectId = parent.Id,
+                Id = this.Id,
+                No = this.No,
+                Calibre = this.Conductor.Calibre
             };
         }
 
@@ -117,6 +119,7 @@ namespace Tabalim.Core.model
             this.Longitud = alimInput.Longitud;
             this.From = alimInput.Start;
             this.SelectedConductor = alimInput.Conductor;
+            this.Conductor = Conductor.GetConductor(alimInput.Calibre, this.CorrienteCorregida, this.Destination.Hilos, alimInput.Conductor, alimInput.IsCobre);
         }
     }
 }

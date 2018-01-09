@@ -77,6 +77,7 @@ namespace Tabalim.Core.model
         public String ToName;
         public String ToDesc;
         public int Conductor;
+        public String Calibre;
         public AlimInput()
         {
 
@@ -147,7 +148,8 @@ namespace Tabalim.Core.model
                 this.CreateFieldAsString("dest_name", this.ToName),
                 this.CreateFieldAsString("dest_desc", this.ToDesc),
                 this.CreateFieldAsNumber("conductor", this.Conductor),
-                this.CreateFieldAsString("label", this.No)
+                this.CreateFieldAsString("label", this.No),
+                this.CreateFieldAsString("calibre", this.Calibre)
             };
         }
         /// <summary>
@@ -184,7 +186,9 @@ namespace Tabalim.Core.model
             linea.Temperatura = (int)this.Temperatura;
             linea.FactorTemperartura = model.Temperatura.GetFactor(linea.Temperatura);
             linea.Longitud = this.Longitud;
+            //linea.Conductor = model.Conductor.GetConductor(this.Calibre, linea.CorrienteCorregida, linea.Destination.Hilos, this.Conductor, linea.IsCobre);
             linea.SelectedConductor = this.Conductor;
+            linea.SelectedCalibre = this.Calibre;
             //linea.GetNumber();
             return linea;
         }
@@ -212,6 +216,7 @@ namespace Tabalim.Core.model
                 this.ToName = result.GetString("dest_name");
                 this.ToDesc = result.GetString("dest_desc");
                 this.Conductor = result.GetValue<int>("conductor");
+                this.Calibre = result.GetString("calibre");
             }
             catch (Exception exc)
             {
@@ -234,6 +239,7 @@ namespace Tabalim.Core.model
                 case "dest_name":
                 case "dest_desc":
                 case "label":
+                case "calibre":
                     value = input.CreateFieldAsString(this.TableName, input.Value);
                     break;
                 case "fact_demanda":
@@ -307,6 +313,9 @@ namespace Tabalim.Core.model
                         break;
                     case "conductor":
                         this.Conductor = (int)val.Value;
+                        break;
+                    case "calibre":
+                        this.Calibre = val.Value.ToString();
                         break;
                 }
         }
