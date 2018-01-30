@@ -83,8 +83,8 @@ namespace Tabalim.Updater.Core.Controller
             else
                 this.Info = new full_patch()
                 {
-                     addin_R19 =
-                }
+
+                };
             if (e.Result is Exception)
                 Console.WriteLine((e.Result as Exception).Message);
             else

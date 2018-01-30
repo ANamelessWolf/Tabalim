@@ -24,7 +24,7 @@ namespace Tabalim.Core.model
         String CalibreTierra;
         int SelectedIndex = 0;
         bool Single = true;
-        Conductor SelectedConductor;
+        //conductor SelectedConductor;
         /*static IEnumerable<Conductor> Data = new Conductor[]
         {
             new Conductor() { CorrienteMaxima = 20, CorrienteMaximaAl = 0, NoTubos = 1, DiametroTubos = new String[] { "16mm", "16mm", "16mm" }, Calibre = "14", CalibreTierra = "14" },

@@ -45,7 +45,7 @@ namespace Tabalim.Addin.Controller
         {
             DBDictionary NOD = (DBDictionary)doc.Database.NamedObjectsDictionaryId.GetObject(OpenMode.ForRead),
                 tabalimDic;
-            ObjectId dicId, horId;
+            ObjectId dicId;
             //Se abre el diccionario
             if (this.TryGetEntry(NOD, TABALIM_DIC, out dicId))
                 tabalimDic = (DBDictionary)dicId.GetObject(OpenMode.ForRead);
