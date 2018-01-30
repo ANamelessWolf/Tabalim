@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [Addin] [R22]", "Ta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [Addin] [R19]", "Tabalim [Addin]\Tabalim [Addin] [R19].csproj", "{7ACB2DA6-2F36-4F3E-9739-5367FD5DE10D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [Updater] [Lib]", "Tabalim [Updater] [Lib]\Tabalim [Updater] [Lib].csproj", "{0A3CCB68-2142-4BF9-B053-2F91696732D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [Updater] [Sync]", "Tabalim [Updater] [Sync]\Tabalim [Updater] [Sync].csproj", "{992D8BF0-7DA2-4EA2-83EB-2CF70395FFC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [Updater]", "Tabalim [Updater]\Tabalim [Updater].csproj", "{CF07AC67-01C2-4CD1-A21B-AA8BF666F7C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +39,18 @@ Global
 		{7ACB2DA6-2F36-4F3E-9739-5367FD5DE10D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ACB2DA6-2F36-4F3E-9739-5367FD5DE10D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ACB2DA6-2F36-4F3E-9739-5367FD5DE10D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A3CCB68-2142-4BF9-B053-2F91696732D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A3CCB68-2142-4BF9-B053-2F91696732D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A3CCB68-2142-4BF9-B053-2F91696732D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A3CCB68-2142-4BF9-B053-2F91696732D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{992D8BF0-7DA2-4EA2-83EB-2CF70395FFC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{992D8BF0-7DA2-4EA2-83EB-2CF70395FFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{992D8BF0-7DA2-4EA2-83EB-2CF70395FFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{992D8BF0-7DA2-4EA2-83EB-2CF70395FFC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF07AC67-01C2-4CD1-A21B-AA8BF666F7C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF07AC67-01C2-4CD1-A21B-AA8BF666F7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF07AC67-01C2-4CD1-A21B-AA8BF666F7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF07AC67-01C2-4CD1-A21B-AA8BF666F7C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
