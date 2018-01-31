@@ -49,11 +49,11 @@ namespace Tabalim.Core.model.raw
         /// <summary>
         /// El calibre del circuito
         /// </summary>
-        public double Calibre => Circuito.Calibre != null ? 0 : double.Parse(Circuito.Calibre.AWG);
+        public double Calibre => Circuito.Calibre == null ? 0 : double.Parse(Circuito.Calibre.AWG);
         /// <summary>
         /// La sección del circuito
         /// </summary>
-        public double Section => Circuito.Calibre.AreaTransversal;
+        public double Section => Circuito.Calibre == null ? 0 : Circuito.Calibre.AreaTransversal;
         /// <summary>
         /// La caida del voltaje
         /// </summary>
