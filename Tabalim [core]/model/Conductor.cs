@@ -69,11 +69,14 @@ namespace Tabalim.Core.model
             new Conductor() { Calibre = "2/0", CorrienteMaxima = 175, CorrienteMaximaAl = 135, DiametroTubos = new String[] { "53mm", "53mm" } },
             new Conductor() { Calibre = "3/0", CorrienteMaxima = 200, CorrienteMaximaAl = 155, DiametroTubos = new String[] { "63mm", "53mm" } },
             new Conductor() { Calibre = "4/0", CorrienteMaxima = 230, CorrienteMaximaAl = 180, DiametroTubos = new String[] { "63mm", "63mm" } },
-            new Conductor() { Calibre = "250MCM", CorrienteMaxima = 255, CorrienteMaximaAl = 205, DiametroTubos = new String[] { "78mm", "63mm" } },
-            new Conductor() { Calibre = "300MCM", CorrienteMaxima = 285, CorrienteMaximaAl = 230, DiametroTubos = new String[] { "78mm", "78mm" } },
-            new Conductor() { Calibre = "350MCM", CorrienteMaxima = 310, CorrienteMaximaAl = 250, DiametroTubos = new String[] { "78mm", "78mm" } },
-            new Conductor() { Calibre = "400MCM", CorrienteMaxima = 350, CorrienteMaximaAl = 270, DiametroTubos = new String[] { "103mm", "78mm" } },
-            new Conductor() { Calibre = "500MCM", CorrienteMaxima = 400, CorrienteMaximaAl = 310, DiametroTubos = new String[] { "103mm", "103mm" } }
+            new Conductor() { Calibre = "250KCM", CorrienteMaxima = 255, CorrienteMaximaAl = 205, DiametroTubos = new String[] { "78mm", "63mm" } },
+            new Conductor() { Calibre = "300KCM", CorrienteMaxima = 285, CorrienteMaximaAl = 230, DiametroTubos = new String[] { "78mm", "78mm" } },
+            new Conductor() { Calibre = "350KCM", CorrienteMaxima = 310, CorrienteMaximaAl = 250, DiametroTubos = new String[] { "78mm", "78mm" } },
+            new Conductor() { Calibre = "400KCM", CorrienteMaxima = 350, CorrienteMaximaAl = 270, DiametroTubos = new String[] { "103mm", "78mm" } },
+            new Conductor() { Calibre = "500KCM", CorrienteMaxima = 400, CorrienteMaximaAl = 310, DiametroTubos = new String[] { "103mm", "103mm" } },
+            new Conductor() { Calibre = "600KCM", CorrienteMaxima = 0, CorrienteMaximaAl = 340, DiametroTubos = new String[] { "103mm", "103mm" } },
+            new Conductor() { Calibre = "700KCM", CorrienteMaxima = 0, CorrienteMaximaAl = 375, DiametroTubos = new String[] { "103mm", "103mm" } },
+            new Conductor() { Calibre = "750KCM", CorrienteMaxima = 0, CorrienteMaximaAl = 385, DiametroTubos = new String[] { "103mm", "103mm" } }
         };
         static Tuple<int, string, string>[] Tierras = new Tuple<int, string, string>[]
         {
@@ -114,7 +117,7 @@ namespace Tabalim.Core.model
         }
         public static String[] GetAvailableCalibres(double corriente, bool isCobre = true)
         {
-            int maxValue = isCobre ? Data.Last().CorrienteMaxima : Data.Last().CorrienteMaximaAl;
+            int maxValue = isCobre ? 150 : 120;
             if (corriente > maxValue)
                 return Data.Where(x => x.CorrienteMaxima >= 150).Select(x => x.Calibre).ToArray();
             return Data.Where(x => corriente < (isCobre ? x.CorrienteMaxima : x.CorrienteMaximaAl)).Select(x => x.Calibre).ToArray();
@@ -126,7 +129,7 @@ namespace Tabalim.Core.model
             else {
                 Conductor tmp = Data.First(x => x.Calibre == calibre);
                 int value = isCobre ? tmp.CorrienteMaxima : tmp.CorrienteMaximaAl;
-                return Enumerable.Range((int)Math.Ceiling(corriente / value), 3).ToArray();
+                return Enumerable.Range((int)Math.Ceiling(corriente / value), 5).ToArray();
             }
         }
         public Conductor()

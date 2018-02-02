@@ -45,9 +45,11 @@ namespace Tabalim.Core.view
 
         public Linea GetLinea()
         {
+            double d;
+            SelectedLinea.IsCobre = isCopper.IsChecked.Value;
             SelectedLinea.Conductor = Conductor.GetConductor(calibreCbo.SelectedItem as string, SelectedLinea.CorrienteCorregida, SelectedLinea.Destination.Hilos, (int)numberCbo.SelectedItem, SelectedLinea.IsCobre);
             SelectedLinea.SelectedConductor = calibreCbo.SelectedIndex;
-            SelectedLinea.Longitud = double.Parse(longitudTbo.Text.Trim());
+            SelectedLinea.Longitud = double.TryParse(longitudTbo.Text.Trim(), out d) ? d : 0;
             return SelectedLinea;
         }
 
@@ -55,10 +57,13 @@ namespace Tabalim.Core.view
         {
             //conductorCbo.ItemsSource = Conductor.GetConductorOptions(SelectedLinea.Destination.Fases, SelectedLinea.CorrienteCorregida, SelectedLinea.IsCobre, SelectedLinea.Destination.Hilos);
             //conductorCbo.SelectedIndex = SelectedLinea.SelectedConductor;
+            isCopper.IsChecked = SelectedLinea.IsCobre;
             var list = Conductor.GetAvailableCalibres(SelectedLinea.CorrienteCorregida, SelectedLinea.IsCobre);
             calibreCbo.ItemsSource = list;
             calibreCbo.SelectedItem = SelectedLinea.Conductor == null ? list.First() : SelectedLinea.Conductor.Calibre;
             longitudTbo.Text = SelectedLinea.Longitud.ToString();
+            corrienteTbl.Text = SelectedLinea.CorrienteCorregida.ToString("0.00");
+            
         }
 
         private void calibreCbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -67,14 +72,20 @@ namespace Tabalim.Core.view
             {
                 numberCbo.ItemsSource = Conductor.GetAllowedPipes(SelectedLinea.CorrienteCorregida, calibreCbo.SelectedItem as string, SelectedLinea.IsCobre);
                 numberCbo.SelectedIndex = 0;
-                //CalculateCaida();
+                CalculateCaida();
             }
+        }
+        public bool IsCalculable()
+        {
+            double i;
+            return !(calibreCbo.SelectedIndex == -1 && numberCbo.SelectedIndex == -1 && !double.TryParse(longitudTbo.Text.Trim(), out i));
         }
         private async void CalculateCaida()
         {
             try
             {
-                if (IsValid(false))
+                //if (IsValid(false))
+                if(IsCalculable())
                 {
                     GetLinea();
                     Caida = SelectedLinea.CaidaVoltaje;
@@ -91,14 +102,24 @@ namespace Tabalim.Core.view
 
         private void numberCbo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if(numberCbo.SelectedIndex != -1)
-            //    CalculateCaida();
+            if(numberCbo.SelectedIndex != -1)
+                CalculateCaida();
         }
 
         private void longitudTbo_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(longitudTbo.Text != String.Empty)
                 CalculateCaida();
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectedLinea.IsCobre = isCopper.IsChecked.Value;
+            var list = Conductor.GetAvailableCalibres(SelectedLinea.CorrienteCorregida, SelectedLinea.IsCobre);
+            calibreCbo.ItemsSource = list;
+            calibreCbo.SelectedItem = SelectedLinea.Conductor == null ? list.First() : SelectedLinea.Conductor.Calibre;
+            numberCbo.ItemsSource = Conductor.GetAllowedPipes(SelectedLinea.CorrienteCorregida, calibreCbo.SelectedItem as string, SelectedLinea.IsCobre);
+            numberCbo.SelectedIndex = 0;
         }
     }
 }

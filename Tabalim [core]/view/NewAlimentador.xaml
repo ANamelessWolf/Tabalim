@@ -17,7 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="0" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <GroupBox Header="Orígen y Destino">
@@ -126,7 +126,7 @@
                 </TabControl>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Conductor" Grid.Row="2">
+        <GroupBox Header="Conductor" Visibility="Hidden" Grid.Row="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <RadioButton x:Name="isCopper" Content="Cobre" Style="{StaticResource TabalimOpt}" IsChecked="True"/>
                 <RadioButton x:Name="isAluminum" Content="Aluminio" Style="{StaticResource TabalimOpt}" />
@@ -149,7 +149,7 @@
                 <Slider x:Name="slidPower" Grid.Row="0" Grid.Column="1" Minimum="0.7" Maximum="0.9" TickFrequency="0.01" Style="{StaticResource TabalimSliderInt}" Value="0.9" />
                 <TextBlock Grid.Column="2" Style="{StaticResource TabalimHeaderLighten}" Text="{Binding ElementName=slidPower, Path=Value}" />
                 <TextBlock Text="Agrupamiento" Grid.Row="1" Style="{StaticResource TabalimHeaderLighten}" />
-                <Slider x:Name="slidGroup" Grid.Row="1" Grid.Column="1" Minimum="0.6" Maximum="1" TickFrequency="0.01" Style="{StaticResource TabalimSliderInt}" Value="0.8" />
+                <Slider x:Name="slidGroup" Grid.Row="1" Grid.Column="1" Minimum="0.6" Maximum="1" TickFrequency="0.01" Style="{StaticResource TabalimSliderInt}" Value="1" />
                 <TextBlock Grid.Column="2" Grid.Row="1" Style="{StaticResource TabalimHeaderLighten}" Text="{Binding ElementName=slidGroup, Path=Value}" />
                 <TextBlock Text="Temperatura" Grid.Row="2" Style="{StaticResource TabalimHeaderLighten}" />
                 <Slider x:Name="slidTemp" Grid.Row="2" Grid.Column="1" Minimum="21" Maximum="70" TickFrequency="1" Style="{StaticResource TabalimSliderInt}" Value="30" />

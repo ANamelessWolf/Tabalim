@@ -6,7 +6,7 @@
         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tabalim.Core.view"
         mc:Ignorable="d" Loaded="MetroWindow_Loaded" GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="Selector de conductor" Height="300" Width="300">
+        Title="Selector de conductor" Height="350" Width="300">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,7 +14,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="50" />

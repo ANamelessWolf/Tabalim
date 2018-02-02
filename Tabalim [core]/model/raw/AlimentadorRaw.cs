@@ -90,6 +90,10 @@ namespace Tabalim.Core.model.raw
         /// </summary>
         public string Canal => Linea.Conductor.Canalizacion;
         /// <summary>
+        /// Material.
+        /// </summary>
+        public string Material => Linea.Material;
+        /// <summary>
         /// La longitud en metros de la línea
         /// </summary>
         public double Length => Linea.Longitud;

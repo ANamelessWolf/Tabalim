@@ -20,7 +20,7 @@
     </metro:MetroWindow.RightWindowCommands>
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Visible">
-            <core:TableAlim x:Name="alimTable" Width="2200"/>
+            <core:TableAlim x:Name="alimTable" Width="2600"/>
         </ScrollViewer>
     </Grid>
 </metro:MetroWindow>

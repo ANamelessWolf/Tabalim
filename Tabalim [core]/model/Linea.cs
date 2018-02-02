@@ -27,6 +27,7 @@ namespace Tabalim.Core.model
         public double Longitud;
         public bool IsCobre;
         public int Temperatura;
+        public string Material => IsCobre ? "Cobre" : "Aluminio";
         AlimValues AlimValues => Conductor != null ? AlimValues.GetValues(Conductor.Calibre) : AlimValues.GetValues();
         public Double Reactancia => AlimValues.Reactancia / 1000;
         public Double Resistencia => AlimValues.Resistencia[IsCobre ? 0 : 1] / 1000;
@@ -52,7 +53,10 @@ namespace Tabalim.Core.model
         private double GetCorrienteCorregida()
         {
             if (Destination != null)
-                return Destination.CorrienteContinua / (FactorTemperartura * FactorAgrupamiento);
+                if (Type.Id == 1)
+                    return Destination.CorrienteNominal / (FactorTemperartura * FactorAgrupamiento);
+                else
+                    return Destination.CorrienteContinua / (FactorTemperartura * FactorAgrupamiento);
             return 0;
         }
         private double GetCorrienteProteccion()

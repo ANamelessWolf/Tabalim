@@ -38,6 +38,7 @@ namespace Tabalim.Core.model
         public string CorrienteNominal => Linea.Destination.CorrienteNominal.ToString("0.00");
         public string CorrienteContinua => Linea.Destination.CorrienteContinua.ToString("0.00");
         public string CorrienteCorregida => Linea.CorrienteCorregida.ToString("0.00");
+        public string Material => Linea.Material;
         public String Aliment => Linea.Conductor.Alimentador;
         public String Canal => Linea.Conductor.Canalizacion;
         public String Length => Linea.Longitud.ToString("0.00");

@@ -86,6 +86,10 @@ namespace Tabalim.Addin.Model
         /// </summary>
         public double CorrienteCorregida;
         /// <summary>
+        /// Material
+        /// </summary>
+        public string Material;
+        /// <summary>
         /// Alimentación
         /// </summary>
         public string Aliment;
@@ -164,7 +168,8 @@ namespace Tabalim.Addin.Model
                 this.Resist.ToExpFormat(),                      //20
                 this.React.ToExpFormat(),                       //21
                 this.CaidaDeVoltaje.ToNumberFormat(),           //22
-                this.Interruptor                                //23
+                this.Interruptor,                               //23
+                this.Material                                   //24
             };
         }
     }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tabalim.Core.view"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
-             d:DesignHeight="300" MinWidth="2000">
+             d:DesignHeight="300" MinWidth="2160">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,50 +19,52 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="67*"/>
         </Grid.RowDefinitions>
-        <Grid Visibility="Hidden" Grid.RowSpan="2">
+        <Grid Visibility="Hidden" Grid.RowSpan="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400"/>
                 <!--0-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="85"/>
                 <!--1-->
                 <ColumnDefinition Width="80"/>
                 <!--2-->
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="105"/>
                 <!--3-->
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="110"/>
                 <!--4-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="100"/>
                 <!--5-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="105"/>
                 <!--6-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="110"/>
                 <!--7-->
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="110"/>
                 <!--8-->
-                <ColumnDefinition Width="0"/>
+                <ColumnDefinition Width="100"/>
                 <!--9-->
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="105"/>
                 <!--10-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="110"/>
                 <!--11-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="125"/>
                 <!--12-->
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="95"/>
                 <!--13-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="95"/>
                 <!--14-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="105"/>
                 <!--15-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="110"/>
                 <!--16-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="105"/>
                 <!--17-->
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="105"/>
                 <!--18-->
-                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="105"/>
                 <!--19-->
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="120"/>
                 <!--20-->
+                <ColumnDefinition Width="105"/>
+                <!--21-->
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" x:Name="col0"/>
@@ -86,9 +88,10 @@
             <Grid Grid.Column="18" x:Name="col18"/>
             <Grid Grid.Column="19" x:Name="col19"/>
             <Grid Grid.Column="20" x:Name="col20"/>
+            <Grid Grid.Column="21" x:Name="col21"/>
         </Grid>
 
-        <ListView x:Name="listOfLines" Grid.RowSpan="2">
+        <ListView x:Name="listOfLines" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
 
@@ -279,9 +282,9 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=col10, Path=ActualWidth}">
+                    <GridViewColumn Width="{Binding ElementName=col9, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col10, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
+                            <TextBlock Width="{Binding ElementName=col9, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
                                 Factor
                                 <LineBreak/>
                                 de
@@ -299,9 +302,9 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=col11, Path=ActualWidth}">
+                    <GridViewColumn Width="{Binding ElementName=col10, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col11, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
+                            <TextBlock Width="{Binding ElementName=col10, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
                                 Voltaje
                                 <LineBreak/>
                                Nominal
@@ -315,9 +318,9 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=col12, Path=ActualWidth}">
+                    <GridViewColumn Width="{Binding ElementName=col11, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col12, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
+                            <TextBlock Width="{Binding ElementName=col11, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
                                 Corriente
                                 <LineBreak/>
                                Nominal
@@ -331,8 +334,8 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn  Width="{Binding ElementName=col13, Path=ActualWidth}">
-                        <GridViewColumnHeader>
+                    <GridViewColumn  Width="{Binding ElementName=col12, Path=ActualWidth}" >
+                        <!--<GridViewColumnHeader>-->
                             <GridViewColumnHeader>
                                 <Grid VerticalAlignment="Center" Width="100">
                                     <Grid.RowDefinitions>
@@ -350,7 +353,7 @@
                                     </Border>
                                 </Grid>
                             </GridViewColumnHeader>
-                        </GridViewColumnHeader>
+                        <!--</GridViewColumnHeader>-->
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid VerticalAlignment="Center" Width="100">
@@ -367,9 +370,9 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=col14, Path=ActualWidth}">
+                    <GridViewColumn Width="{Binding ElementName=col13, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col14, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
+                            <TextBlock Width="{Binding ElementName=col13, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
                                 Corriente
                                 <LineBreak/>
                                Corregida
@@ -386,6 +389,20 @@
                     <GridViewColumn Width="{Binding ElementName=col14, Path=ActualWidth}">
                         <GridViewColumnHeader>
                             <TextBlock Width="{Binding ElementName=col14, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
+                                Material
+                            </TextBlock>
+                        </GridViewColumnHeader>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock TextAlignment="Center" Text="{Binding Material}" Visibility="Visible"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=col15, Path=ActualWidth}">
+                        <GridViewColumnHeader>
+                            <TextBlock Width="{Binding ElementName=col15, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
                                 Alimentación 
                                 <LineBreak/>
                                 y
@@ -406,12 +423,12 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=col15, Path=ActualWidth}">
+                    <GridViewColumn Width="{Binding ElementName=col16, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col15, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
-                                Long. 
-                                <LineBreak/>
-                                Mts
+                            <TextBlock Width="{Binding ElementName=col16, Path=ActualWidth}"  TextAlignment="Center" Padding="10,0">
+                                <TextBlock>Long. </TextBlock>
+                                <LineBreak />
+                                <TextBlock>Mts </TextBlock>
                             </TextBlock>
                         </GridViewColumnHeader>
                         <GridViewColumn.CellTemplate>
@@ -422,9 +439,9 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=col16, Path=ActualWidth}">
+                    <GridViewColumn Width="{Binding ElementName=col17, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col16, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
+                            <TextBlock Width="{Binding ElementName=col17, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
                                 Imped. 
                                 <LineBreak/>
                                 OHMS/M
@@ -438,9 +455,9 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=col17, Path=ActualWidth}">
+                    <GridViewColumn Width="{Binding ElementName=col18, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col17, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
+                            <TextBlock Width="{Binding ElementName=col18, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
                                 RESIST. 
                                 <LineBreak/>
                                 OHMS/M
@@ -456,9 +473,9 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=col18, Path=ActualWidth}">
+                    <GridViewColumn Width="{Binding ElementName=col19, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col18, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
+                            <TextBlock Width="{Binding ElementName=col19, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
                                 React. 
                                 <LineBreak/>
                                 OHMS/M
@@ -474,8 +491,8 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn  Width="{Binding ElementName=col19, Path=ActualWidth}">
-                        <GridViewColumnHeader>
+                    <GridViewColumn  Width="{Binding ElementName=col20, Path=ActualWidth}">
+                        <!--<GridViewColumnHeader>-->
                             <GridViewColumnHeader>
                                 <Grid VerticalAlignment="Center" Width="{Binding ElementName=col19, Path=ActualWidth}">
                                     <Grid.RowDefinitions>
@@ -491,7 +508,7 @@
                                     </TextBlock>
                                 </Grid>
                             </GridViewColumnHeader>
-                        </GridViewColumnHeader>
+                        <!--</GridViewColumnHeader>-->
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -500,9 +517,9 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=col20, Path=ActualWidth}">
+                    <GridViewColumn Width="{Binding ElementName=col21, Path=ActualWidth}">
                         <GridViewColumnHeader>
-                            <TextBlock Width="{Binding ElementName=col20, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
+                            <TextBlock Width="{Binding ElementName=col21, Path=ActualWidth}" TextAlignment="Center" Margin="-10,0">
                                 INT. 
                                 <LineBreak/>
                                 P-AMPS
