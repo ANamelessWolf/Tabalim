@@ -162,14 +162,14 @@ namespace Tabalim.Addin.Model
                 this.FacTem.ToNumberFormat(),                   //14
                 this.FacAgr.ToNumberFormat(),                   //15
                 this.CorrienteCorregida.ToNumberFormat(),       //16
-                this.Aliment,                                   //17
-                this.Length.ToNumberFormat(),                   //18
-                this.Imped.ToExpFormat(),                       //19
-                this.Resist.ToExpFormat(),                      //20
-                this.React.ToExpFormat(),                       //21
-                this.CaidaDeVoltaje.ToNumberFormat(),           //22
-                this.Interruptor,                               //23
-                this.Material                                   //24
+                this.Material,                                  //17
+                this.Aliment,                                   //18
+                this.Length.ToNumberFormat(),                   //19
+                this.Imped.ToExpFormat(),                       //20
+                this.Resist.ToExpFormat(),                      //21
+                this.React.ToExpFormat(),                       //22
+                this.CaidaDeVoltaje.ToNumberFormat(),           //23
+                this.Interruptor,                               //24
             };
         }
     }

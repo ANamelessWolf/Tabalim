@@ -38,15 +38,16 @@ namespace Tabalim.Addin.Model
                     HeaderOptions.NoSubHeader( "Potencia\nDeman.",  COLUMNWIDTH * 2.2d,2),
                     HeaderOptions.NoSubHeader( "Factor\nde\nPotencia",  COLUMNWIDTH * 2.4d,2),
                     HeaderOptions.NoSubHeader( "Voltaje\nNominal",  COLUMNWIDTH * 2.4d,3),
-                    HeaderOptions.NoSubHeader( "Corriente\nNominal",  COLUMNWIDTH * 2.5d,3),
+                    HeaderOptions.NoSubHeader( "Corriente\nNominal",  COLUMNWIDTH * 2.5d,3), //10
                     null,//Factores //TEMP
                     null,//AGR
-                    HeaderOptions.NoSubHeader( "Corriente\nCorregida",  COLUMNWIDTH * 2.5d),
+                    HeaderOptions.NoSubHeader( "Corriente\nCorregida",  COLUMNWIDTH * 2.5d), //13
+                    HeaderOptions.NoSubHeader( "Material",  COLUMNWIDTH * 2.5d),
                     HeaderOptions.NoSubHeader( "Aliment.\ny\nCanaliz.",  COLUMNWIDTH * 3.2d),
                     HeaderOptions.NoSubHeader( "Longitud",  COLUMNWIDTH * 2.2d),
-                    new HeaderOptions( "Imped.", "Ohms/m", COLUMNWIDTH * 3d,2),
-                    new HeaderOptions( "Resist.", "Ohms/m", COLUMNWIDTH * 3d,2),
-                    new HeaderOptions( "React.", "Ohms/m", COLUMNWIDTH * 3d,2),
+                    new HeaderOptions( "Imped.", "Ohms/m", COLUMNWIDTH * 3.2d,2),
+                    new HeaderOptions( "Resist.", "Ohms/m", COLUMNWIDTH * 3.2d,2),
+                    new HeaderOptions( "React.", "Ohms/m", COLUMNWIDTH * 3.2d,2),
                     HeaderOptions.NoSubHeader( "Caidas de\n Voltaje\nAlim.", COLUMNWIDTH * 2.4d,2),
                     HeaderOptions.NoSubHeader( "Interruptor\nP-AMPS",COLUMNWIDTH * 3.2d)
                 };
@@ -77,6 +78,7 @@ namespace Tabalim.Addin.Model
                     new Tuple<string, double>( "AGR.",  COLUMNWIDTH * 2d),
                     new Tuple<string, double>( "AMPS.",  Double.NaN),
                     null,
+                    null,
                     new Tuple<string, double>( "MTS",  Double.NaN),
                     null,
                     new Tuple<string, double>( "(NEC)", Double.NaN),
@@ -99,7 +101,7 @@ namespace Tabalim.Addin.Model
             String[] values;
             CellRange cellRange;
             row = startRow;
-            var simRows = new int[] { 1, 2, 3, 4, 17 };
+            var simRows = new int[] { 1, 2, 3, 4, 18 };
             for (int i = 0; i < lines.Length; i++)
             {
                 values = lines[i].GetValues();
@@ -118,7 +120,7 @@ namespace Tabalim.Addin.Model
                 this.Write(lines[i].ToDesc, row, 1);
                 this.Table.MergeCells(CellRange.Create(this.Table, row, 1, row, 4));
                 //Canalización
-                this.Write(lines[i].Canal, row, 17);
+                this.Write(lines[i].Canal, row, 18);
                 //Nueva línea
                 row++;
             }
@@ -153,7 +155,7 @@ namespace Tabalim.Addin.Model
         public override void SetTableSize()
         {
             int numOfRows = (this.Content as AlimentadorContent).Lineas.Length * 2 + 10,
-                numOfCols = 24;
+                numOfCols = 25;
             this.Table.SetSize(numOfRows, numOfCols);
         }
     }
