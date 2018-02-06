@@ -18,8 +18,8 @@ namespace Tabalim.Addin
         public const string ASSEMBLY_COMPANY = "DaSoft S.A. de C.V.";
         public const string ASSEMBLY_PRODUCT = "Electabuzz";
         public const string ASSEMBLY_TRADEMARK = "A Nameless Wolf";
-        public const string ASSEMBLY_VERSION = "1.22.0.45";
-        public const string ASSEMBLY_FILE_VERSION = "1.22.0.45";
+        public const string ASSEMBLY_VERSION = "1.22.2.45";
+        public const string ASSEMBLY_FILE_VERSION = "1.22.2.45";
         public const String GUID = "CA3A8D7A-8E81-446F-9DE1-DB23A24CCF2C";
     }
 }
