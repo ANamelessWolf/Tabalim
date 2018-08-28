@@ -40,7 +40,25 @@ namespace Tabalim.Core.model
             if (sistema.Fases == 1)
             {
                 this.Value = tn;
-                this.TensionAlNeutro = 0;
+                this.TensionAlNeutro = tn;
+            }
+            else
+                this.TensionAlNeutro = tn;
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la <see cref="Tension"/>.
+        /// </summary>
+        /// <param name="tension">El valor de la tensión.</param>
+        /// <param name="fases">El número de fases del sistema</param>
+        public Tension(TensionVal tension, int fases)
+        {
+            this.Sistema = null;
+            this.Value = (int)tension;
+            int tn = (int)(Math.Round((double)this.Value / Math.Sqrt(3)));
+            if (fases == 1)
+            {
+                this.Value = tn;
+                this.TensionAlNeutro = tn;
             }
             else
                 this.TensionAlNeutro = tn;
@@ -53,7 +71,7 @@ namespace Tabalim.Core.model
         /// </returns>
         public override string ToString()
         {
-            if (this.Sistema.Fases == 3)
+            if (this.Sistema != null && this.Sistema.Fases == 3 )
                 return String.Format("{0} - {1}", this.Value, this.TensionAlNeutro);
             else
                 return this.Value.ToString();

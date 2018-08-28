@@ -1,0 +1,35 @@
+﻿{
+  "Tablero": "Resumen de Alimentadores",
+  "Description": "Sin descripción",
+  "Lineas": [
+    {
+      "No": "lplp",
+      "Origin": "lpl",
+      "To": "454",
+      "ToDesc": "4545",
+      "PotInstVA": 829.0,
+      "PotInstWatts": 746.1,
+      "FacDemanda": 1.0,
+      "PotDemAlum": 0.0,
+      "PotDemCont": 0.0,
+      "PotDemForce": 0.0,
+      "PotDemVA": 829.0,
+      "PotDemWatts": 746.1,
+      "FacPotencia": 0.9,
+      "VoltajeNominal": 220.0,
+      "CorrienteNominal": 3.2,
+      "FacTem": 1.0,
+      "FacAgr": 1.0,
+      "CorrienteCorregida": 3.2,
+      "Aliment": "4#14, 1#14d",
+      "Canal": "1T - 16mm",
+      "Material": "Cobre",
+      "Length": 12.0,
+      "Imped": 0.009258530183727031,
+      "Resist": 0.0101706036745407,
+      "React": 0.000239501312335958,
+      "CaidaDeVoltaje": 0.16160343593414458,
+      "Interruptor": "2P-15A"
+    }
+  ]
+}

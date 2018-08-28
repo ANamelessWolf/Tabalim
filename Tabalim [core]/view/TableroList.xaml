@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Tabalim.Core.view.TableroList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:Tabalim.Core.view"
+             mc:Ignorable="d" Loaded="UserControl_Loaded" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <ListBox x:Name="tableros" SelectionChanged="tableros_SelectionChanged" ItemContainerStyle="{StaticResource TabalimListItem}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="id" Text="{Binding Path=Id}" Visibility="Hidden" />
+                        <TextBlock FontSize="20" MaxWidth="{Binding ElementName=tableros, Path=ActualWidth}" TextWrapping="Wrap" Text="{Binding Path=Name}"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Path=Description}" />
+                        <StackPanel x:Name="btnPanel" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
+                            <Button x:Name="copyBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe16f;" Click="copyBtn_Click">
+                                <Button.ToolTip>
+                                    Copiar
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="cloneBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe2AE;" Click="cloneBtn_Click">
+                                <Button.ToolTip>
+                                    Clonar
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="deleteBtn" Style="{StaticResource TabalimCircleButton}" Tag="{Binding Path=Id}" Content="&#xe107;" Click="deleteBtn_Click">
+                                <Button.ToolTip>
+                                    Eliminar
+                                </Button.ToolTip>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

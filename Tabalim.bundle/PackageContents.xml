@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0" AutodeskProduct="AutoCAD*" Name="Country Club" 
+					Description="Generador de tablas para tableros y alimentadores" AppVersion="1.0.0" 
+					ProductType="Application" SupportedLocales="Enu" 
+					AppNameSpace="appstore.exchange.autodesk.com" 
+					Author="CadLabs" 
+					OnlineDocumentation="http://www.autodesk.com"
+					ProductCode="{1DFE24FF-DBDA-42E4-B9D5-A995590120E7}"
+					UpgradeCode="{1F27159A-C1A4-48DA-ACFE-6F4B9AD4BBBC}">
+  <CompanyDetails Name="CadLabs" Email="app.support@cadlabs.mx" 
+			      Phone="+52 (55) 5574-8357 Ext. 141" Url="http://cadlabs.mx"/>
+  <Components Description="CUIx">
+    <RuntimeRequirements OS="Win64" Platform="AutoCAD*" SeriesMin="R19.0" SeriesMax="R22.0" />
+    <ComponentEntry AppName="Tabalim" Version="1.0.0" ModuleName="./Contents/Resources/Tabalim.cuix"
+					AppDescription="Application CUIx" LoadOnAppearance="True" LoadOnAutoCADStartup="True" />
+  </Components>
+  <Components Description="DLLsR19">
+    <RuntimeRequirements OS="Win64" Platform="AutoCAD*" SeriesMin="R19.0" SeriesMax="R19.1" />
+    <ComponentEntry AppName="Tabalim_R19" Version="1.0.0" ModuleName="./Contents/r19/electabuzz.dll" 
+					AppDescription="Main DLL" LoadOnAutoCADStartup="True" />
+  </Components>
+  <Components Description="DLLsR22">
+    <RuntimeRequirements OS="Win64" Platform="AutoCAD*" SeriesMin="R22.0" SeriesMax="R22.0" />
+    <ComponentEntry AppName="Tabalim_R19" Version="1.0.0" ModuleName="./Contents/r22/electabuzz.dll" 
+					AppDescription="Main DLL" LoadOnAutoCADStartup="True" />
+  </Components>
+</ApplicationPackage>

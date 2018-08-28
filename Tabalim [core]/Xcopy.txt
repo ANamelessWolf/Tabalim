@@ -1,0 +1,3 @@
+﻿xcopy "$(ProjectDir)img\*" "$(SolutionDir)Tabalim [App]\bin\Debug\img\" /Y /E
+//Habilitar esta línea para cuando se requiera copiar la base de datos
+xcopy "$(ProjectDir)data\*" "$(SolutionDir)Tabalim [App]\bin\Debug\data\" /Y /E

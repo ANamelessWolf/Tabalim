@@ -2,23 +2,90 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                     xmlns:local="clr-namespace:Tabalim.Core.assets">
+    <ResourceDictionary.MergedDictionaries>
+        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+        <!-- Accent and AppTheme setting -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Yellow.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+    </ResourceDictionary.MergedDictionaries>
     <!--Estilos de Text blocks-->
     <Style x:Key="TabalimHeader" TargetType="TextBlock" BasedOn="{StaticResource MetroTextBlock}">
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>
+    <Style x:Key="TabalimHeaderLighten" TargetType="TextBlock" BasedOn="{StaticResource TabalimHeader}">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="TabalimForm" TargetType="TextBlock" BasedOn="{StaticResource TabalimHeader}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="TextAlignment" Value="Right"/>
+    </Style>
+    <Style x:Key="TabalimGroupHeader" TargetType="TextBlock" BasedOn="{StaticResource TabalimHeader}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+    <Style x:Key="TabalimGroupHighlight" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
+        <Setter Property="Foreground" Value="DarkGreen"/>
+    </Style>
+    <Style x:Key="TabalimGroupHighlightLighten" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
+        <Setter Property="Foreground" Value="LightGreen"/>
+    </Style>
+    <Style x:Key="TabalimGroupLess" TargetType="TextBlock" BasedOn="{StaticResource TabalimGroupHeader}">
+        <Setter Property="Foreground" Value="DarkGreen"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+    <Style x:Key="TabalimButton" TargetType="TextBlock" BasedOn="{StaticResource MetroTextBlock}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+    </Style>
     <!--Estilos de Combo box-->
     <Style x:Key="TabalimCbox" TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
         <Setter Property="Height" Value="32"/>
+    </Style>
+    <Style x:Key="TabalimCboxNumber" TargetType="ComboBox" BasedOn="{StaticResource TabalimCbox}">
+        <Setter Property="Width" Value="60"/>
+    </Style>
+    <!--Estilos de Text box-->
+    <Style x:Key="TabalimInput" TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
+        <Setter Property="Height" Value="32"/>
+    </Style>
+    <Style x:Key="TabalimInputDesc" TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <Style x:Key="TabalimInputNumber" TargetType="TextBox" BasedOn="{StaticResource TabalimInput}">
+        <Setter Property="Width" Value="50"/>
     </Style>
     <!--Estilos de botones-->
     <Style x:Key="TabalimMenuButton" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
         <Setter Property="Height" Value="32"/>
         <Setter Property="Width" Value="80"/>
         <Setter Property="Margin" Value="10,0"/>
+    </Style>
+    <Style x:Key="TabalimCircleButton" TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+    <Style x:Key="TabalimPickButton" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
     </Style>
     <!--Otros estilos-->
     <Style x:Key="TabalimSliderInt" TargetType="Slider" BasedOn="{StaticResource MetroSlider}">
@@ -32,5 +99,35 @@
     <Style x:Key="TabalimOpt" TargetType="RadioButton" BasedOn="{StaticResource MetroRadioButton}">
         <Setter Property="GroupName" Value="tabalim"/>
         <Setter Property="Margin" Value="10,0"/>
+    </Style>
+    <Style x:Key="TabalimCheck" TargetType="CheckBox" BasedOn="{StaticResource MetroCheckBox}">
+        <Setter Property="Margin" Value="10,0"/>
+    </Style>
+    <Style x:Key="TabalimListItem" TargetType="ListBoxItem">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Name="_border" BorderBrush="Transparent" BorderThickness="1" CornerRadius="5,0,0,5" Margin="5,5,0,5">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="_border" Property="BorderBrush" Value="#d2b90c" />
+                            <Setter TargetName="_border" Property="Background" Value="#d2b90c" />
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="TabalimTabItem" TargetType="TabItem" BasedOn="{StaticResource MetroTabItem}">
+        <Setter Property="metro:ControlsHelper.HeaderFontSize" Value="14"></Setter>
+    </Style>
+    <Style x:Key="MainButtons" TargetType="Button">
+        <Setter Property="FontSize" Value="50" />
+        <Setter Property="Foreground" Value="#d2b90c" />
     </Style>
 </ResourceDictionary>

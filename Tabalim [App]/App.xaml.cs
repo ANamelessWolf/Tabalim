@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Tabalim.Core.runtime;
 
 namespace Tabalim.App
 {
@@ -13,5 +14,20 @@ namespace Tabalim.App
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// El objeto de la aplicación TabalimApp
+        /// </summary>
+        public static TabalimApp Tabalim;
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="App"/>.
+        /// </summary>
+        public App() : base()
+        {
+            Tabalim = new TabalimApp();
+            Tabalim.DataLoaded = () => 
+            {
+                App.Current.MainWindow.Visibility = Visibility.Visible;
+            };
+        }
     }
 }

@@ -1,0 +1,21 @@
+﻿{
+  "patch_info": [
+    {
+      "assembly_patch": {
+        "app_name": "Tabalim",
+        "version": "1.0.0.0",
+        "description": "Se actualizá el bug de carga de proyectos."
+      },
+      "full_patch": {
+        "patch_date": "2012-04-23T00:00:00",
+        "addin_R19": true,
+        "addin_R22": true,
+        "app": true,
+        "database": true,
+        "resources": true,
+        "description": "Se actualizaron los bloques del addin r19."
+      }
+
+    }
+  ]
+}

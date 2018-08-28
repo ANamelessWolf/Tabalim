@@ -11,14 +11,6 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
                 <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -37,29 +29,24 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Sistema"  Style="{StaticResource TabalimHeader}"/>
+        <TextBlock Text="Sistema"  Style="{StaticResource TabalimHeaderLighten}"/>
         <ComboBox x:Name="cboSistemas" Grid.Column="1" Style="{StaticResource TabalimCbox}"
                   ItemsSource="{Binding}" DisplayMemberPath="ItemName" SelectionChanged="cboSistemas_SelectionChanged"/>
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center" >
             <RadioButton x:Name="optInterruptor" Content="Interruptor" Style="{StaticResource TabalimOpt}" IsChecked="True"/>
             <RadioButton x:Name="optZapata"  Content="Zapata" Style="{StaticResource TabalimOpt}"/>
         </StackPanel>
-        <TextBlock Text="Número de polos" Grid.Row="2" Style="{StaticResource TabalimHeader}"/>
+        <TextBlock Text="Número de polos" Grid.Row="2" Style="{StaticResource TabalimHeaderLighten}"/>
         <ComboBox x:Name="cboPolos" Grid.Column="1" Grid.Row="2" Style="{StaticResource TabalimCbox}"/>
-        <TextBlock  Grid.Row="3" Style="{StaticResource TabalimHeader}">
+        <TextBlock  Grid.Row="3" Style="{StaticResource TabalimHeaderLighten}">
             Temperatura<LineBreak/>
             (C° Centígrados)
         </TextBlock>
         <Slider x:Name="slidTemperature" Minimum="21" Maximum="70" Grid.Column="1" Grid.Row="3"
-                Style="{StaticResource TabalimSliderInt}"/>
-        <TextBlock Grid.Column="2" Grid.Row="3" Style="{StaticResource TabalimHeader}" >
+                Style="{StaticResource TabalimSliderInt}" Value="30"/>
+        <TextBlock Grid.Column="2" Grid.Row="3" Style="{StaticResource TabalimHeaderLighten}" >
             <TextBlock Text="{Binding ElementName=slidTemperature, Path=Value}"/>
             <TextBlock Text="°C"/>
         </TextBlock>
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" Grid.Row="4" HorizontalAlignment="Right">
-            <Button x:Name="btnOk" Content="Ok" Style="{StaticResource TabalimMenuButton}"
-                    Click="btnOk_Click"/>
-            <Button x:Name="btnCancel" Content="Cancelar" Style="{StaticResource TabalimMenuButton}"/>
-        </StackPanel>
     </Grid>
 </UserControl>
