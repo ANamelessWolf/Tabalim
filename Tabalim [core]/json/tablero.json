@@ -1,0 +1,71 @@
+﻿{
+  "Tablero": "Prueba",
+  "ImagenTablero": 0,
+  "Sistema": "220 - 127 Volts, 3 Fases, 4 Hilos, No. de Polos 12",
+  "Temperatura": 22.0,
+  "AlumbradosVA": 150.0,
+  "ContactosVA": 0.0,
+  "MotoresVA": 414.27777777777777,
+  "ReservaVA": 0.0,
+  "DesbMax": 0.27584819632560015,
+  "CtoRows": [
+    {
+      "Cto": "1",
+      "Count": "1,",
+      "Potencia": 135.0,
+      "Tension": 127.0,
+      "Fases": 1,
+      "Corriente": 1.0629921259842521,
+      "Longitud": 5.0,
+      "FactorAgrupacion": 1.0,
+      "Temperatura": 1.05,
+      "Calibre": 14.0,
+      "Section": 2.082,
+      "CaidaVoltaje": 0.10050452377561817,
+      "PotenciaA": 135.0,
+      "PotenciaB": 0.0,
+      "PotenciaC": 0.0,
+      "Interruptor": "1P-15A",
+      "Protecion": 1.328740157480315
+    },
+    {
+      "Cto": "3,5",
+      "Count": ",1",
+      "Potencia": 372.85,
+      "Tension": 220.0,
+      "Fases": 2,
+      "Corriente": 2.0,
+      "Longitud": 0.0,
+      "FactorAgrupacion": 0.0,
+      "Temperatura": 1.05,
+      "Calibre": 14.0,
+      "Section": 2.082,
+      "CaidaVoltaje": 0.0,
+      "PotenciaA": 0.0,
+      "PotenciaB": 186.425,
+      "PotenciaC": 186.425,
+      "Interruptor": "2P-15A",
+      "Protecion": 3.0
+    }
+  ],
+  "CmpColumns": [
+    {
+      "W": 135.0,
+      "ImageIndex": 1,
+      "Potencia": "135W",
+      "VA": 150.0,
+      "Unidades": 1,
+      "WattsTotales": 135.0,
+      "VATotales": 150.0
+    },
+    {
+      "W": 372.85,
+      "ImageIndex": 13,
+      "Potencia": "1/2 HP",
+      "VA": 414.27777777777777,
+      "Unidades": 1,
+      "WattsTotales": 372.85,
+      "VATotales": 414.27777777777777
+    }
+  ]
+}

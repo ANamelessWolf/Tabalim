@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Tabalim.Core.view.NewCarga"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tabalim.Core.view"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition  />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!--<ComboBox x:Name="tablerosTbo" Margin="10" Style="{StaticResource TabalimCbox}" DisplayMemberPath="{Binding Path=Nombre}" SelectionChanged="tablerosTbo_SelectionChanged" />-->
+        <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Nombre" Style="{StaticResource TabalimHeaderLighten}" />
+            <TextBox x:Name="nameTbo" Style="{StaticResource TabalimInput}" Grid.Column="1" />
+            <TextBlock Text="Fases" Grid.Row="1" Style="{StaticResource TabalimHeaderLighten}"/>
+            <ComboBox x:Name="fasesCbo" Grid.Row="1" Grid.Column="1" Style="{StaticResource TabalimCboxNumber}" SelectionChanged="fasesCbo_SelectionChanged" />
+            <TextBlock Text="Tension" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="2" />
+            <ComboBox x:Name="tensionCbo" Grid.Row="2" Grid.Column="1" Style="{StaticResource TabalimCbox}" />
+        </Grid>
+        <Border Grid.Row="1" BorderBrush="#d2b90c" Margin="5" BorderThickness="1" CornerRadius="5">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <!--<RowDefinition />-->
+                </Grid.RowDefinitions>
+                <TextBlock Text="Potencia Alumbrados" Style="{StaticResource TabalimHeaderLighten}"/>
+                <TextBox x:Name="pAlumbTbo" Grid.Column="1" Style="{StaticResource TabalimInput}" />
+                <TextBlock Text="Potencia Contactos" Grid.Row="1" Style="{StaticResource TabalimHeaderLighten}"/>
+                <TextBox x:Name="pContTbo" Grid.Row="1" Grid.Column="1" Style="{StaticResource TabalimInput}" />
+                <TextBlock Text="Potencia Motores" Grid.Row="2" Style="{StaticResource TabalimHeaderLighten}"/>
+                <TextBox x:Name="pMotorTbo" Grid.Row="2" Grid.Column="1" Style="{StaticResource TabalimInput}" />
+                <!--<TextBlock Text="Temperatura" Grid.Row="3" Style="{StaticResource TabalimHeaderLighten}"/>
+                <TextBox x:Name="tempTbo" Grid.Row="3" Grid.Column="1" Style="{StaticResource TabalimInput}" />-->
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

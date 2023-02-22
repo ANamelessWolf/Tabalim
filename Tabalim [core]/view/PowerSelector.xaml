@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Tabalim.Core.view.PowerSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tabalim.Core.view"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid x:Name="Watts" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <metro:ToggleSwitch x:Name="wattsInput" Header="Tipo de entrada" OnLabel="Watts" OffLabel="VA" IsChecked="True" 
+                                Grid.ColumnSpan="2"/>
+            <TextBlock Style="{StaticResource TabalimForm}" Text=" W" Grid.Row="1"/>
+            <TextBlock Style="{StaticResource TabalimForm}" Text=" VA" Grid.Column="2" Grid.Row="1"/>
+            <TextBox x:Name="tboWatts" Style="{StaticResource TabalimInputNumber}" DataObject.Pasting="OnPaste"
+                     Grid.Column="1"  Grid.Row="1"/>
+            <TextBox x:Name="tboVA" Style="{StaticResource TabalimInputNumber}" DataObject.Pasting="OnPaste"
+                     Grid.Column="3"  Grid.Row="1" IsEnabled="False"/>
+        </Grid>
+        <Grid x:Name="Hp" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Style="{StaticResource TabalimForm}" Text=" HP" Grid.Row="0" Margin="0,0,5,0"/>
+            <TextBlock Style="{StaticResource TabalimForm}" Text=" kW" Grid.Column="2" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource TabalimForm}" Text=" VA" Grid.Row="1" Grid.Column="2"/>
+            <ComboBox x:Name="cboHP" Style="{StaticResource TabalimCbox}" Grid.Column="1"/>
+            <TextBox x:Name="tbokW" Style="{StaticResource TabalimInputNumber}" Grid.Column="3" IsEnabled="False"/>
+            <TextBox x:Name="tboHpVA" Style="{StaticResource TabalimInputNumber}" Grid.Column="3"  Grid.Row="1" IsEnabled="False"/>
+        </Grid>
+    </Grid>
+</UserControl>

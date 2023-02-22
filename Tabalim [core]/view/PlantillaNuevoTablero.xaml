@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Tabalim.Core.view.PlantillaNuevoTablero"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             Loaded="UserControl_Loaded"
+             xmlns:local="clr-namespace:Tabalim.Core.view"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" Width="330.267">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="35"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Sistema"  Style="{StaticResource TabalimHeaderLighten}"/>
+        <ComboBox x:Name="cboSistemas" Grid.Column="1" Style="{StaticResource TabalimCbox}"
+                  ItemsSource="{Binding}" DisplayMemberPath="ItemName" SelectionChanged="cboSistemas_SelectionChanged"/>
+        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <RadioButton x:Name="optInterruptor" Content="Interruptor" Style="{StaticResource TabalimOpt}" IsChecked="True"/>
+            <RadioButton x:Name="optZapata"  Content="Zapata" Style="{StaticResource TabalimOpt}"/>
+        </StackPanel>
+        <TextBlock Text="Número de polos" Grid.Row="2" Style="{StaticResource TabalimHeaderLighten}"/>
+        <ComboBox x:Name="cboPolos" Grid.Column="1" Grid.Row="2" Style="{StaticResource TabalimCbox}"/>
+        <TextBlock  Grid.Row="3" Style="{StaticResource TabalimHeaderLighten}">
+            Temperatura<LineBreak/>
+            (C° Centígrados)
+        </TextBlock>
+        <Slider x:Name="slidTemperature" Minimum="21" Maximum="70" Grid.Column="1" Grid.Row="3"
+                Style="{StaticResource TabalimSliderInt}" Value="30"/>
+        <TextBlock Grid.Column="2" Grid.Row="3" Style="{StaticResource TabalimHeaderLighten}" >
+            <TextBlock Text="{Binding ElementName=slidTemperature, Path=Value}"/>
+            <TextBlock Text="°C"/>
+        </TextBlock>
+    </Grid>
+</UserControl>

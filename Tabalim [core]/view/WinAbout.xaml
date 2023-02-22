@@ -1,0 +1,64 @@
+﻿<metro:MetroWindow x:Class="Tabalim.Core.view.WinAbout"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tabalim.Core.view"
+         xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="Acerca de" Height="320" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <metro:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </metro:MetroWindow.Resources>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36*"/>
+            <RowDefinition Height="88*"/>
+            <RowDefinition Height="114*"/>
+            <RowDefinition Height="52"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="131*"/>
+            <ColumnDefinition Width="65*"/>
+            <ColumnDefinition Width="192*"/>
+            <ColumnDefinition Width="52"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="White" Grid.RowSpan="3" Margin="10"/>
+        <Image x:Name="logo" HorizontalAlignment="Center"  Grid.RowSpan="3" VerticalAlignment="Center"  Height="218" Width="111" Source="/elekid;component/assets/dasoft_32.png"/>
+
+        <Label Content="Tabalim" Grid.Column="2" Margin="0,5" FontSize="14" FontWeight="SemiBold" Name="label1" Grid.ColumnSpan="1" />
+        <TextBlock Grid.Column="2" Grid.Row="1" x:Name="appDetails" Margin="10,5" TextWrapping="Wrap" TextAlignment="Justify"/>
+        <RichTextBox x:Name="richText" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,5" VerticalAlignment="Top"
+                     VerticalScrollBarVisibility="Visible" IsReadOnly="True">
+            <FlowDocument>
+                <Paragraph x:Name="docTitle">
+                   Tabalim 1.0.0
+                </Paragraph>
+
+                <Paragraph x:Name="docParagraphMain" >
+                    Aplicación que permite generar tablas para
+                    tableros y resumen de alimentadores.
+                </Paragraph>
+     
+                <Paragraph>
+                    http://www.dasoft.mx
+                </Paragraph>
+                <Paragraph x:Name="docParagraphDev">
+                    Desarrolladores:
+                </Paragraph>
+                <Paragraph>
+                  Ing. Miguel Angel Alanis Montes
+                    <LineBreak/>
+                  Ing. Luis Alejandro Aguilar Díaz
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+        <Button x:Name="btn_Ok"  Grid.Column="2" Grid.Row="4" Width="120" Height="32" Content="Ok" Click="btn_Ok_Click"
+                ToolTip="Aceptar"/>
+    </Grid>
+</metro:MetroWindow>

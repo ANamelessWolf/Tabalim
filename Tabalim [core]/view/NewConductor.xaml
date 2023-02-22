@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="Tabalim.Core.view.NewConductor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tabalim.Core.view"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="0" x:Name="row1" />
+            <RowDefinition Height="0" x:Name="row2" />
+            <RowDefinition Height="0" x:Name="row3" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Corriente Corregida" Style="{StaticResource TabalimHeaderLighten}" />
+        <TextBlock x:Name="corrienteTbl" Style="{StaticResource TabalimHeaderLighten}" Grid.Column="1"/>
+        <!--<TextBlock Text="Conductor" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="6"/>-->
+        <StackPanel Name="alimOptions" Grid.Row="6" Grid.ColumnSpan="2" Visibility="Visible" Orientation="Horizontal" HorizontalAlignment="Center">           
+            <RadioButton x:Name="isCu" Content="Cu" Style="{StaticResource TabalimOpt}" IsChecked="True" />
+            <RadioButton x:Name="isAl" Content="Al" Style="{StaticResource TabalimOpt}" />
+            <RadioButton x:Name="isAlMC" Content="Al-MC" Style="{StaticResource TabalimOpt}"  />
+            <RadioButton x:Name="isAlRegCu" Content="AlRegCu" Style="{StaticResource TabalimOpt}" />
+        </StackPanel>
+        <TextBlock Text="Calibre" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="1" />
+        <ComboBox x:Name="calibreCbo" Style="{StaticResource TabalimCbox}" Grid.Row="1" Grid.Column="1" SelectionChanged="calibreCbo_SelectionChanged" />
+        <TextBlock Text="Tubos en paralelo" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="2" />
+        <ComboBox x:Name="numberCbo" Style="{StaticResource TabalimCboxNumber}" Grid.Row="2" Grid.Column="1" SelectionChanged="numberCbo_SelectionChanged" />
+        <TextBlock Text="Longitud" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="3" />
+        <TextBox x:Name="longitudTbo" Style="{StaticResource TabalimInputNumber}" Grid.Column="1" Grid.Row="3" TextChanged="longitudTbo_TextChanged" />        
+        <TextBlock Text="Caida de Voltaje Máxima" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="4" />
+        <Grid Grid.Row="4" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="45" />
+            </Grid.ColumnDefinitions>
+            <Slider x:Name="slidCaida" Minimum="0.1" Maximum="3" TickFrequency="0.1" Style="{StaticResource TabalimSliderInt}" Value="3"  />
+            <TextBlock Grid.Column="1" Style="{StaticResource TabalimHeaderLighten}" Text="{Binding ElementName=slidCaida, Path=Value}" />
+        </Grid>
+        <TextBlock Text="Caida de Voltaje Calculada" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="5" />
+        <TextBlock x:Name="caidaLbl" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="5" Grid.Column="1" />
+        <CheckBox x:Name="changeTierra" Grid.ColumnSpan="2" Grid.Row="7" Content="Corrección de hilo de puesta a tierra por distancia" HorizontalAlignment="Center"
+                  Checked="ChangeTierra_Checked" Unchecked="ChangeTierra_Checked"/>
+        <Grid x:Name="correctionArea" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Row="8" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Conductor original" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="0" Margin="0 5"/>
+            <TextBlock x:Name="condOrig" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="0" Grid.Column="1" Margin="0 5"/>
+            <TextBlock Text="Conductor final" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="1" Margin="0 5"/>
+            <TextBlock x:Name="condFinal" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="1" Grid.Column="1" Margin="0 5"/>
+            <TextBlock Text="Hilo puesta a tierra original" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="2" Margin="0 5"/>
+            <TextBlock x:Name="tierraOrig" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="2" Grid.Column="1" Margin="0 5"/>
+            <TextBlock Text="Hilo puesta a tierra final" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="3" Margin="0 5"/>
+            <TextBlock x:Name="tierraFinal" Style="{StaticResource TabalimHeaderLighten}" Grid.Row="3" Grid.Column="1" Margin="0 5"/>
+        </Grid>
+    </Grid>
+</UserControl>

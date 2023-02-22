@@ -1,0 +1,39 @@
+﻿<metro:MetroWindow x:Class="Tabalim.Core.view.WinSaveProject"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tabalim.Core.view"
+        xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d" Loaded="MetroWindow_Loaded"
+        Title="Exportar Proyecto de Alimentador" Height="300" Width="300">
+    <metro:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </metro:MetroWindow.Resources>
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="97*"/>
+            <ColumnDefinition Width="195*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Titulo" Style="{StaticResource TabalimForm}"/>
+        <TextBlock Text="Descripción" Style="{StaticResource TabalimForm}" Grid.Row="1"/>
+        <TextBox x:Name="txtName" Grid.Column="1" Style="{StaticResource TabalimInput}"/>
+        <TextBox x:Name="txtDexc" Grid.ColumnSpan="2" Grid.Row="2" Style="{StaticResource TabalimInputDesc}"/>
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" Grid.Row="4" HorizontalAlignment="Right">
+            <Button x:Name="btnOk" Content="Ok" Style="{StaticResource TabalimMenuButton}"
+                    Click="btnOk_Click"/>
+            <Button x:Name="btnCancel" Content="Cancelar" Style="{StaticResource TabalimMenuButton}"
+                    Click="btnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</metro:MetroWindow>

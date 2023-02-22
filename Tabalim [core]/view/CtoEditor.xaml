@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="Tabalim.Core.view.CtoEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:Tabalim.Core.view"
+            Loaded="UserControl_Loaded"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Visibility="Hidden" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" x:Name="helperColComponentName"/>
+            <Grid Grid.Column="1" x:Name="helperColEdit"/>
+            <Grid Grid.Column="2" x:Name="helperColDel"/>
+        </Grid>
+        <ListView x:Name="listOfCircuits" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Componente" Width="{Binding ElementName=helperColComponentName, Path=ActualWidth}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Width="32" Height="32" Source="{Binding Icon}"/>
+                                    <TextBlock Text="{Binding ComKey}" TextWrapping="Wrap" Grid.Column="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Editar" Width="{Binding ElementName=helperColEdit, Path=ActualWidth}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding CompId}" Visibility="Collapsed"/>
+                                    <Button Style="{StaticResource TabalimCircleButton}" Visibility="{Binding IsDelta}" Content="&#xe104;" Click="btnEditComp_Click"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Eliminar" Width="{Binding ElementName=helperColDel, Path=ActualWidth}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding CompId}" Visibility="Collapsed"/>
+                                    <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe106;" Click="btnDelComp_Click"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Name}" Style="{StaticResource TabalimGroupHeader}" Margin="10,0,0,0"/>
+                                                    <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
+                                                        <TextBlock Text="{Binding ItemCount}" Style="{StaticResource TabalimGroupHighlight}" Margin="10,0,10,0" />
+                                                        <TextBlock Text=" componente(s)" Style="{StaticResource TabalimGroupLess}"  />
+                                                        </TextBlock>
+                                                    <StackPanel Orientation="Horizontal"  Grid.Column="3">
+                                                        <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe104;" Click="btnEditCircuito_Click"/>
+                                                        <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe106;" Click="btnDeleteCircuito_Click"/>
+                                                        <Button Style="{StaticResource TabalimCircleButton}" Content="&#xe16f;" Click="btnCloneCircuito_Click"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
+        <!--<Button Style="{StaticResource TabalimCircleButton}" Content="&#xE117;" Click="btnRefresh_Click" HorizontalAlignment="Right"/>-->
+    </Grid>
+</UserControl>

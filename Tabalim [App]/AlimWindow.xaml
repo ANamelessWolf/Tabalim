@@ -1,0 +1,27 @@
+﻿<metro:MetroWindow x:Class="Tabalim.App.AlimWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:metro ="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:Tabalim.App"
+        xmlns:core="clr-namespace:Tabalim.Core.view;assembly=elekid"
+        mc:Ignorable="d" Closing="MetroWindow_Closed"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+        Title="Alimentadores" Height="768" Width="1366">
+    <metro:MetroWindow.RightWindowCommands>
+        <metro:WindowCommands>
+            <Button Content="nueva linea" Click="CreateLinea_Click"/>
+            <Button Content="abrir" Click="Abrir_Click"/>
+            <Button Content="guardar" Click="Guardar_Click"/>
+            <Button Content="guardar como" Click="Guardar_Como_Click"/>
+            <Button Content="copiar AutoCAD"  Click="Copiar_Click" />
+            <Button Content="limpiar" Click="Limpiar_Click" />
+        </metro:WindowCommands>
+    </metro:MetroWindow.RightWindowCommands>
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible">
+            <core:TableAlim x:Name="alimTable" Width="2910"/>
+        </ScrollViewer>
+    </Grid>
+</metro:MetroWindow>

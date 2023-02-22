@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="Tabalim.Core.view.TableroPreview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tabalim.Core.view"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="300" d:DesignWidth="1100">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../assets/TabalimStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="circuitos" ItemsSource="{Binding DataCollection}" Grid.Row="2" AutoGenerateColumns="True" CanUserSortColumns="False">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Binding="{Binding Path=IsValid, Mode=OneWay}" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.Header>Completo</DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Binding="{Binding Path=Nombre}">
+                    <DataGridTextColumn.Header>Nombre</DataGridTextColumn.Header>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MetroDataGridColumnHeader}">
+                    <EventSetter Event="Click" Handler="DataGridColumnHeader_Click"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+        <!--<ListView x:Name="circuitos" ItemsSource="{Binding DataCollection}" Grid.Row="1">
+            <ListView.View>
+                <GridView x:Name="gridView" AllowsColumnReorder="True">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Nombre}" >
+                        <GridViewColumnHeader>
+                            Nombre
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="Limit" DisplayMemberBinding="{Binding Path=Potencia}">
+                        <GridViewColumnHeader>
+                            Potencia
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Tension}">
+                        <GridViewColumnHeader>
+                            Tensión
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Fases}">
+                        <GridViewColumnHeader>
+                            Fases
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Corriente}">
+                        <GridViewColumnHeader>
+                            Corriente
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Continua}">
+                        <GridViewColumnHeader>
+                            Continua
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Longitud}">
+                        <GridViewColumnHeader>
+                            Longitud
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FacAgr}">
+                        <GridViewColumnHeader>
+                            FacAgr
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FacTmp}">
+                        <GridViewColumnHeader>
+                            Temp
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Calibre}">
+                        <GridViewColumnHeader>
+                            Calibre
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Seccion}">
+                        <GridViewColumnHeader>
+                            Sección
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Caida}">
+                        <GridViewColumnHeader>
+                            Caida de Tensión
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PotenciaA}">
+                        <GridViewColumnHeader>
+                            Potencia A
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PotenciaB}">
+                        <GridViewColumnHeader>
+                            Potencia B
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PotenciaC}">
+                        <GridViewColumnHeader>
+                            Potencia C
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Proteccion}">
+                        <GridViewColumnHeader>
+                            Protección
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Interruptor}">
+                        <GridViewColumnHeader>
+                            Interruptor
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>-->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Name="sysDescTxt" Style="{StaticResource TabalimHeaderLighten}" HorizontalAlignment="Left" Margin="10 5" FontWeight="Bold" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Name="desbMaxTxt" Style="{StaticResource TabalimHeaderLighten}" HorizontalAlignment="Left"  Grid.Row="0" Margin="10 5" />
+            <TextBlock Name="promTxt" Style="{StaticResource TabalimHeaderLighten}" HorizontalAlignment="Left"  Grid.Row="0" Margin="10 5" />
+        </StackPanel>
+    </Grid>
+</UserControl>
