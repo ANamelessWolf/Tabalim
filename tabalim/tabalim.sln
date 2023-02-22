@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [App]", "..\Tabalim [App]\Tabalim [App].csproj", "{AC8158CE-2320-4722-84C7-495540F9CC9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AutoCAD", "AutoCAD", "{4A031079-7735-4FC1-9D18-3AD5DBCBCF81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [Addin] [R22]", "..\Tabalim [Addin]\Tabalim [Addin] [R22].csproj", "{5A332241-8180-4ADA-BD03-824420513F2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabalim [core]", "..\Tabalim [core]\Tabalim [core].csproj", "{867C949F-26D7-4319-AD0F-1E6AD01183D5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC8158CE-2320-4722-84C7-495540F9CC9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC8158CE-2320-4722-84C7-495540F9CC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC8158CE-2320-4722-84C7-495540F9CC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC8158CE-2320-4722-84C7-495540F9CC9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A332241-8180-4ADA-BD03-824420513F2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A332241-8180-4ADA-BD03-824420513F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A332241-8180-4ADA-BD03-824420513F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A332241-8180-4ADA-BD03-824420513F2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{867C949F-26D7-4319-AD0F-1E6AD01183D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{867C949F-26D7-4319-AD0F-1E6AD01183D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{867C949F-26D7-4319-AD0F-1E6AD01183D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{867C949F-26D7-4319-AD0F-1E6AD01183D5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5A332241-8180-4ADA-BD03-824420513F2E} = {4A031079-7735-4FC1-9D18-3AD5DBCBCF81}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B75D85C-E6AE-4930-BB96-FB59E4E4711C}
+	EndGlobalSection
+EndGlobal
