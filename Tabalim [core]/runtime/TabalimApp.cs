@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Windows;
 using Tabalim.Core.controller;
 using Tabalim.Core.model;
 using static Tabalim.Core.assets.Constants;
+
 namespace Tabalim.Core.runtime
 {
     /// <summary>
@@ -96,8 +98,7 @@ namespace Tabalim.Core.runtime
                 VerifyTable(conn);
                 var prjs = conn.Select<Project>(TABLE_PROYECTOS.SelectAll("\"prj_name\" = 'Sin Proyecto'"));
                 CurrentProject = prjs[0];
-                string query = TABLE_HP_WATTS.SelectAll();
-                List<HPItem> items = conn.Select<HPItem>(query);
+                List<HPItem> items = Catalogos.HP_WATTS;
                 //Se carga las referencias de los tableros
                 //sin cargar circuitos ni componentes
                 var tabs = conn.Select<Tablero>(TABLE_TABLERO.SelectAll(CurrentProject.CreatePrimaryKeyCondition()));

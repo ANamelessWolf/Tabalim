@@ -150,7 +150,7 @@ namespace Tabalim.Core.view
                 com.Circuito = this.SelectedCircuito;
                 com.Count = this.Count;
                 com.ImageIndex = this.ImageIndex;
-                if(this.ExistantComponent == null)
+                if(this.ExistantComponent != null)
                 if (com.Circuito.Componentes.Values.Count(x => x.Key == com.Key) > 0)
                     throw new Exception("El circuito contiene un componenete con las mismas caracteristicas.");
             }

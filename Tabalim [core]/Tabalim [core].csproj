@@ -170,6 +170,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="runtime\Catalogos.cs" />
     <Compile Include="runtime\TabalimApp.cs" />
     <Compile Include="view\AirePicker.xaml.cs">
       <DependentUpon>AirePicker.xaml</DependentUpon>
@@ -509,6 +510,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="assets\dasoft_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\tabalim\TabalimData\TabalimData.csproj">
+      <Project>{701bb733-8ef0-4b4c-ad5b-2b6f61ab08e0}</Project>
+      <Name>TabalimData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

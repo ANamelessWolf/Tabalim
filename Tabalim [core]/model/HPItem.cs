@@ -98,6 +98,12 @@ namespace Tabalim.Core.model
         /// Corriente
         /// </value>
         public double I_3_460 { get; set; }
+
+        /// <summary>
+        /// Constructor usado para deserializar con JSON
+        /// </summary>
+        public HPItem() { }
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SQLite_Connector"/>.
         /// </summary>
