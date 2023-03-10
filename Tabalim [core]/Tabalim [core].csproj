@@ -512,9 +512,9 @@
     <Resource Include="assets\dasoft_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\tabalim\TabalimData\TabalimData.csproj">
+    <ProjectReference Include="..\Tabalim [data]\Tabalim [Data].csproj">
       <Project>{701bb733-8ef0-4b4c-ad5b-2b6f61ab08e0}</Project>
-      <Name>TabalimData</Name>
+      <Name>Tabalim [Data]</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
