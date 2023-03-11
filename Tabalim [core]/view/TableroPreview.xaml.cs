@@ -46,7 +46,8 @@ namespace Tabalim.Core.view
                 this.dataCollection = new ObservableCollection<GenericRow>(Tablero.Circuitos.Select(x => new CtoRow(x.Value)).OrderByDescending(x => int.Parse(x.Nombre.Split(',').First()) % 2).ThenBy(x => int.Parse(x.Nombre.Split(',').First())));
                 //Add totals row
                 this.dataCollection.Add(new TotalRow(Tablero.Circuitos.Values));
-                var components = Tablero.Componentes.Values.GroupBy(x => x.Key).Select(y => y.First());
+                var tabComs = Tablero.Componentes.Values;
+                var components = tabComs.GroupBy(x => x.Key).Select(y => y.First());
                 int i = 1;
                 circuitos.ItemsSource = DataCollection;
                 while (circuitos.Columns.Count > originalColumns)

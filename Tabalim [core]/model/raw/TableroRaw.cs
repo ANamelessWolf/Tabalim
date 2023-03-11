@@ -96,7 +96,14 @@ namespace Tabalim.Core.model.raw
         /// <summary>
         /// Las columnas del circuito
         /// </summary>
-        public ComponenteRaw[] CmpColumns => t.Componentes.Values.GroupBy(x => x.Key).Select(x => new ComponenteRaw(x.ToArray())).ToArray();
+        public ComponenteRaw[] CmpColumns
+        {
+            get
+            {
+                var componentes = t.Componentes;
+                return componentes.Values.GroupBy(x => x.Key).Select(x => new ComponenteRaw(x.ToArray())).ToArray();
+            }
+        }
         [JsonIgnore]
         Tablero t;
         public TableroRaw(Tablero t)

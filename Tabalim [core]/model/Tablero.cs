@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// El nombre de la tabla que administra tableros
         /// </summary>
+        [JsonIgnore]
         public string TableName { get { return TABLE_TABLERO; } }
         /// <summary>
         /// Establece el nombre de la columna usada como llave primaria
@@ -35,6 +37,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El nombre de la llave primaria
         /// </value>
+        [JsonIgnore]
         public string PrimaryKey { get { return "tab_id"; } }
         /// <summary>
         /// El sistema que ocupa el tablero.
@@ -55,10 +58,33 @@ namespace Tabalim.Core.model
         /// <summary>
         /// La colección de componentes que se conectan en un tablero
         /// </summary>
-        public Dictionary<int, Componente> Componentes;
+        [JsonIgnore]
+        public Dictionary<int, Componente> Componentes
+        {
+            get
+            {
+                Dictionary<int, Componente> componentes = new Dictionary<int, Componente>();
+                foreach (string cirKey in this.Circuitos.Keys)
+                {
+                    Circuito cir = this.Circuitos[cirKey];
+                    foreach (int comKey in cir.Componentes.Keys)
+                    {
+                        Componente com = cir.Componentes[comKey];
+                        if (!componentes.ContainsKey(comKey))
+                            componentes.Add(comKey, com);
+                    }
+                }
+                return componentes;
+            }
+        }
+
+        [JsonIgnore]
         public double PotenciaA => Circuitos.Sum(x => x.Value.PotenciaEnFases[0]);
+        [JsonIgnore]
         public double PotenciaB => Circuitos.Sum(x => x.Value.PotenciaEnFases[1]);
+        [JsonIgnore]
         public double PotenciaC => Circuitos.Sum(x => x.Value.PotenciaEnFases[2]);
+        [JsonIgnore]
         public double DesbMax
         {
             get
@@ -68,18 +94,19 @@ namespace Tabalim.Core.model
                 {
                     max = Math.Max(PotenciaA, Math.Max(PotenciaB, PotenciaC));
                     min = Math.Min(PotenciaA, Math.Min(PotenciaB, PotenciaC));
-                    return (max - min) / max;
+                    return max > 0 ? (max - min) / max : 0;
                 }
                 else if (Sistema.Fases == 2)
                 {
                     max = Math.Max(PotenciaA, PotenciaB);
                     min = Math.Min(PotenciaA, PotenciaB);
-                    return (max - min) / max;
+                    return max > 0 ? (max - min) / max : 0;
                 }
                 else
                     return 0;
             }
         }
+        [JsonIgnore]
         public double PromedioEntreFases
         {
             get
@@ -102,7 +129,6 @@ namespace Tabalim.Core.model
         public Tablero()
         {
             Circuitos = new Dictionary<string, Circuito>();
-            Componentes = new Dictionary<int, Componente>();
             this.Description = String.Empty;
         }
         /// <summary>
@@ -126,11 +152,7 @@ namespace Tabalim.Core.model
                 {
                     x.Circuito = c;
                     x.CircuitoName = c.ToString();
-                    if (!this.Componentes.ContainsKey(x.Id))
-                    {
-                        this.Componentes.Add(x.Id, x);
-                        c.Componentes.Add(x.Id, x);
-                    }
+                    c.Componentes.Add(x.Id, x);
                 });
             }
         }
@@ -147,11 +169,12 @@ namespace Tabalim.Core.model
                 ProjectId = 1,
                 Sistema = this.Sistema
             };
+            var componentes = this.Componentes;
             cmps = new List<Componente>();
             ctos = new List<Circuito>();
             foreach (Circuito cto in this.Circuitos.Values)
                 ctos.Add(cto.Clone());
-            foreach (Componente cmp in this.Componentes.Values)
+            foreach (Componente cmp in componentes.Values)
                 cmps.Add(cmp.Clone());
             return t;
         }

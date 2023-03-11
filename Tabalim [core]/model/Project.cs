@@ -50,6 +50,12 @@ namespace Tabalim.Core.model
         /// La fecha de inicio del proyecto
         /// </summary>
         public DateTime Start;
+
+        public Project()
+        {
+
+        }
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Project"/>.
         /// </summary>

@@ -54,9 +54,10 @@ namespace Tabalim.Core.view
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             fasesTbo.ItemsSource = new int[] { 2, 3 };
-            tensionTbo.ItemsSource = Enum.GetValues(typeof(TensionVal)).Cast<TensionVal>().Select(x => new Tension(x, new SistemaBifasico()));
+            SistemaBifasico sistema = new SistemaBifasico();
+            tensionTbo.ItemsSource = Enum.GetValues(typeof(TensionVal)).Cast<TensionVal>().Select(x => new Tension(x, sistema.Fases));
             powerSelector.Power = PowerType.HP;
-            hilosCbo.ItemsSource = new int[] {2, 3, 4 };
+            hilosCbo.ItemsSource = new int[] { 2, 3, 4 };
         }
 
         private void fasesTbo_SelectionChanged(object sender, SelectionChangedEventArgs e)

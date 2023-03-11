@@ -42,31 +42,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImgComponentes.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ImgComponentes.resx</DependentUpon>
-    </Compile>
-    <Compile Include="TabalimCatalogos.cs" />
+    <Compile Include="Model\CalibreData.cs" />
+    <Compile Include="Model\CircuitoData.cs" />
+    <Compile Include="Model\ComponenteData.cs" />
+    <Compile Include="Model\LineaData.cs" />
+    <Compile Include="Model\PotenciaData.cs" />
+    <Compile Include="Model\SistemaFaseData.cs" />
+    <Compile Include="Model\TableroData.cs" />
+    <Compile Include="Model\TabalimProject.cs" />
+    <Compile Include="Model\TensionData.cs" />
+    <Compile Include="Repository\CatalogueRepository.cs" />
     <Compile Include="Catalogos.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Catalogos.resx</DependentUpon>
     </Compile>
-    <Compile Include="Circuito.cs" />
-    <Compile Include="Componente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TabalimApp.cs" />
-    <Compile Include="Tablero.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Catalogos.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Catalogos.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImgComponentes.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ImgComponentes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -387,5 +383,6 @@
   <ItemGroup>
     <None Include="Resources\no_img_64x64.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

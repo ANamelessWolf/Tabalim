@@ -113,15 +113,18 @@ namespace Tabalim.Core.view
             CtoCompItem item = this.GetComponentById(id);
             bool componentIsDelta = item.Component.DeltaKey != -1;
             String textDelta = componentIsDelta ? "Este componente es un alumbrado Delta por lo cual eliminara todos los componentes relacionados." : "";
-            if (await this.ShowQuestionDialog("Eliminar componente", 
+            if (await this.ShowQuestionDialog("Eliminar componente",
                 String.Format("Esta seguro de querer eliminar el componente {0}.\n {1}", item.ComKey, textDelta)))
                 if (componentIsDelta)
-                    TabalimApp.CurrentTablero.Componentes.Where(x => x.Value.DeltaKey == item.Component.DeltaKey).ToList().ForEach(x => x.Value.DeleteComponentTr(
+                {
+                    var componentes = TabalimApp.CurrentTablero.Componentes;
+                    componentes.Where(x => x.Value.DeltaKey == item.Component.DeltaKey).ToList().ForEach(x => x.Value.DeleteComponentTr(
                         (Object result) =>
                         {
                             if ((Boolean)result)
                                 this.Refresh();
                         }));
+                }
                 else
                     item.Component.DeleteComponentTr(
                         (Object result) =>

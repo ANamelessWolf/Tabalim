@@ -61,6 +61,15 @@ namespace Tabalim.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {&quot;Path&quot;:&quot;&quot;,&quot;Tableros&quot;:{},&quot;Lineas&quot;:{},&quot;ProjectName&quot;:&quot;TabalimNewApplication&quot;,&quot;Start&quot;:&quot;2017-10-09T00:00:00&quot;,&quot;Id&quot;:1,&quot;TableName&quot;:&quot;proyectos&quot;,&quot;PrimaryKey&quot;:&quot;prj_id&quot;}.
+        /// </summary>
+        internal static string empty_project {
+            get {
+                return ResourceManager.GetString("empty_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [{&quot;KW&quot;:0.12,&quot;HP&quot;:0.16666,&quot;HPFormat&quot;:&quot;1/6 HP&quot;,&quot;I_1_127&quot;:4.0,&quot;I_1_230&quot;:2.2,&quot;I_2_115&quot;:-1.0,&quot;I_2_230&quot;:-1.0,&quot;I_2_460&quot;:-1.0,&quot;I_3_115&quot;:-1.0,&quot;I_3_208&quot;:-1.0,&quot;I_3_230&quot;:-1.0,&quot;I_3_460&quot;:-1.0},{&quot;KW&quot;:0.19,&quot;HP&quot;:0.25,&quot;HPFormat&quot;:&quot;1/4 HP&quot;,&quot;I_1_127&quot;:5.3,&quot;I_1_230&quot;:2.9,&quot;I_2_115&quot;:-1.0,&quot;I_2_230&quot;:-1.0,&quot;I_2_460&quot;:-1.0,&quot;I_3_115&quot;:-1.0,&quot;I_3_208&quot;:-1.0,&quot;I_3_230&quot;:-1.0,&quot;I_3_460&quot;:-1.0},{&quot;KW&quot;:0.25,&quot;HP&quot;:0.33333,&quot;HPFormat&quot;:&quot;1/3 HP&quot;,&quot;I_1_127&quot;:6.5,&quot;I_1_230&quot;:3.6,&quot;I_2_115&quot;:-1.0,&quot;I_2_230&quot;:-1.0,&quot;I_2_460&quot;:-1.0,&quot;I_3_115&quot;:-1.0,&quot;I_3_208&quot;:-1.0,&quot;I_3_230&quot;:- [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string hp_watts {

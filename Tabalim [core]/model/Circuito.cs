@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El nombre de la base de datos
         /// </value>
+        [JsonIgnore]
         public string TableName { get { return TABLE_CIRCUIT; } }
         /// <summary>
         /// Establece el nombre de la columna usada como llave primaria
@@ -39,6 +41,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El nombre de la llave primaria
         /// </value>
+        [JsonIgnore]
         public string PrimaryKey { get { return "cir_id"; } }
         /// <summary>
         /// Los polos alos que se conecta
@@ -55,6 +58,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// La potencia total 
         /// </summary>
+        [JsonIgnore]
         public double PotenciaTotal { get { return Componentes != null ? Componentes.Values.Sum(x => x.Potencia.PotenciaAparente * x.Count) : 0; } }
         /// <summary>
         /// Obtiene la corriente.
@@ -62,6 +66,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// La corriente dependiendo del numero de polos.
         /// </value>
+        [JsonIgnore]
         public abstract double Corriente { get; }
         /// <summary>
         /// Gets the corriente continua.
@@ -69,10 +74,12 @@ namespace Tabalim.Core.model
         /// <value>
         /// The corriente continua.
         /// </value>
+        [JsonIgnore]
         public double CorrienteContinua { get { return Corriente * 1.25; } }
         /// <summary>
         /// El factor de temperatura
         /// </summary>
+        [JsonIgnore]
         public double FactorTemperatura
         {
             get
@@ -98,6 +105,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Corriente corregida.
         /// </value>
+        [JsonIgnore]
         public double CorrienteCorregida { get { return CorrienteContinua / (FactorTemperatura * FactorAgrupacion); } }
         /// <summary>
         /// Longitud del circuito
@@ -109,6 +117,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Corriente de proteccion.
         /// </value>
+        [JsonIgnore]
         public double CorrienteProteccion { get { return Corriente * Componentes.First().Value?.FactorProteccion ?? 1; } }
         /// <summary>
         /// Obtiene el calibre utilizando la corriente de protección.
@@ -123,7 +132,9 @@ namespace Tabalim.Core.model
         /// <value>
         /// Caida de voltaje.
         /// </value>
+        [JsonIgnore]
         public abstract double CaidaVoltaje { get; }
+        [JsonIgnore]
         public int FasesTablero
         {
             get
@@ -144,6 +155,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Potencia en fases.
         /// </value>
+        [JsonIgnore]
         public double[] PotenciaEnFases
         {
             get
@@ -166,6 +178,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Interruptor
         /// </summary>
+        [JsonIgnore]
         public String Interruptor { get { return model.Interruptor.GetInterruptor(Polos.Length, CorrienteProteccion).ToString(); } }
         /// <summary>
         /// Gets a value indicating whether this instance has motor.
@@ -173,6 +186,7 @@ namespace Tabalim.Core.model
         /// <value>
         ///   <c>true</c> if this instance has motor; otherwise, <c>false</c>.
         /// </value>
+        [JsonIgnore]
         public Boolean HasMotor { get { return Componentes.Values.Count(x => x is Motor) > 0; } }
         /// <summary>
         /// Devuelve el formato de la longitud en el formato especificado de la aplicación
@@ -180,6 +194,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// La longitud del circuito como una cadena
         /// </value>
+        [JsonIgnore]
         public string LongitudAsString { get { return String.Format("{0:N2}", this.Longitud); } }
         /// <summary>
         /// Devuelve si el circuito requiere ser revisado
@@ -187,7 +202,9 @@ namespace Tabalim.Core.model
         /// <value>
         /// The needs review.
         /// </value>
+        [JsonIgnore]
         public int NeedsReview { get { return CorrienteProteccion < 50 ? 0 : CorrienteProteccion < 55 ? 1 : 2; } }
+        [JsonIgnore]
         public String Tierra
         {
             get

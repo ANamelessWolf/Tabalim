@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El nombre de la base de datos
         /// </value>
+        [JsonIgnore]
         public string TableName { get { return TABLE_COMPONENT; } }
         /// <summary>
         /// Establece el nombre de la columna usada como llave primaria
@@ -30,6 +32,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El nombre de la llave primaria
         /// </value>
+        [JsonIgnore]
         public string PrimaryKey { get { return "comp_id"; } }
         /// <summary>
         /// Especifica la potencia del componente
@@ -49,6 +52,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El tipo de componente
         /// </value>
+        [JsonIgnore]
         public ComponentType CType
         {
             get
@@ -95,6 +99,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// El factor de proteccion utilizado para calcular intensidad de corriente
         /// </summary>
+        [JsonIgnore]
         public abstract double FactorProteccion { get; }
         /// <summary>
         /// Gets the key.
@@ -102,7 +107,9 @@ namespace Tabalim.Core.model
         /// <value>
         /// The key.
         /// </value>
+        [JsonIgnore]
         public String Key { get { return ImageIndex + "-" + Potencia; } }
+        [JsonIgnore]
         public String XamlKey { get { return "k" + Key.Replace("-", "_").Replace(".", "_"); } }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Alumbrado"/>.
@@ -187,7 +194,6 @@ namespace Tabalim.Core.model
                 Circuito.Componentes.Remove(this.Id);
                 if (Circuito.Componentes.Count == 0)
                     Circuito.Delete(conn);
-                TabalimApp.CurrentTablero.Componentes.Remove(this.Id);
             }
             return cmpFlag;
         }

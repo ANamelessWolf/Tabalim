@@ -188,7 +188,8 @@ namespace Tabalim.Core.model
         }
         private double GetPotenciaDemandada<T>(Tablero tablero)
         {
-            return tablero.Componentes.Values.OfType<T>().Cast<Componente>().Sum(x => x.Potencia.PotenciaAparente * x.Count);
+            var componentes = tablero.Componentes;
+            return componentes.Values.OfType<T>().Cast<Componente>().Sum(x => x.Potencia.PotenciaAparente * x.Count);
         }
         private double GetTension()
         {

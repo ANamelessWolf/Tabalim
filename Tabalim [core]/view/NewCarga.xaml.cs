@@ -46,15 +46,17 @@ namespace Tabalim.Core.view
         {
             Tablero t = result as Tablero;
             //tempTbo.Text = t.Sistema.Temperatura.ToString();
-            pAlumbTbo.Text = t.Componentes.Values.Where(x => x is Alumbrado).Sum(x => x.Potencia.PotenciaAparente * x.Count).ToString();
-            pContTbo.Text = t.Componentes.Values.Where(x => x is Contacto).Sum(x => x.Potencia.PotenciaAparente * x.Count).ToString();
-            pMotorTbo.Text = t.Componentes.Values.Where(x => x is Motor).Sum(x => x.Potencia.PotenciaAparente * x.Count).ToString();
+            var componentes = t.Componentes;
+            pAlumbTbo.Text = componentes.Values.Where(x => x is Alumbrado).Sum(x => x.Potencia.PotenciaAparente * x.Count).ToString();
+            pContTbo.Text = componentes.Values.Where(x => x is Contacto).Sum(x => x.Potencia.PotenciaAparente * x.Count).ToString();
+            pMotorTbo.Text = componentes.Values.Where(x => x is Motor).Sum(x => x.Potencia.PotenciaAparente * x.Count).ToString();
         }
 
         private object LoadTablero(SQLite_Connector conn, object input)
         {
             Tablero t = input as Tablero;
-            if (t.Componentes.Count == 0)
+            var componentes = t.Componentes;
+            if (componentes.Count == 0)
                 t.LoadComponentesAndCircuits(conn);
             return t;
         }

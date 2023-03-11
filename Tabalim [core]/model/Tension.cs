@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// El sistema al que pertenece la tensión
         /// </summary>
-        public readonly SistemaFases Sistema;
+        public readonly int Fases;
         /// <summary>
         /// El valor de la tension
         /// </summary>
@@ -26,25 +27,6 @@ namespace Tabalim.Core.model
         /// La tension al Neutro.
         /// </value>
         public readonly int TensionAlNeutro;
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la <see cref="Tension"/>.
-        /// </summary>
-        /// <param name="tension">El valor de la tensión.</param>
-        /// <param name="sistema">El sistema de fases.</param>
-        public Tension(TensionVal tension, SistemaFases sistema)
-        {
-            this.Sistema = sistema;
-            this.Value = (int)tension;
-            int tn = (int)(Math.Round((double)this.Value / Math.Sqrt(3)));
-            if (sistema.Fases == 1)
-            {
-                this.Value = tn;
-                this.TensionAlNeutro = tn;
-            }
-            else
-                this.TensionAlNeutro = tn;
-        }
         /// <summary>
         /// Inicializa una nueva instancia de la <see cref="Tension"/>.
         /// </summary>
@@ -52,7 +34,7 @@ namespace Tabalim.Core.model
         /// <param name="fases">El número de fases del sistema</param>
         public Tension(TensionVal tension, int fases)
         {
-            this.Sistema = null;
+            this.Fases = fases;
             this.Value = (int)tension;
             int tn = (int)(Math.Round((double)this.Value / Math.Sqrt(3)));
             if (fases == 1)
@@ -70,7 +52,7 @@ namespace Tabalim.Core.model
         /// <param name="fases">El número de fases del sistema</param>
         public Tension(int tension, int fases)
         {
-            this.Sistema = null;
+            this.Fases = fases;
             this.Value = tension;
             int tn = (int)(Math.Round((double)this.Value / Math.Sqrt(3)));
             if (fases == 1)
@@ -89,7 +71,7 @@ namespace Tabalim.Core.model
         /// </returns>
         public override string ToString()
         {
-            if (this.Sistema != null && this.Sistema.Fases == 3 )
+            if (this.Fases == 3 )
                 return String.Format("{0} - {1}", this.Value, this.TensionAlNeutro);
             else
                 return this.Value.ToString();

@@ -56,8 +56,6 @@ namespace Tabalim.Core.controller
                     Componente cmp = (Componente)result[2];
                     if (!tablero.Circuitos.ContainsKey(cto.ToString()))
                         tablero.Circuitos.Add(cto.ToString(), cto);
-                    if (!tablero.Componentes.ContainsKey(cmp.Id))
-                        tablero.Componentes.Add(cmp.Id, cmp);
                     if (!cto.Componentes.ContainsKey(cmp.Id))
                         cto.Componentes.Add(cmp.Id, cmp);
                     if (componenteAddedTask != null)

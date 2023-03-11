@@ -12,6 +12,7 @@ using System.Windows;
 using Tabalim.Core.controller;
 using Tabalim.Core.model;
 using static Tabalim.Core.assets.Constants;
+using TabalimCats = Tabalim.Data.Repository.CatalogueRepository;
 
 namespace Tabalim.Core.runtime
 {
@@ -96,8 +97,9 @@ namespace Tabalim.Core.runtime
             try
             {
                 VerifyTable(conn);
-                var prjs = conn.Select<Project>(TABLE_PROYECTOS.SelectAll("\"prj_name\" = 'Sin Proyecto'"));
-                CurrentProject = prjs[0];
+                //Carga del proyecto
+                CurrentProject = JsonConvert.DeserializeObject<Project>(TabalimCats.EMPTY_PROJECT);
+                //Carga de Catalogos
                 List<HPItem> items = Catalogos.HP_WATTS;
                 //Se carga las referencias de los tableros
                 //sin cargar circuitos ni componentes
@@ -119,7 +121,7 @@ namespace Tabalim.Core.runtime
                 CurrentTablero = tabs.LastOrDefault();
                 if (CurrentTablero != null)
                     CurrentTablero.LoadComponentesAndCircuits(conn);
-                return new Object[] { prjs, tabs, items };
+                return new Object[] { new Project[]{ CurrentProject }, tabs, items };
             }
             catch (Exception exc)
             {

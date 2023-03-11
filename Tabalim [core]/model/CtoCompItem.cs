@@ -66,10 +66,10 @@ namespace Tabalim.Core.model
         {
             get
             {
-                if (TabalimApp.CurrentTablero != null &&
-                    TabalimApp.CurrentTablero.Componentes != null &&
-                    TabalimApp.CurrentTablero.Componentes.ContainsKey(this.CompId))
-                    return TabalimApp.CurrentTablero.Componentes[this.CompId];
+                var componentes = TabalimApp.CurrentTablero.Componentes;
+
+                if (TabalimApp.CurrentTablero != null && componentes != null && componentes.ContainsKey(this.CompId))
+                    return componentes[this.CompId];
                 else
                     return null;
             }

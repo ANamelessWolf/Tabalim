@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// La frecuencia del sistema
         /// </summary>
+        [JsonIgnore]
         public const int Frecuencia = 60;
         /// <summary>
         /// Devuelve el nombre del elemento que se utiliza en una lista de sistemas
@@ -21,6 +23,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El nombre del elemento.
         /// </value>
+        [JsonIgnore]
         public string ItemName
         {
             get
@@ -35,6 +38,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El número de fases.
         /// </value>
+        [JsonIgnore]
         public abstract int Fases { get; }
         /// <summary>
         /// La tensión del sistema en volts
@@ -46,6 +50,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Los polos disponibles para el sistema seleccionado
         /// </value>
+        [JsonIgnore]
         public abstract int[] Polos { get; }
         /// <summary>
         /// Define el polo que utilizá el sistema
@@ -65,6 +70,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El número de hilos.
         /// </value>
+        [JsonIgnore]
         public int Hilos { get { return this.Fases + 1; } }
         /// <summary>
         /// Devuelve el nombre de la imágen
@@ -72,6 +78,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Nombre de la imagen en formato [Z|I][#Fases]_[#Polos]
         /// </value>
+        [JsonIgnore]
         public string ImageName { get { return String.Format(FORMAT_SYS_IMG, TpAlimentacion > 0 ? 'Z' : 'I', Fases, Polo); } }
         /// <summary>
         /// Establece el valor de la tensión
@@ -79,7 +86,7 @@ namespace Tabalim.Core.model
         /// <returns>El valor de la tensión</returns>
         public void SetTension(TensionVal val)
         {
-            this.Tension = new Tension(val, this);
+            this.Tension = new Tension(val, this.Fases);
         }
         /// <summary>
         /// Devuelve una <see cref="System.String" /> que representa el nombre del sistema.

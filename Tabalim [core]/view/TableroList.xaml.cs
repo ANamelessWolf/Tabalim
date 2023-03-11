@@ -58,7 +58,8 @@ namespace Tabalim.Core.view
         private object LoadTablero(SQLite_Connector conn, object input)
         {
             Tablero t = input as Tablero;
-            if (t.Componentes.Count == 0)
+            var componentes = t.Componentes;
+            if (componentes.Count == 0)
                 t.LoadComponentesAndCircuits(conn);
             return t;
             //TODO: Verificar si todos los circuitos estan completos

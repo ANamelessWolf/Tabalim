@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Tabalim.Core.model;
 using Tabalim.Core.runtime;
+using Tabalim.Data.Repository;
 using static Tabalim.Core.assets.Constants;
 namespace Tabalim.Core.controller
 {
@@ -17,6 +18,10 @@ namespace Tabalim.Core.controller
     /// </summary>
     public static class ComponentsUtils
     {
+        static string ASSEMBLY_PATH => Path.GetDirectoryName(Assembly.GetAssembly(typeof(ComponentGalleryItem)).Location);
+
+        public static string COMPONENT_GALLERY_PATH => Path.Combine(ASSEMBLY_PATH, IMG_FOLDER, COMPONENT_FOLDER);
+
         /// <summary>
         /// Devuelve la galería de componentes
         /// </summary>
@@ -26,28 +31,35 @@ namespace Tabalim.Core.controller
             List<ComponentGalleryItem> items = new List<ComponentGalleryItem>();
             string imgGalleryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetAssembly(typeof(ComponentGalleryItem)).Location), IMG_FOLDER, COMPONENT_FOLDER);
             ComponentType[] ct = (ComponentType[])Enum.GetValues(typeof(ComponentType));
-            for (int i = 0; i < ct.Length; i++)
-            {
-                int[] cp = ct[i].GetComponentList();
-                for (int j = 0; j < cp.Length; j++)
+            foreach (ComponentType cpType in ct)
+                foreach (int cpIndex in cpType.GetComponentList())
                 {
-                    try
-                    {
-                        items.Add(new ComponentGalleryItem()
-                        {
-                            CType = ct[i],
-                            Index = cp[j],
-                            Src = cp[j].LoadImage(imgGalleryPath, 64)
-                        });
-                    }
-                    catch (Exception)
-                    {
-
-                    }
+                    var item = CreateGalleryItem(cpType, cpIndex);
+                    if (item != null)
+                        items.Add(item);
                 }
-            }
             return items;
         }
+
+        private static ComponentGalleryItem CreateGalleryItem(ComponentType cpType, int cpIndex)
+        {
+            try
+            {
+                BitmapImage img = cpIndex.LoadImage(COMPONENT_GALLERY_PATH, 64);
+                return new ComponentGalleryItem()
+                {
+                    CType = cpType,
+                    Index = cpIndex,
+                    Src = img
+                };
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine("Ocurrio un error al cargar el componente '{0}:{1}' a la galería\n", cpType, cpIndex, exc.Message);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Devuelve la colección de componentes conectados a un circuito
         /// </summary>
@@ -136,7 +148,7 @@ namespace Tabalim.Core.controller
         {
             if (!(componente is Motor)) return 0;
             HPItem SelectedMotor = TabalimApp.Motores.First(x => x.HP == componente.Potencia.HP);
-            switch (circuito.Polos.Length) 
+            switch (circuito.Polos.Length)
             {
                 case 1: return tension.TensionAlNeutro <= 127 ? SelectedMotor.I_1_127 : SelectedMotor.I_1_230;
                 case 2: return tension.Value <= 220 ? SelectedMotor.I_2_230 : SelectedMotor.I_2_460;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Tabalim.Core.model;
 using static Tabalim.Core.assets.Constants;
-using TabalimCats = Tabalim.Data.TabalimCatalogos;
+using TabalimCats = Tabalim.Data.Repository.CatalogueRepository;
 
 namespace Tabalim.Core.runtime
 {

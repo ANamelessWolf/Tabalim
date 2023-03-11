@@ -96,7 +96,8 @@ namespace Tabalim.App
 
         private int GetMaxDeltaKey(Tablero currentTablero)
         {
-            return currentTablero.Componentes.Select(x => x.Value.DeltaKey).Union(new int[] { 0 }).Max();
+            var componentes = currentTablero.Componentes;
+            return componentes.Select(x => x.Value.DeltaKey).Union(new int[] { 0 }).Max();
         }
 
         private void circuitosList_IsRefreshed(object sender, RoutedEventArgs e)

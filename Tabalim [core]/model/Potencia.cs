@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Factor de conversión Caballos de fuerza a Watts
         /// </summary>
+        [JsonIgnore]
         const double HP_to_Watts = 745.7;
         /// <summary>
         /// Alamacena potencia en watts
@@ -26,6 +28,7 @@ namespace Tabalim.Core.model
         /// <summary>
         /// Regresa potencia en Watts
         /// </summary>
+        [JsonIgnore]
         public Double Watts { get { return watts; } }
         /// <summary>
         /// Devuelve el formato de la potencia aparente.
@@ -33,10 +36,12 @@ namespace Tabalim.Core.model
         /// <value>
         /// Potencia aparente(VA).
         /// </value>
+        [JsonIgnore]
         public string WattsAsString { get { return String.Format("{0:0.##}", this.Watts); } }
         /// <summary>
         /// Regresa potencia en HP
         /// </summary>
+        [JsonIgnore]
         public Double HP { get { return Math.Round(watts / HP_to_Watts, 5); } }
         /// <summary>
         /// Devuelve la <see cref="System.String" /> que representa la tensión
@@ -44,6 +49,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// El valor de la potencia y sus unidades
         /// </value>
+        [JsonIgnore]
         public String PFormat { get { return this.ToString(); } }
         /// <summary>
         /// Obtiene la potencia aparente.
@@ -51,6 +57,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Potencia aparente(VA).
         /// </value>
+        [JsonIgnore]
         public Double PotenciaAparente { get { return Math.Ceiling(this.Watts / 0.9); } }
         /// <summary>
         /// Devuelve el formato de la potencia aparente.
@@ -58,6 +65,7 @@ namespace Tabalim.Core.model
         /// <value>
         /// Potencia aparente(VA).
         /// </value>
+        [JsonIgnore]
         public string PotenciaAparenteAsString
         {
             get

@@ -17,7 +17,14 @@ namespace Tabalim.Core.model.raw
         /// La cantidad del circuito,
         /// cantidades separadas por comas
         /// </summary>
-        public string Count => String.Join(",", Tablero.Componentes.Values.GroupBy(x => x.Key).Select(x => x.First()).Select(x => Circuito.Componentes.Values.Count(y => y.Key == x.Key) > 0 ? Circuito.Componentes.Values.First(y => y.Key == x.Key).Count.ToString() : ""));
+        public string Count
+        {
+            get
+            {
+                var componentes = Tablero.Componentes;
+                return String.Join(",", componentes.Values.GroupBy(x => x.Key).Select(x => x.First()).Select(x => Circuito.Componentes.Values.Count(y => y.Key == x.Key) > 0 ? Circuito.Componentes.Values.First(y => y.Key == x.Key).Count.ToString() : ""));
+            }
+        }
         /// <summary>
         /// La potencia del circuito
         /// </summary>
